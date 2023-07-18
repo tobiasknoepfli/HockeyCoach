@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Drill {
     String name, category;
     int difficulty;
-    String participation,description;
+    String participation, description;
     Boolean station;
     ArrayList<String> tags;
 
