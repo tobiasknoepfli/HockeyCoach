@@ -1,4 +1,4 @@
-package com.example.hockeycoach;
+package hockeycoach.mainClasses;
 
 public enum Difficulty {
     BAMBINI("•", 1), MOSQUITO("••", 2), NOVICE("•••", 3), ELITE("••••", 4), PRO("•••••", 5);
