@@ -20,4 +20,5 @@ public class Player {
     private ArrayList<String> weakness;
     private ArrayList<String> team;
     private Path photoPath;
+    private String role;
 }

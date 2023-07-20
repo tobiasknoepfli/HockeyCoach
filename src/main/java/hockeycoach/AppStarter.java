@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import javafx.stage.Screen;
 
 import java.io.IOException;
+import java.sql.*;
 
 public class AppStarter extends Application {
     @Override
@@ -26,5 +27,27 @@ public class AppStarter extends Application {
 
     public static void main(String[] args) {
         launch();
+
+        try {
+            Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
+
+            String url = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
+            Connection connection = DriverManager.getConnection(url);
+
+            Statement statement =connection.createStatement();
+
+            String sql = "SELECT * FROM team";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()){
+                System.out.println(resultSet.getString("name"));
+                System.out.println(resultSet.getInt("zip"));
+            }
+
+            connection.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

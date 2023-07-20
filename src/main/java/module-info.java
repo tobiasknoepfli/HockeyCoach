@@ -4,6 +4,7 @@ module com.example.hockeycoach {
 
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
+    requires java.sql;
 
     opens hockeycoach to javafx.fxml;
     exports hockeycoach;
