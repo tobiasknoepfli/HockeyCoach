@@ -3,7 +3,7 @@ package hockeycoach.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
-public class mainController {
+public class StartPageController {
     @FXML
     private Label welcomeText;
 

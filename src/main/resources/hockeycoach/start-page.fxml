@@ -1,16 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="hockeycoach.controllers.mainController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
-
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<Pane maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox id="titleBar" layoutX="6.0" layoutY="5.0" prefHeight="55.0" prefWidth="1190.0">
+         <padding>
+            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
+         </padding></HBox>
+      <HBox id="tableBox" layoutX="6.0" layoutY="60.0" maxWidth="1190.0" prefHeight="740.0" spacing="5.0">
+         <children>
+            <TableView id="teamsTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0">
+              <columns>
+                <TableColumn maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="390.0" resizable="false" text="Teams" />
+              </columns>
+            </TableView>
+            <TableView layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0">
+               <columns>
+                  <TableColumn id="gamesTable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="390.0" resizable="false" text="Games" />
+               </columns>
+            </TableView>
+            <TableView layoutX="257.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0">
+               <columns>
+                  <TableColumn id="trainingsTable" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="390.0" resizable="false" text="Trainings" />
+               </columns>
+            </TableView>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</Pane>

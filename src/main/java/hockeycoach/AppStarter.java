@@ -1,9 +1,10 @@
 package hockeycoach;
 
+import hockeycoach.UI.PresentationModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
 
@@ -11,19 +12,22 @@ import java.io.IOException;
 import java.sql.*;
 
 public class AppStarter extends Application {
+    public static double WIDTH = 1200; //Screen.getPrimary().getVisualBounds().getWidth();
+    public static double HEIGHT= 800; //Screen.getPrimary().getVisualBounds().getHeight();
+
     @Override
     public void start(Stage stage) throws IOException {
-        //determine screen size
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setWidth(primaryScreenBounds.getWidth());
-        stage.setHeight(primaryScreenBounds.getHeight());
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
 
         FXMLLoader fxmlLoader = new FXMLLoader(AppStarter.class.getResource("start-page.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), primaryScreenBounds.getWidth(), primaryScreenBounds.getHeight());
+        Pane root = fxmlLoader.load();
+
+        Scene scene = new Scene(root, WIDTH,HEIGHT);
         stage.setTitle("Hockey Coach");
         stage.setScene(scene);
         stage.show();
-    }
+        }
 
     public static void main(String[] args) {
         launch();
