@@ -1,7 +1,5 @@
 package hockeycoach.mainClasses;
 
-import java.util.ArrayList;
-
 public class Team {
     private String name;
     private String stadium;
@@ -23,10 +21,31 @@ public class Team {
     private String captainLastName;
     private String comments;
     private String notes;
-    private ArrayList<Player> players;
 
-    public Team(String name) {
+    public Team(String name){
         this.name = name;
+    }
+    public Team(String name, String stadium, String street, int zip, String city, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String captainFirstName, String captainLastName, String comments, String notes) {
+        this.name = name;
+        this.stadium = stadium;
+        this.street = street;
+        this.zip = zip;
+        this.city = city;
+        this.contactFirstName = contactFirstName;
+        this.contactLastName = contactLastName;
+        this.contactPhone = contactPhone;
+        this.contactEmail = contactEmail;
+        this.website = website;
+        this.founded = founded;
+        this.presidentFirstName = presidentFirstName;
+        this.presidentLastName = presidentLastName;
+        this.league = league;
+        this.headCoachFirstName = headCoachFirstName;
+        this.headCoachLastName = headCoachLastName;
+        this.captainFirstName = captainFirstName;
+        this.captainLastName = captainLastName;
+        this.comments = comments;
+        this.notes = notes;
     }
 
     public String getName() {
@@ -189,11 +208,4 @@ public class Team {
         this.notes = notes;
     }
 
-    public ArrayList<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(ArrayList<Player> players) {
-        this.players = players;
-    }
 }

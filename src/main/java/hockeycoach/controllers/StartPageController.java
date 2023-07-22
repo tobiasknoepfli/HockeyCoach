@@ -1,14 +1,10 @@
 package hockeycoach.controllers;
 
+import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
 
 public class StartPageController {
     @FXML
-    private Label welcomeText;
-
-    @FXML
-    protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
-    }
+    private TableView<Team> teamsTable;
 }
