@@ -1,13 +1,19 @@
 package hockeycoach.mainClasses;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class Game {
-    private String gameDate;
-    private String gameTime;
+    private Date gameDate;
+    private Time gameTime;
     private String stadium;
     private String opponent;
-    private Team team;
+    private String team;
 
-    public Game(String gameDate, String gameTime, String stadium, String opponent, Team team) {
+    public Game(){
+    }
+
+    public Game(Date gameDate, Time gameTime, String stadium, String opponent, String team) {
         this.gameDate = gameDate;
         this.gameTime = gameTime;
         this.stadium = stadium;
@@ -15,19 +21,19 @@ public class Game {
         this.team = team;
     }
 
-    public String getGameDate() {
+    public Date getGameDate() {
         return gameDate;
     }
 
-    public void setGameDate(String gameDate) {
+    public void setGameDate(Date gameDate) {
         this.gameDate = gameDate;
     }
 
-    public String getGameTime() {
+    public Time getGameTime() {
         return gameTime;
     }
 
-    public void setGameTime(String gameTime) {
+    public void setGameTime(Time gameTime) {
         this.gameTime = gameTime;
     }
 
@@ -47,11 +53,11 @@ public class Game {
         this.opponent = opponent;
     }
 
-    public Team getTeam() {
+    public String getTeam() {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void setTeam(String team) {
         this.team = team;
     }
 }

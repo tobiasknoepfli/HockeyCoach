@@ -10,8 +10,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class AppStarter extends Application {
-    public static double WIDTH = 1200; //Screen.getPrimary().getVisualBounds().getWidth();
-    public static double HEIGHT = 800; //Screen.getPrimary().getVisualBounds().getHeight();
+    public static double WIDTH = 1220; //Screen.getPrimary().getVisualBounds().getWidth();
+    public static double HEIGHT = 855; //Screen.getPrimary().getVisualBounds().getHeight();
 
     @Override
     public void start(Stage stage) throws IOException {

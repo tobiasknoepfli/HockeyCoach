@@ -6,6 +6,7 @@ public class Team {
     private String street;
     private int zip;
     private String city;
+    private String country;
     private String contactFirstName;
     private String contactLastName;
     private String contactPhone;
@@ -20,17 +21,39 @@ public class Team {
     private String captainFirstName;
     private String captainLastName;
     private String comments;
+    private String logo;
     private String notes;
+
+    public Team(){
+    }
 
     public Team(String name){
         this.name = name;
     }
-    public Team(String name, String stadium, String street, int zip, String city, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String captainFirstName, String captainLastName, String comments, String notes) {
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public Team(String name, String stadium, String street, int zip, String city, String country, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String captainFirstName, String captainLastName, String comments, String logo, String notes) {
         this.name = name;
         this.stadium = stadium;
         this.street = street;
         this.zip = zip;
         this.city = city;
+        this.country = country;
         this.contactFirstName = contactFirstName;
         this.contactLastName = contactLastName;
         this.contactPhone = contactPhone;
@@ -45,6 +68,7 @@ public class Team {
         this.captainFirstName = captainFirstName;
         this.captainLastName = captainLastName;
         this.comments = comments;
+        this.logo = logo;
         this.notes = notes;
     }
 
