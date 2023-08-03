@@ -4,60 +4,48 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="815.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="815.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="730.0" maxWidth="1200.0" minHeight="730.0" minWidth="1200.0" prefHeight="730.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox id="titleBar" layoutX="6.0" layoutY="5.0" prefHeight="55.0" prefWidth="1190.0">
-         <padding>
-            <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-         </padding></HBox>
-      <HBox id="tableBox" layoutX="6.0" layoutY="60.0" maxWidth="1190.0" prefHeight="740.0" spacing="5.0">
-         <children>
-            <TableView fx:id="teamsTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0">
-                <columns>
-                    <TableColumn fx:id="teamsColumn" maxWidth="390.0" minWidth="390.0" prefWidth="390.0" resizable="false" text="Teams" />
-                </columns>
-            </TableView>
-            <TableView fx:id="gamesTable" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0">
-               <columns>
-                  <TableColumn fx:id="gamesColumn1" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Game Date">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="gameDate" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="gamesColumn2" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Opponent">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="opponent" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="gamesColumn3" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Stadium">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="stadium" />
-                     </cellValueFactory>
-                  </TableColumn>
-               </columns>
-            </TableView>
-            <TableView fx:id="trainingsTable" layoutX="257.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="740.0" prefWidth="390.0">
-               <columns>
-                  <TableColumn fx:id="trainingsColumn1" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Training Date">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="trainingDate" />
-                     </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn fx:id="trainingsColumn2" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Stadium">
-                     <cellValueFactory>
-                        <PropertyValueFactory property="stadium" />
-                     </cellValueFactory>
-                  </TableColumn>
-               </columns>
-            </TableView>
-         </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </HBox>
+      <TableView fx:id="teamsTable" layoutX="5.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="390.0">
+          <columns>
+              <TableColumn fx:id="teamsColumn" maxWidth="390.0" minWidth="390.0" prefWidth="390.0" resizable="false" text="Teams" />
+          </columns>
+      </TableView>
+      <TableView fx:id="gamesTable" layoutX="407.5" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="390.0">
+         <columns>
+            <TableColumn fx:id="gamesColumn1" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Game Date">
+               <cellValueFactory>
+                  <PropertyValueFactory property="gameDate" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="gamesColumn2" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Opponent">
+               <cellValueFactory>
+                  <PropertyValueFactory property="opponent" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="gamesColumn3" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Stadium">
+               <cellValueFactory>
+                  <PropertyValueFactory property="stadium" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <TableView fx:id="trainingsTable" layoutX="810.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="390.0">
+         <columns>
+            <TableColumn fx:id="trainingsColumn1" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Training Date">
+               <cellValueFactory>
+                  <PropertyValueFactory property="trainingDate" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="trainingsColumn2" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Stadium">
+               <cellValueFactory>
+                  <PropertyValueFactory property="stadium" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
