@@ -1,5 +1,6 @@
 package hockeycoach.controllers;
 
+import hockeycoach.UI.StartPagePresentationModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -31,6 +32,9 @@ public class MainPageController {
         } catch (IOException e){
             e.printStackTrace();
         }
+
+        StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
+        startPagePresentationModel.initializeControls(contentPane);
     }
 
     @FXML

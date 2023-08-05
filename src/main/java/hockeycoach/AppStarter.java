@@ -31,10 +31,6 @@ public class AppStarter extends Application {
 
         AnchorPane anchorPane= (AnchorPane) root.lookup("#contentPane");
         anchorPane.getChildren().add(contentPane);
-        AnchorPane.setTopAnchor(contentPane, 0.0);
-        AnchorPane.setLeftAnchor(contentPane, 0.0);
-        AnchorPane.setRightAnchor(contentPane, 0.0);
-        AnchorPane.setBottomAnchor(contentPane, 0.0);
 
         StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
         startPagePresentationModel.initializeControls(contentPane);
