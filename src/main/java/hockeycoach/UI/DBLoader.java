@@ -8,7 +8,7 @@ import hockeycoach.mainClasses.Training;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class GeneralDAO {
+public class DBLoader {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
 
     public ArrayList<Player> getPlayers(String query) {

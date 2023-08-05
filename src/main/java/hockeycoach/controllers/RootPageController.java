@@ -6,7 +6,7 @@ import hockeycoach.mainClasses.Training;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 
-public class StartPageController {
+public class RootPageController {
     @FXML
     private TableView<Team> teamsTable;
 

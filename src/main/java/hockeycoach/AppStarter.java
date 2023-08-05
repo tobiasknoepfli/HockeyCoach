@@ -1,6 +1,6 @@
 package hockeycoach;
 
-import hockeycoach.UI.PresentationModel;
+import hockeycoach.UI.StartPagePresentationModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,7 +19,7 @@ public class AppStarter extends Application {
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
 
-        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("main-pane.fxml"));
+        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("root-page.fxml"));
         Pane root = mainPaneLoader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setScene(scene);
@@ -36,14 +36,8 @@ public class AppStarter extends Application {
         AnchorPane.setRightAnchor(contentPane, 0.0);
         AnchorPane.setBottomAnchor(contentPane, 0.0);
 
-        PresentationModel presentationModel = new PresentationModel();
-        presentationModel.initializeControls(contentPane);
-
-
-
-
-
-
+        StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
+        startPagePresentationModel.initializeControls(contentPane);
     }
 
     public static void main(String[] args) {

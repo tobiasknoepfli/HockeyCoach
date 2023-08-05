@@ -6,11 +6,9 @@ import hockeycoach.mainClasses.Training;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.List;
 
-public class PresentationModel {
+public class StartPagePresentationModel {
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
@@ -20,8 +18,8 @@ public class PresentationModel {
         gamesTable = (TableView) root.lookup("#gamesTable");
         trainingsTable = (TableView) root.lookup("#trainingsTable");
 
-        TeamDAOMain teamDAOMain = new TeamDAOMain();
-        teamDAOMain.dataIntoTeamTable(teamsTable);
+        DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
+        DBLoaderTeamList.dataIntoTeamTable(teamsTable);
 
         setupEventListeners();
     }
@@ -29,16 +27,16 @@ public class PresentationModel {
     public void setupEventListeners() {
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
-                GeneralDAO generalDAO = new GeneralDAO();
-                List<Game> games = generalDAO.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getName() + "%'");
+                DBLoader DBLoader = new DBLoader();
+                List<Game> games = DBLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getName() + "%'");
                 populateGamesTable(games);
             }
         });
 
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
-                GeneralDAO generalDAO = new GeneralDAO();
-                List<Training> trainings = generalDAO.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getName() + "%'");
+                DBLoader DBLoader = new DBLoader();
+                List<Training> trainings = DBLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getName() + "%'");
                 populateTrainingsTable(trainings);
             }
         });

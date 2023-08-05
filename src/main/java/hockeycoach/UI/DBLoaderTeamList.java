@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeamDAOMain {
+public class DBLoaderTeamList {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
 
     public List<Team> getAllTeamNames() {
@@ -43,8 +43,8 @@ public class TeamDAOMain {
         tableView.getColumns().clear();
         tableView.getColumns().add(teamNameColumn);
 
-        TeamDAOMain teamDAOMain = new TeamDAOMain();
-        List<Team> teams = teamDAOMain.getAllTeamNames();
+        DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
+        List<Team> teams = DBLoaderTeamList.getAllTeamNames();
         tableView.getItems().addAll(teams);
     }
 }
