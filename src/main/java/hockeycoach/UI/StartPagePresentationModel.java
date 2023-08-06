@@ -1,6 +1,7 @@
 package hockeycoach.UI;
 
 import hockeycoach.mainClasses.Game;
+import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.scene.control.TableView;
@@ -12,11 +13,18 @@ public class StartPagePresentationModel {
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
+    private Team selectedTeam;
 
     public void initializeControls(Pane root) {
         teamsTable = (TableView) root.lookup("#teamsTable");
         gamesTable = (TableView) root.lookup("#gamesTable");
         trainingsTable = (TableView) root.lookup("#trainingsTable");
+
+        Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+
+        if(selectedTeam !=null){
+            teamsTable.getSelectionModel().select(selectedTeam);
+        }
 
         DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
         DBLoaderTeamList.dataIntoTeamTable(teamsTable);

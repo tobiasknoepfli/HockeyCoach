@@ -1,15 +1,18 @@
 package hockeycoach.controllers;
 
 import hockeycoach.UI.StartPagePresentationModel;
+import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class MainPageController {
+public class StartPageController {
     @FXML
     private AnchorPane headerPane;
 
@@ -29,12 +32,13 @@ public class MainPageController {
             Pane homePage = homePageLoader.load();
             contentPane.getChildren().clear();
             contentPane.getChildren().add(homePage);
+
+            StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
+            startPagePresentationModel.initializeControls(contentPane);
+
         } catch (IOException e){
             e.printStackTrace();
         }
-
-        StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
-        startPagePresentationModel.initializeControls(contentPane);
     }
 
     @FXML
