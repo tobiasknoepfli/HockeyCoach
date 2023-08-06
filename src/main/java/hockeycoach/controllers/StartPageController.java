@@ -1,55 +1,26 @@
 package hockeycoach.controllers;
 
-import hockeycoach.UI.StartPagePresentationModel;
+import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.mainClasses.Training;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-
-import java.io.IOException;
 
 public class StartPageController {
     @FXML
-    private AnchorPane headerPane;
+    private TableView<Team> teamsTable;
 
     @FXML
-    private AnchorPane contentPane;
+    private TableView<Game> gamesTable;
 
     @FXML
-    private Button homeButton;
+    private TableView<Training> trainingsTable;
 
     @FXML
-    private Button teamButton;
-
-    @FXML
-    private void homeButtonAction(){
-        try{
-            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/start-page.fxml"));
-            Pane homePage = homePageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(homePage);
-
-            StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
-            startPagePresentationModel.initializeControls(contentPane);
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void teamButtonAction() {
-        try {
-            FXMLLoader teamPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/team-page.fxml"));
-            Pane teamPage = teamPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(teamPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void setSelectedTeam() {
+        Team selectedTeam = teamsTable.getSelectionModel().getSelectedItem();
+        SingletonTeam.getInstance().setSelectedTeam(selectedTeam);
+        SingletonTeam.getInstance().setIndex(teamsTable.getSelectionModel().getSelectedIndex());
     }
 }

@@ -4,8 +4,11 @@ import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -13,23 +16,27 @@ public class StartPagePresentationModel {
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
-    private Team selectedTeam;
 
     public void initializeControls(Pane root) {
         teamsTable = (TableView) root.lookup("#teamsTable");
         gamesTable = (TableView) root.lookup("#gamesTable");
         trainingsTable = (TableView) root.lookup("#trainingsTable");
 
-        Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
-
-        if(selectedTeam !=null){
-            teamsTable.getSelectionModel().select(selectedTeam);
-        }
-
         DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
         DBLoaderTeamList.dataIntoTeamTable(teamsTable);
 
         setupEventListeners();
+
+        Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        if (selectedTeam != null) {
+            Platform.runLater(() -> {
+                teamsTable.requestFocus();
+                teamsTable.getSelectionModel().select(selectedTeam);
+                int index = SingletonTeam.getInstance().getIndex();
+                teamsTable.scrollTo(index);
+                teamsTable.getFocusModel().focus(index);
+            });
+        }
     }
 
     public void setupEventListeners() {
