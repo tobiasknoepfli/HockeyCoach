@@ -8,12 +8,12 @@
 
 <Pane maxHeight="730.0" maxWidth="1200.0" minHeight="730.0" minWidth="1200.0" prefHeight="730.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.StartPageController">
    <children>
-      <TableView fx:id="teamsTable" layoutX="5.0" layoutY="5.0" onMouseClicked="#setSelectedTeam" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="390.0">
+      <TableView fx:id="teamsTable" layoutX="5.0" layoutY="55.0" onMouseClicked="#setSelectedTeam" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="390.0">
           <columns>
               <TableColumn fx:id="teamsColumn" maxWidth="390.0" minWidth="390.0" prefWidth="390.0" resizable="false" text="Teams" />
           </columns>
       </TableView>
-      <TableView fx:id="gamesTable" layoutX="407.5" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="390.0">
+      <TableView fx:id="gamesTable" layoutX="407.5" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="390.0">
          <columns>
             <TableColumn fx:id="gamesColumn1" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Game Date">
                <cellValueFactory>
@@ -32,7 +32,7 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="trainingsTable" layoutX="810.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="390.0">
+      <TableView fx:id="trainingsTable" layoutX="810.0" layoutY="55.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="390.0">
          <columns>
             <TableColumn fx:id="trainingsColumn1" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Training Date">
                <cellValueFactory>

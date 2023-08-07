@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<Pane maxHeight="730.0" maxWidth="1200.0" minHeight="730.0" minWidth="1200.0" prefHeight="730.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.PlayerPageController">
+    <children>
+        <TableView fx:id="teamPlayers" layoutX="10.0" layoutY="50.0" prefHeight="670.0" prefWidth="400.0">
+            <columns>
+                <TableColumn fx:id="playerLastName" minWidth="150.0" prefWidth="150.0" text="Last Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="lastName" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="playerFirstName" minWidth="150.0" prefWidth="150.0" text="First Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="playerPosition" minWidth="100.0" prefWidth="100.0" text="Position">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="positions" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+      <ImageView fx:id="playerPhoto" fitHeight="200.0" fitWidth="200.0" layoutX="986.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="playerName" layoutX="420.0" layoutY="50.0" prefHeight="30.0" prefWidth="550.0" />
+      <TextField fx:id="team" layoutX="420.0" layoutY="80.0" prefHeight="30.0" prefWidth="550.0" />
+      <Label layoutX="420.0" layoutY="138.0" prefHeight="25.0" prefWidth="150.0" text="Address" />
+      <VBox layoutX="570.0" layoutY="138.0" prefHeight="75.0" prefWidth="400.0">
+         <children>
+            <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0" />
+            <TextField fx:id="zipCity" prefHeight="20.0" prefWidth="400.0" />
+            <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0" />
+         </children>
+      </VBox>
+      <VBox layoutX="420.0" layoutY="220.0" prefHeight="50.0" prefWidth="150.0">
+         <children>
+            <Label minHeight="25.0" prefHeight="25.0" prefWidth="306.0" text="Phone" />
+            <Label minHeight="25.0" prefHeight="25.0" prefWidth="306.0" text="Email" />
+         </children>
+      </VBox>
+      <VBox layoutX="570.0" layoutY="220.0" prefHeight="50.0" prefWidth="400.0">
+         <children>
+            <TextField fx:id="phone" prefHeight="20.0" prefWidth="400.0" />
+            <TextField fx:id="email" prefHeight="20.0" prefWidth="400.0" />
+         </children>
+      </VBox>
+      <Label layoutX="420.0" layoutY="290.0" prefHeight="25.0" prefWidth="150.0" text="Jersey Number" />
+      <TextField fx:id="jersey" layoutX="570.0" layoutY="290.0" prefHeight="25.0" prefWidth="109.0" />
+      <Label layoutX="697.0" layoutY="290.0" prefHeight="25.0" prefWidth="58.0" text="Positions" />
+      <TextField fx:id="positions" layoutX="755.0" layoutY="290.0" prefHeight="25.0" prefWidth="215.0" />
+      <Label layoutX="572.0" layoutY="325.0" prefHeight="25.0" prefWidth="195.0" text="Strengths" />
+      <TextArea fx:id="strengths" layoutX="572.0" layoutY="350.0" minHeight="125.0" prefHeight="125.0" prefWidth="195.0" wrapText="true" />
+      <TextArea fx:id="weaknesses" layoutX="775.0" layoutY="350.0" minHeight="125.0" prefHeight="125.0" prefWidth="195.0" wrapText="true" />
+      <Label layoutX="775.0" layoutY="325.0" prefHeight="25.0" prefWidth="195.0" text="Weaknesses" />
+      <Label layoutX="420.0" layoutY="485.0" prefHeight="25.0" prefWidth="150.0" text="Notes" />
+      <TextArea fx:id="notes" layoutX="572.0" layoutY="485.0" minHeight="125.0" prefHeight="235.0" prefWidth="400.0" wrapText="true" />
+    </children>
+</Pane>

@@ -1,5 +1,6 @@
 package hockeycoach.controllers;
 
+import hockeycoach.UI.PlayerPagePresentationModel;
 import hockeycoach.UI.StartPagePresentationModel;
 import hockeycoach.UI.TeamPagePresentationModel;
 import hockeycoach.mainClasses.Team;
@@ -25,8 +26,8 @@ public class RootPageController {
     private Button teamButton;
 
     @FXML
-    private void homeButtonAction(){
-        try{
+    private void homeButtonAction() {
+        try {
             FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/start-page.fxml"));
             Pane homePage = homePageLoader.load();
             contentPane.getChildren().clear();
@@ -35,7 +36,7 @@ public class RootPageController {
             StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
             startPagePresentationModel.initializeControls(contentPane);
 
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -54,5 +55,22 @@ public class RootPageController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void playerButtonAction() {
+        try {
+            FXMLLoader playerPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/player-page.fxml"));
+            Pane playerPage = playerPageLoader.load();
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(playerPage);
+
+            PlayerPagePresentationModel playerPagePresentationModel = new PlayerPagePresentationModel();
+            playerPagePresentationModel.initializeControls(playerPage);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

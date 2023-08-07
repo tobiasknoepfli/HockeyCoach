@@ -79,7 +79,6 @@ public class TeamPagePresentationModel {
             headCoachName.setText(team.getHeadCoachFirstName() + " " + team.getHeadCoachLastName());
             captainName.setText(team.getCaptainFirstName() + " " + team.getCaptainLastName());
             notes.setText(team.getNotes());
-            //            teamPlayers
 
         }
 
