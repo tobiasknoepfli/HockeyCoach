@@ -47,12 +47,13 @@ public class TeamPagePresentationModel {
         currentLeague= (TextField) root.lookup("#currentLeague");
         headCoachName= (TextField) root.lookup("#headCoachName");
         captainName= (TextField) root.lookup("#captainName");
-        teamPlayers= (TableView<Player>) root.lookup("#teamPlayers");
+        teamPlayers= (TableView) root.lookup("#teamPlayers");
         notes= (TextArea) root.lookup("#notes");
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
         List<Team> teamInfo = dbLoader.getTeam("SELECT * FROM team WHERE name LIKE '%" + selectedTeam.getName() + "%'");
+        List<Player> playerList = dbLoader.getPlayers("SELECT * FROM player WHERE team LIKE '%"+ selectedTeam.getName() + "%'");
 
         if (!teamInfo.isEmpty()) {
             Team team = teamInfo.get(0);
@@ -80,6 +81,11 @@ public class TeamPagePresentationModel {
             notes.setText(team.getNotes());
             //            teamPlayers
 
+        }
+
+        if(!playerList.isEmpty()){
+            teamPlayers.getItems().clear();
+            teamPlayers.getItems().addAll(playerList);
         }
     }
 }
