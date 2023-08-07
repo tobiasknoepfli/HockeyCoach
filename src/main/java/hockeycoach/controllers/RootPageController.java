@@ -1,6 +1,8 @@
 package hockeycoach.controllers;
 
 import hockeycoach.UI.StartPagePresentationModel;
+import hockeycoach.UI.TeamPagePresentationModel;
+import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -45,6 +47,10 @@ public class RootPageController {
             Pane teamPage = teamPageLoader.load();
             contentPane.getChildren().clear();
             contentPane.getChildren().add(teamPage);
+
+            TeamPagePresentationModel teamPagePresentationModel = new TeamPagePresentationModel();
+            teamPagePresentationModel.intializeControls(teamPage);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

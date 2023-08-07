@@ -4,11 +4,9 @@ import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
 
 import java.util.List;
 
