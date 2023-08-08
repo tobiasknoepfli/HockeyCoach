@@ -23,7 +23,7 @@ public class DBLoader {
                 player.setFirstName(resultSet.getString("firstName"));
                 player.setLastName(resultSet.getString("lastName"));
                 player.setTeam(resultSet.getString("team"));
-                player.setStrengths(resultSet.getString("street"));
+                player.setStreet(resultSet.getString("street"));
                 player.setZip(resultSet.getInt("zip"));
                 player.setCity(resultSet.getString("city"));
                 player.setCountry(resultSet.getString("country"));
@@ -38,6 +38,7 @@ public class DBLoader {
                 player.setRole(resultSet.getString("role"));
                 player.setStick(resultSet.getString("stick"));
                 player.setPhotoPath(resultSet.getString("photoPath"));
+                player.setNotes(resultSet.getString("notes"));
 
                 playerList.add(player);
 

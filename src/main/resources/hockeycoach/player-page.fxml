@@ -55,14 +55,22 @@
          </children>
       </VBox>
       <Label layoutX="420.0" layoutY="290.0" prefHeight="25.0" prefWidth="150.0" text="Jersey Number" />
-      <TextField fx:id="jersey" layoutX="570.0" layoutY="290.0" prefHeight="25.0" prefWidth="109.0" />
-      <Label layoutX="697.0" layoutY="290.0" prefHeight="25.0" prefWidth="58.0" text="Positions" />
-      <TextField fx:id="positions" layoutX="755.0" layoutY="290.0" prefHeight="25.0" prefWidth="215.0" />
-      <Label layoutX="572.0" layoutY="325.0" prefHeight="25.0" prefWidth="195.0" text="Strengths" />
-      <TextArea fx:id="strengths" layoutX="572.0" layoutY="350.0" minHeight="125.0" prefHeight="125.0" prefWidth="195.0" wrapText="true" />
-      <TextArea fx:id="weaknesses" layoutX="775.0" layoutY="350.0" minHeight="125.0" prefHeight="125.0" prefWidth="195.0" wrapText="true" />
-      <Label layoutX="775.0" layoutY="325.0" prefHeight="25.0" prefWidth="195.0" text="Weaknesses" />
-      <Label layoutX="420.0" layoutY="485.0" prefHeight="25.0" prefWidth="150.0" text="Notes" />
-      <TextArea fx:id="notes" layoutX="572.0" layoutY="485.0" minHeight="125.0" prefHeight="235.0" prefWidth="400.0" wrapText="true" />
+      <TextField fx:id="jersey" layoutX="572.0" layoutY="290.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="755.0" layoutY="290.0" prefHeight="25.0" prefWidth="58.0" text="Positions" />
+      <TextField fx:id="positions" layoutX="820.0" layoutY="290.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="572.0" layoutY="387.0" prefHeight="25.0" prefWidth="195.0" text="Strengths" />
+      <TextArea fx:id="strengths" layoutX="572.0" layoutY="412.0" minHeight="116.0" prefHeight="116.0" prefWidth="195.0" wrapText="true" />
+      <TextArea fx:id="weaknesses" layoutX="775.0" layoutY="412.0" minHeight="116.0" prefHeight="116.0" prefWidth="195.0" wrapText="true" />
+      <Label layoutX="775.0" layoutY="387.0" prefHeight="25.0" prefWidth="195.0" text="Weaknesses" />
+      <Label layoutX="420.0" layoutY="534.0" prefHeight="25.0" prefWidth="150.0" text="Notes" />
+      <TextArea fx:id="notes" layoutX="572.0" layoutY="534.0" minHeight="125.0" prefHeight="186.0" prefWidth="400.0" wrapText="true" />
+      <TextField fx:id="aLicence" layoutX="572.0" layoutY="321.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="420.0" layoutY="321.0" prefHeight="25.0" prefWidth="150.0" text="A Licence" />
+      <TextField fx:id="bLicence" layoutX="572.0" layoutY="353.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="420.0" layoutY="353.0" prefHeight="25.0" prefWidth="150.0" text="B Licence" />
+      <TextField fx:id="role" layoutX="820.0" layoutY="321.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="stick" layoutX="820.0" layoutY="352.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="755.0" layoutY="321.0" prefHeight="25.0" prefWidth="58.0" text="Role" />
+      <Label layoutX="755.0" layoutY="352.0" prefHeight="25.0" prefWidth="58.0" text="Stick" />
     </children>
 </Pane>

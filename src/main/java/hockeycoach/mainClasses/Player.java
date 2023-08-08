@@ -22,6 +22,7 @@ public class Player {
     private String role;
     private String stick;
     private String photoPath;
+    private String notes;
 
     public Player() {
     }
@@ -32,7 +33,7 @@ public class Player {
         this.team = team;
     }
 
-    public Player(String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, String photoPath) {
+    public Player(String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, String photoPath, String notes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.team = team;
@@ -51,6 +52,7 @@ public class Player {
         this.role = role;
         this.stick = stick;
         this.photoPath = photoPath;
+        this.notes = notes;
     }
 
     public String getFirstName() {
@@ -195,5 +197,13 @@ public class Player {
 
     public void setPhotoPath(String photoPath) {
         this.photoPath = photoPath;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 }
