@@ -88,9 +88,6 @@ public class PlayerPagePresentationModel {
                 aLicence.setText(newSelectedPlayer.getaLicence());
                 bLicence.setText(newSelectedPlayer.getbLicence());
                 stick.setText(newSelectedPlayer.getStick());
-
-                System.out.println(newSelectedPlayer.getStreet());
-                System.out.println(newSelectedPlayer.getNotes());
             }
         });
     }
