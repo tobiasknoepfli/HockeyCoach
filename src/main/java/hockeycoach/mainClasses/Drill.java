@@ -9,7 +9,9 @@ public class Drill {
     private String participation;
     private String description;
     private Boolean station;
-    private ArrayList<String> tags;
+    private String tags;
+
+    private String imageLink;
 
     public Drill(String name, String category, int difficulty, String participation) {
         this.name = name;
@@ -66,11 +68,20 @@ public class Drill {
         this.station = station;
     }
 
-    public ArrayList<String> getTags() {
+    public String getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
+    public void setTags(String tags) {
         this.tags = tags;
     }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
 }
