@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class Player {
+    private int playerID;
     private String firstName;
     private String lastName;
     private String team;
@@ -33,7 +34,8 @@ public class Player {
         this.team = team;
     }
 
-    public Player(String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, String photoPath, String notes) {
+    public Player(int playerID, String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, String photoPath, String notes) {
+        this.playerID = playerID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.team = team;
@@ -53,6 +55,14 @@ public class Player {
         this.stick = stick;
         this.photoPath = photoPath;
         this.notes = notes;
+    }
+
+    public int getPlayerID() {
+        return playerID;
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
     }
 
     public String getFirstName() {

@@ -54,7 +54,7 @@ public class PlayerPagePresentationModel {
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
-        List<Player> playerList = dbLoader.getPlayers("SELECT * FROM player WHERE team LIKE '%" + selectedTeam.getName() + "%'");
+        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'",selectedTeam.getTeamID());
 
         if (!playerList.isEmpty()) {
             teamPlayers.getItems().clear();
@@ -62,6 +62,8 @@ public class PlayerPagePresentationModel {
         }
 
         setupEventListeners();
+
+        team.setText(selectedTeam.getName());
     }
 
     public void setupEventListeners() {
@@ -73,7 +75,6 @@ public class PlayerPagePresentationModel {
                     playerPhoto.setImage(null);
                 }
                 playerName.setText(newSelectedPlayer.getFirstName() + " " + newSelectedPlayer.getLastName());
-                team.setText(newSelectedPlayer.getTeam());
                 street.setText(newSelectedPlayer.getStreet());
                 zipCity.setText(String.valueOf(newSelectedPlayer.getZip()) + " " + newSelectedPlayer.getCity());
                 country.setText(newSelectedPlayer.getCountry());

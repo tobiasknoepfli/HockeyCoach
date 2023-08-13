@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DBLoader {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
 
-    public ArrayList<Player> getPlayers(String query) {
+    public ArrayList<Player> getPlayers(String query, int selectedTeamID) {
         ArrayList<Player> playerList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
@@ -20,9 +20,9 @@ public class DBLoader {
 
             while (resultSet.next()) {
                 Player player = new Player();
+                player.setPlayerID(resultSet.getInt("playerID"));
                 player.setFirstName(resultSet.getString("firstName"));
                 player.setLastName(resultSet.getString("lastName"));
-                player.setTeam(resultSet.getString("team"));
                 player.setStreet(resultSet.getString("street"));
                 player.setZip(resultSet.getInt("zip"));
                 player.setCity(resultSet.getString("city"));
@@ -31,7 +31,7 @@ public class DBLoader {
                 player.setbLicence(resultSet.getString("bLicence"));
                 player.setPhone(resultSet.getString("phone"));
                 player.seteMail(resultSet.getString("eMail"));
-                player.setJersey(resultSet.getInt("jersey"));
+                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE playerID = "+ player.getPlayerID() + " AND teamID = "+ selectedTeamID));
                 player.setPositions(resultSet.getString("positions"));
                 player.setStrengths(resultSet.getString("strengths"));
                 player.setWeaknesses(resultSet.getString("weaknesses"));
@@ -49,6 +49,25 @@ public class DBLoader {
             e.printStackTrace();
         }
         return playerList;
+    }
+
+    public int getJersey(String query) {
+        int jersey=0;
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                jersey= resultSet.getInt("jersey");
+            }
+
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jersey;
     }
 
     public ArrayList<Game> getGames(String query) {
@@ -113,6 +132,7 @@ public class DBLoader {
 
             while (resultSet.next()) {
                 Team team = new Team();
+                team.setTeamID(resultSet.getInt("teamID"));
                 team.setName(resultSet.getString("name"));
                 team.setStadium(resultSet.getString("stadium"));
                 team.setStreet(resultSet.getString("street"));

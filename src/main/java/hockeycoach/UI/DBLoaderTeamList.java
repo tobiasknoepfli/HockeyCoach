@@ -25,7 +25,8 @@ public class DBLoaderTeamList {
 
             while (resultSet.next()){
                 String name =  resultSet.getString("name");
-                Team team = new Team(name);
+                int teamID = resultSet.getInt("teamID");
+                Team team = new Team(name,teamID);
                 teams.add(team);
             }
 

@@ -53,7 +53,10 @@ public class TeamPagePresentationModel {
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
         List<Team> teamInfo = dbLoader.getTeam("SELECT * FROM team WHERE name LIKE '%" + selectedTeam.getName() + "%'");
-        List<Player> playerList = dbLoader.getPlayers("SELECT * FROM player WHERE team LIKE '%"+ selectedTeam.getName() + "%'");
+//        List<Player> playerList = dbLoader.getPlayers("SELECT * FROM player INNER JOIN playerXteam ON team = '%"+ selectedTeam.getName() + "%'");
+        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'",selectedTeam.getTeamID());
+
+
 
         if (!teamInfo.isEmpty()) {
             Team team = teamInfo.get(0);

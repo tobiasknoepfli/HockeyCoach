@@ -1,6 +1,7 @@
 package hockeycoach.mainClasses;
 
 public class Team {
+    private int teamID;
     private String name;
     private String stadium;
     private String street;
@@ -27,8 +28,9 @@ public class Team {
     public Team(){
     }
 
-    public Team(String name){
+    public Team(String name, int teamID){
         this.name = name;
+        this.teamID = teamID;
     }
 
     public String getCountry() {
@@ -47,7 +49,8 @@ public class Team {
         this.logo = logo;
     }
 
-    public Team(String name, String stadium, String street, int zip, String city, String country, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String captainFirstName, String captainLastName, String comments, String logo, String notes) {
+    public Team(int teamID, String name, String stadium, String street, int zip, String city, String country, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String captainFirstName, String captainLastName, String comments, String logo, String notes) {
+        this.teamID = teamID;
         this.name = name;
         this.stadium = stadium;
         this.street = street;
@@ -70,6 +73,14 @@ public class Team {
         this.comments = comments;
         this.logo = logo;
         this.notes = notes;
+    }
+
+    public int getTeamID() {
+        return teamID;
+    }
+
+    public void setTeamID(int teamID) {
+        this.teamID = teamID;
     }
 
     public String getName() {
