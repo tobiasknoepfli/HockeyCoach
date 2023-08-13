@@ -1,6 +1,7 @@
 package hockeycoach.controllers;
 
 import hockeycoach.mainClasses.Player;
+import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -10,6 +11,9 @@ import javafx.scene.image.ImageView;
 public class PlayerPageController {
     @FXML
     private TableView<Player> teamPlayers;
+
+    @FXML
+    private TableView<Team> playerTeams;
 
     @FXML
     private ImageView playerPhoto;

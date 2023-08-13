@@ -5,8 +5,10 @@ import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 
+import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBLoader {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
@@ -35,7 +37,7 @@ public class DBLoader {
                 player.setPositions(resultSet.getString("positions"));
                 player.setStrengths(resultSet.getString("strengths"));
                 player.setWeaknesses(resultSet.getString("weaknesses"));
-                player.setRole(resultSet.getString("role"));
+                player.setRole(getRole("SELECT role FROM playerXteam WHERE playerID = "+ player.getPlayerID() + " AND teamID = " +selectedTeamID));
                 player.setStick(resultSet.getString("stick"));
                 player.setPhotoPath(resultSet.getString("photoPath"));
                 player.setNotes(resultSet.getString("notes"));
@@ -61,13 +63,28 @@ public class DBLoader {
             if (resultSet.next()) {
                 jersey= resultSet.getInt("jersey");
             }
-
-
             connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return jersey;
+    }
+
+    public String getRole(String query){
+        String role = "";
+        try{
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if(resultSet.next()){
+                role= resultSet.getString(("role"));
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return role;
     }
 
     public ArrayList<Game> getGames(String query) {
@@ -165,4 +182,27 @@ public class DBLoader {
         }
         return teamList;
     }
+
+    public List<Team> getTeamsForPlayer(String query) {
+        List<Team> teamList = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Team team = new Team();
+                team.setName(resultSet.getString("name"));
+                team.setTeamID(resultSet.getInt("teamID"));
+                teamList.add(team);
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return teamList;
+    }
+
 }

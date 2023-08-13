@@ -3,6 +3,8 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -14,6 +16,7 @@ import java.util.List;
 
 public class PlayerPagePresentationModel {
     TableView<Player> teamPlayers;
+    TableView<Team> playerTeams;
     ImageView playerPhoto;
     TextField playerName;
     TextField team;
@@ -34,6 +37,7 @@ public class PlayerPagePresentationModel {
 
     public void initializeControls(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
+        playerTeams = (TableView) root.lookup("#playerTeams");
         playerPhoto = (ImageView) root.lookup("#playerPhoto");
         playerName = (TextField) root.lookup("#playerName");
         team = (TextField) root.lookup("#team");
@@ -54,7 +58,7 @@ public class PlayerPagePresentationModel {
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
-        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'",selectedTeam.getTeamID());
+        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         if (!playerList.isEmpty()) {
             teamPlayers.getItems().clear();
@@ -80,7 +84,7 @@ public class PlayerPagePresentationModel {
                 country.setText(newSelectedPlayer.getCountry());
                 phone.setText(newSelectedPlayer.getPhone());
                 email.setText(newSelectedPlayer.geteMail());
-                jersey.setText("#" + String.valueOf(newSelectedPlayer.getJersey()));
+                jersey.setText(String.valueOf(newSelectedPlayer.getJersey()));
                 positions.setText(newSelectedPlayer.getPositions());
                 strengths.setText(newSelectedPlayer.getStrengths());
                 weaknesses.setText(newSelectedPlayer.getWeaknesses());
@@ -89,7 +93,17 @@ public class PlayerPagePresentationModel {
                 aLicence.setText(newSelectedPlayer.getaLicence());
                 bLicence.setText(newSelectedPlayer.getbLicence());
                 stick.setText(newSelectedPlayer.getStick());
+
+                DBLoader dbLoader = new DBLoader();
+                List<Team> teamsForPlayer = dbLoader.getTeamsForPlayer("SELECT t.* FROM team t INNER JOIN playerXteam tx ON t.teamID = tx.teamID WHERE tx.playerID = '" + newSelectedPlayer.getPlayerID() + "'");
+                if (!teamsForPlayer.isEmpty()) {
+                    ObservableList<Team> teamList = FXCollections.observableArrayList(teamsForPlayer);
+                    playerTeams.setItems(teamList);
+                }
             }
         });
+
+
+
     }
 }
