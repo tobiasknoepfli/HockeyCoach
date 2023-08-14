@@ -124,10 +124,13 @@ public class DBLoader {
 
             while (resultSet.next()) {
                 Training training = new Training();
+                training.setTrainingID(resultSet.getInt("trainingID"));
                 training.setTrainingDate(resultSet.getDate("trainingDate"));
                 training.setTrainingTime(resultSet.getTime("trainingTime"));
                 training.setStadium(resultSet.getString("stadium"));
                 training.setTeam(resultSet.getString("team"));
+                training.setMainFocus(resultSet.getString("mainFocus"));
+                training.setPointers(resultSet.getString("pointers"));
 
                 trainingList.add(training);
 
