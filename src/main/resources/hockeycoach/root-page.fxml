@@ -14,7 +14,7 @@
                   <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeButtonAction" prefHeight="68.0" prefWidth="68.0" text="Home" />
                   <Button fx:id="teamButton" mnemonicParsing="false" onAction="#teamButtonAction" prefHeight="68.0" prefWidth="68.0" text="Team" />
                   <Button fx:id="playerButton" mnemonicParsing="false" onAction="#playerButtonAction" prefHeight="68.0" prefWidth="68.0" text="Player" />
-                  <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button" />
+                  <Button fx:id="trainingButton" mnemonicParsing="false" onAction="#trainingButtonAction" prefHeight="68.0" prefWidth="68.0" text="Training" />
                   <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button" />
                   <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button" />
                   <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button" />

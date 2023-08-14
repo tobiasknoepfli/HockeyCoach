@@ -3,6 +3,7 @@ package hockeycoach.controllers;
 import hockeycoach.UI.PlayerPagePresentationModel;
 import hockeycoach.UI.StartPagePresentationModel;
 import hockeycoach.UI.TeamPagePresentationModel;
+import hockeycoach.UI.TrainingPagePresentationModel;
 import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,5 +73,20 @@ public class RootPageController {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    private void trainingButtonAction(){
+        try{
+            FXMLLoader trainingPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/training-page.fxml"));
+            Pane trainingPage = trainingPageLoader.load();
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(trainingPage);
+
+            TrainingPagePresentationModel trainingPagePresentationModel = new TrainingPagePresentationModel();
+            trainingPagePresentationModel.initializeControls(trainingPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
