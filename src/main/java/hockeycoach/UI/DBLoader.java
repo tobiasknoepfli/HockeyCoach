@@ -33,11 +33,11 @@ public class DBLoader {
                 player.setbLicence(resultSet.getString("bLicence"));
                 player.setPhone(resultSet.getString("phone"));
                 player.seteMail(resultSet.getString("eMail"));
-                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE playerID = "+ player.getPlayerID() + " AND teamID = "+ selectedTeamID));
+                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE playerID = " + player.getPlayerID() + " AND teamID = " + selectedTeamID));
                 player.setPositions(resultSet.getString("positions"));
                 player.setStrengths(resultSet.getString("strengths"));
                 player.setWeaknesses(resultSet.getString("weaknesses"));
-                player.setRole(getRole("SELECT role FROM playerXteam WHERE playerID = "+ player.getPlayerID() + " AND teamID = " +selectedTeamID));
+                player.setRole(getRole("SELECT role FROM playerXteam WHERE playerID = " + player.getPlayerID() + " AND teamID = " + selectedTeamID));
                 player.setStick(resultSet.getString("stick"));
                 player.setPhotoPath(resultSet.getString("photoPath"));
                 player.setNotes(resultSet.getString("notes"));
@@ -54,14 +54,14 @@ public class DBLoader {
     }
 
     public int getJersey(String query) {
-        int jersey=0;
+        int jersey = 0;
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             if (resultSet.next()) {
-                jersey= resultSet.getInt("jersey");
+                jersey = resultSet.getInt("jersey");
             }
             connection.close();
         } catch (SQLException e) {
@@ -70,15 +70,15 @@ public class DBLoader {
         return jersey;
     }
 
-    public String getRole(String query){
+    public String getRole(String query) {
         String role = "";
-        try{
+        try {
             Connection connection = DriverManager.getConnection(DB_URL);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            if(resultSet.next()){
-                role= resultSet.getString(("role"));
+            if (resultSet.next()) {
+                role = resultSet.getString(("role"));
             }
             connection.close();
         } catch (SQLException e) {

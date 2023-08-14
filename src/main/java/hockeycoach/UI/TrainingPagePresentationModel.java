@@ -60,9 +60,9 @@ public class TrainingPagePresentationModel {
         setupEventListeners();
     }
 
-    public void setupEventListeners(){
-        trainingTable.getSelectionModel().selectedItemProperty().addListener((obs,oldSelectedTrianing, newSelectedTraining)->{
-            if(newSelectedTraining !=null){
+    public void setupEventListeners() {
+        trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTrianing, newSelectedTraining) -> {
+            if (newSelectedTraining != null) {
                 trainingDate.setText(dateFormat.format(newSelectedTraining.getTrainingDate()));
                 trainingTime.setText(newSelectedTraining.getTrainingTime().toLocalTime().format(timeFormatter));
                 stadium.setText(newSelectedTraining.getStadium());

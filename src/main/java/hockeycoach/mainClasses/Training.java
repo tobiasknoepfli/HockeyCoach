@@ -12,10 +12,10 @@ public class Training {
     private String mainFocus;
     private String pointers;
 
-    public Training(){
+    public Training() {
     }
 
-    public Training(int trainingID, Date trainingDate, Time trainingTime,  String stadium,String team, String mainFocus, String pointers) {
+    public Training(int trainingID, Date trainingDate, Time trainingTime, String stadium, String team, String mainFocus, String pointers) {
         this.trainingID = trainingID;
         this.trainingDate = trainingDate;
         this.trainingTime = trainingTime;

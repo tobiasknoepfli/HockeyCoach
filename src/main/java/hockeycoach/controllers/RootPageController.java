@@ -76,8 +76,8 @@ public class RootPageController {
     }
 
     @FXML
-    private void trainingButtonAction(){
-        try{
+    private void trainingButtonAction() {
+        try {
             FXMLLoader trainingPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/training-page.fxml"));
             Pane trainingPage = trainingPageLoader.load();
             contentPane.getChildren().clear();
