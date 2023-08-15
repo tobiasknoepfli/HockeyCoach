@@ -1,10 +1,8 @@
 package hockeycoach.UI;
 
-import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.Team;
-import hockeycoach.mainClasses.Training;
+import hockeycoach.mainClasses.*;
 
+import javax.xml.transform.Result;
 import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
@@ -208,4 +206,50 @@ public class DBLoader {
         return teamList;
     }
 
+    public List<Drill> getDrills(String query) {
+        List<Drill> drillList = new ArrayList<>();
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Drill drill = new Drill();
+                drill.setDrillID(resultSet.getInt("drillID"));
+                drill.setName(resultSet.getString("name"));
+                drill.setCategory(resultSet.getString("category"));
+                drill.setDifficulty(resultSet.getInt("difficulty"));
+                drill.setParticipation(resultSet.getString("participation"));
+                drill.setDescription(resultSet.getString("description"));
+                drill.setStation(resultSet.getBoolean("station"));
+                drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN tag ON drillID =" + drill.getDrillID()));
+                drill.setImageLink(resultSet.getString("imageLink"));
+                drillList.add(drill);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return drillList;
+    }
+
+    public ArrayList<String> getDrillTags(String query){
+        ArrayList<String> drillTags = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                drillTags.add(resultSet.getString(("drillTag")));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return drillTags;
+    }
 }
