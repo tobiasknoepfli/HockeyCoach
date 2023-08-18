@@ -5,13 +5,12 @@ import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPagePresentationModel {
@@ -69,6 +68,32 @@ public class TrainingPagePresentationModel {
                 mainFocus.setText(newSelectedTraining.getMainFocus());
                 pointers.setText(newSelectedTraining.getPointers());
                 team.setText(newSelectedTraining.getTeam());
+
+                DBLoader dbLoader = new DBLoader();
+                List<Drill> drillList = dbLoader.getDrills("SELECT * FROM drill");
+                List<Drill> warmupList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'warmup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "warmup", newSelectedTraining.getTrainingID());
+                List<Drill> togetherList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'together' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "together", newSelectedTraining.getTrainingID());
+                List<Drill> stationsList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'stations' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "stations", newSelectedTraining.getTrainingID());
+                List<Drill> backupList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'backup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "backup", newSelectedTraining.getTrainingID());
+
+                if (!warmupList.isEmpty()) {
+                    warmup.getItems().clear();
+                    warmup.getItems().addAll(warmupList);
+                }
+                if (!togetherList.isEmpty()) {
+                    together.getItems().clear();
+                    together.getItems().addAll(togetherList);
+                }
+                if (!stationsList.isEmpty()) {
+                    stations.getItems().clear();
+                    stations.getItems().addAll(stationsList);
+                }
+                if (!backupList.isEmpty()) {
+                    backup.getItems().clear();
+                    backup.getItems().addAll(backupList);
+                }
+
+
             }
         });
     }

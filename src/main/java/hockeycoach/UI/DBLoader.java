@@ -2,10 +2,9 @@ package hockeycoach.UI;
 
 import hockeycoach.mainClasses.*;
 
-import javax.xml.transform.Result;
-import java.lang.reflect.Array;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class DBLoader {
@@ -234,7 +233,7 @@ public class DBLoader {
         return drillList;
     }
 
-    public ArrayList<String> getDrillTags(String query){
+    public ArrayList<String> getDrillTags(String query) {
         ArrayList<String> drillTags = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
@@ -251,5 +250,75 @@ public class DBLoader {
         }
 
         return drillTags;
+    }
+
+    public List<Drill> getTrainingDrills(String query, List<Drill> drillList, String table, int trainingID) {
+        List<Drill> trainingDrillList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                int drillID = resultSet.getInt("drillID");
+                Drill drill = drillList.stream()
+                        .filter(d -> d.getDrillID() == drillID)
+                        .findFirst()
+                        .orElse(null);
+
+                if (drill !=null) {
+                    drill.setTable(table);
+                    drill.setSortingIndex(getSortingIndex(drillID,trainingID));
+                    drill.setPriority(getPriority(drillID,trainingID));
+                    trainingDrillList.add(drill);
+                }
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        trainingDrillList.sort(Comparator.comparingInt(Drill::getSortingIndex));
+        return trainingDrillList;
+    }
+
+    public int getSortingIndex(int drillID, int trainingID) {
+        String query = "SELECT sortingIndex FROM trainingXdrills WHERE drillID = " + drillID + " AND trainingID = " + trainingID;
+        int sortingIndex = 0;
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                sortingIndex = (resultSet.getInt(("sortingIndex")));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return sortingIndex;
+    }
+
+    public boolean getPriority(int drillID, int trainingID) {
+        String query = "SELECT priority FROM trainingXdrills WHERE drillID = " + drillID + " AND trainingID = " + trainingID;
+        boolean priority = false;
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                priority = (resultSet.getBoolean("priority"));
+            }
+
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return priority;
     }
 }

@@ -12,15 +12,11 @@ public class Drill {
     private Boolean station;
     private ArrayList<String> tags;
     private String imageLink;
+    private String table;
+    private int sortingIndex;
+    private boolean priority;
 
     public Drill() {
-    }
-
-    public Drill(String name, String category, int difficulty, String participation) {
-        this.name = name;
-        this.category = category;
-        this.difficulty = difficulty;
-        this.participation = participation;
     }
 
     public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, String imageLink) {
@@ -33,6 +29,21 @@ public class Drill {
         this.station = station;
         this.tags = tags;
         this.imageLink = imageLink;
+    }
+
+    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, String imageLink,  String table,  int sortingIndex, boolean priority) {
+        this.drillID = drillID;
+        this.name = name;
+        this.category = category;
+        this.difficulty = difficulty;
+        this.participation = participation;
+        this.description = description;
+        this.station = station;
+        this.tags = tags;
+        this.imageLink = imageLink;
+        this.table  = table;
+        this.sortingIndex= sortingIndex;
+        this.priority = priority;
     }
 
     public int getDrillID() {
@@ -107,4 +118,27 @@ public class Drill {
         this.imageLink = imageLink;
     }
 
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    public int getSortingIndex() {
+        return sortingIndex;
+    }
+
+    public void setSortingIndex(int sortingIndex) {
+        this.sortingIndex = sortingIndex;
+    }
+
+    public boolean isPriority() {
+        return priority;
+    }
+
+    public void setPriority(boolean priority) {
+        this.priority = priority;
+    }
 }

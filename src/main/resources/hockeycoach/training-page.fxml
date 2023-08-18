@@ -43,17 +43,17 @@
             </TableColumn>
             <TableColumn fx:id="wuDiffCol" minWidth="100.0" prefWidth="100.0" text="Difficulty">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="difficulty" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="wuPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="participation" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="wuPrioCol" minWidth="100.0" prefWidth="100.0" text="Priority">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="priority" />
                </cellValueFactory>
             </TableColumn>
          </columns>
@@ -67,17 +67,17 @@
             </TableColumn>
             <TableColumn fx:id="tgDiffCol" minWidth="100.0" prefWidth="100.0" text="Difficulty">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="difficulty" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="tgPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="participation" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="tgPrioCol" minWidth="100.0" prefWidth="100.0" text="Priority">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="priority" />
                </cellValueFactory>
             </TableColumn>
          </columns>
@@ -91,17 +91,17 @@
             </TableColumn>
             <TableColumn fx:id="stDiffCol" minWidth="100.0" prefWidth="100.0" text="Difficulty">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="difficulty" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="stPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="participation" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="stPrioCol" minWidth="100.0" prefWidth="100.0" text="Priority">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="priority" />
                </cellValueFactory>
             </TableColumn>
          </columns>
@@ -115,17 +115,17 @@
             </TableColumn>
             <TableColumn fx:id="buDiffCol" minWidth="100.0" prefWidth="100.0" text="Difficulty">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="difficulty" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="buPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="participation" />
                </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="buPrioCol" minWidth="100.0" prefWidth="100.0" text="Priority">
                <cellValueFactory>
-                  <PropertyValueFactory property="name" />
+                  <PropertyValueFactory property="priority" />
                </cellValueFactory>
             </TableColumn>
          </columns>
