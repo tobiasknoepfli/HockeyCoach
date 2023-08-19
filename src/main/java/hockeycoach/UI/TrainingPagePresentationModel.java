@@ -5,12 +5,12 @@ import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TrainingPagePresentationModel {
@@ -94,6 +94,23 @@ public class TrainingPagePresentationModel {
                 }
 
 
+            }
+        });
+        displayDrill(warmup);
+        displayDrill(together);
+        displayDrill(stations);
+        displayDrill(backup);
+    }
+
+    public void displayDrill(TableView<Drill> inputTable){
+        inputTable.getSelectionModel().selectedItemProperty().addListener((obs,oldSelectedDrill,newSelectedDrill) -> {
+            if(newSelectedDrill !=null){
+                try {
+                    drillImage.setImage(new Image(newSelectedDrill.getImageLink()));
+                }catch(Exception e){
+                    drillImage.setImage(null);
+                }
+                drillName.setText(newSelectedDrill.getName());
             }
         });
     }
