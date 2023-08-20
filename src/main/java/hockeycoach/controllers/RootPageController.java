@@ -1,9 +1,6 @@
 package hockeycoach.controllers;
 
-import hockeycoach.UI.PlayerPagePresentationModel;
-import hockeycoach.UI.StartPagePresentationModel;
-import hockeycoach.UI.TeamPagePresentationModel;
-import hockeycoach.UI.TrainingPagePresentationModel;
+import hockeycoach.UI.*;
 import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +22,12 @@ public class RootPageController {
 
     @FXML
     private Button teamButton;
+
+    @FXML
+    private Button playerButton;
+
+    @FXML
+    private Button trainingButton;
 
     @FXML
     private void homeButtonAction() {
@@ -85,6 +88,21 @@ public class RootPageController {
 
             TrainingPagePresentationModel trainingPagePresentationModel = new TrainingPagePresentationModel();
             trainingPagePresentationModel.initializeControls(trainingPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void trainingEditorAction() {
+        try {
+            FXMLLoader trainingEditorLoader = new FXMLLoader(getClass().getResource("/hockeycoach/training-editor-page.fxml"));
+            Pane trainingEditorPage = trainingEditorLoader.load();
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(trainingEditorPage);
+
+            TrainingEditorPagePresentationModel trainingEditorPagePresentationModel = new TrainingEditorPagePresentationModel();
+            trainingEditorPagePresentationModel.initializeControls(trainingEditorPage);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -23,7 +23,8 @@
                                 prefHeight="68.0" prefWidth="68.0" text="Player"/>
                         <Button fx:id="trainingButton" mnemonicParsing="false" onAction="#trainingButtonAction"
                                 prefHeight="68.0" prefWidth="68.0" text="Training"/>
-                        <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button"/>
+                        <Button fx:id="trainingEditorButton" mnemonicParsing="false" onAction="#trainingEditorAction"
+                                prefHeight="68.0" prefWidth="68.0" text="Training Editor"/>
                         <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button"/>
                         <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button"/>
                         <Button mnemonicParsing="false" prefHeight="68.0" prefWidth="68.0" text="Button"/>
