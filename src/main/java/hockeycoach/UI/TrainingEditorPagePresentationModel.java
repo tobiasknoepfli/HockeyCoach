@@ -13,7 +13,6 @@ import javafx.util.Callback;
 
 import java.util.List;
 
-import static hockeycoach.mainClasses.Difficulty.BAMBINI;
 
 public class TrainingEditorPagePresentationModel {
     ImageView drillImage;
