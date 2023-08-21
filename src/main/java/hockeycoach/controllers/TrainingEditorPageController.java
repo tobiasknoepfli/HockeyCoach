@@ -67,4 +67,22 @@ public class TrainingEditorPageController {
 
     @FXML
     private TableView<Drill> backup;
+
+    @FXML
+    private TextField trainingDate;
+
+    @FXML
+    private TextField trainingTime;
+
+    @FXML
+    private TextField trainingStadium;
+
+    @FXML
+    private TextField trainingTeam;
+
+    @FXML
+    private TextField trainingMainFocus;
+
+    @FXML
+    private TextArea trainingPointers;
 }
