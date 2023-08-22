@@ -186,82 +186,86 @@ public class TrainingEditorPagePresentationModel {
 
     public void eventListenersFromTable(TableView<Drill> tableView) {
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
-            try {
-                drillImage.setImage(new Image(newDrill.getImageLink()));
-            } catch (Exception e) {
-                drillImage.setImage(null);
-            }
-
-            drillName.setText(newDrill.getName());
-            drillCategory.setText(newDrill.getCategory());
-            drillDifficulty.setText(String.valueOf(newDrill.getDifficulty()));
-            drillParticipation.setText(newDrill.getParticipation());
-            drillStation.setSelected(newDrill.getStation());
-            drillDescription.setText(newDrill.getDescription());
-
-            TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
-
-            tagColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
-                @Override
-                public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> param) {
-                    return new ReadOnlyObjectWrapper<>(param.getValue());
+            if (newDrill != null) {
+                try {
+                    drillImage.setImage(new Image(newDrill.getImageLink()));
+                } catch (Exception e) {
+                    drillImage.setImage(null);
                 }
-            });
 
-            drillTags.getItems().clear();
-            drillTags.getItems().addAll(newDrill.getTags());
-        });
-    }
+                drillName.setText(newDrill.getName());
+                drillCategory.setText(newDrill.getCategory());
+                drillDifficulty.setText(String.valueOf(newDrill.getDifficulty()));
+                drillParticipation.setText(newDrill.getParticipation());
+                drillStation.setSelected(newDrill.getStation());
+                drillDescription.setText(newDrill.getDescription());
 
-    public void filterDrillTable() {
-        Predicate<Drill> filterPredicate = drill ->
-                (cbCategory.getValue() == null || cbCategory.getValue().equals("Category") || cbCategory.getValue().equals(drill.getCategory())) &&
-                        (cbDifficulty.getValue() == null || cbDifficulty.getValue().equals("Difficulty") || cbDifficulty.getValue().equals(drill.getDifficulty())) &&
-                        (cbParticipation.getValue() == null || cbParticipation.getValue().equals("Participation") || cbParticipation.getValue().equals(drill.getParticipation())) &&
-                        (cbStation.getValue() == null || cbStation.getValue().equals("Stations") || cbStation.getValue().equals(drill.getStation())) &&
-                        (cbTags.getValue() == null || cbTags.getValue().equals("Tags") || drill.getTags().contains(cbTags.getValue()));
+                TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
 
-        filteredDrills.setPredicate(filterPredicate);
-    }
+                tagColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> param) {
+                        return new ReadOnlyObjectWrapper<>(param.getValue());
+                    }
+                });
 
-    public void searchDrillTable() {
-        String searchInput = searchBox.getText().trim();
-        String[] searchWords = searchInput.split("\\s+");
+                drillTags.getItems().clear();
+                drillTags.getItems().addAll(newDrill.getTags());
+            }});
+        }
 
-        Predicate<Drill> filterPredicate = drill -> {
-            if (searchWords.length == 0) {
-                return true;
-            }
-            for (String word : searchWords) {
-                if (word.isEmpty()) {
-                    continue;
-                }
-                if (drill.getName().toLowerCase().contains(word.toLowerCase()) ||
-                        drill.getCategory().toLowerCase().contains(word.toLowerCase()) ||
-                        String.valueOf(drill.getDifficulty()).equals(word) ||
-                        drill.getParticipation().toLowerCase().contains(word.toLowerCase()) ||
-                        String.valueOf(drill.getStation()).equals(word) ||
-                        drill.getTags().stream().anyMatch(tag -> tag.toLowerCase().contains(word.toLowerCase()))) {
+        public void filterDrillTable () {
+            drillTable.getSelectionModel().clearSelection();
+            Predicate<Drill> filterPredicate = drill ->
+                    (cbCategory.getValue() == null || cbCategory.getValue().equals("Category") || cbCategory.getValue().equals(drill.getCategory())) &&
+                            (cbDifficulty.getValue() == null || cbDifficulty.getValue().equals("Difficulty") || cbDifficulty.getValue().equals(drill.getDifficulty())) &&
+                            (cbParticipation.getValue() == null || cbParticipation.getValue().equals("Participation") || cbParticipation.getValue().equals(drill.getParticipation())) &&
+                            (cbStation.getValue() == null || cbStation.getValue().equals("Stations") || cbStation.getValue().equals(drill.getStation())) &&
+                            (cbTags.getValue() == null || cbTags.getValue().equals("Tags") || drill.getTags().contains(cbTags.getValue()));
+
+            filteredDrills.setPredicate(filterPredicate);
+        }
+
+        public void searchDrillTable () {
+            drillTable.getSelectionModel().clearSelection();
+            String searchInput = searchBox.getText().trim();
+            String[] searchWords = searchInput.split("\\s+");
+
+            Predicate<Drill> filterPredicate = drill -> {
+                if (searchWords.length == 0) {
                     return true;
                 }
-            }
-            return false;
-        };
-        filteredDrills.setPredicate(filterPredicate);
+                for (String word : searchWords) {
+                    if (word.isEmpty()) {
+                        continue;
+                    }
+                    if (drill.getName().toLowerCase().contains(word.toLowerCase()) ||
+                            drill.getCategory().toLowerCase().contains(word.toLowerCase()) ||
+                            String.valueOf(drill.getDifficulty()).equals(word) ||
+                            drill.getParticipation().toLowerCase().contains(word.toLowerCase()) ||
+                            String.valueOf(drill.getStation()).equals(word) ||
+                            drill.getTags().stream().anyMatch(tag -> tag.toLowerCase().contains(word.toLowerCase()))) {
+                        return true;
+                    }
+                }
+                return false;
+            };
+            filteredDrills.setPredicate(filterPredicate);
+        }
+
+        @FXML
+        private void resetAllFilters () {
+            drillTable.getSelectionModel().clearSelection();
+            cbCategory.getSelectionModel().select(0);
+            cbDifficulty.getSelectionModel().select(0);
+            cbParticipation.getSelectionModel().select(0);
+            cbTags.getSelectionModel().select(0);
+            cbStation.getSelectionModel().select(0);
+            searchBox.clear();
+
+            filteredDrills.setPredicate(null);
+        }
+
     }
-
-    @FXML
-    private void resetAllFilters(){
-        cbCategory.getSelectionModel().select(0);
-        cbDifficulty.getSelectionModel().select(0);
-        cbParticipation.getSelectionModel().select(0);
-        cbTags.getSelectionModel().select(0);
-        cbStation.getSelectionModel().select(0);
-        searchBox.clear();
-
-        filteredDrills.setPredicate(null);
-    }
-
-}
 
 
