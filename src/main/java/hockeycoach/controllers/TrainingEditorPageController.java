@@ -1,5 +1,6 @@
 package hockeycoach.controllers;
 
+import hockeycoach.UI.TrainingEditorPagePresentationModel;
 import hockeycoach.mainClasses.Drill;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -85,4 +86,7 @@ public class TrainingEditorPageController {
 
     @FXML
     private TextArea trainingPointers;
+
+    @FXML
+    private Button resetFilters;
 }

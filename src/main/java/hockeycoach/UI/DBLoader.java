@@ -1,11 +1,13 @@
 package hockeycoach.UI;
 
 import hockeycoach.mainClasses.*;
+import javafx.collections.FXCollections;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DBLoader {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
@@ -248,8 +250,11 @@ public class DBLoader {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ArrayList<String> drillTagList = drillTags.stream()
+                .distinct()
+                .collect(Collectors.toCollection(ArrayList::new));
 
-        return drillTags;
+        return  drillTagList;
     }
 
     public List<Drill> getTrainingDrills(String query, List<Drill> drillList, String table, int trainingID) {
