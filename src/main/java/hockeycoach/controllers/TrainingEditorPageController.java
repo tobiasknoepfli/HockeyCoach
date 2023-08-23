@@ -89,4 +89,33 @@ public class TrainingEditorPageController {
 
     @FXML
     private Button resetFilters;
+
+    @FXML
+    private Tab warmupTab;
+
+    @FXML
+    private Tab togetherTab;
+
+    @FXML
+    private Tab stationsTab;
+
+    @FXML
+    private Tab backupTab;
+
+    @FXML
+    private TabPane tablePane;
+
+    @FXML
+    private Button warmupButton;
+
+    @FXML
+    private Button togetherButton;
+
+    @FXML
+    private Button stationsButton;
+
+    @FXML
+    private Button backupButton;
+
+
 }

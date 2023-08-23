@@ -29,7 +29,7 @@
       <TextArea fx:id="drillDescription" layoutX="78.0" layoutY="406.0" prefHeight="316.0" prefWidth="399.0" />
       <CheckBox fx:id="drillStation" layoutX="385.0" layoutY="378.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="87.0" text="Station" />
       <Label layoutX="14.0" layoutY="406.0" prefHeight="25.0" prefWidth="64.0" text="Description" />
-      <TableView fx:id="drillTags" layoutX="482.0" layoutY="305.0" prefHeight="416.0" prefWidth="224.0">
+      <TableView fx:id="drillTags" layoutX="482.0" layoutY="305.0"  prefHeight="416.0" prefWidth="224.0">
          <columns>
             <TableColumn fx:id="tagCol" minWidth="223.0" prefWidth="223.0" text="Tags">
                 <cellValueFactory>
@@ -38,14 +38,14 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="drillTable" layoutX="711.0" layoutY="405.0" prefHeight="316.0" prefWidth="475.0">
+      <TableView fx:id="drillTable" layoutX="711.0" layoutY="405.0" prefHeight="316.0" prefWidth="400.0">
          <columns>
-            <TableColumn fx:id="dtNameCol" minWidth="300.0" prefWidth="300.0" text="Name">
+            <TableColumn fx:id="dtNameCol" minWidth="230.0" prefWidth="230.0" text="Name">
                <cellValueFactory>
                   <PropertyValueFactory property="name" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="dtDiffCol" minWidth="80.0" text="Difficulty">
+            <TableColumn fx:id="dtDiffCol" minWidth="70.0" prefWidth="70.0" text="Difficulty">
                <cellValueFactory>
                   <PropertyValueFactory property="difficulty" />
                </cellValueFactory>
@@ -62,11 +62,11 @@
       <ComboBox fx:id="cbParticipation" layoutX="711.0" layoutY="308.0" prefHeight="25.0" prefWidth="235.0" promptText="Participation" />
       <ComboBox fx:id="cbStation" layoutX="951.0" layoutY="308.0" prefHeight="25.0" prefWidth="235.0" promptText="Station" />
       <ComboBox fx:id="cbTags" layoutX="711.0" layoutY="338.0" prefHeight="25.0" prefWidth="235.0" promptText="Tags" />
-      <TextField fx:id="searchBox" layoutX="711.0" layoutY="369.0" prefHeight="30.0" prefWidth="407.0" />
-      <Button fx:id="searchButton" layoutX="1129.0" layoutY="371.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="57.0" text="Search" />
-      <TabPane layoutX="711.0" layoutY="11.0" prefHeight="260.0" prefWidth="475.0" tabClosingPolicy="UNAVAILABLE">
+      <TextField fx:id="searchBox" layoutX="711.0" layoutY="369.0" prefHeight="30.0" prefWidth="400.0" />
+      <Button fx:id="searchButton" layoutX="1122.0" layoutY="371.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Search" />
+      <TabPane fx:id="tablePane" layoutX="711.0" layoutY="11.0" prefHeight="260.0" prefWidth="475.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Warmup">
+          <Tab fx:id="warmupTab" text="Warmup">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="232.0" prefWidth="475.0">
                      <children>
@@ -98,7 +98,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Together">
+          <Tab fx:id="togetherTab" text="Together">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -130,7 +130,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Stations">
+            <Tab fx:id="stationsTab" text="Stations">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -162,7 +162,7 @@
                   </AnchorPane>
                </content>
             </Tab>
-            <Tab text="Backup">
+            <Tab fx:id="backupTab" text="Backup">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="475.0">
                      <children>
@@ -208,6 +208,10 @@
       <Label layoutX="9.0" layoutY="133.0" prefHeight="25.0" prefWidth="64.0" text="Main Focus" />
       <TextArea fx:id="trainingPointers" layoutX="75.0" layoutY="160.0" prefHeight="130.0" prefWidth="213.0" />
       <Label layoutX="9.0" layoutY="160.0" prefHeight="25.0" prefWidth="64.0" text="Pointers" />
-      <Button fx:id="resetFilters" layoutX="1082.0" layoutY="340.0" mnemonicParsing="false"  prefHeight="25.0" prefWidth="104.0" text="Reset all filters" />
+      <Button fx:id="resetFilters" layoutX="1082.0" layoutY="340.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Reset all filters" />
+      <Button fx:id="warmupButton" layoutX="1122.0" layoutY="431.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Warmup" />
+      <Button fx:id="togetherButton" layoutX="1122.0" layoutY="462.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Together" />
+      <Button fx:id="stationsButton" layoutX="1122.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Stations" />
+      <Button fx:id="backupButton" layoutX="1122.0" layoutY="526.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Backup" />
     </children>
 </Pane>

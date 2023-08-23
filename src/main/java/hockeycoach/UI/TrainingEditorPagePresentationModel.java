@@ -3,6 +3,7 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -12,6 +13,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
@@ -54,7 +59,15 @@ public class TrainingEditorPagePresentationModel {
     TextField trainingTeam;
     TextField trainingMainFocus;
     TextArea trainingPointers;
-
+    Button warmupButton;
+    Button togetherButton;
+    Button stationsButton;
+    Button backupButton;
+    TabPane tablePane;
+    Tab warmupTab;
+    Tab togetherTab;
+    Tab stationsTab;
+    Tab backupTab;
 
     public void initializeControls(Pane root) {
         drillImage = (ImageView) root.lookup("#drillImage");
@@ -84,6 +97,22 @@ public class TrainingEditorPagePresentationModel {
         trainingMainFocus = (TextField) root.lookup("#trainingMainFocus");
         trainingPointers = (TextArea) root.lookup("#trainingPointers");
         resetFilters = (Button) root.lookup("#resetFilters");
+        warmupButton = (Button) root.lookup("#warmupButton");
+        togetherButton = (Button) root.lookup("#togetherButton");
+        stationsButton = (Button) root.lookup("#stationsButton");
+        backupButton = (Button) root.lookup("#backupButton");
+        tablePane = (TabPane) root.lookup("#tablePane");
+        warmupTab = tablePane.getTabs().get(0);
+        togetherTab = tablePane.getTabs().get(1);
+        stationsTab = tablePane.getTabs().get(2);
+        backupTab = tablePane.getTabs().get(3);
+
+
+        drillTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        warmup.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        stations.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        together.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        backup.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -182,6 +211,13 @@ public class TrainingEditorPagePresentationModel {
         cbTags.getSelectionModel().select(0);
 
         cbCategory.setOnAction(event -> filterDrillTable());
+
+        warmupButton.setOnAction(event -> moveSelectedDrills(warmup,warmupTab));
+        togetherButton.setOnAction(event -> moveSelectedDrills(together,togetherTab));
+        backupButton.setOnAction(event -> moveSelectedDrills(backup,backupTab));
+        stationsButton.setOnAction(event -> moveDrillsIfStationsTrue());
+
+
     }
 
     public void eventListenersFromTable(TableView<Drill> tableView) {
@@ -211,61 +247,76 @@ public class TrainingEditorPagePresentationModel {
 
                 drillTags.getItems().clear();
                 drillTags.getItems().addAll(newDrill.getTags());
-            }});
-        }
+            }
+        });
+    }
 
-        public void filterDrillTable () {
-            drillTable.getSelectionModel().clearSelection();
-            Predicate<Drill> filterPredicate = drill ->
-                    (cbCategory.getValue() == null || cbCategory.getValue().equals("Category") || cbCategory.getValue().equals(drill.getCategory())) &&
-                            (cbDifficulty.getValue() == null || cbDifficulty.getValue().equals("Difficulty") || cbDifficulty.getValue().equals(drill.getDifficulty())) &&
-                            (cbParticipation.getValue() == null || cbParticipation.getValue().equals("Participation") || cbParticipation.getValue().equals(drill.getParticipation())) &&
-                            (cbStation.getValue() == null || cbStation.getValue().equals("Stations") || cbStation.getValue().equals(drill.getStation())) &&
-                            (cbTags.getValue() == null || cbTags.getValue().equals("Tags") || drill.getTags().contains(cbTags.getValue()));
+    public void filterDrillTable() {
+        drillTable.getSelectionModel().clearSelection();
+        Predicate<Drill> filterPredicate = drill ->
+                (cbCategory.getValue() == null || cbCategory.getValue().equals("Category") || cbCategory.getValue().equals(drill.getCategory())) &&
+                        (cbDifficulty.getValue() == null || cbDifficulty.getValue().equals("Difficulty") || cbDifficulty.getValue().equals(drill.getDifficulty())) &&
+                        (cbParticipation.getValue() == null || cbParticipation.getValue().equals("Participation") || cbParticipation.getValue().equals(drill.getParticipation())) &&
+                        (cbStation.getValue() == null || cbStation.getValue().equals("Stations") || cbStation.getValue().equals(drill.getStation())) &&
+                        (cbTags.getValue() == null || cbTags.getValue().equals("Tags") || drill.getTags().contains(cbTags.getValue()));
 
-            filteredDrills.setPredicate(filterPredicate);
-        }
+        filteredDrills.setPredicate(filterPredicate);
+    }
 
-        public void searchDrillTable () {
-            drillTable.getSelectionModel().clearSelection();
-            String searchInput = searchBox.getText().trim();
-            String[] searchWords = searchInput.split("\\s+");
+    public void searchDrillTable() {
+        drillTable.getSelectionModel().clearSelection();
+        String searchInput = searchBox.getText().trim();
+        String[] searchWords = searchInput.split("\\s+");
 
-            Predicate<Drill> filterPredicate = drill -> {
-                if (searchWords.length == 0) {
+        Predicate<Drill> filterPredicate = drill -> {
+            if (searchWords.length == 0) {
+                return true;
+            }
+            for (String word : searchWords) {
+                if (word.isEmpty()) {
+                    continue;
+                }
+                if (drill.getName().toLowerCase().contains(word.toLowerCase()) ||
+                        drill.getCategory().toLowerCase().contains(word.toLowerCase()) ||
+                        String.valueOf(drill.getDifficulty()).equals(word) ||
+                        drill.getParticipation().toLowerCase().contains(word.toLowerCase()) ||
+                        String.valueOf(drill.getStation()).equals(word) ||
+                        drill.getTags().stream().anyMatch(tag -> tag.toLowerCase().contains(word.toLowerCase()))) {
                     return true;
                 }
-                for (String word : searchWords) {
-                    if (word.isEmpty()) {
-                        continue;
-                    }
-                    if (drill.getName().toLowerCase().contains(word.toLowerCase()) ||
-                            drill.getCategory().toLowerCase().contains(word.toLowerCase()) ||
-                            String.valueOf(drill.getDifficulty()).equals(word) ||
-                            drill.getParticipation().toLowerCase().contains(word.toLowerCase()) ||
-                            String.valueOf(drill.getStation()).equals(word) ||
-                            drill.getTags().stream().anyMatch(tag -> tag.toLowerCase().contains(word.toLowerCase()))) {
-                        return true;
-                    }
-                }
-                return false;
-            };
-            filteredDrills.setPredicate(filterPredicate);
-        }
-
-        @FXML
-        private void resetAllFilters () {
-            drillTable.getSelectionModel().clearSelection();
-            cbCategory.getSelectionModel().select(0);
-            cbDifficulty.getSelectionModel().select(0);
-            cbParticipation.getSelectionModel().select(0);
-            cbTags.getSelectionModel().select(0);
-            cbStation.getSelectionModel().select(0);
-            searchBox.clear();
-
-            filteredDrills.setPredicate(null);
-        }
-
+            }
+            return false;
+        };
+        filteredDrills.setPredicate(filterPredicate);
     }
+
+    @FXML
+    private void resetAllFilters() {
+        drillTable.getSelectionModel().clearSelection();
+        cbCategory.getSelectionModel().select(0);
+        cbDifficulty.getSelectionModel().select(0);
+        cbParticipation.getSelectionModel().select(0);
+        cbTags.getSelectionModel().select(0);
+        cbStation.getSelectionModel().select(0);
+        searchBox.clear();
+
+        filteredDrills.setPredicate(null);
+    }
+
+    private void moveSelectedDrills(TableView<Drill> targetList, Tab tab){
+        ObservableList<Drill> selectedDrills = drillTable.getSelectionModel().getSelectedItems();
+        targetList.getItems().addAll(selectedDrills);
+        tablePane.getSelectionModel().select(tab);
+    }
+
+    private void moveDrillsIfStationsTrue(){
+        ObservableList<Drill> selectedDrills = drillTable.getSelectionModel().getSelectedItems().stream()
+                .filter(Drill::getStation)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+        stations.getItems().addAll(selectedDrills);
+        tablePane.getSelectionModel().select(stationsTab);
+    }
+}
+
 
 
