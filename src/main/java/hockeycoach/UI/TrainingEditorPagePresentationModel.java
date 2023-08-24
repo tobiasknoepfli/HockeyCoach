@@ -3,7 +3,6 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
-import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,16 +12,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -133,6 +128,21 @@ public class TrainingEditorPagePresentationModel {
         searchButton.setOnAction(event -> searchDrillTable());
         resetFilters.setOnAction(event -> resetAllFilters());
 
+        removeDrillSetup(warmup);
+        removeDrillSetup(together);
+        removeDrillSetup(stations);
+        removeDrillSetup(backup);
+
+        setPriority(warmup);
+        setPriority(together);
+        setPriority(stations);
+        setPriority(backup);
+
+        moveDrill(warmup);
+        moveDrill(together);
+        moveDrill(stations);
+        moveDrill(backup);
+
         setupEventListeners();
 
     }
@@ -212,11 +222,10 @@ public class TrainingEditorPagePresentationModel {
 
         cbCategory.setOnAction(event -> filterDrillTable());
 
-        warmupButton.setOnAction(event -> moveSelectedDrills(warmup,warmupTab));
-        togetherButton.setOnAction(event -> moveSelectedDrills(together,togetherTab));
-        backupButton.setOnAction(event -> moveSelectedDrills(backup,backupTab));
+        warmupButton.setOnAction(event -> moveSelectedDrills(warmup, warmupTab));
+        togetherButton.setOnAction(event -> moveSelectedDrills(together, togetherTab));
+        backupButton.setOnAction(event -> moveSelectedDrills(backup, backupTab));
         stationsButton.setOnAction(event -> moveDrillsIfStationsTrue());
-
 
     }
 
@@ -303,18 +312,109 @@ public class TrainingEditorPagePresentationModel {
         filteredDrills.setPredicate(null);
     }
 
-    private void moveSelectedDrills(TableView<Drill> targetList, Tab tab){
+    private void moveSelectedDrills(TableView<Drill> targetList, Tab tab) {
         ObservableList<Drill> selectedDrills = drillTable.getSelectionModel().getSelectedItems();
-        targetList.getItems().addAll(selectedDrills);
+
+        for (Drill d : selectedDrills) {
+            if (!targetList.getItems().contains(d)) {
+                int initialIndex = targetList.getItems().size();
+                d.setSortingIndex(initialIndex);
+                targetList.getItems().add(d);
+            }
+        }
+
         tablePane.getSelectionModel().select(tab);
     }
 
-    private void moveDrillsIfStationsTrue(){
+    private void moveDrillsIfStationsTrue() {
         ObservableList<Drill> selectedDrills = drillTable.getSelectionModel().getSelectedItems().stream()
                 .filter(Drill::getStation)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        stations.getItems().addAll(selectedDrills);
+
+        for (Drill d : selectedDrills) {
+            if (!stations.getItems().contains(d)) {
+                int initialIndex = stations.getItems().size();
+                d.setSortingIndex(initialIndex);
+                stations.getItems().add(d);
+            }
+        }
+
         tablePane.getSelectionModel().select(stationsTab);
+    }
+
+    private void removeDrillSetup(TableView<Drill> tableView) {
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
+            if (newDrill != null) {
+                try {
+                    tableView.setOnKeyReleased(event -> {
+                        if (event.getCode() == KeyCode.DELETE) {
+                            tableView.getItems().remove(newDrill);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void setPriority(TableView<Drill> tableView) {
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
+            if (newDrill != null) {
+                try {
+                    tableView.setOnKeyPressed(event -> {
+                        if (event.getCode() == KeyCode.P) {
+                            newDrill.setPriority((!newDrill.isPriority()));
+                            tableView.refresh();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void moveDrill(TableView<Drill> tableView) {
+        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
+            if (newDrill != null) {
+                try {
+                    tableView.setOnKeyPressed(event -> {
+                        if (event.getCode() == KeyCode.U) {
+                            int oldIndex = tableView.getSelectionModel().getSelectedIndex();
+                            if (oldIndex > 0) {
+                                int newIndex = oldIndex-1;
+                                Drill d  = tableView.getItems().remove(oldIndex);
+                                tableView.getItems().add(newIndex,d);
+                                tableView.getSelectionModel().clearSelection();
+                                tableView.getSelectionModel().select(newIndex);
+                                for(Drill drill:tableView.getItems()){
+                                    drill.setSortingIndex(tableView.getItems().indexOf(drill));
+                                }
+                            }
+                            tableView.refresh();
+                        }
+                        if (event.getCode() == KeyCode.D) {
+                            int oldIndex = tableView.getSelectionModel().getSelectedIndex();
+                            int tvSize= tableView.getItems().size()-1;
+                            if (oldIndex < tvSize) {
+                                int newIndex = oldIndex+1;
+                                Drill d  = tableView.getItems().remove(oldIndex);
+                                tableView.getItems().add(newIndex,d);
+                                tableView.getSelectionModel().clearSelection();
+                                tableView.getSelectionModel().select(newIndex);
+                                for(Drill drill:tableView.getItems()){
+                                    drill.setSortingIndex(tableView.getItems().indexOf(drill));
+                                }
+                            }
+                            tableView.refresh();
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }
 
