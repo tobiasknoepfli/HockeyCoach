@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -7,12 +8,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="730.0" maxWidth="1200.0" minHeight="730.0" minWidth="1200.0" prefHeight="730.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.PlayerPageController">
+<Pane maxHeight="820.0" maxWidth="1200.0" minHeight="770.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.PlayerPageController">
     <children>
-        <TableView fx:id="teamPlayers" layoutX="10.0" layoutY="50.0" prefHeight="670.0" prefWidth="400.0">
+        <TableView fx:id="teamPlayers" layoutX="12.0" layoutY="60.0" prefHeight="753.0" prefWidth="400.0">
             <columns>
                 <TableColumn fx:id="playerLastName" minWidth="150.0" prefWidth="150.0" text="Last Name">
                     <cellValueFactory>
@@ -31,48 +33,48 @@
                 </TableColumn>
             </columns>
         </TableView>
-      <ImageView fx:id="playerPhoto" fitHeight="200.0" fitWidth="200.0" layoutX="986.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="playerName" layoutX="420.0" layoutY="50.0" prefHeight="30.0" prefWidth="550.0" />
-      <TextField fx:id="team" layoutX="420.0" layoutY="80.0" prefHeight="30.0" prefWidth="550.0" />
-      <Label layoutX="420.0" layoutY="138.0" prefHeight="25.0" prefWidth="150.0" text="Address" />
-      <VBox layoutX="570.0" layoutY="138.0" prefHeight="75.0" prefWidth="400.0">
+      <ImageView fx:id="playerPhoto" fitHeight="200.0" fitWidth="200.0" layoutX="988.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="playerName" layoutX="422.0" layoutY="60.0" prefHeight="30.0" prefWidth="550.0" />
+      <TextField fx:id="team" layoutX="422.0" layoutY="90.0" prefHeight="30.0" prefWidth="550.0" />
+      <Label layoutX="422.0" layoutY="134.0" prefHeight="25.0" prefWidth="150.0" text="Address" />
+      <VBox layoutX="572.0" layoutY="134.0" prefHeight="75.0" prefWidth="400.0">
          <children>
             <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0" />
             <TextField fx:id="zipCity" prefHeight="20.0" prefWidth="400.0" />
             <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0" />
          </children>
       </VBox>
-      <VBox layoutX="420.0" layoutY="220.0" prefHeight="50.0" prefWidth="150.0">
+      <VBox layoutX="422.0" layoutY="216.0" prefHeight="50.0" prefWidth="150.0">
          <children>
             <Label minHeight="25.0" prefHeight="25.0" prefWidth="306.0" text="Phone" />
             <Label minHeight="25.0" prefHeight="25.0" prefWidth="306.0" text="Email" />
          </children>
       </VBox>
-      <VBox layoutX="570.0" layoutY="220.0" prefHeight="50.0" prefWidth="400.0">
+      <VBox layoutX="572.0" layoutY="216.0" prefHeight="50.0" prefWidth="400.0">
          <children>
             <TextField fx:id="phone" prefHeight="20.0" prefWidth="400.0" />
             <TextField fx:id="email" prefHeight="20.0" prefWidth="400.0" />
          </children>
       </VBox>
-      <Label layoutX="420.0" layoutY="290.0" prefHeight="25.0" prefWidth="150.0" text="Jersey Number" />
-      <TextField fx:id="jersey" layoutX="572.0" layoutY="290.0" prefHeight="25.0" prefWidth="173.0" />
-      <Label layoutX="755.0" layoutY="290.0" prefHeight="25.0" prefWidth="58.0" text="Positions" />
-      <TextField fx:id="positions" layoutX="820.0" layoutY="290.0" prefHeight="25.0" prefWidth="150.0" />
-      <Label layoutX="572.0" layoutY="387.0" prefHeight="25.0" prefWidth="195.0" text="Strengths" />
-      <TextArea fx:id="strengths" layoutX="572.0" layoutY="412.0" minHeight="116.0" prefHeight="116.0" prefWidth="195.0" wrapText="true" />
-      <TextArea fx:id="weaknesses" layoutX="775.0" layoutY="412.0" minHeight="116.0" prefHeight="116.0" prefWidth="195.0" wrapText="true" />
-      <Label layoutX="775.0" layoutY="387.0" prefHeight="25.0" prefWidth="195.0" text="Weaknesses" />
-      <Label layoutX="420.0" layoutY="534.0" prefHeight="25.0" prefWidth="150.0" text="Notes" />
-      <TextArea fx:id="notes" layoutX="572.0" layoutY="534.0" minHeight="125.0" prefHeight="186.0" prefWidth="400.0" wrapText="true" />
-      <TextField fx:id="aLicence" layoutX="572.0" layoutY="321.0" prefHeight="25.0" prefWidth="173.0" />
-      <Label layoutX="420.0" layoutY="321.0" prefHeight="25.0" prefWidth="150.0" text="A Licence" />
-      <TextField fx:id="bLicence" layoutX="572.0" layoutY="353.0" prefHeight="25.0" prefWidth="173.0" />
-      <Label layoutX="420.0" layoutY="353.0" prefHeight="25.0" prefWidth="150.0" text="B Licence" />
-      <TextField fx:id="role" layoutX="820.0" layoutY="321.0" prefHeight="25.0" prefWidth="150.0" />
-      <TextField fx:id="stick" layoutX="820.0" layoutY="352.0" prefHeight="25.0" prefWidth="150.0" />
-      <Label layoutX="755.0" layoutY="321.0" prefHeight="25.0" prefWidth="58.0" text="Role" />
-      <Label layoutX="755.0" layoutY="352.0" prefHeight="25.0" prefWidth="58.0" text="Stick" />
-      <TableView fx:id="playerTeams" layoutX="986.0" layoutY="290.0" prefHeight="430.0" prefWidth="200.0">
+      <Label layoutX="422.0" layoutY="277.0" prefHeight="25.0" prefWidth="150.0" text="Jersey Number" />
+      <TextField fx:id="jersey" layoutX="574.0" layoutY="277.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="757.0" layoutY="277.0" prefHeight="25.0" prefWidth="58.0" text="Positions" />
+      <TextField fx:id="positions" layoutX="822.0" layoutY="277.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="574.0" layoutY="374.0" prefHeight="25.0" prefWidth="195.0" text="Strengths" />
+      <TextArea fx:id="strengths" layoutX="574.0" layoutY="399.0" minHeight="116.0" prefHeight="116.0" prefWidth="195.0" wrapText="true" />
+      <TextArea fx:id="weaknesses" layoutX="777.0" layoutY="399.0" minHeight="116.0" prefHeight="116.0" prefWidth="195.0" wrapText="true" />
+      <Label layoutX="777.0" layoutY="374.0" prefHeight="25.0" prefWidth="195.0" text="Weaknesses" />
+      <Label layoutX="422.0" layoutY="521.0" prefHeight="25.0" prefWidth="150.0" text="Notes" />
+      <TextArea fx:id="notes" layoutX="574.0" layoutY="521.0" minHeight="125.0" prefHeight="292.0" prefWidth="400.0" wrapText="true" />
+      <TextField fx:id="aLicence" layoutX="574.0" layoutY="308.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="422.0" layoutY="308.0" prefHeight="25.0" prefWidth="150.0" text="A Licence" />
+      <TextField fx:id="bLicence" layoutX="574.0" layoutY="340.0" prefHeight="25.0" prefWidth="173.0" />
+      <Label layoutX="422.0" layoutY="340.0" prefHeight="25.0" prefWidth="150.0" text="B Licence" />
+      <TextField fx:id="role" layoutX="822.0" layoutY="308.0" prefHeight="25.0" prefWidth="150.0" />
+      <TextField fx:id="stick" layoutX="822.0" layoutY="339.0" prefHeight="25.0" prefWidth="150.0" />
+      <Label layoutX="757.0" layoutY="308.0" prefHeight="25.0" prefWidth="58.0" text="Role" />
+      <Label layoutX="757.0" layoutY="339.0" prefHeight="25.0" prefWidth="58.0" text="Stick" />
+      <TableView fx:id="playerTeams" layoutX="988.0" layoutY="277.0" prefHeight="537.0" prefWidth="200.0">
          <columns>
             <TableColumn fx:id="teamColumn" minWidth="57.0" prefWidth="199.0" text="Teams">
                <cellValueFactory>
@@ -81,5 +83,24 @@
             </TableColumn>
          </columns>
       </TableView>
+      <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="6.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
+         <children>
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+         </children>
+      </HBox>
     </children>
 </Pane>
