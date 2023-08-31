@@ -2,11 +2,19 @@ package hockeycoach.controllers;
 
 import hockeycoach.mainClasses.Player;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import org.w3c.dom.Text;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 
 public class NewTeamPageController {
     @FXML
@@ -59,4 +67,10 @@ public class NewTeamPageController {
 
     @FXML
     private TextArea notes;
+
+    @FXML
+    private Label controlLabel;
+
+    @FXML
+    private TextField imageDropField;
 }
