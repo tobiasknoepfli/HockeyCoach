@@ -1,24 +1,25 @@
 package hockeycoach.UI;
 
-import hockeycoach.mainClasses.ImageDropField;
+import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.events.MouseEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewTeamPagePresentationModel {
+    MouseEvent event;
+
     ImageView teamLogo;
     TextField teamName;
     TextField stadiumName;
@@ -37,7 +38,8 @@ public class NewTeamPagePresentationModel {
     TableView<Player> teamPlayers;
     TextArea notes;
     Label controlLabel;
-    TextField logoDrop;
+    ImageView logoPicture;
+    TextField imageName;
 
     List<Team> teamList = new ArrayList();
 
@@ -60,13 +62,11 @@ public class NewTeamPagePresentationModel {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         notes = (TextArea) root.lookup("#notes");
         controlLabel = (Label) root.lookup("#controlLabel");
-        logoDrop= (TextField)root.lookup("#logoDrop");
+        logoPicture= (ImageView) root.lookup("#logoPicture");
+        imageName= (TextField) root.lookup("#imageName");
 
         DBLoaderTeamList dbLoaderTeamList = new DBLoaderTeamList();
         teamList = dbLoaderTeamList.getAllTeamNames();
-
-        ImageDropField imageDropField = new ImageDropField("src/main/java/hockeycoach/files/logos",logoDrop);
-        imageDropField.initializeControls();
 
         setControlsDisabled(true);
         setupEventListeners();
@@ -82,6 +82,7 @@ public class NewTeamPagePresentationModel {
             setControlsDisabled(disableControls);
         });
 
+        logoPicture.setOnMouseClicked(event -> handleImageClick());
 
     }
 
@@ -101,5 +102,11 @@ public class NewTeamPagePresentationModel {
         headCoachName.setDisable(disabled);
         captainName.setDisable(disabled);
         notes.setDisable(disabled);
+    }
+
+    private void handleImageClick() {
+        ImageChooser imageChooser = new ImageChooser();
+        Image image = imageChooser.chooseImage(event);
+        teamLogo.setImage(image);
     }
 }

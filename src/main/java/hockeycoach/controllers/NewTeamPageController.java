@@ -18,9 +18,6 @@ import java.nio.file.StandardCopyOption;
 
 public class NewTeamPageController {
     @FXML
-    private ImageView teamLogo;
-
-    @FXML
     private TextField teamName;
 
     @FXML
@@ -63,14 +60,14 @@ public class NewTeamPageController {
     private TextField captainName;
 
     @FXML
-    private TableView<Player> teamPlayers;
-
-    @FXML
     private TextArea notes;
 
     @FXML
     private Label controlLabel;
 
     @FXML
-    private TextField imageDropField;
+    private ImageView logoPicture;
+
+    @FXML
+    private TextField imageName;
 }

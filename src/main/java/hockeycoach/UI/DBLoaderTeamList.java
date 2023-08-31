@@ -49,3 +49,4 @@ public class DBLoaderTeamList {
         tableView.getItems().addAll(teams);
     }
 }
+
