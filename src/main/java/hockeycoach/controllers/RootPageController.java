@@ -54,7 +54,7 @@ public class RootPageController {
             contentPane.getChildren().clear();
             contentPane.getChildren().add(teamPage);
 
-            TeamPagePresentationModel teamPagePresentationModel = new TeamPagePresentationModel();
+            TeamPagePresentationModel teamPagePresentationModel = new TeamPagePresentationModel(contentPane);
             teamPagePresentationModel.intializeControls(teamPage);
 
         } catch (IOException e) {
@@ -117,7 +117,7 @@ public class RootPageController {
             contentPane.getChildren().clear();
             contentPane.getChildren().add(newTeamPage);
 
-            NewTeamPagePresentationModel newTeamPagePresentationModel = new NewTeamPagePresentationModel();
+            NewTeamPagePresentationModel newTeamPagePresentationModel = new NewTeamPagePresentationModel(contentPane);
             newTeamPagePresentationModel.intializeControls(newTeamPage);
         } catch (IOException e) {
             e.printStackTrace();

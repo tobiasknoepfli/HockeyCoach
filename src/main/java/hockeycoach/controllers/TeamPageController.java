@@ -2,10 +2,7 @@ package hockeycoach.controllers;
 
 import hockeycoach.mainClasses.Player;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 public class TeamPageController {
@@ -59,4 +56,7 @@ public class TeamPageController {
 
     @FXML
     private TextArea notes;
+
+    @FXML
+    private Button editPlayerButton;
 }

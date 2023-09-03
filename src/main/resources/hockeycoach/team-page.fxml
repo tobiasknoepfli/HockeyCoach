@@ -104,5 +104,6 @@
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
          </children>
       </HBox>
+      <Button fx:id="editPlayerButton" layoutX="1060.0" layoutY="64.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" text="Edit Players in Team" />
     </children>
 </Pane>

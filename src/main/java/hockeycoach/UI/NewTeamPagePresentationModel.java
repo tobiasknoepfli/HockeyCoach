@@ -3,19 +3,20 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
+import javafx.scene.text.Font;
+import org.kordamp.ikonli.javafx.FontIcon;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class NewTeamPagePresentationModel {
+    private Pane contentPane;
     MouseEvent event;
 
     ImageView teamLogo;
@@ -54,6 +56,10 @@ public class NewTeamPagePresentationModel {
     Button cancelButton;
 
     List<Team> teamList = new ArrayList();
+
+    public NewTeamPagePresentationModel(AnchorPane contentPane){
+        this.contentPane = contentPane;
+    }
 
     public void intializeControls(Pane root) {
         teamLogo = (ImageView) root.lookup("#teamLogo");
@@ -109,10 +115,12 @@ public class NewTeamPagePresentationModel {
             DBWriter dbWriter = new DBWriter();
             dbWriter.writeNewTeam(newTeam);
             clearAllFields();
+            callStartPage();
         });
 
         cancelButton.setOnAction(event -> {
             clearAllFields();
+            callStartPage();
         });
 
         teamName.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -243,8 +251,6 @@ public class NewTeamPagePresentationModel {
                 saveButton.setDisable(true);
             }
         }
-
-
     }
 
     private String saveTeamLogo() {
@@ -254,7 +260,12 @@ public class NewTeamPagePresentationModel {
             if (imageNameText.isEmpty()) {
                 imageNameText = teamName.getText() + "_Logo";
             }
-            String destinationFileName = imageNameText + ".jpg";
+            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".")+1).toLowerCase();
+            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") & !imageFormat.equals("png")){
+                imageFormat = "jpg";
+            }
+
+            String destinationFileName = imageNameText + "." + imageFormat;
             String destinationDirectory = "src/main/java/hockeycoach/files/logos";
 
             Path destinationPath = Path.of(destinationDirectory, destinationFileName);
@@ -327,5 +338,20 @@ public class NewTeamPagePresentationModel {
         captainName.clear();
         notes.clear();
         imageName.clear();
+    }
+
+    private void callStartPage(){
+        try{
+            FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/start-page.fxml"));
+            Pane startPage = startPageLoader.load();
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(startPage);
+
+            StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
+            startPagePresentationModel.initializeControls(contentPane);
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 }

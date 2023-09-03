@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<Pane maxHeight="820.0" maxWidth="1200.0" minHeight="770.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.PlayerToTeamController">
+    <children>
+        <TableView fx:id="teamPlayers" layoutX="795.0" layoutY="89.0" prefHeight="726.0" prefWidth="400.0">
+            <columns>
+                <TableColumn fx:id="playerLastName" minWidth="200.0" prefWidth="200.0" text="Last Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="lastName" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="playerFirstName" minWidth="200.0" prefWidth="200.0" text="First Name">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="firstName" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+        <TextField fx:id="team" layoutX="795.0" layoutY="59.0" prefHeight="30.0" prefWidth="400.0" />
+        <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="6.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
+            <children>
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            </children>
+        </HBox>
+      <TableView fx:id="allPlayers" layoutX="5.0" layoutY="89.0" prefHeight="726.0" prefWidth="400.0">
+         <columns>
+            <TableColumn fx:id="allPlayersLastName" minWidth="200.0" prefWidth="200.0" text="Last Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="lastName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="allPlayersFirstName" minWidth="200.0" prefWidth="200.0" text="First Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="firstName" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <Label layoutX="5.0" layoutY="61.0" prefHeight="30.0" prefWidth="400.0" text="All Players" />
+      <Button fx:id="addButton" layoutX="514.0" layoutY="364.0" mnemonicParsing="false" text="Add selected Players to Team" />
+      <Button fx:id="removeButton" layoutX="497.0" layoutY="452.0" mnemonicParsing="false" text="Remove selected Players from Team" />
+    </children>
+</Pane>
