@@ -3,19 +3,24 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 import org.w3c.dom.events.MouseEvent;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class NewTeamPagePresentationModel {
     MouseEvent event;
@@ -38,8 +43,15 @@ public class NewTeamPagePresentationModel {
     TableView<Player> teamPlayers;
     TextArea notes;
     Label controlLabel;
-    ImageView logoPicture;
+    Label controlZip;
+    Label controlContact;
+    Label controlFounded;
+    Label controlHeadCoach;
+    Label controlCaptain;
+    Label controlPresident;
     TextField imageName;
+    Button saveButton;
+    Button cancelButton;
 
     List<Team> teamList = new ArrayList();
 
@@ -62,8 +74,15 @@ public class NewTeamPagePresentationModel {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         notes = (TextArea) root.lookup("#notes");
         controlLabel = (Label) root.lookup("#controlLabel");
-        logoPicture= (ImageView) root.lookup("#logoPicture");
-        imageName= (TextField) root.lookup("#imageName");
+        imageName = (TextField) root.lookup("#imageName");
+        saveButton = (Button) root.lookup("#saveButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        controlZip = (Label) root.lookup("#controlZip");
+        controlContact = (Label) root.lookup("#controlContact");
+        controlFounded = (Label) root.lookup("#controlFounded");
+        controlHeadCoach = (Label) root.lookup("#controlHeadCoach");
+        controlCaptain = (Label) root.lookup("#controlCaptain");
+        controlPresident = (Label) root.lookup("#controlPresident");
 
         DBLoaderTeamList dbLoaderTeamList = new DBLoaderTeamList();
         teamList = dbLoaderTeamList.getAllTeamNames();
@@ -82,8 +101,47 @@ public class NewTeamPagePresentationModel {
             setControlsDisabled(disableControls);
         });
 
-        logoPicture.setOnMouseClicked(event -> handleImageClick());
+        teamLogo.setOnMouseClicked(event -> handleImageClick());
 
+        saveButton.setOnAction(event -> {
+            String logoPath = saveTeamLogo();
+            Team newTeam = readData(logoPath);
+            DBWriter dbWriter = new DBWriter();
+            dbWriter.writeNewTeam(newTeam);
+            clearAllFields();
+        });
+
+        cancelButton.setOnAction(event -> {
+            clearAllFields();
+        });
+
+        teamName.textProperty().addListener((obs, oldValue, newValue) -> {
+            imageName.setText(teamName.getText() + "_Logo");
+        });
+
+        stadiumZipCity.textProperty().addListener((obs, oldValue, newValue) -> {
+            controlFields();
+        });
+
+        contactName.textProperty().addListener((obs, oldValue, newValue) -> {
+            controlFields();
+        });
+
+        founded.textProperty().addListener((obs, oldValue, newValue) -> {
+            controlFields();
+        });
+
+        presidentName.textProperty().addListener((obs, oldValue, newValue) -> {
+            controlFields();
+        });
+
+        headCoachName.textProperty().addListener((obs, oldValue, newValue) -> {
+            controlFields();
+        });
+
+        captainName.textProperty().addListener((obs, oldValue, newValue) -> {
+            controlFields();
+        });
     }
 
     public void setControlsDisabled(boolean disabled) {
@@ -102,11 +160,172 @@ public class NewTeamPagePresentationModel {
         headCoachName.setDisable(disabled);
         captainName.setDisable(disabled);
         notes.setDisable(disabled);
+        saveButton.setDisable(disabled);
+        imageName.setDisable(disabled);
     }
 
     private void handleImageClick() {
         ImageChooser imageChooser = new ImageChooser();
         Image image = imageChooser.chooseImage(event);
         teamLogo.setImage(image);
+    }
+
+    private void controlFields() {
+        String zipCityText = stadiumZipCity.getText();
+        if (!zipCityText.isEmpty()) {
+            String[] zip = zipCityText.split("\\s+");
+            try {
+                int z = Integer.parseInt(zip[0]);
+                controlZip.setText("");
+                saveButton.setDisable(false);
+            } catch (NumberFormatException e) {
+                controlZip.setText("x");
+                saveButton.setDisable(true);
+            }
+
+        }
+        String contact = contactName.getText();
+        if (!contact.isEmpty()) {
+            String[] c = contact.split("\\s+");
+            if (c.length == 2) {
+                controlContact.setText("");
+                saveButton.setDisable(false);
+            } else {
+                controlContact.setText("x");
+                saveButton.setDisable(true);
+            }
+        }
+
+        String est = founded.getText();
+        if (!est.isEmpty()) {
+            try {
+                int f = Integer.parseInt(est);
+                controlFounded.setText("");
+                saveButton.setDisable(false);
+            } catch (NumberFormatException e) {
+                controlFounded.setText("x");
+                saveButton.setDisable(true);
+            }
+        }
+
+        String president = presidentName.getText();
+        if (!president.isEmpty()) {
+            String[] p = president.split("\\s+");
+            if (p.length == 2) {
+                controlPresident.setText("");
+                saveButton.setDisable(false);
+            } else {
+                controlPresident.setText("x");
+                saveButton.setDisable(true);
+            }
+        }
+
+        String headCoach = headCoachName.getText();
+        if (!headCoach.isEmpty()) {
+            String[] h = headCoach.split("\\s+");
+            if (h.length == 2) {
+                controlHeadCoach.setText("");
+                saveButton.setDisable(false);
+            } else {
+                controlHeadCoach.setText("x");
+                saveButton.setDisable(true);
+            }
+        }
+
+        String captain = captainName.getText();
+        if (!captain.isEmpty()) {
+            String[] cpt = captain.split("\\s+");
+            if (cpt.length == 2) {
+                controlCaptain.setText("");
+                saveButton.setDisable(false);
+            } else {
+                controlCaptain.setText("x");
+                saveButton.setDisable(true);
+            }
+        }
+
+
+    }
+
+    private String saveTeamLogo() {
+        Image selectedImage = teamLogo.getImage();
+        if (selectedImage != null) {
+            String imageNameText = imageName.getText().trim();
+            if (imageNameText.isEmpty()) {
+                imageNameText = teamName.getText() + "_Logo";
+            }
+            String destinationFileName = imageNameText + ".jpg";
+            String destinationDirectory = "src/main/java/hockeycoach/files/logos";
+
+            Path destinationPath = Path.of(destinationDirectory, destinationFileName);
+
+            try {
+                File selectedImageFile = new File(selectedImage.getUrl().substring(5));
+                Files.copy(selectedImageFile.toPath(), destinationPath, REPLACE_EXISTING);
+                return destinationPath.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private Team readData(String newImage) {
+        Team newTeam = new Team();
+        newTeam.setName(teamName.getText());
+        newTeam.setStadium(stadiumName.getText());
+        newTeam.setStreet(stadiumStreet.getText());
+
+        String[] zc = stadiumZipCity.getText().split("\\s+");
+        newTeam.setZip(Integer.parseInt(zc[0]));
+        newTeam.setCity(zc[1]);
+
+        newTeam.setCountry(stadiumCountry.getText());
+
+        String[] cFnLn = contactName.getText().split("\\s+");
+        newTeam.setContactFirstName(cFnLn[0]);
+        newTeam.setContactLastName(cFnLn[1]);
+
+        newTeam.setContactPhone(contactPhone.getText());
+        newTeam.setContactEmail(contactEmail.getText());
+        newTeam.setWebsite(website.getText());
+        newTeam.setFounded(Integer.parseInt(founded.getText()));
+
+        String[] pFnLn = presidentName.getText().split("\\s+");
+        newTeam.setPresidentFirstName(pFnLn[0]);
+        newTeam.setPresidentLastName(pFnLn[1]);
+        newTeam.setLeague(currentLeague.getText());
+
+        String[] hCFnLn = headCoachName.getText().split("\\s+");
+        newTeam.setHeadCoachFirstName(hCFnLn[0]);
+        newTeam.setHeadCoachLastName(hCFnLn[1]);
+
+        String[] capFnLn = captainName.getText().split("\\s+");
+        newTeam.setCaptainFirstName(capFnLn[0]);
+        newTeam.setCaptainLastName(capFnLn[1]);
+        newTeam.setNotes(notes.getText());
+
+        newTeam.setLogo(newImage);
+        return newTeam;
+    }
+
+    private void clearAllFields() {
+        teamName.clear();
+        teamLogo.setImage(null);
+        stadiumName.clear();
+        stadiumStreet.clear();
+        stadiumZipCity.clear();
+        stadiumCountry.clear();
+        contactName.clear();
+        contactPhone.clear();
+        contactEmail.clear();
+        website.clear();
+        founded.clear();
+        presidentName.clear();
+        currentLeague.clear();
+        headCoachName.clear();
+        captainName.clear();
+        notes.clear();
+        imageName.clear();
     }
 }

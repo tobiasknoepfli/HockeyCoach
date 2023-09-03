@@ -66,8 +66,32 @@ public class NewTeamPageController {
     private Label controlLabel;
 
     @FXML
-    private ImageView logoPicture;
+    private ImageView teamLogo;
 
     @FXML
     private TextField imageName;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Button cancelButton;
+
+    @FXML
+    private Label controlZip;
+
+    @FXML
+    private Label controlContact;
+
+    @FXML
+    private Label controlFounded;
+
+    @FXML
+    private Label controlHeadCoach;
+
+    @FXML
+    private Label controlCaptain;
+
+    @FXML
+    private Label controlPresident;
 }
