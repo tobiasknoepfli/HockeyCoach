@@ -1,14 +1,28 @@
 package hockeycoach.UI;
 
+import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBWriter {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
+
+    public void addPlayerToTeam(Team team, Player player) {
+        String query = "INSERT INTO playerXteam" + "(playerID, teamID, jersey, role) VALUES (?,?,?,?)";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, player.getPlayerID());
+            preparedStatement.setInt(2, team.getTeamID());
+            preparedStatement.setInt(3, 0);
+            preparedStatement.setString(4, "none");
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void writeNewTeam(Team team) {
         String query = "INSERT INTO team" + "(name ,stadium, street, zip, city, country, contactFirstName, contactLastName, contactPhoneNr, contactEMail, " +

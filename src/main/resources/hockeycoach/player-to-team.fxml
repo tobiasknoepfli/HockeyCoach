@@ -28,21 +28,7 @@
         <TextField fx:id="team" layoutX="795.0" layoutY="59.0" prefHeight="30.0" prefWidth="400.0" />
         <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="6.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-                <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+                <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
             </children>
         </HBox>
       <TableView fx:id="allPlayers" layoutX="5.0" layoutY="89.0" prefHeight="726.0" prefWidth="400.0">

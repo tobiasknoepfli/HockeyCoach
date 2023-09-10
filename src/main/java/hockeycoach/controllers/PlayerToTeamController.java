@@ -21,4 +21,7 @@ public class PlayerToTeamController {
 
     @FXML
     private Button removeButton;
+
+    @FXML
+    private Button saveButton;
 }
