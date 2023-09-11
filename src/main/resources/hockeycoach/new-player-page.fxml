@@ -69,5 +69,7 @@
       <TextField fx:id="country" layoutX="572.0" layoutY="185.0" prefHeight="20.0" prefWidth="400.0" />
       <TextField fx:id="zip" layoutX="572.0" layoutY="160.0" prefHeight="25.0" prefWidth="134.0" />
       <TextField fx:id="city" layoutX="708.0" layoutY="160.0" prefHeight="25.0" prefWidth="265.0" />
+      <Label layoutX="422.0" layoutY="160.0" prefHeight="25.0" prefWidth="150.0" text="ZIP City" />
+      <Label layoutX="422.0" layoutY="185.0" prefHeight="25.0" prefWidth="150.0" text="Country" />
     </children>
 </Pane>
