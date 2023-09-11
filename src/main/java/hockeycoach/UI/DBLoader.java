@@ -11,6 +11,43 @@ import java.util.stream.Collectors;
 
 public class DBLoader {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
+    public ArrayList<Player> getAllPlayers(String query){
+        ArrayList<Player> playerList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                Player player = new Player();
+                player.setPlayerID(resultSet.getInt("playerID"));
+                player.setFirstName(resultSet.getString("firstName"));
+                player.setLastName(resultSet.getString("lastName"));
+                player.setStreet(resultSet.getString("street"));
+                player.setZip(resultSet.getInt("zip"));
+                player.setCity(resultSet.getString("city"));
+                player.setCountry(resultSet.getString("country"));
+                player.setaLicence(resultSet.getString("aLicence"));
+                player.setbLicence(resultSet.getString("bLicence"));
+                player.setPhone(resultSet.getString("phone"));
+                player.seteMail(resultSet.getString("eMail"));
+                player.setPositions(resultSet.getString("positions"));
+                player.setStrengths(resultSet.getString("strengths"));
+                player.setWeaknesses(resultSet.getString("weaknesses"));
+                player.setStick(resultSet.getString("stick"));
+                player.setPhotoPath(resultSet.getString("photoPath"));
+                player.setNotes(resultSet.getString("notes"));
+
+                playerList.add(player);
+
+                connection.close();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return playerList;
+    }
 
     public ArrayList<Player> getPlayers(String query, int selectedTeamID) {
         ArrayList<Player> playerList = new ArrayList<>();

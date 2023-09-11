@@ -123,4 +123,19 @@ public class RootPageController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void newPlayerButtonAction() {
+        try {
+            FXMLLoader newPlayerPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/new-player-page.fxml"));
+            Pane newPlayerPage = newPlayerPageLoader.load();
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(newPlayerPage);
+
+            NewPlayerPresentationModel newPlayerPresentationModel = new NewPlayerPresentationModel(contentPane);
+            newPlayerPresentationModel.initializeControls(newPlayerPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
