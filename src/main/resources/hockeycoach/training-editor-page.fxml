@@ -22,7 +22,7 @@
         <Label layoutX="17.0" layoutY="362.0" prefHeight="25.0" prefWidth="64.0" text="Drill" />
         <ImageView fx:id="drillImage" fitHeight="287.61" fitWidth="407.0" layoutX="300.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="17.0" layoutY="392.0" prefHeight="25.0" prefWidth="64.0" text="Category" />
-      <TextField fx:id="drillCategory" layoutX="81.0" layoutY="389.0" prefHeight="30.0" prefWidth="399.0" />
+      <TextField fx:id="drillCategory" layoutX="81.0" layoutY="389.0" prefHeight="30.0" prefWidth="167.0" />
       <Label layoutX="17.0" layoutY="426.0" prefHeight="25.0" prefWidth="64.0" text="Difficulty" />
       <TextField fx:id="drillDifficulty" layoutX="81.0" layoutY="423.0" prefHeight="30.0" prefWidth="87.0" />
       <Label layoutX="180.0" layoutY="426.0" prefHeight="25.0" prefWidth="71.0" text="Participation" />
@@ -88,9 +88,9 @@
                                           <PropertyValueFactory property="participation" />
                                       </cellValueFactory>
                                   </TableColumn>
-                                  <TableColumn fx:id="wuPrioCol" minWidth="50.0" prefWidth="50.0" text="Prio">
+                                  <TableColumn fx:id="wuPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
                                       <cellValueFactory>
-                                          <PropertyValueFactory property="priority" />
+                                          <PropertyValueFactory property="puckPosition" />
                                       </cellValueFactory>
                                   </TableColumn>
                               <TableColumn fx:id="wuSI" minWidth="50.0" prefWidth="50.0" text="Index">
@@ -125,9 +125,9 @@
                                           <PropertyValueFactory property="participation" />
                                       </cellValueFactory>
                                   </TableColumn>
-                                  <TableColumn fx:id="tgPrioCol" minWidth="50.0" prefWidth="50.0" text="Prio">
+                                  <TableColumn fx:id="tgPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
                                       <cellValueFactory>
-                                          <PropertyValueFactory property="priority" />
+                                          <PropertyValueFactory property="puckPosition" />
                                       </cellValueFactory>
                                   </TableColumn>
                               <TableColumn fx:id="tgSI" minWidth="50.0" prefWidth="50.0" text="Index">
@@ -162,9 +162,9 @@
                                           <PropertyValueFactory property="participation" />
                                       </cellValueFactory>
                                   </TableColumn>
-                                  <TableColumn fx:id="stPrioCol" minWidth="50.0" prefWidth="50.0" text="Priority">
+                                  <TableColumn fx:id="stPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
                                       <cellValueFactory>
-                                          <PropertyValueFactory property="priority" />
+                                          <PropertyValueFactory property="puckPosition" />
                                       </cellValueFactory>
                                   </TableColumn>
                               <TableColumn fx:id="stSI" minWidth="50.0" prefWidth="50.0" text="Index">
@@ -199,9 +199,9 @@
                                           <PropertyValueFactory property="participation" />
                                       </cellValueFactory>
                                   </TableColumn>
-                                  <TableColumn fx:id="buPrioCol" minWidth="50.0" prefWidth="50.0" text="Priority">
+                                  <TableColumn fx:id="buPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
                                       <cellValueFactory>
-                                          <PropertyValueFactory property="priority" />
+                                          <PropertyValueFactory property="puckPosition" />
                                       </cellValueFactory>
                                   </TableColumn>
                               <TableColumn fx:id="buSI" minWidth="50.0" prefWidth="50.0" text="Index">
@@ -253,5 +253,7 @@
             <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
          </children>
       </HBox>
+      <Label layoutX="259.0" layoutY="392.0" prefHeight="25.0" prefWidth="71.0" text="Puck Position" />
+      <TextField fx:id="puckPosition" layoutX="337.0" layoutY="390.0" prefHeight="30.0" prefWidth="143.0" />
     </children>
 </Pane>

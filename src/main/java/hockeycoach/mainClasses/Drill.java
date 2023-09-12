@@ -14,7 +14,7 @@ public class Drill {
     private String imageLink;
     private String table;
     private int sortingIndex;
-    private boolean priority;
+    private String puckPosition;
 
     public Drill() {
     }
@@ -31,7 +31,7 @@ public class Drill {
         this.imageLink = imageLink;
     }
 
-    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, String imageLink,  String table,  int sortingIndex, boolean priority) {
+    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, String imageLink,  String table,  int sortingIndex, String puckPosition) {
         this.drillID = drillID;
         this.name = name;
         this.category = category;
@@ -43,7 +43,7 @@ public class Drill {
         this.imageLink = imageLink;
         this.table  = table;
         this.sortingIndex= sortingIndex;
-        this.priority = priority;
+        this.puckPosition = puckPosition;
     }
 
     public int getDrillID() {
@@ -134,11 +134,12 @@ public class Drill {
         this.sortingIndex = sortingIndex;
     }
 
-    public boolean isPriority() {
-        return priority;
+    public String getPuckPosition() {
+        return puckPosition;
     }
 
-    public void setPriority(boolean priority) {
-        this.priority = priority;
+    public void setPuckPosition(String puckPosition) {
+        this.puckPosition = puckPosition;
     }
+
 }

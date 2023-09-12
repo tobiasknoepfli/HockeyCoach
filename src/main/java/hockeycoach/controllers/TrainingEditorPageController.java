@@ -117,5 +117,8 @@ public class TrainingEditorPageController {
     @FXML
     private Button backupButton;
 
+    @FXML
+    private TextField puckPosition;
+
 
 }

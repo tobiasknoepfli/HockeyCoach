@@ -263,6 +263,7 @@ public class DBLoader {
                 drill.setStation(resultSet.getBoolean("station"));
                 drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN tag ON drillID =" + drill.getDrillID()));
                 drill.setImageLink(resultSet.getString("imageLink"));
+                drill.setPuckPosition(resultSet.getString("puckPosition"));
                 drillList.add(drill);
             }
             connection.close();
@@ -311,7 +312,6 @@ public class DBLoader {
                 if (drill !=null) {
                     drill.setTable(table);
                     drill.setSortingIndex(getSortingIndex(drillID,trainingID));
-                    drill.setPriority(getPriority(drillID,trainingID));
                     trainingDrillList.add(drill);
                 }
             }

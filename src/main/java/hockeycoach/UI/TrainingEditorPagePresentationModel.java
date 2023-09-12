@@ -53,6 +53,7 @@ public class TrainingEditorPagePresentationModel {
     TextField trainingStadium;
     TextField trainingTeam;
     TextField trainingMainFocus;
+    TextField puckPosition;
     TextArea trainingPointers;
     Button warmupButton;
     Button togetherButton;
@@ -97,11 +98,11 @@ public class TrainingEditorPagePresentationModel {
         stationsButton = (Button) root.lookup("#stationsButton");
         backupButton = (Button) root.lookup("#backupButton");
         tablePane = (TabPane) root.lookup("#tablePane");
+        puckPosition = (TextField) root.lookup("#puckPosition");
         warmupTab = tablePane.getTabs().get(0);
         togetherTab = tablePane.getTabs().get(1);
         stationsTab = tablePane.getTabs().get(2);
         backupTab = tablePane.getTabs().get(3);
-
 
         drillTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         warmup.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -132,11 +133,6 @@ public class TrainingEditorPagePresentationModel {
         removeDrillSetup(together);
         removeDrillSetup(stations);
         removeDrillSetup(backup);
-
-        setPriority(warmup);
-        setPriority(together);
-        setPriority(stations);
-        setPriority(backup);
 
         moveDrill(warmup);
         moveDrill(together);
@@ -244,6 +240,7 @@ public class TrainingEditorPagePresentationModel {
                 drillParticipation.setText(newDrill.getParticipation());
                 drillStation.setSelected(newDrill.getStation());
                 drillDescription.setText(newDrill.getDescription());
+                puckPosition.setText(newDrill.getPuckPosition());
 
                 TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
 
@@ -349,23 +346,6 @@ public class TrainingEditorPagePresentationModel {
                     tableView.setOnKeyReleased(event -> {
                         if (event.getCode() == KeyCode.DELETE) {
                             tableView.getItems().remove(newDrill);
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    private void setPriority(TableView<Drill> tableView) {
-        tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
-            if (newDrill != null) {
-                try {
-                    tableView.setOnKeyPressed(event -> {
-                        if (event.getCode() == KeyCode.P) {
-                            newDrill.setPriority((!newDrill.isPriority()));
-                            tableView.refresh();
                         }
                     });
                 } catch (Exception e) {
