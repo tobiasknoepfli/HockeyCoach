@@ -161,7 +161,7 @@ public class NewPlayerPresentationModel {
     private String savePlayerPhoto() {
         Image selectedImage = playerPhoto.getImage();
         if (selectedImage != null) {
-            String playerPhotoText = playerLastName + "" + playerFirstName + "_Photo";
+            String playerPhotoText = playerLastName.getText() + "" + playerFirstName.getText() + "_Photo";
 
             String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
             if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") & !imageFormat.equals("png")) {
