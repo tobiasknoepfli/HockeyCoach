@@ -9,8 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Font;
-import org.kordamp.ikonli.javafx.FontIcon;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
