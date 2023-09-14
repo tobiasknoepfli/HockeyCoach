@@ -59,4 +59,16 @@ public class TeamPageController {
 
     @FXML
     private Button editPlayerButton;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
+    private Button cancelButton;
+
+    @FXML
+    private Button deleteButton;
 }

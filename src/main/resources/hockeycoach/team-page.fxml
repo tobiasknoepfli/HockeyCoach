@@ -87,21 +87,10 @@
         <Label alignment="CENTER" layoutX="590.0" layoutY="73.0" prefHeight="30.0" prefWidth="600.0" text="Players" textAlignment="CENTER" />
       <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="6.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Button" />
+            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
+            <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Edit" />
+            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Cancel" />
+            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Delete" />
          </children>
       </HBox>
       <Button fx:id="editPlayerButton" layoutX="1060.0" layoutY="64.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="129.0" text="Edit Players in Team" />

@@ -78,9 +78,8 @@ public class DBWriter {
             preparedStatement.setString(17, team.getHeadCoachLastName());
             preparedStatement.setString(18, team.getCaptainFirstName());
             preparedStatement.setString(19, team.getCaptainLastName());
-            preparedStatement.setString(20, team.getComments());
-            preparedStatement.setString(21, team.getLogo());
-            preparedStatement.setString(22, team.getNotes());
+            preparedStatement.setString(20, team.getLogo());
+            preparedStatement.setString(21, team.getNotes());
 
             preparedStatement.executeUpdate();
 

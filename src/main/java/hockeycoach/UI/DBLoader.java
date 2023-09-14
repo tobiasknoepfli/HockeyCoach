@@ -208,7 +208,6 @@ public class DBLoader {
                 team.setHeadCoachLastName(resultSet.getString("headCoachLastName"));
                 team.setCaptainFirstName(resultSet.getString("captainFirstName"));
                 team.setCaptainLastName(resultSet.getString("captainLastName"));
-                team.setComments(resultSet.getString("comments"));
                 team.setLogo(resultSet.getString("logo"));
                 team.setNotes(resultSet.getString("notes"));
 
