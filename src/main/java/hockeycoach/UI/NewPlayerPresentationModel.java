@@ -16,9 +16,13 @@ import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -164,24 +168,36 @@ public class NewPlayerPresentationModel {
             String playerPhotoText = playerLastName.getText() + "" + playerFirstName.getText() + "_Photo";
 
             String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
-            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") & !imageFormat.equals("png")) {
+            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
                 imageFormat = "jpg";
             }
 
             String destinationFileName = playerPhotoText + "." + imageFormat;
             String destinationDirectory = "src/main/java/hockeycoach/files/photos";
 
-            Path destinationPath = Path.of(destinationDirectory, destinationFileName);
-
             try {
-                File selectedImageFile = new File(selectedImage.getUrl().substring(5));
-                Files.copy(selectedImageFile.toPath(), destinationPath, REPLACE_EXISTING);
+                URL imageUrl = new URL(selectedImage.getUrl());
+                String decodedImageUrl = decodeUrl(imageUrl.getPath()); // Decode the URL
+                File selectedImageFile = new File(decodedImageUrl);
+                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
+
+                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 return destinationPath.toString();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         return null;
+    }
+
+    // Helper method to decode URL
+    private String decodeUrl(String url) {
+        try {
+            return java.net.URLDecoder.decode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return url;
+        }
     }
 
     private Player readData(String newImage) {

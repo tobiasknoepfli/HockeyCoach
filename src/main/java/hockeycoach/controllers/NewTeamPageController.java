@@ -69,9 +69,6 @@ public class NewTeamPageController {
     private ImageView teamLogo;
 
     @FXML
-    private TextField imageName;
-
-    @FXML
     private Button saveButton;
 
     @FXML

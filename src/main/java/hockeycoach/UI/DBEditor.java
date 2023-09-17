@@ -37,6 +37,7 @@ public class DBEditor {
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            System.out.println(team.getPresidentLastName());
             preparedStatement.setString(1, team.getName());
             preparedStatement.setString(2, team.getStadium());
             preparedStatement.setString(3, team.getStreet());

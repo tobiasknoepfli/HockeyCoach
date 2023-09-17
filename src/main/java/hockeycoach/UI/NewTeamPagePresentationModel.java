@@ -13,10 +13,13 @@ import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -121,10 +124,6 @@ public class NewTeamPagePresentationModel {
             callStartPage();
         });
 
-        teamName.textProperty().addListener((obs, oldValue, newValue) -> {
-            imageName.setText(teamName.getText() + "_Logo");
-        });
-
         stadiumZipCity.textProperty().addListener((obs, oldValue, newValue) -> {
             controlFields();
         });
@@ -167,7 +166,6 @@ public class NewTeamPagePresentationModel {
         captainName.setDisable(disabled);
         notes.setDisable(disabled);
         saveButton.setDisable(disabled);
-        imageName.setDisable(disabled);
     }
 
     private void handleImageClick() {
@@ -254,23 +252,22 @@ public class NewTeamPagePresentationModel {
     private String saveTeamLogo() {
         Image selectedImage = teamLogo.getImage();
         if (selectedImage != null) {
-            String imageNameText = imageName.getText().trim();
-            if (imageNameText.isEmpty()) {
-                imageNameText = teamName.getText() + "_Logo";
-            }
-            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".")+1).toLowerCase();
-            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") & !imageFormat.equals("png")){
+            String imageNameText = teamName.getText() + "_Logo";
+            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
+            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") & !imageFormat.equals("png")) {
                 imageFormat = "jpg";
             }
 
             String destinationFileName = imageNameText + "." + imageFormat;
             String destinationDirectory = "src/main/java/hockeycoach/files/logos";
 
-            Path destinationPath = Path.of(destinationDirectory, destinationFileName);
-
             try {
-                File selectedImageFile = new File(selectedImage.getUrl().substring(5));
-                Files.copy(selectedImageFile.toPath(), destinationPath, REPLACE_EXISTING);
+                URL imageUrl = new URL(selectedImage.getUrl());
+                String decodedImageUrl = Objects.requireNonNull(imageUrl.getPath());
+                File selectedImageFile = new File(decodedImageUrl);
+                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
+
+                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
                 return destinationPath.toString();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -334,8 +331,6 @@ public class NewTeamPagePresentationModel {
         currentLeague.clear();
         headCoachName.clear();
         captainName.clear();
-        notes.clear();
-        imageName.clear();
     }
 
     private void callStartPage(){

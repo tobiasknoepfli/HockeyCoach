@@ -69,7 +69,6 @@
       <Label layoutX="10.0" layoutY="383.0" prefHeight="20.0" prefWidth="150.0" text="Email" />
       <Label fx:id="controlLabel" layoutX="473.0" layoutY="71.0" prefHeight="17.0" prefWidth="89.0" />
         <ImageView fx:id="teamLogo" fitHeight="150.0" fitWidth="150.0" layoutX="562.0" layoutY="223.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="imageName" layoutX="562.0" layoutY="381.0" prefHeight="25.0" prefWidth="150.0" />
       <Label fx:id="controlZip" alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" layoutY="270.0" prefHeight="25.0" prefWidth="31.0" />
       <Label fx:id="controlContact" alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" layoutY="328.0" prefHeight="25.0" prefWidth="31.0" />
       <Label fx:id="controlFounded" alignment="CENTER" contentDisplay="CENTER" layoutX="465.0" layoutY="445.0" prefHeight="25.0" prefWidth="31.0" />

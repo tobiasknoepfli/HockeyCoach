@@ -1,5 +1,6 @@
 package hockeycoach.UI;
 
+import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
@@ -9,14 +10,22 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class TeamPagePresentationModel {
     private Pane contentPane;
     Team selectedTeam;
+    MouseEvent event;
 
     ImageView teamLogo;
     TextField teamName;
@@ -112,6 +121,8 @@ public class TeamPagePresentationModel {
             teamPlayers.getItems().addAll(playerList);
         }
         setupEventListeners();
+
+        teamLogo.setOnMouseClicked(event -> handleImageClick());
     }
 
     private void setupEventListeners() {
@@ -130,14 +141,16 @@ public class TeamPagePresentationModel {
             }
         });
 
-        editButton.setOnAction(event ->{
+        editButton.setOnAction(event -> {
             disableControls(false);
             editButton.setDisable(true);
         });
 
-        saveButton.setOnAction(event ->{
+        saveButton.setOnAction(event -> {
+            Team team = getTeamData();
+            team.setLogo(saveTeamLogo());
             DBEditor dbEditor = new DBEditor();
-            dbEditor.editTeam(getTeamData());
+            dbEditor.editTeam(team);
         });
     }
 
@@ -164,8 +177,8 @@ public class TeamPagePresentationModel {
         teamPlayers.setDisable(disabled);
     }
 
-    private Team getTeamData(){
-        Team team= new Team();
+    private Team getTeamData() {
+        Team team = new Team();
         team.setTeamID(selectedTeam.getTeamID());
         team.setName(teamName.getText());
         team.setStadium(stadiumName.getText());
@@ -198,10 +211,46 @@ public class TeamPagePresentationModel {
 
         String[] can = captainName.getText().split("\\s+");
         team.setCaptainFirstName(can[0]);
-        team.setPresidentLastName(can[1]);
+        team.setCaptainLastName(can[1]);
 
         team.setNotes(notes.getText());
 
         return team;
+    }
+
+    private void handleImageClick() {
+        ImageChooser imageChooser = new ImageChooser();
+        Image image = imageChooser.chooseImage(event);
+        teamLogo.setImage(image);
+    }
+
+    private String saveTeamLogo() {
+        Image selectedImage = teamLogo.getImage();
+        if (selectedImage != null) {
+            String imageNameText = teamName.getText().trim();
+            if (imageNameText.isEmpty()) {
+                imageNameText = teamName.getText() + "_Logo";
+            }
+            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
+            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
+                imageFormat = "jpg";
+            }
+
+            String destinationFileName = imageNameText + "." + imageFormat;
+            String destinationDirectory = "src/main/java/hockeycoach/files/logos";
+
+            try {
+                URL imageUrl = new URL(selectedImage.getUrl());
+                String decodedImageUrl = java.net.URLDecoder.decode(imageUrl.getFile(), "UTF-8");
+                File selectedImageFile = new File(decodedImageUrl);
+                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
+
+                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                return destinationPath.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

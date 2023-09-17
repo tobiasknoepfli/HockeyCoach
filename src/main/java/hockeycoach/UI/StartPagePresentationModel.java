@@ -1,10 +1,13 @@
 package hockeycoach.UI;
 
+import hockeycoach.controllers.RootPageController;
 import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.application.Platform;
+import javafx.event.EventType;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
@@ -15,6 +18,9 @@ public class StartPagePresentationModel {
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
 
+    public StartPagePresentationModel(){
+    }
+
     public void initializeControls(Pane root) {
         teamsTable = (TableView) root.lookup("#teamsTable");
         gamesTable = (TableView) root.lookup("#gamesTable");
@@ -22,8 +28,6 @@ public class StartPagePresentationModel {
 
         DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
         DBLoaderTeamList.dataIntoTeamTable(teamsTable);
-
-        setupEventListeners();
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         if (selectedTeam != null) {
@@ -35,6 +39,8 @@ public class StartPagePresentationModel {
                 teamsTable.getFocusModel().focus(index);
             });
         }
+
+        setupEventListeners();
     }
 
     public void setupEventListeners() {
@@ -53,6 +59,7 @@ public class StartPagePresentationModel {
                 populateTrainingsTable(trainings);
             }
         });
+
     }
 
     private void populateGamesTable(List<Game> games) {

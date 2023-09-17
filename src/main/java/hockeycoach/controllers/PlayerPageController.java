@@ -3,6 +3,7 @@ package hockeycoach.controllers;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -53,4 +54,16 @@ public class PlayerPageController {
 
     @FXML
     private TextArea notes;
+
+    @FXML
+    private Button saveButton;
+
+    @FXML
+    private Button editButton;
+
+    @FXML
+    private Button cancelButton;
+
+    @FXML
+    private Button deleteButton;
 }

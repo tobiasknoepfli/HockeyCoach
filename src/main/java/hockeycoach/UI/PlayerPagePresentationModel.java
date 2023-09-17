@@ -5,6 +5,7 @@ import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -12,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+import java.io.File;
 import java.util.List;
 
 public class PlayerPagePresentationModel {
@@ -34,6 +36,10 @@ public class PlayerPagePresentationModel {
     TextField aLicence;
     TextField bLicence;
     TextField stick;
+    Button saveButton;
+    Button editButton;
+    Button cancelButton;
+    Button deleteButton;
 
     public void initializeControls(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
@@ -55,6 +61,11 @@ public class PlayerPagePresentationModel {
         aLicence = (TextField) root.lookup("#aLicence");
         bLicence = (TextField) root.lookup("#bLicence");
         stick = (TextField) root.lookup("#stick");
+        saveButton = (Button) root.lookup("#saveButton");
+        editButton = (Button) root.lookup("#editButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        deleteButton = (Button) root.lookup("#deleteButton");
+
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -68,14 +79,22 @@ public class PlayerPagePresentationModel {
         setupEventListeners();
 
         team.setText(selectedTeam.getName());
+
+        disableControls(true);
     }
 
     public void setupEventListeners() {
         teamPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedPlayer, newSelectedPlayer) -> {
             if (newSelectedPlayer != null) {
                 try {
-                    playerPhoto.setImage(new Image(newSelectedPlayer.getPhotoPath()));
-                } catch (Exception e) {
+                    File imageFile = new File(newSelectedPlayer.getPhotoPath());
+
+                        if (imageFile.exists()) {
+                            playerPhoto.setImage(new Image(imageFile.toURI().toString()));
+                        } else {
+                            playerPhoto.setImage(null);
+                        }
+                    }catch (NullPointerException e) {
                     playerPhoto.setImage(null);
                 }
                 playerName.setText(newSelectedPlayer.getFirstName() + " " + newSelectedPlayer.getLastName());
@@ -102,8 +121,29 @@ public class PlayerPagePresentationModel {
                 }
             }
         });
+    }
 
-
-
+    private void disableControls(boolean disabled) {
+        playerTeams.setDisable(disabled);
+        playerPhoto.setDisable(disabled);
+        playerName.setDisable(disabled);
+        team.setDisable(disabled);
+        street.setDisable(disabled);
+        zipCity.setDisable(disabled);
+        country.setDisable(disabled);
+        phone.setDisable(disabled);
+        email.setDisable(disabled);
+        jersey.setDisable(disabled);
+        positions.setDisable(disabled);
+        strengths.setDisable(disabled);
+        weaknesses.setDisable(disabled);
+        notes.setDisable(disabled);
+        role.setDisable(disabled);
+        aLicence.setDisable(disabled);
+        bLicence.setDisable(disabled);
+        stick.setDisable(disabled);
+        saveButton.setDisable(disabled);
+        cancelButton.setDisable(disabled);
+        deleteButton.setDisable(disabled);
     }
 }

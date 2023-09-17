@@ -55,7 +55,7 @@ public class DBWriter {
     public void writeNewTeam(Team team) {
         String query = "INSERT INTO team" + "(name ,stadium, street, zip, city, country, contactFirstName, contactLastName, contactPhoneNr, contactEMail, " +
                 " website, founded, presidentFirstName, presidentLastName, league, headCoachFirstName, headCoachLastName, captainFirstName, captainLastName, " +
-                "comments, logo, notes) VALUES ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+                "logo, notes) VALUES ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
