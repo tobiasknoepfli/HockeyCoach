@@ -1,5 +1,6 @@
 package hockeycoach.UI;
 
+import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
@@ -12,11 +13,22 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class PlayerPagePresentationModel {
+    MouseEvent event;
+    Player selectedPlayer;
+    Team selectedTeam;
+
     TableView<Player> teamPlayers;
     TableView<Team> playerTeams;
     ImageView playerPhoto;
@@ -67,7 +79,7 @@ public class PlayerPagePresentationModel {
         deleteButton = (Button) root.lookup("#deleteButton");
 
 
-        Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
         List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
@@ -89,14 +101,15 @@ public class PlayerPagePresentationModel {
                 try {
                     File imageFile = new File(newSelectedPlayer.getPhotoPath());
 
-                        if (imageFile.exists()) {
-                            playerPhoto.setImage(new Image(imageFile.toURI().toString()));
-                        } else {
-                            playerPhoto.setImage(null);
-                        }
-                    }catch (NullPointerException e) {
+                    if (imageFile.exists()) {
+                        playerPhoto.setImage(new Image(imageFile.toURI().toString()));
+                    } else {
+                        playerPhoto.setImage(null);
+                    }
+                } catch (NullPointerException e) {
                     playerPhoto.setImage(null);
                 }
+                selectedPlayer = newSelectedPlayer;
                 playerName.setText(newSelectedPlayer.getFirstName() + " " + newSelectedPlayer.getLastName());
                 street.setText(newSelectedPlayer.getStreet());
                 zipCity.setText(String.valueOf(newSelectedPlayer.getZip()) + " " + newSelectedPlayer.getCity());
@@ -120,6 +133,20 @@ public class PlayerPagePresentationModel {
                     playerTeams.setItems(teamList);
                 }
             }
+        });
+
+        editButton.setOnAction(event -> {
+            if (teamPlayers.getSelectionModel().getSelectedItem() != null) {
+                disableControls(false);
+            }
+        });
+
+        saveButton.setOnAction(event -> {
+            Player player = getPlayerData();
+            player.setPhotoPath(savePlayerPhoto());
+            DBEditor dbEditor = new DBEditor();
+            dbEditor.editPlayer(player);
+            dbEditor.editJerseyAndRole(player, selectedTeam);
         });
     }
 
@@ -145,5 +172,79 @@ public class PlayerPagePresentationModel {
         saveButton.setDisable(disabled);
         cancelButton.setDisable(disabled);
         deleteButton.setDisable(disabled);
+    }
+
+    private Player getPlayerData(){
+        Player player = new Player();
+
+        player.setPlayerID(selectedPlayer.getPlayerID());
+
+        String[] pn = playerName.getText().split("\\s+");
+        player.setFirstName(pn[0]);
+        player.setLastName(pn[1]);
+
+        player.setStreet(street.getText());
+
+        String[] zc = zipCity.getText().split("\\s+");
+        player.setZip(Integer.parseInt(zc[0]));
+        player.setCity(zc[1]);
+
+        player.setCountry(country.getText());
+        player.setPhone(phone.getText());
+        player.seteMail(email.getText());
+        player.setJersey(Integer.parseInt(jersey.getText()));
+        player.setPositions(positions.getText());
+        player.setStrengths(strengths.getText());
+        player.setWeaknesses(weaknesses.getText());
+        player.setNotes(notes.getText());
+        player.setRole(role.getText());
+        player.setaLicence(aLicence.getText());
+        player.setbLicence(bLicence.getText());
+        player.setStick(stick.getText());
+
+        return player;
+    }
+
+    private void handleImageClick() {
+        ImageChooser imageChooser = new ImageChooser();
+        Image image = imageChooser.chooseImage(event);
+        playerPhoto.setImage(image);
+    }
+
+    private String savePlayerPhoto() {
+        Image selectedImage = playerPhoto.getImage();
+        if (selectedImage != null) {
+            String playerPhotoText = playerName.getText() + "_Photo";
+
+            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
+            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
+                imageFormat = "jpg";
+            }
+
+            String destinationFileName = playerPhotoText + "." + imageFormat;
+            String destinationDirectory = "src/main/java/hockeycoach/files/photos";
+
+            try {
+                URL imageUrl = new URL(selectedImage.getUrl());
+                String decodedImageUrl = decodeUrl(imageUrl.getPath()); // Decode the URL
+                File selectedImageFile = new File(decodedImageUrl);
+                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
+
+                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+                return destinationPath.toString();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    private String decodeUrl(String url) {
+        try {
+            return java.net.URLDecoder.decode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            return url;
+        }
     }
 }
