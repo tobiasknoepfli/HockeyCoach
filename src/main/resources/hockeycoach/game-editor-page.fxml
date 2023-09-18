@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.ImageView?>
@@ -18,229 +15,76 @@
 
 <Pane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.GameEditorController">
     <children>
-        <TextField fx:id="drillName" layoutX="81.0" layoutY="357.0" prefHeight="30.0" prefWidth="399.0" />
-        <Label layoutX="17.0" layoutY="362.0" prefHeight="25.0" prefWidth="64.0" text="Drill" />
-        <ImageView fx:id="drillImage" fitHeight="287.61" fitWidth="407.0" layoutX="300.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true" />
-        <Label layoutX="17.0" layoutY="392.0" prefHeight="25.0" prefWidth="64.0" text="Category" />
-        <TextField fx:id="drillCategory" layoutX="81.0" layoutY="389.0" prefHeight="30.0" prefWidth="167.0" />
-        <Label layoutX="17.0" layoutY="426.0" prefHeight="25.0" prefWidth="64.0" text="Difficulty" />
-        <TextField fx:id="drillDifficulty" layoutX="81.0" layoutY="423.0" prefHeight="30.0" prefWidth="87.0" />
-        <Label layoutX="180.0" layoutY="426.0" prefHeight="25.0" prefWidth="71.0" text="Participation" />
-        <TextField fx:id="drillParticipation" layoutX="258.0" layoutY="424.0" prefHeight="30.0" prefWidth="104.0" />
-        <TextArea fx:id="drillDescription" layoutX="81.0" layoutY="458.0" prefHeight="356.0" prefWidth="399.0" />
-        <CheckBox fx:id="drillStation" layoutX="388.0" layoutY="430.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="87.0" text="Station" />
-        <Label layoutX="17.0" layoutY="458.0" prefHeight="25.0" prefWidth="64.0" text="Description" />
-        <TableView fx:id="drillTags" layoutX="485.0" layoutY="357.0" prefHeight="457.0" prefWidth="224.0">
-            <columns>
-                <TableColumn fx:id="tagCol" minWidth="223.0" prefWidth="223.0" text="Tags">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="tags" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
-        <TableView fx:id="drillTable" layoutX="714.0" layoutY="457.0" prefHeight="356.0" prefWidth="400.0">
-            <columns>
-                <TableColumn fx:id="dtNameCol" minWidth="230.0" prefWidth="230.0" text="Name">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="name" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="dtDiffCol" minWidth="70.0" prefWidth="70.0" text="Difficulty">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="difficulty" />
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn fx:id="dtPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="participation" />
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
-        <ComboBox fx:id="cbCategory" layoutX="714.0" layoutY="330.0" prefHeight="25.0" prefWidth="235.0" promptText="Category" />
-        <ComboBox fx:id="cbDifficulty" layoutX="954.0" layoutY="330.0" prefHeight="25.0" prefWidth="235.0" promptText="Difficulty" />
-        <ComboBox fx:id="cbParticipation" layoutX="714.0" layoutY="360.0" prefHeight="25.0" prefWidth="235.0" promptText="Participation" />
-        <ComboBox fx:id="cbStation" layoutX="954.0" layoutY="360.0" prefHeight="25.0" prefWidth="235.0" promptText="Station" />
-        <ComboBox fx:id="cbTags" layoutX="714.0" layoutY="390.0" prefHeight="25.0" prefWidth="235.0" promptText="Tags" />
-        <TextField fx:id="searchBox" layoutX="714.0" layoutY="421.0" prefHeight="30.0" prefWidth="400.0" />
-        <Button fx:id="searchButton" layoutX="1125.0" layoutY="423.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Search" />
-        <TabPane fx:id="tablePane" layoutX="714.0" layoutY="63.0" prefHeight="260.0" prefWidth="475.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="lineupTabPane" layoutX="299.0" layoutY="67.0" prefHeight="748.0" prefWidth="590.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
-                <Tab fx:id="warmupTab" text="Warmup">
+                <Tab fx:id="lineupTab" text="Lineup">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="232.0" prefWidth="475.0">
-                            <children>
-                                <TableView fx:id="warmup" prefHeight="230.0" prefWidth="475.0">
-                                    <columns>
-                                        <TableColumn fx:id="wuCol" minWidth="200.0" prefWidth="200.0" text="Warmup">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="name" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="wuDiffCol" minWidth="75.0" prefWidth="75.0" text="Difficulty">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="difficulty" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="wuPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="participation" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="wuPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="puckPosition" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="wuSI" minWidth="50.0" prefWidth="50.0" text="Index">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="sortingIndex" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="895.0">
+                     <children>
+                        <ImageView fx:id="boardImage" fitHeight="722.0" fitWidth="590.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></AnchorPane>
                     </content>
                 </Tab>
-                <Tab fx:id="togetherTab" text="Together">
+                <Tab fx:id="powerplayTab" text="Powerplay">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView fx:id="together" prefHeight="230.0" prefWidth="475.0">
-                                    <columns>
-                                        <TableColumn fx:id="tgCol" minWidth="200.0" prefWidth="200.0" text="Together">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="name" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="tgDiffCol" minWidth="75.0" prefWidth="75.0" text="Difficulty">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="difficulty" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="tgPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="participation" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="tgPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="puckPosition" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="tgSI" minWidth="50.0" prefWidth="50.0" text="Index">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="sortingIndex" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
-                <Tab fx:id="stationsTab" text="Stations">
+                <Tab fx:id="BoxplayTab" text="Boxplay">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                            <children>
-                                <TableView fx:id="stations" prefHeight="230.0" prefWidth="475.0">
-                                    <columns>
-                                        <TableColumn fx:id="stCol" minWidth="200.0" prefWidth="200.0" text="Stations">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="name" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="stDiffCol" minWidth="75.0" prefWidth="75.0" text="Difficulty">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="difficulty" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="stPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="participation" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="stPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="puckPosition" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="stSI" minWidth="50.0" prefWidth="50.0" text="Index">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="sortingIndex" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="backupTab" text="Backup">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="265.0" prefWidth="475.0">
-                            <children>
-                                <TableView fx:id="backup" prefHeight="230.0" prefWidth="475.0">
-                                    <columns>
-                                        <TableColumn fx:id="buCol" minWidth="200.0" prefWidth="200.0" text="Backup">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="name" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="buDiffCol" minWidth="75.0" prefWidth="75.0" text="Difficulty">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="difficulty" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="buPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="participation" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="buPrioCol" minWidth="50.0" prefWidth="50.0" text="Puck Position">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="puckPosition" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn fx:id="buSI" minWidth="50.0" prefWidth="50.0" text="Index">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="sortingIndex" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                    </columns>
-                                </TableView>
-                            </children>
-                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                     </content>
                 </Tab>
             </tabs>
         </TabPane>
         <Label layoutX="12.0" layoutY="67.0" prefHeight="25.0" prefWidth="64.0" text="Date" />
-        <TextField fx:id="trainingDate" layoutX="77.0" layoutY="64.0" prefHeight="30.0" prefWidth="213.0" />
-        <TextField fx:id="trainingTime" layoutX="77.0" layoutY="94.0" prefHeight="30.0" prefWidth="213.0" />
+        <TextField fx:id="gameDate" layoutX="77.0" layoutY="64.0" prefHeight="30.0" prefWidth="213.0" />
+        <TextField fx:id="gameTime" layoutX="77.0" layoutY="94.0" prefHeight="30.0" prefWidth="213.0" />
         <Label layoutX="12.0" layoutY="97.0" prefHeight="25.0" prefWidth="64.0" text="Time" />
-        <TextField fx:id="trainingStadium" layoutX="77.0" layoutY="124.0" prefHeight="30.0" prefWidth="213.0" />
+        <TextField fx:id="gameStadium" layoutX="77.0" layoutY="124.0" prefHeight="30.0" prefWidth="213.0" />
         <Label layoutX="12.0" layoutY="127.0" prefHeight="25.0" prefWidth="64.0" text="Stadium" />
-        <TextField fx:id="trainingTeam" layoutX="77.0" layoutY="152.0" prefHeight="30.0" prefWidth="213.0" />
+        <TextField fx:id="gameTeam" layoutX="77.0" layoutY="152.0" prefHeight="30.0" prefWidth="213.0" />
         <Label layoutX="12.0" layoutY="155.0" prefHeight="25.0" prefWidth="64.0" text="Team" />
-        <TextField fx:id="trainingMainFocus" layoutX="77.0" layoutY="182.0" prefHeight="30.0" prefWidth="213.0" />
-        <Label layoutX="12.0" layoutY="185.0" prefHeight="25.0" prefWidth="64.0" text="Main Focus" />
-        <TextArea fx:id="trainingPointers" layoutX="78.0" layoutY="212.0" prefHeight="130.0" prefWidth="213.0" />
-        <Label layoutX="12.0" layoutY="212.0" prefHeight="25.0" prefWidth="64.0" text="Pointers" />
-        <Button fx:id="resetFilters" layoutX="1085.0" layoutY="392.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="104.0" text="Reset all filters" />
-        <Button fx:id="warmupButton" layoutX="1125.0" layoutY="483.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Warmup" />
-        <Button fx:id="togetherButton" layoutX="1125.0" layoutY="514.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Together" />
-        <Button fx:id="stationsButton" layoutX="1125.0" layoutY="546.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Stations" />
-        <Button fx:id="backupButton" layoutX="1125.0" layoutY="578.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Backup" />
+        <TextField fx:id="gameOpponent" layoutX="77.0" layoutY="182.0" prefHeight="30.0" prefWidth="213.0" />
+        <Label layoutX="12.0" layoutY="185.0" prefHeight="25.0" prefWidth="64.0" text="Opponent" />
         <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
             <children>
                 <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
                 <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Cancel" />
             </children>
         </HBox>
-        <Label layoutX="259.0" layoutY="392.0" prefHeight="25.0" prefWidth="71.0" text="Puck Position" />
-        <TextField fx:id="puckPosition" layoutX="337.0" layoutY="390.0" prefHeight="30.0" prefWidth="143.0" />
+      <TableView fx:id="teamPlayers" layoutX="14.0" layoutY="297.0" prefHeight="518.0" prefWidth="275.0">
+         <columns>
+            <TableColumn fx:id="playerLastName" minWidth="150.0" prefWidth="150.0" text="Last Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="lastName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="playerFirstName" minWidth="125.0" prefWidth="125.0" text="First Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="firstName" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <TableView fx:id="availablePlayers" layoutX="895.0" layoutY="67.0" prefHeight="385.0" prefWidth="300.0">
+         <columns>
+            <TableColumn fx:id="avPlayerLastName" minWidth="130.0" prefWidth="130.0" text="Last Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="lastName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="avPlayerFirstName" minWidth="100.0" prefWidth="100.0" text="First Name">
+               <cellValueFactory>
+                  <PropertyValueFactory property="firstName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="avPlayerPosition" minWidth="70.0" prefWidth="70.0" text="Position">
+               <cellValueFactory>
+                  <PropertyValueFactory property="positions" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
     </children>
 </Pane>

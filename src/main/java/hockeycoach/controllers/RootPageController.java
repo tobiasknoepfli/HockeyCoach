@@ -2,6 +2,7 @@ package hockeycoach.controllers;
 
 import hockeycoach.UI.*;
 
+import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +30,9 @@ public class RootPageController {
 
     @FXML
     private Button trainingButton;
+
+    @FXML
+    private Button gameEditorButton;
 
     @FXML
     private void homeButtonAction() {
@@ -134,6 +138,21 @@ public class RootPageController {
 
             NewPlayerPresentationModel newPlayerPresentationModel = new NewPlayerPresentationModel(contentPane);
             newPlayerPresentationModel.initializeControls(newPlayerPage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void gameEditorAction(){
+        try {
+            FXMLLoader gameEditorLoader = new FXMLLoader(getClass().getResource("/hockeycoach/game-editor-page.fxml"));
+            Pane gameEditorPage = gameEditorLoader.load();
+            contentPane.getChildren().clear();
+            contentPane.getChildren().add(gameEditorPage);
+
+            GameEditorPresentationModel gameEditorPresentationModel = new GameEditorPresentationModel();
+            gameEditorPresentationModel.initializeControls(gameEditorPage);
         } catch (IOException e) {
             e.printStackTrace();
         }
