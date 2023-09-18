@@ -15,13 +15,35 @@
 
 <Pane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.GameEditorController">
     <children>
-        <TabPane fx:id="lineupTabPane" layoutX="299.0" layoutY="67.0" prefHeight="748.0" prefWidth="590.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="lineupTabPane" layoutX="299.0" layoutY="67.0" prefHeight="646.0" prefWidth="580.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab fx:id="lineupTab" text="Lineup">
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="895.0">
                      <children>
-                        <ImageView fx:id="boardImage" fitHeight="722.0" fitWidth="590.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="boardImage" fitHeight="617.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="gk1" layoutX="221.0" layoutY="83.0" />
+                        <TextField fx:id="gk2" layoutX="221.0" layoutY="108.0" />
+                        <TextField fx:id="dl1" layoutX="406.0" layoutY="145.0" />
+                        <TextField fx:id="dl2" layoutX="406.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
+                        <TextField fx:id="dl3" layoutX="406.0" layoutY="195.0" />
+                        <TextField fx:id="dl4" layoutX="406.0" layoutY="220.0" />
+                        <TextField fx:id="dr1" layoutX="29.0" layoutY="145.0" />
+                        <TextField fx:id="dr2" layoutX="29.0" layoutY="170.0" />
+                        <TextField fx:id="dr3" layoutX="29.0" layoutY="195.0" />
+                        <TextField fx:id="dr4" layoutX="29.0" layoutY="220.0" />
+                        <TextField fx:id="c1" layoutX="221.0" layoutY="253.0" />
+                        <TextField fx:id="c2" layoutX="221.0" layoutY="278.0" />
+                        <TextField fx:id="c3" layoutX="221.0" layoutY="303.0" />
+                        <TextField fx:id="c4" layoutX="221.0" layoutY="328.0" />
+                        <TextField fx:id="fl1" layoutX="406.0" layoutY="354.0" />
+                        <TextField fx:id="fl2" layoutX="406.0" layoutY="379.0" />
+                        <TextField fx:id="fl3" layoutX="406.0" layoutY="404.0" />
+                        <TextField fx:id="fl4" layoutX="406.0" layoutY="429.0" />
+                        <TextField fx:id="fr1" layoutX="29.0" layoutY="354.0" />
+                        <TextField fx:id="fr2" layoutX="29.0" layoutY="379.0" />
+                        <TextField fx:id="fr3" layoutX="29.0" layoutY="404.0" />
+                        <TextField fx:id="fr4" layoutX="29.0" layoutY="429.0" />
                      </children></AnchorPane>
                     </content>
                 </Tab>
@@ -67,14 +89,14 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="availablePlayers" layoutX="895.0" layoutY="67.0" prefHeight="385.0" prefWidth="300.0">
+      <TableView fx:id="availablePlayers" layoutX="886.0" layoutY="64.0" prefHeight="385.0" prefWidth="310.0">
          <columns>
             <TableColumn fx:id="avPlayerLastName" minWidth="130.0" prefWidth="130.0" text="Last Name">
                <cellValueFactory>
                   <PropertyValueFactory property="lastName" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="avPlayerFirstName" minWidth="100.0" prefWidth="100.0" text="First Name">
+            <TableColumn fx:id="avPlayerFirstName" minWidth="110.0" prefWidth="110.0" text="First Name">
                <cellValueFactory>
                   <PropertyValueFactory property="firstName" />
                </cellValueFactory>
