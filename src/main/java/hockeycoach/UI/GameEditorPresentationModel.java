@@ -88,7 +88,7 @@ public class GameEditorPresentationModel {
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
 
-        TextField[] textFields = {gk1,gk2,dl1,dl2,dl3,dl4,dr1,dr2,dr3,dr4,c1,c2,c3,c4,fl1,fl2,fl3,fl4,fr1,fr2,fr3,fr4};
+        TextField[] textFields = {gk1, gk2, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4, c1, c2, c3, c4, fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4};
         Arrays.stream(textFields).forEach(this::dragEvent);
 
         dragDetect(teamPlayers);
@@ -104,12 +104,12 @@ public class GameEditorPresentationModel {
         gameTeam.setText(selectedTeam.getName());
     }
 
-    public void setupEventListeners(){
+    public void setupEventListeners() {
     }
 
-    public void dragEvent(TextField textField){
-        textField.setOnDragOver(event ->{
-            if(event.getGestureSource() !=textField && event.getDragboard().hasString()){
+    public void dragEvent(TextField textField) {
+        textField.setOnDragOver(event -> {
+            if (event.getGestureSource() != textField && event.getDragboard().hasString()) {
                 event.acceptTransferModes(TransferMode.COPY);
             }
             event.consume();
@@ -119,7 +119,7 @@ public class GameEditorPresentationModel {
             Dragboard db = event.getDragboard();
             boolean success = false;
 
-            if(db.hasString() && !textField.getText().equals(db.getString())) {
+            if (db.hasString() && !textField.getText().equals(db.getString())) {
                 textField.setText(db.getString());
                 success = true;
             }
@@ -128,11 +128,11 @@ public class GameEditorPresentationModel {
         });
     }
 
-    public void dragDetect(TableView<Player> tableView){
-        tableView.setOnDragDetected(event ->{
+    public void dragDetect(TableView<Player> tableView) {
+        tableView.setOnDragDetected(event -> {
             Player selectedPlayer = tableView.getSelectionModel().getSelectedItem();
 
-            if(selectedPlayer != null){
+            if (selectedPlayer != null) {
                 Dragboard dragboard = tableView.startDragAndDrop(TransferMode.COPY);
                 ClipboardContent content = new ClipboardContent();
                 content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName());
@@ -143,7 +143,7 @@ public class GameEditorPresentationModel {
         });
     }
 
-    public void doubleClick(){
+    public void doubleClick() {
         TextField[] textFields = {gk1, gk2, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4, c1, c2, c3, c4, fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4};
         Arrays.stream(textFields).forEach(this::dragEvent);
 
