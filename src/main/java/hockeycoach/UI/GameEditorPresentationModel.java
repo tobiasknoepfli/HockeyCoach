@@ -1,18 +1,24 @@
 package hockeycoach.UI;
 
 import hockeycoach.mainClasses.Player;
+import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.mainClasses.Team;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameEditorPresentationModel {
+    Team selectedTeam;
+
     TextField gameDate;
     TextField gameTime;
     TextField gameStadium;
@@ -82,7 +88,23 @@ public class GameEditorPresentationModel {
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
 
-        dragEvent(gk1);
+        TextField[] textFields = {gk1,gk2,dl1,dl2,dl3,dl4,dr1,dr2,dr3,dr4,c1,c2,c3,c4,fl1,fl2,fl3,fl4,fr1,fr2,fr3,fr4};
+        Arrays.stream(textFields).forEach(this::dragEvent);
+
+        dragDetect(teamPlayers);
+        doubleClick();
+
+        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        DBLoader dbLoader = new DBLoader();
+        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+
+        teamPlayers.getItems().clear();
+        teamPlayers.getItems().setAll(playerList);
+
+        gameTeam.setText(selectedTeam.getName());
+    }
+
+    public void setupEventListeners(){
     }
 
     public void dragEvent(TextField textField){
@@ -97,8 +119,8 @@ public class GameEditorPresentationModel {
             Dragboard db = event.getDragboard();
             boolean success = false;
 
-            if(db.hasString() && !gameOpponent.getText().equals(db.getString())) {
-                gameOpponent.setText(db.getString());
+            if(db.hasString() && !textField.getText().equals(db.getString())) {
+                textField.setText(db.getString());
                 success = true;
             }
             event.setDropCompleted(success);
@@ -115,10 +137,35 @@ public class GameEditorPresentationModel {
                 ClipboardContent content = new ClipboardContent();
                 content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName());
                 dragboard.setContent(content);
+                tableView.getItems().remove(selectedPlayer);
             }
-
-
             event.consume();
+        });
+    }
+
+    public void doubleClick(){
+        TextField[] textFields = {gk1, gk2, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4, c1, c2, c3, c4, fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4};
+        Arrays.stream(textFields).forEach(this::dragEvent);
+
+        Arrays.stream(textFields).forEach(textField -> {
+            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    String playerName = textField.getText();
+                    if (!playerName.isEmpty()) {
+                        // Create a new Player object with the extracted name
+                        Player player = new Player();
+                        String[] nameParts = playerName.split(" ");
+                        if (nameParts.length >= 2) {
+                            player.setFirstName(nameParts[1]);
+                            player.setLastName(nameParts[0]);
+                            // Add the player back to the TableView
+                            teamPlayers.getItems().add(player);
+                            // Clear the TextField
+                            textField.clear();
+                        }
+                    }
+                }
+            });
         });
     }
 }
