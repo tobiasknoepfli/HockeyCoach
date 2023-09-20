@@ -12,7 +12,8 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.lang.reflect.Array;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ public class GameEditorPresentationModel {
     TableView<Player> teamPlayers;
     TableView<Player> availablePlayers;
     ImageView boardImage;
+    List<TextField> textFields;
 
     TextField gk1;
     TextField gk2;
@@ -105,7 +107,7 @@ public class GameEditorPresentationModel {
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
 
-        TextField[] textFields = {gk1, gk2,
+        TextField[] tf = {gk1, gk2,
                 dl1, dl2, dl3, dl4,
                 dr1, dr2, dr3, dr4,
                 c1, c2, c3, c4,
@@ -115,10 +117,12 @@ public class GameEditorPresentationModel {
                 sd1, sd2, sd3,
                 sf1, sf2, sf3};
 
-        Arrays.stream(textFields).forEach(this::dragEvent);
+        textFields = new ArrayList<>(Arrays.asList(tf));
+
+        textFields.stream().forEach(this::dragEvent);
 
         dragDetect(teamPlayers);
-        doubleClick();
+        doubleClick(textFields);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -169,19 +173,10 @@ public class GameEditorPresentationModel {
         });
     }
 
-    public void doubleClick() {
-        TextField[] textFields = {gk1, gk2,
-                dl1, dl2, dl3, dl4,
-                dr1, dr2, dr3, dr4,
-                c1, c2, c3, c4,
-                fl1, fl2, fl3, fl4,
-                fr1, fr2, fr3, fr4,
-                sgk1, sgk2,
-                sd1, sd2, sd3,
-                sf1, sf2, sf3};
-        Arrays.stream(textFields).forEach(this::dragEvent);
+    public void doubleClick(List<TextField> textFields) {
+        textFields.stream().forEach(this::dragEvent);
 
-        Arrays.stream(textFields).forEach(textField -> {
+        textFields.stream().forEach(textField -> {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     String playerName = textField.getText();
