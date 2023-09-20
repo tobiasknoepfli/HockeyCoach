@@ -96,4 +96,28 @@ public class GameEditorController {
 
     @FXML
     private TextField fr4;
+
+    @FXML
+    TextField sgk1;
+
+    @FXML
+    TextField sgk2;
+
+    @FXML
+    TextField sd1;
+
+    @FXML
+    TextField sd2;
+
+    @FXML
+    TextField sd3;
+
+    @FXML
+    TextField sf1;
+
+    @FXML
+    TextField sf2;
+
+    @FXML
+    TextField sf3;
 }

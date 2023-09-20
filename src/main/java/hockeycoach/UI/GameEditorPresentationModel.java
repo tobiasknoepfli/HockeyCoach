@@ -3,6 +3,7 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -50,6 +51,14 @@ public class GameEditorPresentationModel {
     TextField fr2;
     TextField fr3;
     TextField fr4;
+    TextField sgk1;
+    TextField sgk2;
+    TextField sd1;
+    TextField sd2;
+    TextField sd3;
+    TextField sf1;
+    TextField sf2;
+    TextField sf3;
 
     public void initializeControls(Pane root) {
         gameDate = (TextField) root.lookup("#gameDate");
@@ -83,12 +92,29 @@ public class GameEditorPresentationModel {
         fr2 = (TextField) root.lookup("#fr2");
         fr3 = (TextField) root.lookup("#fr3");
         fr4 = (TextField) root.lookup("#fr4");
+        sgk1 = (TextField) root.lookup("#sgk1");
+        sgk2 = (TextField) root.lookup("#sgk2");
+        sd1 = (TextField) root.lookup("#sd1");
+        sd2 = (TextField) root.lookup("#sd2");
+        sd3 = (TextField) root.lookup("#sd3");
+        sf1 = (TextField) root.lookup("#sf1");
+        sf2 = (TextField) root.lookup("#sf2");
+        sf3 = (TextField) root.lookup("#sf3");
 
         File file = new File("src/main/java/hockeycoach/files/background/board.jpg");
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
 
-        TextField[] textFields = {gk1, gk2, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4, c1, c2, c3, c4, fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4};
+        TextField[] textFields = {gk1, gk2,
+                dl1, dl2, dl3, dl4,
+                dr1, dr2, dr3, dr4,
+                c1, c2, c3, c4,
+                fl1, fl2, fl3, fl4,
+                fr1, fr2, fr3, fr4,
+                sgk1, sgk2,
+                sd1, sd2, sd3,
+                sf1, sf2, sf3};
+
         Arrays.stream(textFields).forEach(this::dragEvent);
 
         dragDetect(teamPlayers);
@@ -144,7 +170,15 @@ public class GameEditorPresentationModel {
     }
 
     public void doubleClick() {
-        TextField[] textFields = {gk1, gk2, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4, c1, c2, c3, c4, fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4};
+        TextField[] textFields = {gk1, gk2,
+                dl1, dl2, dl3, dl4,
+                dr1, dr2, dr3, dr4,
+                c1, c2, c3, c4,
+                fl1, fl2, fl3, fl4,
+                fr1, fr2, fr3, fr4,
+                sgk1, sgk2,
+                sd1, sd2, sd3,
+                sf1, sf2, sf3};
         Arrays.stream(textFields).forEach(this::dragEvent);
 
         Arrays.stream(textFields).forEach(textField -> {
