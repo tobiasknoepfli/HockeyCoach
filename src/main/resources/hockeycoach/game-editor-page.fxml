@@ -12,58 +12,67 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
 <Pane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.GameEditorController">
     <children>
-        <TabPane fx:id="lineupTabPane" layoutX="299.0" layoutY="67.0" prefHeight="646.0" prefWidth="580.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="lineupTabPane" layoutX="299.0" layoutY="67.0" prefHeight="747.0" prefWidth="530.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab fx:id="lineupTab" text="Lineup">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="698.0" prefWidth="895.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="718.0" prefWidth="536.0">
                      <children>
-                        <ImageView fx:id="boardImage" fitHeight="617.0" fitWidth="580.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextField fx:id="gk1" layoutX="221.0" layoutY="83.0" />
-                        <TextField fx:id="gk2" layoutX="221.0" layoutY="108.0" />
-                        <TextField fx:id="dl1" layoutX="406.0" layoutY="145.0" />
-                        <TextField fx:id="dl2" layoutX="406.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="dl3" layoutX="406.0" layoutY="195.0" />
-                        <TextField fx:id="dl4" layoutX="406.0" layoutY="220.0" />
-                        <TextField fx:id="dr1" layoutX="29.0" layoutY="145.0" />
-                        <TextField fx:id="dr2" layoutX="29.0" layoutY="170.0" />
-                        <TextField fx:id="dr3" layoutX="29.0" layoutY="195.0" />
-                        <TextField fx:id="dr4" layoutX="29.0" layoutY="220.0" />
-                        <TextField fx:id="c1" layoutX="221.0" layoutY="253.0" />
-                        <TextField fx:id="c2" layoutX="221.0" layoutY="278.0" />
-                        <TextField fx:id="c3" layoutX="221.0" layoutY="303.0" />
-                        <TextField fx:id="c4" layoutX="221.0" layoutY="328.0" />
-                        <TextField fx:id="fl1" layoutX="406.0" layoutY="354.0" />
-                        <TextField fx:id="fl2" layoutX="406.0" layoutY="379.0" />
-                        <TextField fx:id="fl3" layoutX="406.0" layoutY="404.0" />
-                        <TextField fx:id="fl4" layoutX="406.0" layoutY="429.0" />
-                        <TextField fx:id="fr1" layoutX="29.0" layoutY="354.0" />
-                        <TextField fx:id="fr2" layoutX="29.0" layoutY="379.0" />
-                        <TextField fx:id="fr3" layoutX="29.0" layoutY="404.0" />
-                        <TextField fx:id="fr4" layoutX="29.0" layoutY="429.0" />
-                        <TextField fx:id="sgk1" layoutX="29.0" layoutY="520.0" />
-                        <TextField fx:id="sgk2" layoutX="29.0" layoutY="545.0" />
-                        <TextField fx:id="sd1" layoutX="216.0" layoutY="507.0" />
-                        <TextField fx:id="sd2" layoutX="216.0" layoutY="532.0" />
-                        <TextField fx:id="sd3" layoutX="216.0" layoutY="557.0" />
-                        <TextField fx:id="sf1" layoutX="406.0" layoutY="507.0" />
-                        <TextField fx:id="sf2" layoutX="406.0" layoutY="532.0" />
-                        <TextField fx:id="sf3" layoutX="406.0" layoutY="557.0" />
-                        <Label layoutX="29.0" layoutY="482.0" prefHeight="25.0" prefWidth="64.0" text="Substitutes" />
+                        <ImageView fx:id="boardImage" fitHeight="721.0" fitWidth="530.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField fx:id="gk1" layoutX="191.0" layoutY="83.0" />
+                        <TextField fx:id="dl1" layoutX="367.0" layoutY="145.0" />
+                        <TextField fx:id="dl2" layoutX="367.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
+                        <TextField fx:id="dl3" layoutX="367.0" layoutY="195.0" />
+                        <TextField fx:id="dl4" layoutX="367.0" layoutY="220.0" />
+                        <TextField fx:id="dr1" layoutX="14.0" layoutY="145.0" />
+                        <TextField fx:id="dr2" layoutX="14.0" layoutY="170.0" />
+                        <TextField fx:id="dr3" layoutX="14.0" layoutY="195.0" />
+                        <TextField fx:id="dr4" layoutX="14.0" layoutY="220.0" />
+                        <TextField fx:id="c1" layoutX="191.0" layoutY="220.0" />
+                        <TextField fx:id="c2" layoutX="191.0" layoutY="245.0" />
+                        <TextField fx:id="c3" layoutX="191.0" layoutY="270.0" />
+                        <TextField fx:id="c4" layoutX="191.0" layoutY="295.0" />
+                        <TextField fx:id="fl1" layoutX="367.0" layoutY="295.0" />
+                        <TextField fx:id="fl2" layoutX="367.0" layoutY="320.0" />
+                        <TextField fx:id="fl3" layoutX="367.0" layoutY="345.0" />
+                        <TextField fx:id="fl4" layoutX="367.0" layoutY="370.0" />
+                        <TextField fx:id="fr1" layoutX="14.0" layoutY="295.0" />
+                        <TextField fx:id="fr2" layoutX="14.0" layoutY="320.0" />
+                        <TextField fx:id="fr3" layoutX="14.0" layoutY="345.0" prefHeight="25.0" prefWidth="149.0" />
+                        <TextField fx:id="fr4" layoutX="14.0" layoutY="370.0" />
+                        <TextField fx:id="sgk1" layoutX="14.0" layoutY="642.0" />
+                        <TextField fx:id="sgk2" layoutX="14.0" layoutY="667.0" />
+                        <TextField fx:id="sd1" layoutX="191.0" layoutY="629.0" />
+                        <TextField fx:id="sd2" layoutX="191.0" layoutY="654.0" />
+                        <TextField fx:id="sd3" layoutX="191.0" layoutY="679.0" />
+                        <TextField fx:id="sf1" layoutX="367.0" layoutY="629.0" />
+                        <TextField fx:id="sf2" layoutX="367.0" layoutY="654.0" />
+                        <TextField fx:id="sf3" layoutX="367.0" layoutY="679.0" />
+                        <Label layoutX="14.0" layoutY="571.0" prefHeight="25.0" prefWidth="64.0" text="Substitutes" />
+                        <Label layoutX="14.0" layoutY="596.0" prefHeight="25.0" prefWidth="149.0" text="Goalkeepers" />
+                        <Label layoutX="191.0" layoutY="596.0" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
+                        <Label layoutX="367.0" layoutY="596.0" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
                      </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="powerplayTab" text="Powerplay">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="ppBoardImage" fitHeight="721.0" fitWidth="530.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></AnchorPane>
                     </content>
                 </Tab>
                 <Tab fx:id="BoxplayTab" text="Boxplay">
                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="bpBoardImage" fitHeight="721.0" fitWidth="530.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></AnchorPane>
                     </content>
                 </Tab>
             </tabs>
@@ -98,24 +107,131 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="availablePlayers" layoutX="886.0" layoutY="64.0" prefHeight="385.0" prefWidth="310.0">
-         <columns>
-            <TableColumn fx:id="avPlayerLastName" minWidth="130.0" prefWidth="130.0" text="Last Name">
-               <cellValueFactory>
-                  <PropertyValueFactory property="lastName" />
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="avPlayerFirstName" minWidth="110.0" prefWidth="110.0" text="First Name">
-               <cellValueFactory>
-                  <PropertyValueFactory property="firstName" />
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="avPlayerPosition" minWidth="70.0" prefWidth="70.0" text="Position">
-               <cellValueFactory>
-                  <PropertyValueFactory property="positions" />
-               </cellValueFactory>
-            </TableColumn>
-         </columns>
-      </TableView>
+      <VBox layoutX="886.0" layoutY="90.0" prefHeight="518.0" prefWidth="300.0" spacing="10.0">
+         <children>
+            <VBox prefHeight="102.0" prefWidth="300.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="300.0" />
+                  <Label fx:id="lbgk1" prefHeight="17.0" prefWidth="300.0" text="GK" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="345.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="300.0" />
+                  <Label fx:id="lbdr1" prefHeight="17.0" prefWidth="300.0" text="DR" />
+                  <Label fx:id="lbdl1" prefHeight="17.0" prefWidth="300.0" text="DL" />
+                  <Label fx:id="lbc1" prefHeight="17.0" prefWidth="300.0" text="C" />
+                  <Label fx:id="lbfr1" prefHeight="17.0" prefWidth="300.0" text="FR" />
+                  <Label fx:id="lbfl1" prefHeight="17.0" prefWidth="300.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="345.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="300.0" />
+                  <Label fx:id="lbdr2" prefHeight="17.0" prefWidth="300.0" text="DR" />
+                  <Label fx:id="lbdl2" prefHeight="17.0" prefWidth="300.0" text="DL" />
+                  <Label fx:id="lbc2" prefHeight="17.0" prefWidth="300.0" text="C" />
+                  <Label fx:id="lbfr2" prefHeight="17.0" prefWidth="300.0" text="FR" />
+                  <Label fx:id="lbfl2" prefHeight="17.0" prefWidth="300.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="345.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="300.0" />
+                  <Label fx:id="lbdr3" prefHeight="17.0" prefWidth="300.0" text="DR" />
+                  <Label fx:id="lbdl3" prefHeight="17.0" prefWidth="300.0" text="DL" />
+                  <Label fx:id="lbc3" prefHeight="17.0" prefWidth="300.0" text="C" />
+                  <Label fx:id="lbfr3" prefHeight="17.0" prefWidth="300.0" text="FR" />
+                  <Label fx:id="lbfl3" prefHeight="17.0" prefWidth="300.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="345.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="300.0" />
+                  <Label fx:id="lbdr4" prefHeight="17.0" prefWidth="300.0" text="DR" />
+                  <Label fx:id="lbdl4" prefHeight="17.0" prefWidth="300.0" text="DL" />
+                  <Label fx:id="lbc4" prefHeight="17.0" prefWidth="300.0" text="C" />
+                  <Label fx:id="lbfr4" prefHeight="17.0" prefWidth="300.0" text="FR" />
+                  <Label fx:id="lbfl4" prefHeight="17.0" prefWidth="300.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="345.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="300.0" />
+                  <Label fx:id="lbgks1" prefHeight="17.0" prefWidth="300.0" text="GK" />
+                  <Label fx:id="lbgks2" prefHeight="17.0" prefWidth="300.0" text="GK" />
+                  <Label fx:id="lbsd1" prefHeight="17.0" prefWidth="300.0" text="D" />
+                  <Label fx:id="lbsd2" prefHeight="17.0" prefWidth="300.0" text="D" />
+                  <Label fx:id="lbsd3" prefHeight="17.0" prefWidth="300.0" text="D" />
+                  <Label fx:id="lbsf1" prefHeight="17.0" prefWidth="300.0" text="F" />
+                  <Label fx:id="lbsf2" prefHeight="17.0" prefWidth="300.0" text="F" />
+                  <Label fx:id="lbsf3" prefHeight="17.0" prefWidth="300.0" text="F" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+      <VBox layoutX="845.0" layoutY="90.0" prefHeight="703.0" prefWidth="34.0" spacing="10.0">
+         <children>
+            <VBox prefHeight="36.0" prefWidth="34.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" />
+                  <Label prefHeight="17.0" text="GK" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="100.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" text="1st" />
+                  <Label prefHeight="17.0" text="DR" />
+                  <Label prefHeight="17.0" text="DL" />
+                  <Label prefHeight="17.0" text="C" />
+                  <Label prefHeight="17.0" text="FR" />
+                  <Label prefHeight="17.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="100.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" text="2nd" />
+                  <Label prefHeight="17.0" text="DR" />
+                  <Label prefHeight="17.0" text="DL" />
+                  <Label prefHeight="17.0" text="C" />
+                  <Label prefHeight="17.0" text="FR" />
+                  <Label prefHeight="17.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="100.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" text="3rd" />
+                  <Label prefHeight="17.0" text="DR" />
+                  <Label prefHeight="17.0" text="DL" />
+                  <Label prefHeight="17.0" text="C" />
+                  <Label prefHeight="17.0" text="FR" />
+                  <Label prefHeight="17.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="100.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" text="4th" />
+                  <Label prefHeight="17.0" text="DR" />
+                  <Label prefHeight="17.0" text="DL" />
+                  <Label prefHeight="17.0" text="C" />
+                  <Label prefHeight="17.0" text="FR" />
+                  <Label prefHeight="17.0" text="FL" />
+               </children>
+            </VBox>
+            <VBox prefHeight="102.0" prefWidth="100.0" spacing="2.0">
+               <children>
+                  <Label prefHeight="17.0" text="Subs" />
+                  <Label prefHeight="17.0" text="GK" />
+                  <Label prefHeight="17.0" text="GK" />
+                  <Label prefHeight="17.0" text="D" />
+                  <Label prefHeight="17.0" text="D" />
+                  <Label prefHeight="17.0" text="D" />
+                  <Label prefHeight="17.0" text="F" />
+                  <Label prefHeight="17.0" text="F" />
+                  <Label prefHeight="17.0" text="F" />
+               </children>
+            </VBox>
+         </children>
+      </VBox>
     </children>
 </Pane>

@@ -3,7 +3,10 @@ package hockeycoach.UI;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -29,38 +32,29 @@ public class GameEditorPresentationModel {
     TableView<Player> teamPlayers;
     TableView<Player> availablePlayers;
     ImageView boardImage;
+    ImageView ppBoardImage;
+    ImageView bpBoardImage;
     List<TextField> textFields;
+    List<TextField> txtFlds;
+    List<Label> labels;
 
     TextField gk1;
-    TextField gk2;
-    TextField dl1;
-    TextField dl2;
-    TextField dl3;
-    TextField dl4;
-    TextField dr1;
-    TextField dr2;
-    TextField dr3;
-    TextField dr4;
-    TextField c1;
-    TextField c2;
-    TextField c3;
-    TextField c4;
-    TextField fl1;
-    TextField fl2;
-    TextField fl3;
-    TextField fl4;
-    TextField fr1;
-    TextField fr2;
-    TextField fr3;
-    TextField fr4;
-    TextField sgk1;
-    TextField sgk2;
-    TextField sd1;
-    TextField sd2;
-    TextField sd3;
-    TextField sf1;
-    TextField sf2;
-    TextField sf3;
+    TextField dl1, dl2, dl3, dl4;
+    TextField dr1, dr2, dr3, dr4;
+    TextField c1, c2, c3, c4;
+    TextField fl1, fl2, fl3, fl4;
+    TextField fr1, fr2, fr3, fr4;
+    TextField sgk1, sgk2;
+    TextField sd1, sd2, sd3;
+    TextField sf1, sf2, sf3;
+
+    Label lbgk1;
+    Label lbdr1, lbdr2, lbdr3, lbdr4;
+    Label lbdl1, lbdl2, lbdl3, lbdl4;
+    Label lbc1, lbc2, lbc3, lbc4;
+    Label lbfl1, lbfl2, lbfl3, lbfl4;
+    Label lbfr1, lbfr2, lbfr3, lbfr4;
+    Label lbgks1,lbgks2, lbsd1, lbsd2, lbsd3, lbsf1, lbsf2, lbsf3;
 
     public void initializeControls(Pane root) {
         gameDate = (TextField) root.lookup("#gameDate");
@@ -71,9 +65,10 @@ public class GameEditorPresentationModel {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         availablePlayers = (TableView) root.lookup("#availablePlayers");
         boardImage = (ImageView) root.lookup("#boardImage");
+        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
+        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
 
         gk1 = (TextField) root.lookup("#gk1");
-        gk2 = (TextField) root.lookup("#gk2");
         dl1 = (TextField) root.lookup("#dl1");
         dl2 = (TextField) root.lookup("#dl2");
         dl3 = (TextField) root.lookup("#dl3");
@@ -102,12 +97,44 @@ public class GameEditorPresentationModel {
         sf1 = (TextField) root.lookup("#sf1");
         sf2 = (TextField) root.lookup("#sf2");
         sf3 = (TextField) root.lookup("#sf3");
+        lbgk1 = (Label) root.lookup("#lbgk1");
+        lbdr1 = (Label) root.lookup("#lbdr1");
+        lbdr2 = (Label) root.lookup("#lbdr2");
+        lbdr3 = (Label) root.lookup("#lbdr3");
+        lbdr4 = (Label) root.lookup("#lbdr4");
+        lbdl1 = (Label) root.lookup("#lbdl1");
+        lbdl2 = (Label) root.lookup("#lbdl2");
+        lbdl3 = (Label) root.lookup("#lbdl3");
+        lbdl4 = (Label) root.lookup("#lbdl4");
+        lbc1 = (Label) root.lookup("#lbc1");
+        lbc2 = (Label) root.lookup("#lbc2");
+        lbc3 = (Label) root.lookup("#lbc3");
+        lbc4 = (Label) root.lookup("#lbc4");
+        lbfl1 = (Label) root.lookup("#lbfl1");
+        lbfl2 = (Label) root.lookup("#lbfl2");
+        lbfl3 = (Label) root.lookup("#lbfl3");
+        lbfl4 = (Label) root.lookup("#lbfl4");
+        lbfr1 = (Label) root.lookup("#lbfr1");
+        lbfr2 = (Label) root.lookup("#lbfr2");
+        lbfr3 = (Label) root.lookup("#lbfr3");
+        lbfr4 = (Label) root.lookup("#lbfr4");
+        lbgks1 = (Label) root.lookup("#lbgks1");
+        lbgks2 = (Label) root.lookup("#lbgks2");
+        lbsd1 = (Label) root.lookup("#lbsd1");
+        lbsd2 = (Label) root.lookup("#lbsd2");
+        lbsd3 = (Label) root.lookup("#lbsd3");
+        lbsf1 = (Label) root.lookup("#lbsf1");
+        lbsf2 = (Label) root.lookup("#lbsf2");
+        lbsf3 = (Label) root.lookup("#lbsf3");
+
 
         File file = new File("src/main/java/hockeycoach/files/background/board.jpg");
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
+        ppBoardImage.setImage(image);
+        bpBoardImage.setImage(image);
 
-        TextField[] tf = {gk1, gk2,
+        TextField[] tf = {gk1,
                 dl1, dl2, dl3, dl4,
                 dr1, dr2, dr3, dr4,
                 c1, c2, c3, c4,
@@ -117,12 +144,21 @@ public class GameEditorPresentationModel {
                 sd1, sd2, sd3,
                 sf1, sf2, sf3};
 
+        Label[] lb = {lbgk1, lbdr1, lbdr2, lbdr3, lbdr4,
+                lbdl1, lbdl2, lbdl3, lbdl4,
+                lbc1, lbc2, lbc3, lbc4,
+                lbfl1, lbfl2, lbfl3, lbfl4,
+                lbfr1, lbfr2, lbfr3, lbfr4,
+                lbgks1, lbgks2, lbsd1, lbsd2, lbsd3, lbsf1, lbsf2, lbsf3};
+
         textFields = new ArrayList<>(Arrays.asList(tf));
+        labels = new ArrayList<>(Arrays.asList(lb));
 
         textFields.stream().forEach(this::dragEvent);
 
         dragDetect(teamPlayers);
         doubleClick(textFields);
+        lineupBindings(textFields,labels);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -149,7 +185,7 @@ public class GameEditorPresentationModel {
             Dragboard db = event.getDragboard();
             boolean success = false;
 
-            if (db.hasString() && !textField.getText().equals(db.getString())) {
+            if (db.hasString() && !textField.getText().equals(db.getString()) && textField.getText().isEmpty()) {
                 textField.setText(db.getString());
                 success = true;
             }
@@ -181,15 +217,12 @@ public class GameEditorPresentationModel {
                 if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     String playerName = textField.getText();
                     if (!playerName.isEmpty()) {
-                        // Create a new Player object with the extracted name
                         Player player = new Player();
                         String[] nameParts = playerName.split(" ");
                         if (nameParts.length >= 2) {
                             player.setFirstName(nameParts[1]);
                             player.setLastName(nameParts[0]);
-                            // Add the player back to the TableView
                             teamPlayers.getItems().add(player);
-                            // Clear the TextField
                             textField.clear();
                         }
                     }
@@ -197,4 +230,21 @@ public class GameEditorPresentationModel {
             });
         });
     }
+
+    public void lineupBindings(List<TextField> textFields, List<Label> labels) {
+        if (textFields.size() != labels.size()) {
+            throw new IllegalArgumentException("List sizes don't match");
+        }
+
+        for (int i = 0; i < textFields.size(); i++) {
+            TextField textField = textFields.get(i);
+            Label label = labels.get(i);
+
+            StringProperty textFieldTextProperty = textField.textProperty();
+            StringProperty labelTextProperty = label.textProperty();
+
+            labelTextProperty.bind(textFieldTextProperty);
+        }
+    }
+
 }
