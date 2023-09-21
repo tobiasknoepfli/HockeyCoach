@@ -2,9 +2,7 @@ package hockeycoach.controllers;
 
 import hockeycoach.mainClasses.Player;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 public class GameEditorController {
@@ -66,6 +64,21 @@ public class GameEditorController {
     private TextField sf1, sf2, sf3;
 
     @FXML
+    private TextField ppdl1, ppdl2, ppdlfiller, ppdr1, ppdr2, ppdrfiller;
+
+    @FXML
+    private TextField ppc1, ppc2, ppcfiller, ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller;
+
+    @FXML
+    private TextField bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller;
+
+    @FXML
+    private TextField bpc1, bpc2, bpcfiller, bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller;
+
+    @FXML
+    private TextField bpsd1, bpsd2, bpsf1, bpsf2;
+
+    @FXML
     private Label lbgk1;
 
     @FXML
@@ -85,4 +98,10 @@ public class GameEditorController {
 
     @FXML
     private Label lbgks1, lbgks2, lbsd1, lbsd2, lbsd3, lbsf1, lbsf2, lbsf3;
+
+    @FXML
+    private Button refreshPlayerList;
+
+    @FXML
+    private Tab lineupTab, powerplayTab, boxplayTab;
 }
