@@ -8,9 +8,14 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameEditorPresentationModel {
@@ -42,6 +47,7 @@ public class GameEditorPresentationModel {
     ImageView bpBoardImage;
     List<TextField> textFields, ppTextFields, bpTextFields;
     Button refreshPlayerList;
+    Button saveButton;
 
     TextField gk1;
     TextField dl1, dl2, dl3, dl4;
@@ -72,6 +78,7 @@ public class GameEditorPresentationModel {
         ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
         bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
+        saveButton = (Button) root.lookup("#saveButton");
         lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
 
         lineupTab = lineupTabPane.getTabs().get(0);
@@ -203,6 +210,8 @@ public class GameEditorPresentationModel {
         });
 
         setupEventListeners();
+
+        DBWriter dbWriter = new DBWriter();
     }
 
     public void setupEventListeners() {
@@ -211,6 +220,11 @@ public class GameEditorPresentationModel {
         });
 
         textFields.stream().forEach(this::addLineupText);
+
+        saveButton.setOnAction(event ->{
+            saveGameToDB();
+        });
+
     }
 
     public void dragEvent(TextField textField) {
@@ -366,5 +380,27 @@ public class GameEditorPresentationModel {
                     fourthLine.lineupToString());
         });
 
+    }
+
+    private void saveGameToDB(){
+        Game game = new Game();
+
+        String s = gameDate.getText();
+        String t = gameTime.getText();
+        int day = Integer.parseInt(s.substring(0,1));
+        int month = Integer.parseInt(s.substring(3,4));
+        int year = Integer.parseInt(s.substring(6,9));
+        int hours= Integer.parseInt(t.substring(0,1));
+        int minutes = Integer.parseInt(t.substring(3,4));
+        Calendar calendar = new GregorianCalendar(year,month,day);
+        calendar.set(Calendar.HOUR,hours);
+        calendar.set(Calendar.MINUTE,minutes);
+
+        LocalDate localDate = LocalDateTime.ofInstant(calendar.toInstant(),calendar.getTimeZone().toZoneId()).toLocalDate();
+        game.setGameDate(localDate);
+
+        game.setOpponent(gameOpponent.getText());
+        game.setStadium(gameStadium.getText());
+        game.setTeam(selectedTeam.getTeamID());
     }
 }

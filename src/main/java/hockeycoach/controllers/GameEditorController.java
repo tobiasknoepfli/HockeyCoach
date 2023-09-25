@@ -86,4 +86,7 @@ public class GameEditorController {
 
     @FXML
     private Label lineOutput;
+
+    @FXML
+    private Button saveButton;
 }

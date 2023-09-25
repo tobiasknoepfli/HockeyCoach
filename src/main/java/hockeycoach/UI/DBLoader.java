@@ -133,8 +133,8 @@ public class DBLoader {
 
             while (resultSet.next()) {
                 Game game = new Game();
-                game.setGameDate(resultSet.getDate("gameDate"));
-                game.setGameTime(resultSet.getTime("gameTime"));
+                game.setGameDate(resultSet.getDate("gameDate").toLocalDate());
+                game.setGameTime(resultSet.getTime("gameTime").toLocalTime());
                 game.setOpponent(resultSet.getString("opponent"));
                 game.setStadium(resultSet.getString("stadium"));
                 game.setTeam(resultSet.getInt("team"));

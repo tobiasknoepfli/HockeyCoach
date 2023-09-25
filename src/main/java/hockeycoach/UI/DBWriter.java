@@ -6,6 +6,7 @@ import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -122,10 +123,9 @@ public class DBWriter {
                 "VALUES ?, ?, ?, ?, ?";
 
             try (Connection connection = DriverManager.getConnection(DB_URL);
-                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-                java.sql.Date sqlGameDate = new java.sql.Date(game.getGameDate().getTime());
+                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {;
 
-                preparedStatement.setDate(1, sqlGameDate);
+                preparedStatement.setDate(1, Date.valueOf(game.getGameDate()));
                 preparedStatement.setTime(2, game.getGameTime());
                 preparedStatement.setString(3, game.getOpponent());
                 preparedStatement.setString(4, game.getStadium());
