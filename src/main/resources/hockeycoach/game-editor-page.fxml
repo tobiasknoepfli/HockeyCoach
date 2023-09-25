@@ -151,5 +151,6 @@
          </columns>
       </TableView>
       <Button fx:id="refreshPlayerList" layoutX="12.0" layoutY="263.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Refresh Player List" />
+      <Label fx:id="lineOutput" alignment="TOP_CENTER" layoutX="840.0" layoutY="96.0" prefHeight="715.0" prefWidth="352.0" textAlignment="CENTER" />
     </children>
 </Pane>

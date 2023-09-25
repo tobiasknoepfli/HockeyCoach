@@ -49,7 +49,7 @@ public class TrainingPagePresentationModel {
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
 
-        List<Training> trainingList = dbLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + selectedTeam.getName() + "%'");
+        List<Training> trainingList = dbLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + selectedTeam.getTeamID() + "%'");
 
         if (!trainingList.isEmpty()) {
             trainingTable.getItems().clear();

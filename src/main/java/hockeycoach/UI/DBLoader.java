@@ -137,7 +137,7 @@ public class DBLoader {
                 game.setGameTime(resultSet.getTime("gameTime"));
                 game.setOpponent(resultSet.getString("opponent"));
                 game.setStadium(resultSet.getString("stadium"));
-                game.setTeam(resultSet.getString("team"));
+                game.setTeam(resultSet.getInt("team"));
 
                 gameList.add(game);
 
@@ -343,25 +343,25 @@ public class DBLoader {
         return sortingIndex;
     }
 
-    public boolean getPriority(int drillID, int trainingID) {
-        String query = "SELECT priority FROM trainingXdrills WHERE drillID = " + drillID + " AND trainingID = " + trainingID;
-        boolean priority = false;
-        try {
-            Connection connection = DriverManager.getConnection(DB_URL);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                priority = (resultSet.getBoolean("priority"));
-            }
-
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return priority;
-    }
+//    public boolean getPriority(int drillID, int trainingID) {
+//        String query = "SELECT priority FROM trainingXdrills WHERE drillID = " + drillID + " AND trainingID = " + trainingID;
+//        boolean priority = false;
+//        try {
+//            Connection connection = DriverManager.getConnection(DB_URL);
+//            Statement statement = connection.createStatement();
+//            ResultSet resultSet = statement.executeQuery(query);
+//
+//            while (resultSet.next()) {
+//                priority = (resultSet.getBoolean("priority"));
+//            }
+//
+//            connection.close();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return priority;
+//    }
 
     public ArrayList<PlayerXTeam> getPlayerXTeam(String query){
         ArrayList<PlayerXTeam> playerXteamList = new ArrayList<>();

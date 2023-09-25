@@ -8,12 +8,12 @@ public class Game {
     private Time gameTime;
     private String stadium;
     private String opponent;
-    private String team;
+    private int team;
 
     public Game(){
     }
 
-    public Game(Date gameDate, Time gameTime, String stadium, String opponent, String team) {
+    public Game(Date gameDate, Time gameTime, String stadium, String opponent, int team) {
         this.gameDate = gameDate;
         this.gameTime = gameTime;
         this.stadium = stadium;
@@ -53,11 +53,11 @@ public class Game {
         this.opponent = opponent;
     }
 
-    public String getTeam() {
+    public int getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(int team) {
         this.team = team;
     }
 }

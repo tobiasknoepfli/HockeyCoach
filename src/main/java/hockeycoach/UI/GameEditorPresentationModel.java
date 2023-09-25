@@ -1,9 +1,6 @@
 package hockeycoach.UI;
 
 import hockeycoach.mainClasses.*;
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,7 +8,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,9 +26,9 @@ public class GameEditorPresentationModel {
     Tab lineupTab, powerplayTab, boxplayTab;
     Tab activeTab;
 
-    Line firstLine, secondLine, thirdLine,fourthLine;
-    PowerplayLine ppFirstLine,ppSecondLine,ppFillerLine;
-    BoxplayLine bpFirstLine, bpSecondLine,bpFillerLine;
+    Line firstLine, secondLine, thirdLine, fourthLine;
+    PowerplayLine ppFirstLine, ppSecondLine, ppFillerLine;
+    BoxplayLine bpFirstLine, bpSecondLine, bpFillerLine;
 
     TextField gameDate;
     TextField gameTime;
@@ -61,6 +57,8 @@ public class GameEditorPresentationModel {
     TextField bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller;
     TextField bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller;
     TextField bpsd1, bpsd2, bpsf1, bpsf2;
+
+    Label lineOutput;
 
     public void initializeControls(Pane root) {
         gameDate = (TextField) root.lookup("#gameDate");
@@ -147,6 +145,8 @@ public class GameEditorPresentationModel {
         bpsd1 = (TextField) root.lookup("#bpsd1");
         bpsd2 = (TextField) root.lookup("#bpsd2");
 
+        lineOutput = (Label) root.lookup("#lineOutput");
+
         File file = new File("src/main/java/hockeycoach/files/background/board.jpg");
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
@@ -206,9 +206,11 @@ public class GameEditorPresentationModel {
     }
 
     public void setupEventListeners() {
-        lineupTabPane.getSelectionModel().selectedItemProperty().addListener((obs,oldValue,newValue)->{
+        lineupTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             refreshPlayers();
         });
+
+        textFields.stream().forEach(this::addLineupText);
     }
 
     public void dragEvent(TextField textField) {
@@ -321,6 +323,48 @@ public class GameEditorPresentationModel {
                 return retrievedPlayers.get(0);
             }
         }
-        return null;
+        return new Player("", "", selectedTeam.getName());
+    }
+
+    private void addLineupText(TextField textField) {
+        textField.textProperty().addListener((obs, oldValue, newValue) -> {
+            firstLine = new Line(1);
+            firstLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+            firstLine.setDefenderLeft(getPlayerFromTextField(dl1.getText()));
+            firstLine.setDefenderRight(getPlayerFromTextField(dr1.getText()));
+            firstLine.setCenter(getPlayerFromTextField(c1.getText()));
+            firstLine.setForwardLeft(getPlayerFromTextField(fl1.getText()));
+            firstLine.setForwardRight(getPlayerFromTextField(fr1.getText()));
+
+            secondLine = new Line(2);
+            secondLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+            secondLine.setDefenderLeft(getPlayerFromTextField(dl2.getText()));
+            secondLine.setDefenderRight(getPlayerFromTextField(dr2.getText()));
+            secondLine.setCenter(getPlayerFromTextField(c2.getText()));
+            secondLine.setForwardLeft(getPlayerFromTextField(fl2.getText()));
+            secondLine.setForwardRight(getPlayerFromTextField(fr2.getText()));
+
+            thirdLine = new Line(3);
+            thirdLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+            thirdLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
+            thirdLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
+            thirdLine.setCenter(getPlayerFromTextField(c3.getText()));
+            thirdLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
+            thirdLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
+
+            fourthLine = new Line(4);
+            fourthLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+            fourthLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
+            fourthLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
+            fourthLine.setCenter(getPlayerFromTextField(c3.getText()));
+            fourthLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
+            fourthLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
+
+            lineOutput.setText(firstLine.lineupToString() + "\n\n\n\n" +
+                    secondLine.lineupToString() + "\n\n\n\n" +
+                    thirdLine.lineupToString() + "\n\n\n\n" +
+                    fourthLine.lineupToString());
+        });
+
     }
 }

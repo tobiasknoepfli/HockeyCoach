@@ -83,4 +83,7 @@ public class GameEditorController {
 
     @FXML
     private Tab lineupTab, powerplayTab, boxplayTab;
+
+    @FXML
+    private Label lineOutput;
 }

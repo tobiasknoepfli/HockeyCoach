@@ -8,13 +8,27 @@ public class Line {
     private Player goalkeeper;
     private Player defenderLeft, defenderRight;
     private Player center;
-    private Player forwardLeft,forwardRight;
+    private Player forwardLeft, forwardRight;
     private List<Player> forwardSubstitutes, defenseSubstitutes, goalkeeperSubstitutes;
 
-    public Line(int gameID, int lineNr, Player goalkeeper, Player defenderLeft, Player defenderRight, Player center, Player forwardLeft, Player forwardRight){
+    public Line(int lineNr) {
+        this.lineNr = lineNr;
+    }
+
+    public Line(int gameID, int lineNr, Player goalkeeper, Player defenderLeft, Player defenderRight, Player center, Player forwardLeft, Player forwardRight) {
         this.gameID = gameID;
         this.lineNr = lineNr;
         this.goalkeeper = goalkeeper;
+        this.defenderLeft = defenderLeft;
+        this.defenderRight = defenderRight;
+        this.center = center;
+        this.forwardLeft = forwardLeft;
+        this.forwardRight = forwardRight;
+    }
+
+    public Line(int gameID, int lineNr, Player defenderLeft, Player defenderRight, Player center, Player forwardLeft, Player forwardRight) {
+        this.gameID = gameID;
+        this.lineNr = lineNr;
         this.defenderLeft = defenderLeft;
         this.defenderRight = defenderRight;
         this.center = center;
@@ -110,42 +124,51 @@ public class Line {
         this.goalkeeperSubstitutes = goalkeeperSubstitutes;
     }
 
-    public String lineupToString(){
+    public String lineupToString() {
         String linNr = "Line " + lineNr;
-        String gkName = goalkeeper.getLastName() + " " + goalkeeper.getFirstName();
-        String defR = defenderRight.getLastName() + " " + defenderRight.getFirstName();
-        String defL = defenderLeft.getLastName() + " " + defenderLeft.getFirstName();
-        String cenName = center.getLastName() + " " + center.getFirstName();
-        String fwR = forwardRight.getLastName() + " " + forwardRight.getFirstName();
-        String fwL = forwardLeft.getLastName() + " " + forwardLeft.getFirstName();
+        String gkName = "GK: " + goalkeeper.getLastName() + " " + goalkeeper.getFirstName();
+        String defR = "DR: " + defenderRight.getLastName() + " " + defenderRight.getFirstName();
+        String defL = "DL: " + defenderLeft.getLastName() + " " + defenderLeft.getFirstName();
+        String cenName = "CE: " + center.getLastName() + " " + center.getFirstName();
+        String fwR = "FR: " + forwardRight.getLastName() + " " + forwardRight.getFirstName();
+        String fwL = "FL: " + forwardLeft.getLastName() + " " + forwardLeft.getFirstName();
 
         int a = defR.length();
         int b = defL.length();
         int c = fwR.length();
         int d = fwL.length();
-        int e = Math.max(Math.max(a,b),Math.max(c,d));
+        int e = Math.max(Math.max(a, b), Math.max(c, d));
 
         int f = gkName.length();
         int g = cenName.length();
-        int h = Math.max(f,g);
+        int h = Math.max(f, g);
 
         String spaces1 = "";
         String spaces2 = "";
 
-        for(int i= 0; i<e; i++){
-            spaces1 +=" ";
+        for (int i = 0; i < e; i++) {
+            spaces1 += " ";
         }
-        for(int i= 0; i<h; i++){
-            spaces2 +=" ";
+        for (int i = 0; i < h; i++) {
+            spaces2 += " ";
         }
 
-        String gk = spaces1 + gkName +  spaces1;
+        if(spaces1.length()<15){spaces1 ="               ";}
+        if(spaces2.length()<15){spaces2 ="               ";}
+
+        String gk = spaces1 + gkName + spaces1;
         String def = defR + spaces2 + defL;
-        String cen    = spaces1 + cenName + spaces1;
+        String cen = spaces1 + cenName + spaces1;
         String fwd = fwR + spaces2 + fwL;
 
-        String line[]  = {gk,def,cen,fwd};
-        return linNr + "\n" + String.join("\n",line);
+        if (lineNr>1) {
+            String line[] = {def, cen, fwd};
+            return linNr + "\n\n" + String.join("\n\n", line);
+        }else{
+            String line[] = {gk, def, cen, fwd};
+            return linNr + "\n\n" + String.join("\n\n", line);
+        }
+
     }
 }
 

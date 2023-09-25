@@ -39,7 +39,6 @@ public class StartPagePresentationModel {
                 teamsTable.getFocusModel().focus(index);
             });
         }
-
         setupEventListeners();
     }
 
@@ -47,7 +46,7 @@ public class StartPagePresentationModel {
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
                 DBLoader DBLoader = new DBLoader();
-                List<Game> games = DBLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getName() + "%'");
+                List<Game> games = DBLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
                 populateGamesTable(games);
             }
         });
@@ -55,7 +54,7 @@ public class StartPagePresentationModel {
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
                 DBLoader DBLoader = new DBLoader();
-                List<Training> trainings = DBLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getName() + "%'");
+                List<Training> trainings = DBLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
                 populateTrainingsTable(trainings);
             }
         });
