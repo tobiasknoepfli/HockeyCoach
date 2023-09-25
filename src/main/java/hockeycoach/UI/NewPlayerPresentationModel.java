@@ -1,8 +1,9 @@
 package hockeycoach.UI;
 
+import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBWriter;
 import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.Team;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -22,10 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
-
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class NewPlayerPresentationModel {
     MouseEvent event;

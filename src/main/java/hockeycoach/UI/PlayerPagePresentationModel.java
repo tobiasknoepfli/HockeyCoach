@@ -1,5 +1,7 @@
 package hockeycoach.UI;
 
+import hockeycoach.DB.DBEditor;
+import hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;

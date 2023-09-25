@@ -1,4 +1,4 @@
-package hockeycoach.UI;
+package hockeycoach.DB;
 
 import hockeycoach.mainClasses.Team;
 import javafx.scene.control.TableColumn;

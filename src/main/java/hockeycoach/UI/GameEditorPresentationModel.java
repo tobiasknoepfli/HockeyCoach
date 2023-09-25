@@ -1,5 +1,7 @@
 package hockeycoach.UI;
 
+import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBWriter;
 import hockeycoach.mainClasses.*;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,13 +10,8 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 

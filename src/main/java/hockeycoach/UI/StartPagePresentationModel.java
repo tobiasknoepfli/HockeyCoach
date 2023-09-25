@@ -1,13 +1,12 @@
 package hockeycoach.UI;
 
-import hockeycoach.controllers.RootPageController;
+import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBLoaderTeamList;
 import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.application.Platform;
-import javafx.event.EventType;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 

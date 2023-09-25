@@ -1,4 +1,4 @@
-package hockeycoach.UI;
+package hockeycoach.DB;
 
 import hockeycoach.mainClasses.Game;
 import hockeycoach.mainClasses.Line;
