@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Box;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -43,6 +42,8 @@ public class GameEditorPresentationModel {
     BoxplayLine bpFirstLine = new BoxplayLine();
     BoxplayLine bpSecondLine = new BoxplayLine();
     BoxplayLine bpFillerLine = new BoxplayLine();
+
+    SubstituteLine subsLine = new SubstituteLine();
 
     TextField gameDate;
     TextField gameTime;
@@ -415,7 +416,6 @@ public class GameEditorPresentationModel {
                     secondLine.lineupToString() + "\n\n\n\n" +
                     thirdLine.lineupToString() + "\n\n\n\n" +
                     fourthLine.lineupToString());
-
         });
     }
 
@@ -483,6 +483,22 @@ public class GameEditorPresentationModel {
         bpFillerLine.setDefenderRight(getPlayerFromTextField(bpfrfiller.getText()));
         bpFillerLine.setForwardLeft(getPlayerFromTextField(bpflfiller.getText()));
         bpFillerLine.setForwardRight(getPlayerFromTextField(bpfrfiller.getText()));
+    }
+
+    private void saveSubstitutes() {
+        subsLine = new SubstituteLine();
+        subsLine.setGoalkeeper1(getPlayerFromTextField(sgk1.getText()));
+        subsLine.setGoalkeeper2(getPlayerFromTextField(sgk2.getText()));
+        subsLine.setDefender1(getPlayerFromTextField(sd1.getText()));
+        subsLine.setDefender2(getPlayerFromTextField(sd2.getText()));
+        subsLine.setDefender3(getPlayerFromTextField(sd3.getText()));
+        subsLine.setForward1(getPlayerFromTextField(sf1.getText()));
+        subsLine.setForward2(getPlayerFromTextField(sf2.getText()));
+        subsLine.setForward3(getPlayerFromTextField(sf3.getText()));
+        subsLine.setBoxplayDefender1(getPlayerFromTextField(bpsd1.getText()));
+        subsLine.setBoxplayDefender2(getPlayerFromTextField(bpsd2.getText()));
+        subsLine.setBoxplayForward1(getPlayerFromTextField(bpsf1.getText()));
+        subsLine.setBoxplayForward2(getPlayerFromTextField(bpsf2.getText()));
     }
 
 

@@ -9,9 +9,8 @@ public class Line {
     private Player defenderLeft, defenderRight;
     private Player center;
     private Player forwardLeft, forwardRight;
-    private List<Player> forwardSubstitutes, defenseSubstitutes, goalkeeperSubstitutes;
 
-    public Line(){
+    public Line() {
     }
 
     public Line(int lineNr) {
@@ -39,7 +38,7 @@ public class Line {
         this.forwardRight = forwardRight;
     }
 
-    public Line(int gameID, int lineNr, Player defenderLeft, Player defenderRight, Player forwardLeft, Player forwardRight){
+    public Line(int gameID, int lineNr, Player defenderLeft, Player defenderRight, Player forwardLeft, Player forwardRight) {
         this.gameID = gameID;
         this.lineNr = lineNr;
         this.defenderLeft = defenderLeft;
@@ -112,29 +111,6 @@ public class Line {
         this.forwardRight = forwardRight;
     }
 
-    public List<Player> getForwardSubstitutes() {
-        return forwardSubstitutes;
-    }
-
-    public void setForwardSubstitutes(List<Player> forwardSubstitutes) {
-        this.forwardSubstitutes = forwardSubstitutes;
-    }
-
-    public List<Player> getDefenseSubstitutes() {
-        return defenseSubstitutes;
-    }
-
-    public void setDefenseSubstitutes(List<Player> defenseSubstitutes) {
-        this.defenseSubstitutes = defenseSubstitutes;
-    }
-
-    public List<Player> getGoalkeeperSubstitutes() {
-        return goalkeeperSubstitutes;
-    }
-
-    public void setGoalkeeperSubstitutes(List<Player> goalkeeperSubstitutes) {
-        this.goalkeeperSubstitutes = goalkeeperSubstitutes;
-    }
 
     public String lineupToString() {
         String linNr = "Line " + lineNr;
@@ -165,18 +141,22 @@ public class Line {
             spaces2 += " ";
         }
 
-        if(spaces1.length()<15){spaces1 ="               ";}
-        if(spaces2.length()<15){spaces2 ="               ";}
+        if (spaces1.length() < 15) {
+            spaces1 = "               ";
+        }
+        if (spaces2.length() < 15) {
+            spaces2 = "               ";
+        }
 
         String gk = spaces1 + gkName + spaces1;
         String def = defR + spaces2 + defL;
         String cen = spaces1 + cenName + spaces1;
         String fwd = fwR + spaces2 + fwL;
 
-        if (lineNr>1) {
+        if (lineNr > 1) {
             String line[] = {def, cen, fwd};
             return linNr + "\n\n" + String.join("\n\n", line);
-        }else{
+        } else {
             String line[] = {gk, def, cen, fwd};
             return linNr + "\n\n" + String.join("\n\n", line);
         }
