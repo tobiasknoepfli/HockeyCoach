@@ -79,27 +79,6 @@ public class GameEditorController {
     private TextField bpsd1, bpsd2, bpsf1, bpsf2;
 
     @FXML
-    private Label lbgk1;
-
-    @FXML
-    private Label lbdr1, lbdr2, lbdr3, lbdr4;
-
-    @FXML
-    private Label lbdl1, lbdl2, lbdl3, lbdl4;
-
-    @FXML
-    private Label lbc1, lbc2, lbc3, lbc4;
-
-    @FXML
-    private Label lbfl1, lbfl2, lbfl3, lbfl4;
-
-    @FXML
-    private Label lbfr1, lbfr2, lbfr3, lbfr4;
-
-    @FXML
-    private Label lbgks1, lbgks2, lbsd1, lbsd2, lbsd3, lbsf1, lbsf2, lbsf3;
-
-    @FXML
     private Button refreshPlayerList;
 
     @FXML

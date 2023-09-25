@@ -1,8 +1,6 @@
 package hockeycoach.UI;
 
-import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.SingletonTeam;
-import hockeycoach.mainClasses.Team;
+import hockeycoach.mainClasses.*;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -32,6 +30,10 @@ public class GameEditorPresentationModel {
     Tab lineupTab, powerplayTab, boxplayTab;
     Tab activeTab;
 
+    Line firstLine, secondLine, thirdLine,fourthLine;
+    PowerplayLine ppFirstLine,ppSecondLine,ppFillerLine;
+    BoxplayLine bpFirstLine, bpSecondLine,bpFillerLine;
+
     TextField gameDate;
     TextField gameTime;
     TextField gameStadium;
@@ -43,7 +45,6 @@ public class GameEditorPresentationModel {
     ImageView ppBoardImage;
     ImageView bpBoardImage;
     List<TextField> textFields, ppTextFields, bpTextFields;
-    List<Label> labels;
     Button refreshPlayerList;
 
     TextField gk1;
@@ -60,14 +61,6 @@ public class GameEditorPresentationModel {
     TextField bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller;
     TextField bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller;
     TextField bpsd1, bpsd2, bpsf1, bpsf2;
-
-    Label lbgk1;
-    Label lbdr1, lbdr2, lbdr3, lbdr4;
-    Label lbdl1, lbdl2, lbdl3, lbdl4;
-    Label lbc1, lbc2, lbc3, lbc4;
-    Label lbfl1, lbfl2, lbfl3, lbfl4;
-    Label lbfr1, lbfr2, lbfr3, lbfr4;
-    Label lbgks1, lbgks2, lbsd1, lbsd2, lbsd3, lbsf1, lbsf2, lbsf3;
 
     public void initializeControls(Pane root) {
         gameDate = (TextField) root.lookup("#gameDate");
@@ -119,36 +112,6 @@ public class GameEditorPresentationModel {
         sf1 = (TextField) root.lookup("#sf1");
         sf2 = (TextField) root.lookup("#sf2");
         sf3 = (TextField) root.lookup("#sf3");
-
-        lbgk1 = (Label) root.lookup("#lbgk1");
-        lbdr1 = (Label) root.lookup("#lbdr1");
-        lbdr2 = (Label) root.lookup("#lbdr2");
-        lbdr3 = (Label) root.lookup("#lbdr3");
-        lbdr4 = (Label) root.lookup("#lbdr4");
-        lbdl1 = (Label) root.lookup("#lbdl1");
-        lbdl2 = (Label) root.lookup("#lbdl2");
-        lbdl3 = (Label) root.lookup("#lbdl3");
-        lbdl4 = (Label) root.lookup("#lbdl4");
-        lbc1 = (Label) root.lookup("#lbc1");
-        lbc2 = (Label) root.lookup("#lbc2");
-        lbc3 = (Label) root.lookup("#lbc3");
-        lbc4 = (Label) root.lookup("#lbc4");
-        lbfl1 = (Label) root.lookup("#lbfl1");
-        lbfl2 = (Label) root.lookup("#lbfl2");
-        lbfl3 = (Label) root.lookup("#lbfl3");
-        lbfl4 = (Label) root.lookup("#lbfl4");
-        lbfr1 = (Label) root.lookup("#lbfr1");
-        lbfr2 = (Label) root.lookup("#lbfr2");
-        lbfr3 = (Label) root.lookup("#lbfr3");
-        lbfr4 = (Label) root.lookup("#lbfr4");
-        lbgks1 = (Label) root.lookup("#lbgks1");
-        lbgks2 = (Label) root.lookup("#lbgks2");
-        lbsd1 = (Label) root.lookup("#lbsd1");
-        lbsd2 = (Label) root.lookup("#lbsd2");
-        lbsd3 = (Label) root.lookup("#lbsd3");
-        lbsf1 = (Label) root.lookup("#lbsf1");
-        lbsf2 = (Label) root.lookup("#lbsf2");
-        lbsf3 = (Label) root.lookup("#lbsf3");
 
         ppdl1 = (TextField) root.lookup("#ppdl1");
         ppdl2 = (TextField) root.lookup("#ppdl2");
@@ -212,18 +175,9 @@ public class GameEditorPresentationModel {
                 bpfr1, bpfr2, bpfrfiller,
                 bpsd1, bpsd2, bpsf1, bpsf2};
 
-        Label[] lb = {lbgk1, lbdr1, lbdr2, lbdr3, lbdr4,
-                lbdl1, lbdl2, lbdl3, lbdl4,
-                lbc1, lbc2, lbc3, lbc4,
-                lbfl1, lbfl2, lbfl3, lbfl4,
-                lbfr1, lbfr2, lbfr3, lbfr4,
-                lbgks1, lbgks2, lbsd1, lbsd2, lbsd3, lbsf1, lbsf2, lbsf3};
-
         textFields = new ArrayList<>(Arrays.asList(tf));
         ppTextFields = new ArrayList<>(Arrays.asList(pptf));
         bpTextFields = new ArrayList<>(Arrays.asList(bptf));
-
-        labels = new ArrayList<>(Arrays.asList(lb));
 
         textFields.stream().forEach(this::dragEvent);
         ppTextFields.stream().forEach(this::dragEvent);
@@ -234,8 +188,6 @@ public class GameEditorPresentationModel {
         doubleClick(textFields);
         doubleClick(ppTextFields);
         doubleClick(bpTextFields);
-
-        lineupBindings(textFields, labels);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -322,46 +274,22 @@ public class GameEditorPresentationModel {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     String playerName = textField.getText();
-                    if (!playerName.isEmpty()) {
-                        String[] nameParts = playerName.split(" ");
-                        if (nameParts.length >= 2) {
-                            List<Player> retrievedPlayers = playerList.stream()
-                                    .filter(player -> player.getFirstName().equals(nameParts[1]) &&
-                                            player.getLastName().equals(nameParts[0]))
-                                    .collect(Collectors.toList());
-                            teamPlayers.getItems().addAll(retrievedPlayers);
-                            textField.clear();
+                    Player retrievedPlayer = getPlayerFromTextField(playerName);
+                    teamPlayers.getItems().add(retrievedPlayer);
+                    textField.clear();
 
-                            activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
+                    activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
 
-                            if (lineupTab == activeTab) {
-                                lineupList.removeAll(retrievedPlayers);
-                            } else if (powerplayTab == activeTab) {
-                                powerplayList.removeAll(retrievedPlayers);
-                            } else if (boxplayTab == activeTab) {
-                                boxplayList.removeAll(retrievedPlayers);
-                            }
-                        }
+                    if (lineupTab == activeTab) {
+                        lineupList.remove(retrievedPlayer);
+                    } else if (powerplayTab == activeTab) {
+                        powerplayList.remove(retrievedPlayer);
+                    } else if (boxplayTab == activeTab) {
+                        boxplayList.remove(retrievedPlayer);
                     }
                 }
             });
         });
-    }
-
-    public void lineupBindings(List<TextField> textFields, List<Label> labels) {
-        if (textFields.size() != labels.size()) {
-            throw new IllegalArgumentException("List sizes don't match");
-        }
-
-        for (int i = 0; i < textFields.size(); i++) {
-            TextField textField = textFields.get(i);
-            Label label = labels.get(i);
-
-            StringProperty textFieldTextProperty = textField.textProperty();
-            StringProperty labelTextProperty = label.textProperty();
-
-            labelTextProperty.bind(textFieldTextProperty);
-        }
     }
 
     public void refreshPlayers() {
@@ -380,5 +308,19 @@ public class GameEditorPresentationModel {
         }
 
         teamPlayers.getItems().addAll(inactivePlayers);
+    }
+
+    public Player getPlayerFromTextField(String playerName) {
+        if (!playerName.isEmpty()) {
+            String[] nameParts = playerName.split(" ");
+            if (nameParts.length >= 2) {
+                List<Player> retrievedPlayers = playerList.stream()
+                        .filter(player -> player.getFirstName().equals(nameParts[1]) &&
+                                player.getLastName().equals(nameParts[0]))
+                        .collect(Collectors.toList());
+                return retrievedPlayers.get(0);
+            }
+        }
+        return null;
     }
 }
