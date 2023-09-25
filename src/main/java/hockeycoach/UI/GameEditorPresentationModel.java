@@ -19,6 +19,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class GameEditorPresentationModel {
+    DBWriter dbWriter = new DBWriter();
+
     Team selectedTeam;
     List<Player> playerList;
     Player draggedPlayer;
@@ -211,7 +213,6 @@ public class GameEditorPresentationModel {
 
         setupEventListeners();
 
-        DBWriter dbWriter = new DBWriter();
     }
 
     public void setupEventListeners() {
@@ -221,7 +222,7 @@ public class GameEditorPresentationModel {
 
         textFields.stream().forEach(this::addLineupText);
 
-        saveButton.setOnAction(event ->{
+        saveButton.setOnAction(event -> {
             saveGameToDB();
         });
 
@@ -382,25 +383,25 @@ public class GameEditorPresentationModel {
 
     }
 
-    private void saveGameToDB(){
+    private void saveGameToDB() {
         Game game = new Game();
 
         String s = gameDate.getText();
         String t = gameTime.getText();
-        int day = Integer.parseInt(s.substring(0,1));
-        int month = Integer.parseInt(s.substring(3,4));
-        int year = Integer.parseInt(s.substring(6,9));
-        int hours= Integer.parseInt(t.substring(0,1));
-        int minutes = Integer.parseInt(t.substring(3,4));
-        Calendar calendar = new GregorianCalendar(year,month,day);
-        calendar.set(Calendar.HOUR,hours);
-        calendar.set(Calendar.MINUTE,minutes);
+        int day = Integer.parseInt(s.substring(0, 2));
+        int month = Integer.parseInt(s.substring(3, 5));
+        int year = Integer.parseInt(s.substring(6, 10));
+        int hours = Integer.parseInt(t.substring(0, 2));
+        int minutes = Integer.parseInt(t.substring(3, 5));
+        LocalDate date = LocalDate.of(year,month,day);
+        LocalTime time = LocalTime.of(hours,minutes);
 
-        LocalDate localDate = LocalDateTime.ofInstant(calendar.toInstant(),calendar.getTimeZone().toZoneId()).toLocalDate();
-        game.setGameDate(localDate);
-
+        game.setGameDate(date);
+        game.setGameTime(time);
         game.setOpponent(gameOpponent.getText());
         game.setStadium(gameStadium.getText());
         game.setTeam(selectedTeam.getTeamID());
+
+        dbWriter.writeGame(game);
     }
 }
