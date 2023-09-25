@@ -1,12 +1,9 @@
 package hockeycoach.controllers;
 
-import hockeycoach.UI.TrainingEditorPagePresentationModel;
 import hockeycoach.mainClasses.Drill;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-
-import java.util.ArrayList;
 
 public class TrainingEditorPageController {
     @FXML

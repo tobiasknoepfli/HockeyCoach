@@ -1,54 +1,87 @@
 package hockeycoach.mainClasses;
 
 public class PowerplayLine extends Line {
-    private int gameID;
-    private int lineNr;
-    private Player defenderLeft, defenderRight;
-    private Player center;
-    private Player forwardLeft,forwardRight;
+    int gameID, lineNr;
+    Player defenderLeft,defenderRight,center,forwardLeft,forwardRight;
+
+    public PowerplayLine(){
+    }
+
+    public PowerplayLine(int lineNr){
+        super(lineNr);
+    }
 
     public PowerplayLine(int gameID,int lineNr, Player defenderLeft, Player defenderRight, Player center, Player forwardLeft, Player forwardRight) {
-        super(gameID, lineNr, null,defenderLeft, defenderRight, center, forwardLeft, forwardRight);
-        this.gameID = gameID;
+        super(gameID, lineNr,defenderLeft, defenderRight, center, forwardLeft, forwardRight);
+    }
+
+    @Override
+    public int getLineNr() {
+        return lineNr;
+    }
+
+    @Override
+    public void setLineNr(int lineNr) {
         this.lineNr = lineNr;
+    }
+
+    @Override
+    public Player getDefenderLeft() {
+        return defenderLeft;
+    }
+
+    @Override
+    public void setDefenderLeft(Player defenderLeft) {
         this.defenderLeft = defenderLeft;
+    }
+
+    @Override
+    public Player getDefenderRight() {
+        return defenderRight;
+    }
+
+    @Override
+    public void setDefenderRight(Player defenderRight) {
         this.defenderRight = defenderRight;
+    }
+
+    @Override
+    public Player getCenter() {
+        return center;
+    }
+
+    @Override
+    public void setCenter(Player center) {
         this.center = center;
+    }
+
+    @Override
+    public Player getForwardLeft() {
+        return forwardLeft;
+    }
+
+    @Override
+    public void setForwardLeft(Player forwardLeft) {
         this.forwardLeft = forwardLeft;
+    }
+
+    @Override
+    public Player getForwardRight() {
+        return forwardRight;
+    }
+
+    @Override
+    public void setForwardRight(Player forwardRight) {
         this.forwardRight = forwardRight;
     }
 
-    public String lineupToString(){
-        String linNr = "Powerplay-Line " + lineNr;
-        String defR = defenderRight.getLastName() + " " + defenderRight.getFirstName();
-        String defL = defenderLeft.getLastName() + " " + defenderLeft.getFirstName();
-        String cenName = center.getLastName() + " " + center.getFirstName();
-        String fwR = forwardRight.getLastName() + " " + forwardRight.getFirstName();
-        String fwL = forwardLeft.getLastName() + " " + forwardLeft.getFirstName();
+    @Override
+    public int getGameID() {
+        return gameID;
+    }
 
-        int a = defR.length();
-        int b = defL.length();
-        int c = fwR.length();
-        int d = fwL.length();
-        int e = Math.max(Math.max(a,b),Math.max(c,d));
-
-        int g = cenName.length();
-
-        String spaces1 = "";
-        String spaces2 = "";
-
-        for(int i= 0; i<e; i++){
-            spaces1 +=" ";
-        }
-        for(int i= 0; i<g; i++){
-            spaces2 +=" ";
-        }
-
-        String def = defR + spaces2 + defL;
-        String cen    = spaces1 + cenName + spaces1;
-        String fwd = fwR + spaces2 + fwL;
-
-        String line[]  = {def,cen,fwd};
-        return linNr + "\n" + String.join("\n",line);
+    @Override
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 }

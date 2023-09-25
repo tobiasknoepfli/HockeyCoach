@@ -1,6 +1,6 @@
 package hockeycoach;
 
-import hockeycoach.UI.StartPagePresentationModel;
+import hockeycoach.PresentationModels.StartPagePresentationModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Game {
+    private int gameID;
     private LocalDate gameDate;
     private LocalTime gameTime;
     private String stadium;
@@ -20,6 +21,14 @@ public class Game {
         this.stadium = stadium;
         this.opponent = opponent;
         this.team = team;
+    }
+
+    public int getGameID() {
+        return gameID;
+    }
+
+    public void setGameID(int gameID) {
+        this.gameID = gameID;
     }
 
     public LocalDate getGameDate() {

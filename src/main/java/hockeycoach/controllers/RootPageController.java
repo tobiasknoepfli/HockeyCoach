@@ -1,9 +1,7 @@
 package hockeycoach.controllers;
 
-import hockeycoach.UI.*;
+import hockeycoach.PresentationModels.*;
 
-import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;

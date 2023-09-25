@@ -1,4 +1,4 @@
-package hockeycoach.UI;
+package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.DB.DBWriter;
@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Box;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -30,9 +31,18 @@ public class GameEditorPresentationModel {
     Tab lineupTab, powerplayTab, boxplayTab;
     Tab activeTab;
 
-    Line firstLine, secondLine, thirdLine, fourthLine;
-    PowerplayLine ppFirstLine, ppSecondLine, ppFillerLine;
-    BoxplayLine bpFirstLine, bpSecondLine, bpFillerLine;
+    Line firstLine = new Line();
+    Line secondLine = new Line();
+    Line thirdLine = new Line();
+    Line fourthLine = new Line();
+
+    PowerplayLine ppFirstLine = new PowerplayLine();
+    PowerplayLine ppSecondLine = new PowerplayLine();
+    PowerplayLine ppFillerLine = new PowerplayLine();
+
+    BoxplayLine bpFirstLine = new BoxplayLine();
+    BoxplayLine bpSecondLine = new BoxplayLine();
+    BoxplayLine bpFillerLine = new BoxplayLine();
 
     TextField gameDate;
     TextField gameTime;
@@ -220,7 +230,36 @@ public class GameEditorPresentationModel {
         textFields.stream().forEach(this::addLineupText);
 
         saveButton.setOnAction(event -> {
-            saveGameToDB();
+            Game game = saveGameToDB();
+
+            savePPLines();
+            saveBPLines();
+
+            firstLine.setGameID(game.getGameID());
+            secondLine.setGameID(game.getGameID());
+            thirdLine.setGameID(game.getGameID());
+            fourthLine.setGameID(game.getGameID());
+
+            ppFirstLine.setGameID(game.getGameID());
+            ppSecondLine.setGameID(game.getGameID());
+            ppFillerLine.setGameID(game.getGameID());
+
+            bpFirstLine.setGameID(game.getGameID());
+            bpSecondLine.setGameID(game.getGameID());
+            bpFillerLine.setGameID(game.getGameID());
+
+            dbWriter.writeLine(game, firstLine);
+            dbWriter.writeLine(game, secondLine);
+            dbWriter.writeLine(game, thirdLine);
+            dbWriter.writeLine(game, fourthLine);
+
+            dbWriter.writePPLine(game, ppFirstLine);
+            dbWriter.writePPLine(game, ppSecondLine);
+            dbWriter.writePPLine(game, ppFillerLine);
+
+            dbWriter.writeBPLine(game, bpFirstLine);
+            dbWriter.writeBPLine(game, bpSecondLine);
+            dbWriter.writeBPLine(game, bpFillerLine);
         });
 
     }
@@ -376,11 +415,11 @@ public class GameEditorPresentationModel {
                     secondLine.lineupToString() + "\n\n\n\n" +
                     thirdLine.lineupToString() + "\n\n\n\n" +
                     fourthLine.lineupToString());
-        });
 
+        });
     }
 
-    private void saveGameToDB() {
+    private Game saveGameToDB() {
         Game game = new Game();
 
         String s = gameDate.getText();
@@ -390,8 +429,8 @@ public class GameEditorPresentationModel {
         int year = Integer.parseInt(s.substring(6, 10));
         int hours = Integer.parseInt(t.substring(0, 2));
         int minutes = Integer.parseInt(t.substring(3, 5));
-        LocalDate date = LocalDate.of(year,month,day);
-        LocalTime time = LocalTime.of(hours,minutes);
+        LocalDate date = LocalDate.of(year, month, day);
+        LocalTime time = LocalTime.of(hours, minutes);
 
         game.setGameDate(date);
         game.setGameTime(time);
@@ -399,6 +438,52 @@ public class GameEditorPresentationModel {
         game.setStadium(gameStadium.getText());
         game.setTeam(selectedTeam.getTeamID());
 
-        dbWriter.writeGame(game);
+        game.setGameID(dbWriter.writeGame(game));
+        return game;
     }
+
+    private void savePPLines() {
+        ppFirstLine = new PowerplayLine(1);
+        ppFirstLine.setDefenderLeft(getPlayerFromTextField(ppdl1.getText()));
+        ppFirstLine.setDefenderRight(getPlayerFromTextField(ppdr1.getText()));
+        ppFirstLine.setCenter(getPlayerFromTextField(ppc1.getText()));
+        ppFirstLine.setForwardLeft(getPlayerFromTextField(ppfl1.getText()));
+        ppFirstLine.setForwardRight(getPlayerFromTextField(ppfr1.getText()));
+
+        ppSecondLine = new PowerplayLine(2);
+        ppSecondLine.setDefenderLeft(getPlayerFromTextField(ppdl2.getText()));
+        ppSecondLine.setDefenderRight(getPlayerFromTextField(ppdr2.getText()));
+        ppSecondLine.setCenter(getPlayerFromTextField(ppc2.getText()));
+        ppSecondLine.setForwardLeft(getPlayerFromTextField(ppfl2.getText()));
+        ppSecondLine.setForwardRight(getPlayerFromTextField(ppfr2.getText()));
+
+        ppFillerLine = new PowerplayLine(3);
+        ppFillerLine.setDefenderLeft(getPlayerFromTextField(ppdlfiller.getText()));
+        ppFillerLine.setDefenderRight(getPlayerFromTextField(ppfrfiller.getText()));
+        ppFillerLine.setCenter(getPlayerFromTextField(ppcfiller.getText()));
+        ppFillerLine.setForwardLeft(getPlayerFromTextField(ppflfiller.getText()));
+        ppFillerLine.setForwardRight(getPlayerFromTextField(ppfrfiller.getText()));
+    }
+
+    private void saveBPLines() {
+        bpFirstLine = new BoxplayLine(1);
+        bpFirstLine.setDefenderLeft(getPlayerFromTextField(bpdl1.getText()));
+        bpFirstLine.setDefenderRight(getPlayerFromTextField(bpdr1.getText()));
+        bpFirstLine.setForwardLeft(getPlayerFromTextField(bpfl1.getText()));
+        bpFirstLine.setForwardRight(getPlayerFromTextField(bpfr1.getText()));
+
+        bpSecondLine = new BoxplayLine(2);
+        bpSecondLine.setDefenderLeft(getPlayerFromTextField(bpdl2.getText()));
+        bpSecondLine.setDefenderRight(getPlayerFromTextField(bpdr2.getText()));
+        bpSecondLine.setForwardLeft(getPlayerFromTextField(bpfl2.getText()));
+        bpSecondLine.setForwardRight(getPlayerFromTextField(bpfr2.getText()));
+
+        bpFillerLine = new BoxplayLine(3);
+        bpFillerLine.setDefenderLeft(getPlayerFromTextField(bpdlfiller.getText()));
+        bpFillerLine.setDefenderRight(getPlayerFromTextField(bpfrfiller.getText()));
+        bpFillerLine.setForwardLeft(getPlayerFromTextField(bpflfiller.getText()));
+        bpFillerLine.setForwardRight(getPlayerFromTextField(bpfrfiller.getText()));
+    }
+
+
 }

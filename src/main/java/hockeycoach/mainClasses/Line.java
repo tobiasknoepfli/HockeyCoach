@@ -11,6 +11,9 @@ public class Line {
     private Player forwardLeft, forwardRight;
     private List<Player> forwardSubstitutes, defenseSubstitutes, goalkeeperSubstitutes;
 
+    public Line(){
+    }
+
     public Line(int lineNr) {
         this.lineNr = lineNr;
     }
@@ -32,6 +35,15 @@ public class Line {
         this.defenderLeft = defenderLeft;
         this.defenderRight = defenderRight;
         this.center = center;
+        this.forwardLeft = forwardLeft;
+        this.forwardRight = forwardRight;
+    }
+
+    public Line(int gameID, int lineNr, Player defenderLeft, Player defenderRight, Player forwardLeft, Player forwardRight){
+        this.gameID = gameID;
+        this.lineNr = lineNr;
+        this.defenderLeft = defenderLeft;
+        this.defenderRight = defenderRight;
         this.forwardLeft = forwardLeft;
         this.forwardRight = forwardRight;
     }

@@ -1,4 +1,4 @@
-package hockeycoach.UI;
+package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.Drill;

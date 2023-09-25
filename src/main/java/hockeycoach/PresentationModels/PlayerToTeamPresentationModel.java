@@ -1,4 +1,4 @@
-package hockeycoach.UI;
+package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBDeleter;
 import hockeycoach.DB.DBLoader;

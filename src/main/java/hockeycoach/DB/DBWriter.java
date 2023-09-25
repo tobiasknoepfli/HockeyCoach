@@ -1,15 +1,10 @@
 package hockeycoach.DB;
 
-import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.Line;
-import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.Team;
+import hockeycoach.mainClasses.*;
+import javafx.scene.shape.Box;
 
-import java.sql.Connection;
+import java.sql.*;
 import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.*;
 
 public class DBWriter {
@@ -117,23 +112,100 @@ public class DBWriter {
         }
     }
 
-    public void writeGame(Game game) {
+    public int writeGame(Game game) {
+        int generatedGameID = -1;
+
         String query = "INSERT INTO game" +
                 "(gameDate, gameTime, opponent, stadium, team) " +
-                "VALUES ?, ?, ?, ?, ?";
+                "VALUES (?, ?, ?, ?, ?)";
 
-            try (Connection connection = DriverManager.getConnection(DB_URL);
-                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {;
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
-                preparedStatement.setDate(1, Date.valueOf(game.getGameDate()));
-                preparedStatement.setTime(2, game.getGameTime());
-                preparedStatement.setString(3, game.getOpponent());
-                preparedStatement.setString(4, game.getStadium());
-                preparedStatement.setInt(5, game.getTeam());
+            preparedStatement.setDate(1, Date.valueOf(game.getGameDate()));
+            preparedStatement.setTime(2, game.getGameTime());
+            preparedStatement.setString(3, game.getOpponent());
+            preparedStatement.setString(4, game.getStadium());
+            preparedStatement.setInt(5, game.getTeam());
 
-                preparedStatement.executeUpdate();
-            }catch(SQLException e){
-                e.printStackTrace();
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                generatedGameID = generatedKeys.getInt(1);
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return generatedGameID;
+    }
+
+    public void writeLine(Game game, Line line) {
+        String query = "INSERT INTO line" +
+                "(gameID, lineNr, goalkeeper,defenderLeft,defenderRight,center,forwardLeft,forwardRight) " +
+                "VALUES ?, ?, ?, ?, ?, ?, ?, ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, line.getGameID());
+            preparedStatement.setInt(2, line.getLineNr());
+            preparedStatement.setInt(3, line.getGoalkeeper().getPlayerID());
+            preparedStatement.setInt(4, line.getDefenderLeft().getPlayerID());
+            preparedStatement.setInt(5, line.getDefenderRight().getPlayerID());
+            preparedStatement.setInt(6, line.getCenter().getPlayerID());
+            preparedStatement.setInt(7, line.getForwardLeft().getPlayerID());
+            preparedStatement.setInt(8, line.getForwardRight().getPlayerID());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
+
+    public void writePPLine(Game game, PowerplayLine powerplayLine) {
+        String query = "INSERT INTO powerplayLine" +
+                "(gameID, lineNr,defenderLeft,defenderRight,center,forwardLeft,forwardRight) " +
+                "VALUES ?, ?, ?, ?, ?, ?, ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, powerplayLine.getGameID());
+            preparedStatement.setInt(2, powerplayLine.getLineNr());
+            preparedStatement.setInt(3, powerplayLine.getDefenderLeft().getPlayerID());
+            preparedStatement.setInt(4, powerplayLine.getDefenderRight().getPlayerID());
+            preparedStatement.setInt(5, powerplayLine.getCenter().getPlayerID());
+            preparedStatement.setInt(6, powerplayLine.getForwardLeft().getPlayerID());
+            preparedStatement.setInt(7, powerplayLine.getForwardRight().getPlayerID());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeBPLine(Game game, BoxplayLine boxplayLine) {
+        String query = "INSERT INTO boxplayLine" +
+                "(gameID, lineNr,defenderLeft,defenderRight,forwardLeft,forwardRight) " +
+                "VALUES ?, ?, ?, ?, ?, ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, boxplayLine.getGameID());
+            preparedStatement.setInt(2, boxplayLine.getLineNr());
+            preparedStatement.setInt(3, boxplayLine.getDefenderLeft().getPlayerID());
+            preparedStatement.setInt(4, boxplayLine.getDefenderRight().getPlayerID());
+            preparedStatement.setInt(5, boxplayLine.getForwardLeft().getPlayerID());
+            preparedStatement.setInt(6, boxplayLine.getForwardRight().getPlayerID());
+
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
