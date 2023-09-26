@@ -19,7 +19,7 @@ public class AppStarter extends Application {
         stage.setWidth(WIDTH);
         stage.setHeight(HEIGHT);
 
-        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("root-page.fxml"));
+        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("header-page.fxml"));
         Pane root = mainPaneLoader.load();
         Scene scene = new Scene(root, WIDTH, HEIGHT);
         stage.setScene(scene);

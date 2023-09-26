@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-public class RootPageController {
+public class HeaderPageController {
     @FXML
     private AnchorPane headerPane;
 

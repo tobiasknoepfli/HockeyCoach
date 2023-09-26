@@ -7,7 +7,7 @@
 
 <Pane fx:id="mainPane" maxHeight="900.0" maxWidth="1200.0" minHeight="900.0" minWidth="1200.0" prefHeight="900.0"
       prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="hockeycoach.controllers.RootPageController">
+      fx:controller="hockeycoach.controllers.HeaderPageController">
     <children>
         <AnchorPane fx:id="headerPane" prefHeight="80.0" prefWidth="1200.0">
             <children>
