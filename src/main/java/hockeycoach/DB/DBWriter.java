@@ -208,4 +208,34 @@ public class DBWriter {
             e.printStackTrace();
         }
     }
+
+    public void writeSubstituteLine(Game game, SubstituteLine substituteLine) {
+        String query = "INSERT INTO substituteLine " +
+                "(gameID,lineNr,goalkeeper1,goalkeeper2,defender1,defender2,defender3,forward1,forward2,forward3,boxplayDefender1,boxplayDefender2,boxplayForward1,boxplayForward2)" +
+                "VALUES ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, substituteLine.getGameID());
+            preparedStatement.setInt(2,substituteLine.getLineNr());
+            preparedStatement.setInt(3, substituteLine.getGoalkeeper1().getPlayerID());
+            preparedStatement.setInt(4,substituteLine.getGoalkeeper2().getPlayerID());
+            preparedStatement.setInt(5,substituteLine.getDefender1().getPlayerID());
+            preparedStatement.setInt(6, substituteLine.getDefender2().getPlayerID());
+            preparedStatement.setInt(7, substituteLine.getDefender3().getPlayerID());
+            preparedStatement.setInt(8,substituteLine.getForward1().getPlayerID());
+            preparedStatement.setInt(9, substituteLine.getForward2().getPlayerID());
+            preparedStatement.setInt(10,substituteLine.getForward3().getPlayerID());
+            preparedStatement.setInt(11,substituteLine.getBoxplayDefender1().getPlayerID());
+            preparedStatement.setInt(12,substituteLine.getBoxplayDefender2().getPlayerID());
+            preparedStatement.setInt(13,substituteLine.getBoxplayForward1().getPlayerID());
+            preparedStatement.setInt(14,substituteLine.getBoxplayForward2().getPlayerID());
+
+            preparedStatement.executeUpdate();
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

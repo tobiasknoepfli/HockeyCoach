@@ -235,6 +235,7 @@ public class GameEditorPresentationModel {
 
             savePPLines();
             saveBPLines();
+            saveSubstitutes();
 
             firstLine.setGameID(game.getGameID());
             secondLine.setGameID(game.getGameID());
@@ -249,6 +250,8 @@ public class GameEditorPresentationModel {
             bpSecondLine.setGameID(game.getGameID());
             bpFillerLine.setGameID(game.getGameID());
 
+            subsLine.setGameID(game.getGameID());
+
             dbWriter.writeLine(game, firstLine);
             dbWriter.writeLine(game, secondLine);
             dbWriter.writeLine(game, thirdLine);
@@ -261,6 +264,8 @@ public class GameEditorPresentationModel {
             dbWriter.writeBPLine(game, bpFirstLine);
             dbWriter.writeBPLine(game, bpSecondLine);
             dbWriter.writeBPLine(game, bpFillerLine);
+
+            dbWriter.writeSubstituteLine(game,subsLine);
         });
 
     }
