@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TrainingPagePresentationModel {
+public class TrainingPagePresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 

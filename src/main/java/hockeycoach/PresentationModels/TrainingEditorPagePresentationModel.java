@@ -24,7 +24,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
-public class TrainingEditorPagePresentationModel {
+public class TrainingEditorPagePresentationModel extends PresentationModel{
     List<Drill> drills;
     FilteredList<Drill> filteredDrills;
 

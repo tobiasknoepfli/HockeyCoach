@@ -26,7 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-public class PlayerPagePresentationModel {
+public class PlayerPagePresentationModel extends PresentationModel {
     MouseEvent event;
     Player selectedPlayer;
     Team selectedTeam;

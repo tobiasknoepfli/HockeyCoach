@@ -11,7 +11,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane fx:id="trainingPage" maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.TrainingPageController">
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane fx:id="trainingPage" maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.TrainingPageController">
     <children>
         <TableView fx:id="trainingTable" layoutX="10.0" layoutY="58.0" prefHeight="754.0" prefWidth="250.0">
             <columns>
@@ -144,4 +145,4 @@
          </children>
       </HBox>
     </children>
-</Pane>
+</AnchorPane>

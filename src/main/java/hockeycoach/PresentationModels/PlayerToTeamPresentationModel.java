@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlayerToTeamPresentationModel {
+public class PlayerToTeamPresentationModel extends PresentationModel{
     Team selectedTeam = new Team();
     DBLoader dbLoader = new DBLoader();
     DBWriter dbWriter = new DBWriter();

@@ -7,15 +7,21 @@ import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.util.List;
 
-public class StartPagePresentationModel {
+import static hockeycoach.AppStarter.openStages;
+
+public class StartPagePresentationModel extends PresentationModel {
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
+    Button closeWindowButton;
 
     public StartPagePresentationModel(){
     }
@@ -24,6 +30,7 @@ public class StartPagePresentationModel {
         teamsTable = (TableView) root.lookup("#teamsTable");
         gamesTable = (TableView) root.lookup("#gamesTable");
         trainingsTable = (TableView) root.lookup("#trainingsTable");
+        closeWindowButton  = (Button) root.lookup("#closeWindowButton");
 
         DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
         DBLoaderTeamList.dataIntoTeamTable(teamsTable);
@@ -38,6 +45,11 @@ public class StartPagePresentationModel {
                 teamsTable.getFocusModel().focus(index);
             });
         }
+        closeWindowButton.setOnAction(event->{
+            closeWindow(root);
+            openStages.remove("Home");
+        });
+
         setupEventListeners();
     }
 
@@ -57,7 +69,6 @@ public class StartPagePresentationModel {
                 populateTrainingsTable(trainings);
             }
         });
-
     }
 
     private void populateGamesTable(List<Game> games) {
@@ -68,5 +79,10 @@ public class StartPagePresentationModel {
     private void populateTrainingsTable(List<Training> trainings) {
         trainingsTable.getItems().clear();
         trainingsTable.getItems().addAll(trainings);
+    }
+
+    public static void closeWindow(Node node){
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
     }
 }

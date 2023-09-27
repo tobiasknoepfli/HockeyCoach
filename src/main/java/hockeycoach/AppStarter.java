@@ -6,35 +6,60 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppStarter extends Application {
-    public static double WIDTH = 1220; //Screen.getPrimary().getVisualBounds().getWidth();
-    public static double HEIGHT = 940; //Screen.getPrimary().getVisualBounds().getHeight();
+    public static double WIDTH = Screen.getPrimary().getVisualBounds().getWidth();
+    public static double HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
+    public static double BAR_HEIGHT = 80;
+
+    public static Map<String, Stage> openStages = new HashMap<>();
 
     @Override
     public void start(Stage stage) throws IOException {
         stage.setWidth(WIDTH);
-        stage.setHeight(HEIGHT);
+        stage.setHeight(BAR_HEIGHT);
+        stage.setX(0);
+        stage.setY(0);
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
+        stage.initStyle(StageStyle.UNDECORATED);
 
         FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("header-page.fxml"));
         Pane root = mainPaneLoader.load();
-        Scene scene = new Scene(root, WIDTH, HEIGHT);
-        stage.setScene(scene);
-        stage.setTitle("Hockey Coach");
+        Scene toolbarScene = new Scene(root, WIDTH, HEIGHT);
+
+        stage.setScene(toolbarScene);
         stage.show();
+
+
+
+
+        Stage contentStage = new Stage();
+
+        contentStage.setX(0);
+        contentStage.setY(80);
+        contentStage.initStyle(StageStyle.UNDECORATED);
 
         FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("start-page.fxml"));
         Pane contentPane = startPageLoader.load();
 
-        AnchorPane anchorPane= (AnchorPane) root.lookup("#contentPane");
-        anchorPane.getChildren().add(contentPane);
+        Scene contentScene = new Scene(contentPane, WIDTH, HEIGHT-BAR_HEIGHT);
+        contentStage.setScene(contentScene);
 
         StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
         startPagePresentationModel.initializeControls(contentPane);
+
+        contentStage.show();
+        openStages.put("Home",contentStage);
     }
+
 
     public static void main(String[] args) {
         launch();

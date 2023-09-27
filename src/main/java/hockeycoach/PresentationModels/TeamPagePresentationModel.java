@@ -21,7 +21,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-public class TeamPagePresentationModel {
+public class TeamPagePresentationModel extends PresentationModel {
     private Pane contentPane;
     Team selectedTeam;
     MouseEvent event;
@@ -49,11 +49,7 @@ public class TeamPagePresentationModel {
     Button cancelButton;
     Button deleteButton;
 
-    public TeamPagePresentationModel(Pane contentPane) {
-        this.contentPane = contentPane;
-    }
-
-    public void intializeControls(Pane root) {
+    public void initializeControls(Pane root) {
         teamLogo = (ImageView) root.lookup("#teamLogo");
         teamName = (TextField) root.lookup("#teamName");
         stadiumName = (TextField) root.lookup("#stadiumName");

@@ -2,15 +2,27 @@ package hockeycoach.controllers;
 
 import hockeycoach.PresentationModels.*;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import static hockeycoach.AppStarter.*;
 
 public class HeaderPageController {
+
+    @FXML
+    private Button closeButton;
+
     @FXML
     private AnchorPane headerPane;
 
@@ -33,126 +45,84 @@ public class HeaderPageController {
     private Button gameEditorButton;
 
     @FXML
+    private void closeButtonAction() {
+        Platform.exit();
+    }
+
+    @FXML
     private void homeButtonAction() {
-        try {
-            FXMLLoader homePageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/start-page.fxml"));
-            Pane homePage = homePageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(homePage);
-
-            StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
-            startPagePresentationModel.initializeControls(contentPane);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        StartPagePresentationModel pm = new StartPagePresentationModel();
+        loadStages("Home","/hockeycoach/start-page.fxml",pm);
     }
 
     @FXML
     public void teamButtonAction() {
-        try {
-            FXMLLoader teamPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/team-page.fxml"));
-            Pane teamPage = teamPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(teamPage);
-
-            TeamPagePresentationModel teamPagePresentationModel = new TeamPagePresentationModel(contentPane);
-            teamPagePresentationModel.intializeControls(teamPage);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TeamPagePresentationModel pm = new TeamPagePresentationModel();
+        loadStages("Team","/hockeycoach/team-page.fxml",pm);
     }
 
     @FXML
     private void playerButtonAction() {
-        try {
-            FXMLLoader playerPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/player-page.fxml"));
-            Pane playerPage = playerPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(playerPage);
-
-            PlayerPagePresentationModel playerPagePresentationModel = new PlayerPagePresentationModel();
-            playerPagePresentationModel.initializeControls(playerPage);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        PlayerPagePresentationModel pm = new PlayerPagePresentationModel();
+        loadStages("Player", "/hockeycoach/player-page.fxml", pm);
     }
 
     @FXML
     private void trainingButtonAction() {
-        try {
-            FXMLLoader trainingPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/training-page.fxml"));
-            Pane trainingPage = trainingPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(trainingPage);
-
-            TrainingPagePresentationModel trainingPagePresentationModel = new TrainingPagePresentationModel();
-            trainingPagePresentationModel.initializeControls(trainingPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TrainingPagePresentationModel pm = new TrainingPagePresentationModel();
+        loadStages("Training", "/hockeycoach/training-page.fxml",pm);
     }
 
     @FXML
     private void trainingEditorAction() {
-        try {
-            FXMLLoader trainingEditorLoader = new FXMLLoader(getClass().getResource("/hockeycoach/training-editor-page.fxml"));
-            Pane trainingEditorPage = trainingEditorLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(trainingEditorPage);
-
-            TrainingEditorPagePresentationModel trainingEditorPagePresentationModel = new TrainingEditorPagePresentationModel();
-            trainingEditorPagePresentationModel.initializeControls(trainingEditorPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        TrainingEditorPagePresentationModel pm = new TrainingEditorPagePresentationModel();
+        loadStages("TrainingEditor", "/hockeycoach/training-editor-page.fxml", pm);
     }
 
     @FXML
     private void newTeamButtonAction() {
-        try {
-            FXMLLoader newTeamPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/new-team-page.fxml"));
-            Pane newTeamPage = newTeamPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(newTeamPage);
-
-            NewTeamPagePresentationModel newTeamPagePresentationModel = new NewTeamPagePresentationModel(contentPane);
-            newTeamPagePresentationModel.intializeControls(newTeamPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
+        loadStages("NewTeam","/hockeycoach/new-team-page.fxml", pm);
     }
 
     @FXML
     private void newPlayerButtonAction() {
-        try {
-            FXMLLoader newPlayerPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/new-player-page.fxml"));
-            Pane newPlayerPage = newPlayerPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(newPlayerPage);
-
-            NewPlayerPresentationModel newPlayerPresentationModel = new NewPlayerPresentationModel(contentPane);
-            newPlayerPresentationModel.initializeControls(newPlayerPage);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        NewPlayerPresentationModel pm = new NewPlayerPresentationModel();
+        loadStages("NewPlayer","/hockeycoach/new-player-page.fxml",pm);
     }
 
     @FXML
-    private void gameEditorAction(){
-        try {
-            FXMLLoader gameEditorLoader = new FXMLLoader(getClass().getResource("/hockeycoach/game-editor-page.fxml"));
-            Pane gameEditorPage = gameEditorLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(gameEditorPage);
+    private void gameEditorAction() {
+        GameEditorPresentationModel pm = new GameEditorPresentationModel();
+        loadStages("GameEditor","/hockeycoach/game-editor-page.fxml", pm);
+    }
 
-            GameEditorPresentationModel gameEditorPresentationModel = new GameEditorPresentationModel();
-            gameEditorPresentationModel.initializeControls(gameEditorPage);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private void loadStages(String buttonAction, String fxml, PresentationModel presentationModel) {
+        if (openStages.containsKey(buttonAction)) {
+            Stage existingStage = openStages.get(buttonAction);
+            existingStage.toFront();
+        } else {
+            try {
+                Stage newStage = new Stage();
+
+                newStage.setX(0);
+                newStage.setY(80);
+                newStage.initStyle(StageStyle.UNDECORATED);
+
+                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource(fxml));
+                Pane newPane = newStageLoader.load();
+
+                Scene contentScene = new Scene(newPane, WIDTH, HEIGHT - BAR_HEIGHT);
+                newStage.setScene(contentScene);
+
+                presentationModel.initializeControls(newPane);
+
+                newStage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
+

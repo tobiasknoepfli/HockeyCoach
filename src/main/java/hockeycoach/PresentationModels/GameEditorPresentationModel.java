@@ -15,7 +15,7 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class GameEditorPresentationModel {
+public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
 
     Team selectedTeam;
@@ -50,12 +50,13 @@ public class GameEditorPresentationModel {
     TextField gameStadium;
     TextField gameTeam;
     TextField gameOpponent;
+    TextField captain, assistant1, assistant2;
     TableView<Player> teamPlayers;
     TableView<Player> availablePlayers;
     ImageView boardImage;
     ImageView ppBoardImage;
     ImageView bpBoardImage;
-    List<TextField> textFields, ppTextFields, bpTextFields;
+    List<TextField> textFields, ppTextFields, bpTextFields, captainTeamList;
     Button refreshPlayerList;
     Button saveButton;
 
@@ -90,6 +91,9 @@ public class GameEditorPresentationModel {
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
         saveButton = (Button) root.lookup("#saveButton");
         lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
+        captain = (TextField) root.lookup("#captain ");
+        assistant1 = (TextField) root.lookup("#assistant1");
+        assistant2 = (TextField) root.lookup("#assistant2");
 
         lineupTab = lineupTabPane.getTabs().get(0);
         powerplayTab = lineupTabPane.getTabs().get(1);
@@ -180,6 +184,8 @@ public class GameEditorPresentationModel {
                 sd1, sd2, sd3,
                 sf1, sf2, sf3};
 
+        TextField[] captainTeam = {captain,assistant1,assistant2};
+
         TextField[] pptf = {ppdl1, ppdl2, ppdlfiller,
                 ppdr1, ppdr2, ppdrfiller,
                 ppc1, ppc2, ppcfiller,
@@ -195,16 +201,20 @@ public class GameEditorPresentationModel {
         textFields = new ArrayList<>(Arrays.asList(tf));
         ppTextFields = new ArrayList<>(Arrays.asList(pptf));
         bpTextFields = new ArrayList<>(Arrays.asList(bptf));
+        captainTeamList = new ArrayList<>(Arrays.asList(captainTeam));
+
 
         textFields.stream().forEach(this::dragEvent);
         ppTextFields.stream().forEach(this::dragEvent);
         bpTextFields.stream().forEach(this::dragEvent);
+        captainTeamList.stream().forEach(this::dragCopyEvent);
 
         dragDetect(teamPlayers);
 
         doubleClick(textFields);
         doubleClick(ppTextFields);
         doubleClick(bpTextFields);
+        doubleClickRemove(captainTeamList);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -265,9 +275,36 @@ public class GameEditorPresentationModel {
             dbWriter.writeBPLine(game, bpSecondLine);
             dbWriter.writeBPLine(game, bpFillerLine);
 
-            dbWriter.writeSubstituteLine(game,subsLine);
+            dbWriter.writeSubstituteLine(game, subsLine);
         });
 
+    }
+
+    public void dragCopyEvent(TextField textField) {
+        textField.setOnDragOver(event -> {
+            if (event.getGestureSource() != textField && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+            event.consume();
+        });
+
+        textField.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+            if (db.hasString() && !textField.getText().equals(db.getString()) && textField.getText().isEmpty()) {
+                textField.setText(db.getString());
+                success = true;
+            }
+
+            Player selectedPlayer = playerList.stream()
+                    .filter(player -> (player.getLastName() + " " + player.getFirstName()).equals(db.getString()))
+                    .findFirst()
+                    .orElse(null);
+
+            event.setDropCompleted(success);
+            event.consume();
+        });
     }
 
     public void dragEvent(TextField textField) {
@@ -346,6 +383,18 @@ public class GameEditorPresentationModel {
                     } else if (boxplayTab == activeTab) {
                         boxplayList.remove(retrievedPlayer);
                     }
+                }
+            });
+        });
+    }
+
+    public void doubleClickRemove(List<TextField> textFields) {
+        textFields.stream().forEach(this::dragEvent);
+
+        textFields.stream().forEach(textField -> {
+            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    textField.clear();
                 }
             });
         });
@@ -442,6 +491,9 @@ public class GameEditorPresentationModel {
         game.setOpponent(gameOpponent.getText());
         game.setStadium(gameStadium.getText());
         game.setTeam(selectedTeam.getTeamID());
+        game.setCaptain(getPlayerFromTextField(captain.getText()));
+        game.setAssistant1(getPlayerFromTextField(assistant1.getText()));
+        game.setAssistant2(getPlayerFromTextField(assistant2.getText()));
 
         game.setGameID(dbWriter.writeGame(game));
         return game;

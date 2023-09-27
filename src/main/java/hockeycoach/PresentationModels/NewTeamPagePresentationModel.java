@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class NewTeamPagePresentationModel {
+public class NewTeamPagePresentationModel extends PresentationModel {
     private Pane contentPane;
     MouseEvent event;
 
@@ -58,11 +58,8 @@ public class NewTeamPagePresentationModel {
 
     List<Team> teamList = new ArrayList();
 
-    public NewTeamPagePresentationModel(AnchorPane contentPane){
-        this.contentPane = contentPane;
-    }
-
-    public void intializeControls(Pane root) {
+    @Override
+    public void initializeControls(Pane root) {
         teamLogo = (ImageView) root.lookup("#teamLogo");
         teamName = (TextField) root.lookup("#teamName");
         stadiumName = (TextField) root.lookup("#stadiumName");

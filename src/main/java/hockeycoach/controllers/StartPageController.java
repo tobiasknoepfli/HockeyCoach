@@ -19,7 +19,7 @@ public class StartPageController {
     private TableView<Training> trainingsTable;
 
     @FXML
-    private Button newTeamButton;
+    private Button closeWindowButton;
 
     @FXML
     public void setSelectedTeam() {

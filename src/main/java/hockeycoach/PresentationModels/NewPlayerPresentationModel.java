@@ -25,7 +25,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class NewPlayerPresentationModel {
+public class NewPlayerPresentationModel extends PresentationModel {
     MouseEvent event;
     List<Player> allPlayersList;
     List<Player> fnFiltered;
@@ -52,10 +52,7 @@ public class NewPlayerPresentationModel {
     TextArea notes;
     Button saveButton;
 
-    public NewPlayerPresentationModel(AnchorPane contentPane) {
-        this.contentPane = contentPane;
-    }
-
+    @Override
     public void initializeControls(Pane root) {
         allPlayers = (TableView) root.lookup("#allPlayers");
         playerPhoto = (ImageView) root.lookup("#playerPhoto");

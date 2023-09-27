@@ -7,10 +7,7 @@ import javafx.scene.image.ImageView;
 
 public class GameEditorController {
     @FXML
-    private TextField gameDate;
-
-    @FXML
-    private TextField gameTime;
+    private TextField gameDate, gameTime;
 
     @FXML
     private TextField gameStadium;
@@ -20,6 +17,9 @@ public class GameEditorController {
 
     @FXML
     private TextField gameOpponent;
+
+    @FXML
+    private TextField captain, assistant1, assistant2;
 
     @FXML
     private TableView<Player> teamPlayers;

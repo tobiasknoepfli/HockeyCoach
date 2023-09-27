@@ -5,56 +5,60 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.StartPageController">
+<AnchorPane style="-fx-background-color: rgb(100,0,0);" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.StartPageController">
    <children>
-      <TableView fx:id="teamsTable" layoutX="5.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#setSelectedTeam" prefHeight="760.0" prefWidth="390.0">
-          <columns>
-              <TableColumn fx:id="teamsColumn" maxWidth="390.0" minWidth="390.0" prefWidth="390.0" resizable="false" text="Teams" />
-          </columns>
-      </TableView>
-      <TableView fx:id="gamesTable" layoutX="403.0" layoutY="53.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="390.0">
-         <columns>
-            <TableColumn fx:id="gamesColumn1" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Game Date">
-               <cellValueFactory>
-                  <PropertyValueFactory property="gameDate" />
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="gamesColumn2" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Opponent">
-               <cellValueFactory>
-                  <PropertyValueFactory property="opponent" />
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="gamesColumn3" maxWidth="130.0" minWidth="-Infinity" prefWidth="130.0" resizable="false" text="Stadium">
-               <cellValueFactory>
-                  <PropertyValueFactory property="stadium" />
-               </cellValueFactory>
-            </TableColumn>
-         </columns>
-      </TableView>
-      <TableView fx:id="trainingsTable" layoutX="805.0" layoutY="54.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="760.0" prefWidth="390.0">
-         <columns>
-            <TableColumn fx:id="trainingsColumn1" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Training Date">
-               <cellValueFactory>
-                  <PropertyValueFactory property="trainingDate" />
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="trainingsColumn2" maxWidth="195.0" minWidth="-Infinity" prefWidth="195.0" resizable="false" text="Stadium">
-               <cellValueFactory>
-                  <PropertyValueFactory property="stadium" />
-               </cellValueFactory>
-            </TableColumn>
-         </columns>
-      </TableView>
-      <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="6.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
+      <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="0" layoutY="0" spacing="5.0" AnchorPane.bottomAnchor="780.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-
+            <Button fx:id="closeWindowButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="x" HBox.hgrow="NEVER" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="60.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <TableView fx:id="teamsTable" onMouseClicked="#setSelectedTeam" prefHeight="766.0" HBox.hgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="teamsColumn" prefWidth="390.0" resizable="true" text="Teams" />
+                </columns>
+            </TableView>
+            <TableView fx:id="gamesTable" prefHeight="760.0" prefWidth="390.0" HBox.hgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="gamesColumn1" prefWidth="130.0" resizable="true" text="Game Date">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="gameDate" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="gamesColumn2" prefWidth="130.0" resizable="true" text="Opponent">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="opponent" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="gamesColumn3" prefWidth="130.0" resizable="true" text="Stadium">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="stadium" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+            </TableView>
+            <TableView fx:id="trainingsTable" prefHeight="760.0" prefWidth="390.0" HBox.hgrow="ALWAYS">
+               <columns>
+                  <TableColumn fx:id="trainingsColumn1" minWidth="-Infinity" prefWidth="195.0" resizable="true" text="Training Date">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="trainingDate" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn fx:id="trainingsColumn2" minWidth="-Infinity" prefWidth="195.0" resizable="true" text="Stadium">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="stadium" />
+                     </cellValueFactory>
+                  </TableColumn>
+               </columns>
+            </TableView>
          </children>
       </HBox>
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
    </padding>
-</Pane>
+</AnchorPane>

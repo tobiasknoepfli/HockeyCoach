@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.Pane?>
 
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<Pane maxHeight="820.0" maxWidth="1200.0" minHeight="770.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.PlayerToTeamController">
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane maxHeight="820.0" maxWidth="1200.0" minHeight="770.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.PlayerToTeamController">
     <children>
         <TableView fx:id="teamPlayers" layoutX="795.0" layoutY="89.0" prefHeight="726.0" prefWidth="400.0">
             <columns>
@@ -49,4 +50,4 @@
       <Button fx:id="addButton" layoutX="514.0" layoutY="364.0" mnemonicParsing="false" text="Add selected Players to Team" />
       <Button fx:id="removeButton" layoutX="497.0" layoutY="452.0" mnemonicParsing="false" text="Remove selected Players from Team" />
     </children>
-</Pane>
+</AnchorPane>

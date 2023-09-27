@@ -1,4 +1,10 @@
 package hockeycoach.PresentationModels;
 
-public class GamePresentationModel {
+import javafx.scene.layout.Pane;
+
+public class GamePresentationModel extends PresentationModel {
+    @Override
+    public void initializeControls(Pane root) {
+
+    }
 }
