@@ -22,7 +22,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 public class TeamPagePresentationModel extends PresentationModel {
-    private Pane contentPane;
+
     Team selectedTeam;
     MouseEvent event;
 
@@ -125,8 +125,8 @@ public class TeamPagePresentationModel extends PresentationModel {
             try {
                 FXMLLoader playerToTeamLoader = new FXMLLoader(getClass().getResource("/hockeycoach/player-to-team.fxml"));
                 Pane playerToTeamPage = playerToTeamLoader.load();
-                contentPane.getChildren().clear();
-                contentPane.getChildren().add(playerToTeamPage);
+//                contentPane.getChildren().clear();
+//                contentPane.getChildren().add(playerToTeamPage);
 
                 PlayerToTeamPresentationModel playerToTeamPresentationModel = new PlayerToTeamPresentationModel();
                 playerToTeamPresentationModel.initializeControls(playerToTeamPage);

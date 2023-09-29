@@ -2,6 +2,8 @@ package hockeycoach.controllers;
 
 import hockeycoach.PresentationModels.*;
 
+import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.mainClasses.Team;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -82,7 +84,7 @@ public class HeaderPageController {
     @FXML
     private void newTeamButtonAction() {
         NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
-        loadStages("NewTeam","/hockeycoach/new-team-page.fxml", pm);
+        loadStages("NewTeam","/hockeycoach/new-team-pageOLD.fxml", pm);
     }
 
     @FXML
@@ -115,9 +117,9 @@ public class HeaderPageController {
                 Scene contentScene = new Scene(newPane, WIDTH, HEIGHT - BAR_HEIGHT);
                 newStage.setScene(contentScene);
 
-                presentationModel.initializeControls(newPane);
-
                 newStage.show();
+
+                presentationModel.initializeControls(newPane);
 
             } catch (IOException e) {
                 e.printStackTrace();

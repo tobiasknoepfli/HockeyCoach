@@ -48,13 +48,13 @@ public class AppStarter extends Application {
         contentStage.initStyle(StageStyle.UNDECORATED);
 
         FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("start-page.fxml"));
-        Pane contentPane = startPageLoader.load();
+        Pane content = startPageLoader.load();
 
-        Scene contentScene = new Scene(contentPane, WIDTH, HEIGHT-BAR_HEIGHT);
+        Scene contentScene = new Scene(content, WIDTH, HEIGHT-BAR_HEIGHT);
         contentStage.setScene(contentScene);
 
         StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
-        startPagePresentationModel.initializeControls(contentPane);
+        startPagePresentationModel.initializeControls(content);
 
         contentStage.show();
         openStages.put("Home",contentStage);
