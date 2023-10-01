@@ -29,7 +29,7 @@ public class TrainingPagePresentationModel extends PresentationModel {
     TableView<Drill> backup;
     ImageView drillImage;
     TextField drillName;
-    TrainingLines trainingLines= new TrainingLines();
+    TrainingLines trainingLines = new TrainingLines();
 
     TextField jersey1, jersey2, jersey3, jersey4, jersey5, jersey6;
     TextField gk1, gk2, gk3, gk4, gk5, gk6;
