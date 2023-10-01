@@ -1,10 +1,8 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
-import hockeycoach.mainClasses.Drill;
-import hockeycoach.mainClasses.SingletonTeam;
-import hockeycoach.mainClasses.Team;
-import hockeycoach.mainClasses.Training;
+import hockeycoach.mainClasses.*;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +29,15 @@ public class TrainingPagePresentationModel extends PresentationModel {
     TableView<Drill> backup;
     ImageView drillImage;
     TextField drillName;
+    TrainingLines trainingLines= new TrainingLines();
+
+    TextField jersey1, jersey2, jersey3, jersey4, jersey5, jersey6;
+    TextField gk1, gk2, gk3, gk4, gk5, gk6;
+    TextField dl1, dl2, dl3, dl4, dl5, dl6;
+    TextField dr1, dr2, dr3, dr4, dr5, dr6;
+    TextField c1, c2, c3, c4, c5, c6;
+    TextField fl1, fl2, fl3, fl4, fl5, fl6;
+    TextField fr1, fr2, fr3, fr4, fr5, fr6;
 
     public void initializeControls(Pane root) {
         trainingTable = (TableView) root.lookup("#trainingTable");
@@ -46,6 +53,49 @@ public class TrainingPagePresentationModel extends PresentationModel {
         backup = (TableView) root.lookup("#backup");
         drillImage = (ImageView) root.lookup("#drillImage");
         drillName = (TextField) root.lookup("#drillName");
+
+        jersey1 = (TextField) root.lookup("#jersey1");
+        jersey2 = (TextField) root.lookup("#jersey2");
+        jersey3 = (TextField) root.lookup("#jersey3");
+        jersey4 = (TextField) root.lookup("#jersey4");
+        jersey5 = (TextField) root.lookup("#jersey5");
+        jersey6 = (TextField) root.lookup("#jersey6");
+        gk1 = (TextField) root.lookup("#gk1");
+        gk2 = (TextField) root.lookup("#gk2");
+        gk3 = (TextField) root.lookup("#gk3");
+        gk4 = (TextField) root.lookup("#gk4");
+        gk5 = (TextField) root.lookup("#gk5");
+        gk6 = (TextField) root.lookup("#gk6");
+        dl1 = (TextField) root.lookup("#dl1");
+        dl2 = (TextField) root.lookup("#dl2");
+        dl3 = (TextField) root.lookup("#dl3");
+        dl4 = (TextField) root.lookup("#dl4");
+        dl5 = (TextField) root.lookup("#dl5");
+        dl6 = (TextField) root.lookup("#dl6");
+        dr1 = (TextField) root.lookup("#dr1");
+        dr2 = (TextField) root.lookup("#dr2");
+        dr3 = (TextField) root.lookup("#dr3");
+        dr4 = (TextField) root.lookup("#dr4");
+        dr5 = (TextField) root.lookup("#dr5");
+        dr6 = (TextField) root.lookup("#dr6");
+        c1 = (TextField) root.lookup("#c1");
+        c2 = (TextField) root.lookup("#c2");
+        c3 = (TextField) root.lookup("#c3");
+        c4 = (TextField) root.lookup("#c4");
+        c5 = (TextField) root.lookup("#c5");
+        c6 = (TextField) root.lookup("#c6");
+        fl1 = (TextField) root.lookup("#fl1");
+        fl2 = (TextField) root.lookup("#fl2");
+        fl3 = (TextField) root.lookup("#fl3");
+        fl4 = (TextField) root.lookup("#fl4");
+        fl5 = (TextField) root.lookup("#fl5");
+        fl6 = (TextField) root.lookup("#fl6");
+        fr1 = (TextField) root.lookup("#fr1");
+        fr2 = (TextField) root.lookup("#fr2");
+        fr3 = (TextField) root.lookup("#fr3");
+        fr4 = (TextField) root.lookup("#fr4");
+        fr5 = (TextField) root.lookup("#fr5");
+        fr6 = (TextField) root.lookup("#fr6");
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -76,6 +126,7 @@ public class TrainingPagePresentationModel extends PresentationModel {
                 List<Drill> togetherList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'together' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "together", newSelectedTraining.getTrainingID());
                 List<Drill> stationsList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'stations' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "stations", newSelectedTraining.getTrainingID());
                 List<Drill> backupList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'backup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "backup", newSelectedTraining.getTrainingID());
+                trainingLines = dbLoader.getTrainingLines("SELECT * FROM trainingLines WHERE trainingID =" + newSelectedTraining.getTrainingID());
 
                 if (!warmupList.isEmpty()) {
                     warmup.getItems().clear();
@@ -94,6 +145,8 @@ public class TrainingPagePresentationModel extends PresentationModel {
                     backup.getItems().addAll(backupList);
                 }
 
+                setTrainingLines(trainingLines);
+
 
             }
         });
@@ -103,17 +156,77 @@ public class TrainingPagePresentationModel extends PresentationModel {
         displayDrill(backup);
     }
 
-    public void displayDrill(TableView<Drill> inputTable){
-        inputTable.getSelectionModel().selectedItemProperty().addListener((obs,oldSelectedDrill,newSelectedDrill) -> {
-            if(newSelectedDrill !=null){
+    public void displayDrill(TableView<Drill> inputTable) {
+        inputTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedDrill, newSelectedDrill) -> {
+            if (newSelectedDrill != null) {
                 try {
                     drillImage.setImage(new Image(newSelectedDrill.getImageLink()));
-                }catch(Exception e){
+                } catch (Exception e) {
                     drillImage.setImage(null);
                 }
                 drillName.setText(newSelectedDrill.getName());
             }
         });
     }
+
+    public void setTrainingLines(TrainingLines trainingLines) {
+        jersey1.setText(trainingLines.getJersey1());
+        jersey2.setText(trainingLines.getJersey2());
+        jersey3.setText(trainingLines.getJersey3());
+        jersey4.setText(trainingLines.getJersey4());
+        jersey5.setText(trainingLines.getJersey5());
+        jersey6.setText(trainingLines.getJersey6());
+
+        gk1.setText(getPlayerName(trainingLines.getGk1()));
+        gk2.setText(getPlayerName(trainingLines.getGk2()));
+        gk3.setText(getPlayerName(trainingLines.getGk3()));
+        gk4.setText(getPlayerName(trainingLines.getGk4()));
+        gk5.setText(getPlayerName(trainingLines.getGk5()));
+        gk6.setText(getPlayerName(trainingLines.getGk6()));
+
+        dl1.setText(getPlayerName(trainingLines.getDl1()));
+        dl2.setText(getPlayerName(trainingLines.getDl2()));
+        dl3.setText(getPlayerName(trainingLines.getDl3()));
+        dl4.setText(getPlayerName(trainingLines.getDl4()));
+        dl5.setText(getPlayerName(trainingLines.getDl5()));
+        dl6.setText(getPlayerName(trainingLines.getDl6()));
+
+        dr1.setText(getPlayerName(trainingLines.getDr1()));
+        dr2.setText(getPlayerName(trainingLines.getDr2()));
+        dr3.setText(getPlayerName(trainingLines.getDr3()));
+        dr4.setText(getPlayerName(trainingLines.getDr4()));
+        dr5.setText(getPlayerName(trainingLines.getDr5()));
+        dr6.setText(getPlayerName(trainingLines.getDr6()));
+
+        c1.setText(getPlayerName(trainingLines.getC1()));
+        c2.setText(getPlayerName(trainingLines.getC2()));
+        c3.setText(getPlayerName(trainingLines.getC3()));
+        c4.setText(getPlayerName(trainingLines.getC4()));
+        c5.setText(getPlayerName(trainingLines.getC5()));
+        c6.setText(getPlayerName(trainingLines.getC6()));
+
+        fl1.setText(getPlayerName(trainingLines.getFl1()));
+        fl2.setText(getPlayerName(trainingLines.getFl2()));
+        fl3.setText(getPlayerName(trainingLines.getFl3()));
+        fl4.setText(getPlayerName(trainingLines.getFl4()));
+        fl5.setText(getPlayerName(trainingLines.getFl5()));
+        fl6.setText(getPlayerName(trainingLines.getFl6()));
+
+        fr1.setText(getPlayerName(trainingLines.getFr1()));
+        fr2.setText(getPlayerName(trainingLines.getFr2()));
+        fr3.setText(getPlayerName(trainingLines.getFr3()));
+        fr4.setText(getPlayerName(trainingLines.getFr4()));
+        fr5.setText(getPlayerName(trainingLines.getFr5()));
+        fr6.setText(getPlayerName(trainingLines.getFr6()));
+    }
+
+    private String getPlayerName(Player player) {
+        if (player != null && player.getPlayerID() != 0) {
+            return player.getLastName() + " " + player.getFirstName();
+        } else {
+            return "";
+        }
+    }
+
 
 }
