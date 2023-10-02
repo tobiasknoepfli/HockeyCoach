@@ -709,7 +709,7 @@
                               </VBox>
                               <HBox layoutY="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
                                  <children>
-                                    <TableView fx:id="drillTable" prefHeight="322.0" prefWidth="297.0">
+                                    <TableView fx:id="drillTable" prefHeight="322.0" prefWidth="297.0" HBox.hgrow="ALWAYS">
                                        <columns>
                                           <TableColumn fx:id="dtNameCol" minWidth="116.0" prefWidth="157.0" text="Name">
                                              <cellValueFactory>
