@@ -1,10 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
-import hockeycoach.mainClasses.Drill;
-import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.SingletonTeam;
-import hockeycoach.mainClasses.Team;
+import hockeycoach.mainClasses.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,10 +15,8 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -32,7 +27,6 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
     List<Player> availablePlayersList;
     List<Player> allPlayers;
     Player draggedPlayer;
-
 
     Team selectedTeam;
     DBLoader dbLoader;
@@ -81,6 +75,13 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
     TextField c1, c2, c3, c4, c5, c6;
     TextField fl1, fl2, fl3, fl4, fl5, fl6;
     TextField fr1, fr2, fr3, fr4, fr5, fr6;
+    Label lgGK1, lgGK2, lgGK3, lgGK4;
+    Label lgRD1, lgRD2, lgRD3, lgRD4, lgLD1, lgLD2, lgLD3, lgLD4;
+    Label lgRF1, lgRF2, lgRF3, lgRF4, lgC1, lgC2, lgC3, lgC4, lgLF1, lgLF2, lgLF3, lgLF4;
+    Label ngGK1, ngGK2, ngGK3, ngGK4;
+    Label ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4;
+    Label ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
+
     private ArrayList<TextField> jerseysArrayList;
     private ArrayList<TextField> playersArrayList;
 
@@ -167,6 +168,55 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
         fr5 = (TextField) root.lookup("#fr5");
         fr6 = (TextField) root.lookup("#fr6");
 
+        lgGK1 = (Label) root.lookup("#lgGK1");
+        lgGK2 = (Label) root.lookup("#lgGK2");
+        lgGK3 = (Label) root.lookup("#lgGK3");
+        lgGK4 = (Label) root.lookup("#lgGK4");
+        lgRD1 = (Label) root.lookup("#lgRD1");
+        lgRD2 = (Label) root.lookup("#lgRD2");
+        lgRD3 = (Label) root.lookup("#lgRD3");
+        lgRD4 = (Label) root.lookup("#lgRD4");
+        lgLD1 = (Label) root.lookup("#lgLD1");
+        lgLD2 = (Label) root.lookup("#lgLD2");
+        lgLD3 = (Label) root.lookup("#lgLD3");
+        lgLD4 = (Label) root.lookup("#lgLD4");
+        lgRF1 = (Label) root.lookup("#lgRF1");
+        lgRF2 = (Label) root.lookup("#lgRF2");
+        lgRF3 = (Label) root.lookup("#lgRF3");
+        lgRF4 = (Label) root.lookup("#lgRF4");
+        lgC1 = (Label) root.lookup("#lgC1");
+        lgC2 = (Label) root.lookup("#lgC2");
+        lgC3 = (Label) root.lookup("#lgC3");
+        lgC4 = (Label) root.lookup("#lgC4");
+        lgLF1 = (Label) root.lookup("#lgLF1");
+        lgLF2 = (Label) root.lookup("#lgLF2");
+        lgLF3 = (Label) root.lookup("#lgLF3");
+        lgLF4 = (Label) root.lookup("#lgLF4");
+        ngGK1 = (Label) root.lookup("#ngGK1");
+        ngGK2 = (Label) root.lookup("#ngGK2");
+        ngGK3 = (Label) root.lookup("#ngGK3");
+        ngGK4 = (Label) root.lookup("#ngGK4");
+        ngRD1 = (Label) root.lookup("#ngRD1");
+        ngRD2 = (Label) root.lookup("#ngRD2");
+        ngRD3 = (Label) root.lookup("#ngRD3");
+        ngRD4 = (Label) root.lookup("#ngRD4");
+        ngLD1 = (Label) root.lookup("#ngLD1");
+        ngLD2 = (Label) root.lookup("#ngLD2");
+        ngLD3 = (Label) root.lookup("#ngLD3");
+        ngLD4 = (Label) root.lookup("#ngLD4");
+        ngRF1 = (Label) root.lookup("#ngRF1");
+        ngRF2 = (Label) root.lookup("#ngRF2");
+        ngRF3 = (Label) root.lookup("#ngRF3");
+        ngRF4 = (Label) root.lookup("#ngRF4");
+        ngC1 = (Label) root.lookup("#ngC1");
+        ngC2 = (Label) root.lookup("#ngC2");
+        ngC3 = (Label) root.lookup("#ngC3");
+        ngC4 = (Label) root.lookup("#ngC4");
+        ngLF1 = (Label) root.lookup("#ngLF1");
+        ngLF2 = (Label) root.lookup("#ngLF2");
+        ngLF3 = (Label) root.lookup("#ngLF3");
+        ngLF4 = (Label) root.lookup("#ngLF4");
+
         drillTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         warmup.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         stations.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -221,6 +271,8 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
         moveDrill(together);
         moveDrill(stations);
         moveDrill(backup);
+
+        showGameLines(lastGameLines(), nextGameLines());
 
         setupEventListeners();
 
@@ -557,6 +609,137 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
             }
         }
         return new Player("", "", selectedTeam.getName());
+    }
+
+    public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {
+        Line firstLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 1)
+                .findAny().orElse(null);
+        if(firstLineLastGame!=null) {
+            lgGK1.setText(getPlayerName(firstLineLastGame.getGoalkeeper()));
+            lgLD1.setText(getPlayerName(firstLineLastGame.getDefenderLeft()));
+            lgRD1.setText(getPlayerName(firstLineLastGame.getDefenderRight()));
+            lgLF1.setText(getPlayerName(firstLineLastGame.getForwardLeft()));
+            lgC1.setText(getPlayerName(firstLineLastGame.getCenter()));
+            lgRF1.setText(getPlayerName(firstLineLastGame.getForwardRight()));
+        }
+
+        Line secondLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 2)
+                .findAny().orElse(null);
+        if(secondLineLastGame !=null) {
+            lgGK2.setText(getPlayerName(secondLineLastGame.getGoalkeeper()));
+            lgRD2.setText(getPlayerName(secondLineLastGame.getDefenderRight()));
+            lgLD2.setText(getPlayerName(secondLineLastGame.getDefenderLeft()));
+            lgRF2.setText(getPlayerName(secondLineLastGame.getForwardRight()));
+            lgC2.setText(getPlayerName(secondLineLastGame.getCenter()));
+            lgLF2.setText(getPlayerName(secondLineLastGame.getForwardLeft()));
+        }
+
+        Line thirdLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 3)
+                .findAny().orElse(null);
+        if(thirdLineLastGame!=null) {
+            lgGK3.setText(getPlayerName(thirdLineLastGame.getGoalkeeper()));
+            lgRD3.setText(getPlayerName(thirdLineLastGame.getDefenderRight()));
+            lgLD3.setText(getPlayerName(thirdLineLastGame.getDefenderLeft()));
+            lgRF3.setText(getPlayerName(thirdLineLastGame.getForwardRight()));
+            lgC3.setText(getPlayerName(thirdLineLastGame.getCenter()));
+            lgLF3.setText(getPlayerName(thirdLineLastGame.getForwardLeft()));
+        }
+
+        Line fourthLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 4)
+                .findAny().orElse(null);
+        if(fourthLineLastGame!=null) {
+            lgGK4.setText(getPlayerName(fourthLineLastGame.getGoalkeeper()));
+            lgRD4.setText(getPlayerName(fourthLineLastGame.getDefenderRight()));
+            lgLD4.setText(getPlayerName(fourthLineLastGame.getDefenderLeft()));
+            lgRF4.setText(getPlayerName(fourthLineLastGame.getForwardRight()));
+            lgC4.setText(getPlayerName(fourthLineLastGame.getCenter()));
+            lgLF4.setText(getPlayerName(fourthLineLastGame.getForwardLeft()));
+        }
+
+        Line firstLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==1)
+                .findAny().orElse(null);
+        if(firstLineNextGame!=null) {
+            ngGK1.setText(getPlayerName(firstLineNextGame.getGoalkeeper()));
+            ngLD1.setText(getPlayerName(firstLineNextGame.getDefenderLeft()));
+            ngRD1.setText(getPlayerName(firstLineNextGame.getDefenderRight()));
+            ngLF1.setText(getPlayerName(firstLineNextGame.getForwardLeft()));
+            ngC1.setText(getPlayerName(firstLineNextGame.getCenter()));
+            ngRF1.setText(getPlayerName(firstLineNextGame.getForwardRight()));
+        }
+
+        Line secondLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==2)
+                .findAny().orElse(null);
+        if(secondLineNextGame!=null) {
+            ngGK2.setText(getPlayerName(secondLineNextGame.getGoalkeeper()));
+            ngLD2.setText(getPlayerName(secondLineNextGame.getDefenderLeft()));
+            ngRD2.setText(getPlayerName(secondLineNextGame.getDefenderRight()));
+            ngLF2.setText(getPlayerName(secondLineNextGame.getForwardLeft()));
+            ngC2.setText(getPlayerName(secondLineNextGame.getCenter()));
+            ngRF2.setText(getPlayerName(secondLineNextGame.getForwardRight()));
+        }
+
+        Line thirdLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==3)
+                .findAny().orElse(null);
+        if(thirdLineNextGame!=null) {
+            ngGK3.setText(getPlayerName(thirdLineNextGame.getGoalkeeper()));
+            ngLD3.setText(getPlayerName(thirdLineNextGame.getDefenderLeft()));
+            ngRD3.setText(getPlayerName(thirdLineNextGame.getDefenderRight()));
+            ngLF3.setText(getPlayerName(thirdLineNextGame.getForwardLeft()));
+            ngC3.setText(getPlayerName(thirdLineNextGame.getCenter()));
+            ngRF3.setText(getPlayerName(thirdLineNextGame.getForwardRight()));
+        }
+
+        Line fourthLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==4)
+                .findAny().orElse(null);
+        if(fourthLineNextGame!=null) {
+            ngGK4.setText(getPlayerName(fourthLineNextGame.getGoalkeeper()));
+            ngLD4.setText(getPlayerName(fourthLineNextGame.getDefenderLeft()));
+            ngRD4.setText(getPlayerName(fourthLineNextGame.getDefenderRight()));
+            ngLF4.setText(getPlayerName(fourthLineNextGame.getForwardLeft()));
+            ngC4.setText(getPlayerName(fourthLineNextGame.getCenter()));
+            ngRF4.setText(getPlayerName(fourthLineNextGame.getForwardRight()));
+        }
+    }
+
+    public String getPlayerName(Player player) {
+        if (player.getPlayerID() >0) {
+            return player.getLastName() + " " + player.getFirstName();
+        } else {
+            return "";
+        }
+    }
+
+
+    public List<Line> lastGameLines() {
+        LocalDate today = LocalDate.now();
+        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        Game closestPastGame = teamGames.stream()
+                .filter(game -> game.getGameDate().isBefore(today))
+                .max(Comparator.comparing(Game::getGameDate))
+                .orElse(null);
+        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+
+        return lines;
+    }
+
+    public List<Line> nextGameLines() {
+        LocalDate today = LocalDate.now();
+        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        Game closestNextGame = teamGames.stream()
+                .filter(game -> game.getGameDate().isAfter(today))
+                .min(Comparator.comparing(Game::getGameDate))
+                .orElse(null);
+        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+
+        return lines;
     }
 
 }

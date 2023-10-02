@@ -13,7 +13,8 @@ import java.util.stream.Collectors;
 
 public class DBLoader {
     private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
-    public ArrayList<Player> getAllPlayers(String query){
+
+    public ArrayList<Player> getAllPlayers(String query) {
         ArrayList<Player> playerList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
@@ -135,6 +136,7 @@ public class DBLoader {
 
             while (resultSet.next()) {
                 Game game = new Game();
+                game.setGameID(resultSet.getInt("ID"));
                 game.setGameDate(resultSet.getDate("gameDate").toLocalDate());
                 game.setGameTime(resultSet.getTime("gameTime").toLocalTime());
                 game.setOpponent(resultSet.getString("opponent"));
@@ -180,15 +182,15 @@ public class DBLoader {
         return trainingList;
     }
 
-    public TrainingLines getTrainingLines(String query){
+    public TrainingLines getTrainingLines(String query) {
 
         TrainingLines trainingLines = new TrainingLines();
-        try{
+        try {
             Connection connection = DriverManager.getConnection(DB_URL);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            while(resultSet.next()){
+            while (resultSet.next()) {
                 trainingLines.setTrainingID(resultSet.getInt("trainingID"));
                 trainingLines.setJersey1(resultSet.getString("jersey1"));
                 trainingLines.setJersey2(resultSet.getString("jersey2"));
@@ -235,21 +237,21 @@ public class DBLoader {
 
                 connection.close();
             }
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return trainingLines;
     }
 
-    public Player getPlayerByID(int playerID){
+    public Player getPlayerByID(int playerID) {
         Player player = new Player();
-        try{
+        try {
             Connection connection = DriverManager.getConnection(DB_URL);
             String query = "SELECT * FROM player WHERE playerID = " + playerID;
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 player.setPlayerID(resultSet.getInt("playerID"));
                 player.setFirstName(resultSet.getString("firstName"));
                 System.out.println(player.getPlayerID());
@@ -270,7 +272,7 @@ public class DBLoader {
                 player.setNotes(resultSet.getString("notes"));
             }
             connection.close();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return player;
@@ -389,7 +391,7 @@ public class DBLoader {
                 .distinct()
                 .collect(Collectors.toCollection(ArrayList::new));
 
-        return  drillTagList;
+        return drillTagList;
     }
 
     public List<Drill> getTrainingDrills(String query, List<Drill> drillList, String table, int trainingID) {
@@ -406,9 +408,9 @@ public class DBLoader {
                         .findFirst()
                         .orElse(null);
 
-                if (drill !=null) {
+                if (drill != null) {
                     drill.setTable(table);
-                    drill.setSortingIndex(getSortingIndex(drillID,trainingID));
+                    drill.setSortingIndex(getSortingIndex(drillID, trainingID));
                     trainingDrillList.add(drill);
                 }
             }
@@ -441,7 +443,7 @@ public class DBLoader {
         return sortingIndex;
     }
 
-    public ArrayList<PlayerXTeam> getPlayerXTeam(String query){
+    public ArrayList<PlayerXTeam> getPlayerXTeam(String query) {
         ArrayList<PlayerXTeam> playerXteamList = new ArrayList<>();
 
         try {
@@ -461,9 +463,37 @@ public class DBLoader {
 
                 connection.close();
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return playerXteamList;
+    }
+
+    public List<Line> getLines(String query) {
+        List<Line> lines = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                Line line = new Line();
+                line.setGameID(resultSet.getInt("gameID"));
+                line.setLineNr(resultSet.getInt("lineNr"));
+                line.setGoalkeeper(getPlayerByID(resultSet.getInt("goalkeeper")));
+                line.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
+                line.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
+                line.setCenter(getPlayerByID(resultSet.getInt("center")));
+                line.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
+                line.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+
+                lines.add(line);
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 }

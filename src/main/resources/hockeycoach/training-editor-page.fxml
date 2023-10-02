@@ -506,6 +506,7 @@
                                                                                 <Label fx:id="lgGK1" />
                                                                                 <Label fx:id="lgGK2" />
                                                                                 <Label fx:id="lgGK3" />
+                                                                                <Label fx:id="lgGK4" />
                                                                             </children>
                                                                         </VBox>
                                                                         <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="1">
@@ -576,6 +577,7 @@
                                                                                 <Label fx:id="ngGK1" />
                                                                                 <Label fx:id="ngGK2" />
                                                                                 <Label fx:id="ngGK3" />
+                                                                                <Label fx:id="ngGK4" />
                                                                             </children>
                                                                         </VBox>
                                                                         <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="1">

@@ -141,4 +141,22 @@ public class TrainingEditorPageController {
 
     @FXML
     private TextField fr1, fr2, fr3, fr4, fr5, fr6;
+
+    @FXML
+    private Label lgGK1, lgGK2, lgGK3, lgGK4;
+
+    @FXML
+    private Label lgRD1, lgRD2, lgRD3, lgRD4, lgLD1, lgLD2, lgLD3, lgLD4;
+
+    @FXML
+    private Label lgRF1, lgRF2, lgRF3, lgRF4, lgC1, lgC2, lgC3, lgC4, lgLF1, lgLF2, lgLF3, lgLF4;
+
+    @FXML
+    private Label ngGK1, ngGK2, ngGK3, ngGK4;
+
+    @FXML
+    private Label ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4;
+
+    @FXML
+    private Label ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
 }
