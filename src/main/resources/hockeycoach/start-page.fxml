@@ -21,6 +21,9 @@
                 <columns>
                     <TableColumn fx:id="teamsColumn" prefWidth="390.0" resizable="true" text="Teams" />
                 </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <TableView fx:id="gamesTable" prefHeight="760.0" prefWidth="390.0" HBox.hgrow="ALWAYS">
                <columns>
@@ -40,6 +43,9 @@
                      </cellValueFactory>
                   </TableColumn>
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
             <TableView fx:id="trainingsTable" prefHeight="760.0" prefWidth="390.0" HBox.hgrow="ALWAYS">
                <columns>
@@ -54,6 +60,9 @@
                      </cellValueFactory>
                   </TableColumn>
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
       </HBox>

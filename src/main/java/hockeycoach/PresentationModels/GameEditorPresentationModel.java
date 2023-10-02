@@ -203,7 +203,6 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpTextFields = new ArrayList<>(Arrays.asList(bptf));
         captainTeamList = new ArrayList<>(Arrays.asList(captainTeam));
 
-
         textFields.stream().forEach(this::dragEvent);
         ppTextFields.stream().forEach(this::dragEvent);
         bpTextFields.stream().forEach(this::dragEvent);
