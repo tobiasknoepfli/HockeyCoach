@@ -22,738 +22,923 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.TrainingEditorPageController">
+<AnchorPane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0"
+            prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="hockeycoach.controllers.TrainingEditorPageController">
     <children>
-      <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0" AnchorPane.bottomAnchor="780.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Cancel" />
-         </children>
-      </HBox>
-      <SplitPane dividerPositions="0.3543771043771044, 0.7104377104377104" layoutX="423.0" layoutY="100.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="758.0" prefWidth="545.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                           <children>
-                              <VBox prefHeight="106.0" prefWidth="90.0" spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" text="Team" />
-                                    <Label prefHeight="25.0" text="Date" />
-                                    <Label prefHeight="25.0" text="Time" />
-                                    <Label prefHeight="25.0" text="Stadium" />
-                                    <Label prefHeight="25.0" prefWidth="64.0" text="Main Focus" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                    <TextField fx:id="trainingTeam" prefHeight="25.0" />
-                                    <TextField fx:id="trainingDate" prefHeight="25.0" />
-                                    <TextField fx:id="trainingTime" prefHeight="25.0" />
-                                    <TextField fx:id="trainingStadium" prefHeight="25.0" />
-                                    <TextField fx:id="trainingMainFocus" prefHeight="25.0" />
-                                 </children>
-                              </VBox>
-                              <VBox>
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="64.0" text="Pointers" />
-                                    <TextArea fx:id="trainingPointers" prefHeight="130.0" prefWidth="213.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <TabPane fx:id="tablePane" prefHeight="260.0" prefWidth="475.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-                          <tabs>
-                            <Tab fx:id="warmupTab" text="Warmup">
-                              <content>
-                                <AnchorPane>
-                                       <children>
-                                            <TableView fx:id="warmup" prefWidth="408.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <columns>
-                                                    <TableColumn fx:id="wuCol" minWidth="149.0" prefWidth="182.0" text="Warmup">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="name" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="wuDiffCol" minWidth="48.0" prefWidth="61.0" text="Difficulty">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="difficulty" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="wuPlayerCol" minWidth="25.0" prefWidth="45.0" text="Players">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="participation" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="wuPrioCol" minWidth="50.0" prefWidth="82.0" text="Puck Position">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                <TableColumn fx:id="wuSI" minWidth="34.0" prefWidth="36.0" text="Index">
-                                                   <cellValueFactory>
-                                                      <PropertyValueFactory property="sortingIndex" />
-                                                   </cellValueFactory>
-                                                </TableColumn>
-                                                </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                            </TableView>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab fx:id="togetherTab" text="Together">
-                              <content>
-                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                            <TableView fx:id="together" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <columns>
-                                                    <TableColumn fx:id="tgCol" minWidth="68.0" prefWidth="173.0" text="Together">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="name" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="tgDiffCol" minWidth="58.0" prefWidth="58.0" text="Difficulty">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="difficulty" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="tgPlayerCol" minWidth="26.0" prefWidth="52.0" text="Players">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="participation" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="tgPrioCol" minWidth="50.0" prefWidth="86.0" text="Puck Position">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                <TableColumn fx:id="tgSI" minWidth="37.0" prefWidth="37.0" text="Index">
-                                                   <cellValueFactory>
-                                                      <PropertyValueFactory property="sortingIndex" />
-                                                   </cellValueFactory>
-                                                </TableColumn>
-                                                </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                            </TableView>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
-                              <Tab fx:id="stationsTab" text="Stations">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                            <TableView fx:id="stations" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <columns>
-                                                    <TableColumn fx:id="stCol" minWidth="79.0" prefWidth="176.0" text="Stations">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="name" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="stDiffCol" minWidth="58.0" prefWidth="58.0" text="Difficulty">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="difficulty" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="stPlayerCol" minWidth="39.0" prefWidth="55.0" text="Players">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="participation" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="stPrioCol" minWidth="50.0" prefWidth="83.0" text="Puck Position">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                <TableColumn fx:id="stSI" minWidth="36.0" prefWidth="36.0" text="Index">
-                                                   <cellValueFactory>
-                                                      <PropertyValueFactory property="sortingIndex" />
-                                                   </cellValueFactory>
-                                                </TableColumn>
-                                                </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                            </TableView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="backupTab" text="Backup">
-                                 <content>
-                                    <AnchorPane prefHeight="304.0" prefWidth="408.0">
-                                       <children>
-                                            <TableView fx:id="backup" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                                <columns>
-                                                    <TableColumn fx:id="buCol" minWidth="58.0" prefWidth="183.0" text="Backup">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="name" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="buDiffCol" minWidth="57.0" prefWidth="57.0" text="Difficulty">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="difficulty" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="buPlayerCol" minWidth="46.0" prefWidth="46.0" text="Players">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="participation" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                    <TableColumn fx:id="buPrioCol" minWidth="50.0" prefWidth="86.0" text="Puck Position">
-                                                        <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
-                                                        </cellValueFactory>
-                                                    </TableColumn>
-                                                <TableColumn fx:id="buSI" minWidth="36.0" prefWidth="36.0" text="Index">
-                                                   <cellValueFactory>
-                                                      <PropertyValueFactory property="sortingIndex" />
-                                                   </cellValueFactory>
-                                                </TableColumn>
-                                                </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                            </TableView>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="l1Tab" text="L1">
-                                <content>
-                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label text="Line 1" />
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefWidth="150.0">
-                                                         <children>
-                                                            <TextField fx:id="jersey1" promptText="Jersey Colour" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox alignment="TOP_CENTER" prefWidth="25.0">
-                                                         <children>
-                                                            <Label prefHeight="25.0" text="GK" />
-                                                            <Label prefHeight="25.0" text="DL" />
-                                                            <Label prefHeight="25.0" text="DR" />
-                                                            <Label prefHeight="25.0" text="C" />
-                                                            <Label prefHeight="25.0" text="FL" />
-                                                            <Label prefHeight="25.0" text="FR" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <TextField fx:id="gk1" VBox.vgrow="ALWAYS" />
-                                                            <TextField fx:id="dl1" />
-                                                            <TextField fx:id="dr1" />
-                                                            <TextField fx:id="c1" />
-                                                            <TextField fx:id="fl1" />
-                                                            <TextField fx:id="fr1" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children></AnchorPane>
-                                </content>
-                              </Tab>
-                              <Tab fx:id="l2Tab" text="L2">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label text="Line 2" />
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefWidth="150.0">
-                                                         <children>
-                                                            <TextField fx:id="jersey2" promptText="Jersey Colour" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox alignment="TOP_CENTER" prefWidth="25.0">
-                                                         <children>
-                                                            <Label prefHeight="25.0" text="GK" />
-                                                            <Label prefHeight="25.0" text="DL" />
-                                                            <Label prefHeight="25.0" text="DR" />
-                                                            <Label prefHeight="25.0" text="C" />
-                                                            <Label prefHeight="25.0" text="FL" />
-                                                            <Label prefHeight="25.0" text="FR" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <TextField fx:id="gk2" VBox.vgrow="ALWAYS" />
-                                                            <TextField fx:id="dl2" />
-                                                            <TextField fx:id="dr2" />
-                                                            <TextField fx:id="c2" />
-                                                            <TextField fx:id="fl2" />
-                                                            <TextField fx:id="fr2" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children></AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="l3Tab" text="L3">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label text="Line 3" />
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefWidth="150.0">
-                                                         <children>
-                                                            <TextField fx:id="jersey3" promptText="Jersey Colour" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox alignment="TOP_CENTER" prefWidth="25.0">
-                                                         <children>
-                                                            <Label prefHeight="25.0" text="GK" />
-                                                            <Label prefHeight="25.0" text="DL" />
-                                                            <Label prefHeight="25.0" text="DR" />
-                                                            <Label prefHeight="25.0" text="C" />
-                                                            <Label prefHeight="25.0" text="FL" />
-                                                            <Label prefHeight="25.0" text="FR" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <TextField fx:id="gk3" VBox.vgrow="ALWAYS" />
-                                                            <TextField fx:id="dl3" />
-                                                            <TextField fx:id="dr3" />
-                                                            <TextField fx:id="c3" />
-                                                            <TextField fx:id="fl3" />
-                                                            <TextField fx:id="fr3" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="l4Tab" text="L4">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label text="Line 4" />
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefWidth="150.0">
-                                                         <children>
-                                                            <TextField fx:id="jersey4" promptText="Jersey Colour" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox alignment="TOP_CENTER" prefWidth="25.0">
-                                                         <children>
-                                                            <Label prefHeight="25.0" text="GK" />
-                                                            <Label prefHeight="25.0" text="DL" />
-                                                            <Label prefHeight="25.0" text="DR" />
-                                                            <Label prefHeight="25.0" text="C" />
-                                                            <Label prefHeight="25.0" text="FL" />
-                                                            <Label prefHeight="25.0" text="FR" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <TextField fx:id="gk4" VBox.vgrow="ALWAYS" />
-                                                            <TextField fx:id="dl4" />
-                                                            <TextField fx:id="dr4" />
-                                                            <TextField fx:id="c4" />
-                                                            <TextField fx:id="fl4" />
-                                                            <TextField fx:id="fr4" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="l5Tab" text="L5">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label text="Line 5" />
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefWidth="150.0">
-                                                         <children>
-                                                            <TextField fx:id="jersey5" promptText="Jersey Colour" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox alignment="TOP_CENTER" prefWidth="25.0">
-                                                         <children>
-                                                            <Label prefHeight="25.0" text="GK" />
-                                                            <Label prefHeight="25.0" text="DL" />
-                                                            <Label prefHeight="25.0" text="DR" />
-                                                            <Label prefHeight="25.0" text="C" />
-                                                            <Label prefHeight="25.0" text="FL" />
-                                                            <Label prefHeight="25.0" text="FR" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <TextField fx:id="gk5" VBox.vgrow="ALWAYS" />
-                                                            <TextField fx:id="dl5" />
-                                                            <TextField fx:id="dr5" />
-                                                            <TextField fx:id="c5" />
-                                                            <TextField fx:id="fl5" />
-                                                            <TextField fx:id="fr5" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                              <Tab fx:id="l6Tab" text="L6">
-                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <children>
-                                                <Label text="Line 6" />
-                                                <HBox prefHeight="100.0" prefWidth="200.0">
-                                                   <children>
-                                                      <VBox prefWidth="150.0">
-                                                         <children>
-                                                            <TextField fx:id="jersey6" promptText="Jersey Colour" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox alignment="TOP_CENTER" prefWidth="25.0">
-                                                         <children>
-                                                            <Label prefHeight="25.0" text="GK" />
-                                                            <Label prefHeight="25.0" text="DL" />
-                                                            <Label prefHeight="25.0" text="DR" />
-                                                            <Label prefHeight="25.0" text="C" />
-                                                            <Label prefHeight="25.0" text="FL" />
-                                                            <Label prefHeight="25.0" text="FR" />
-                                                         </children>
-                                                      </VBox>
-                                                      <VBox HBox.hgrow="ALWAYS">
-                                                         <children>
-                                                            <TextField fx:id="gk6" VBox.vgrow="ALWAYS" />
-                                                            <TextField fx:id="dl6" />
-                                                            <TextField fx:id="dr6" />
-                                                            <TextField fx:id="c6" />
-                                                            <TextField fx:id="fl6" />
-                                                            <TextField fx:id="fr6" />
-                                                         </children>
-                                                      </VBox>
-                                                   </children>
-                                                </HBox>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                              </Tab>
-                          </tabs>
-                        </TabPane>
-                        <TabPane prefHeight="300.0" prefWidth="408.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
-                          <tabs>
-                            <Tab text="Lineup last game">
-                              <content>
-                                <AnchorPane>
-                                       <children>
-                                          <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                             </columnConstraints>
-                                             <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                             </rowConstraints>
-                                             <children>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1">
-                                                   <children>
-                                                      <Label fx:id="lgGK1" />
-                                                      <Label fx:id="lgGK2" />
-                                                      <Label fx:id="lgGK3" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="1">
-                                                   <children>
-                                                      <Label fx:id="lgRD1" />
-                                                      <Label fx:id="lgRD2" />
-                                                      <Label fx:id="lgRD3" />
-                                                      <Label fx:id="lgRD4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                                   <children>
-                                                      <Label fx:id="lgLD1" />
-                                                      <Label fx:id="lgLD2" />
-                                                      <Label fx:id="lgLD3" />
-                                                      <Label fx:id="lgLD4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="3">
-                                                   <children>
-                                                      <Label fx:id="lgRF1" />
-                                                      <Label fx:id="lgRF2" />
-                                                      <Label fx:id="lgRF3" />
-                                                      <Label fx:id="lgRF4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                   <children>
-                                                      <Label fx:id="lgC1" />
-                                                      <Label fx:id="lgC2" />
-                                                      <Label fx:id="lgC3" />
-                                                      <Label fx:id="lgC4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                   <children>
-                                                      <Label fx:id="lgLF1" />
-                                                      <Label fx:id="lgLF2" />
-                                                      <Label fx:id="lgLF3" />
-                                                      <Label fx:id="lgLF4" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </GridPane>
-                                       </children>
-                                    </AnchorPane>
-                              </content>
-                            </Tab>
-                            <Tab text="Lineup next game">
-                                 <content>
-                                    <AnchorPane>
-                                       <children>
-                                          <GridPane layoutY="-7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                             <children>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1">
-                                                   <children>
-                                                      <Label fx:id="ngGK1" />
-                                                      <Label fx:id="ngGK2" />
-                                                      <Label fx:id="ngGK3" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="1">
-                                                   <children>
-                                                      <Label fx:id="ngRD1" />
-                                                      <Label fx:id="ngRD2" />
-                                                      <Label fx:id="ngRD3" />
-                                                      <Label fx:id="ngRD4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                                                   <children>
-                                                      <Label fx:id="ngLD1" />
-                                                      <Label fx:id="ngLD2" />
-                                                      <Label fx:id="ngLD3" />
-                                                      <Label fx:id="ngLD4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="3">
-                                                   <children>
-                                                      <Label fx:id="ngRF1" />
-                                                      <Label fx:id="ngRF2" />
-                                                      <Label fx:id="ngRF3" />
-                                                      <Label fx:id="ngRF4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                                   <children>
-                                                      <Label fx:id="ngC1" />
-                                                      <Label fx:id="ngC2" />
-                                                      <Label fx:id="ngC3" />
-                                                      <Label fx:id="ngC4" />
-                                                   </children>
-                                                </VBox>
-                                                <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                                                   <children>
-                                                      <Label fx:id="ngLF1" />
-                                                      <Label fx:id="ngLF2" />
-                                                      <Label fx:id="ngLF3" />
-                                                      <Label fx:id="ngLF4" />
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </GridPane>
-                                       </children>
-                                    </AnchorPane>
-                                 </content>
-                            </Tab>
-                          </tabs>
-                        </TabPane>
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </AnchorPane>
-            <AnchorPane prefHeight="758.0" prefWidth="618.0">
-               <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                          <ImageView fx:id="drillImage" fitHeight="287.61" fitWidth="407.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextArea fx:id="drillDescription" VBox.vgrow="ALWAYS" />
-                     </children>
-                  </VBox>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <SplitPane dividerPositions="0.37433862433862436" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <items>
-                      <AnchorPane>
-                           <children>
-                              <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <VBox prefHeight="289.0" prefWidth="119.0" spacing="2.0">
-                                       <children>
-                                            <Label prefHeight="25.0" text="Drill" />
-                                          <Label prefHeight="25.0" text="Category" />
-                                          <Label prefHeight="25.0" text="Difficulty" />
-                                          <Label prefHeight="25.0" text="Participation" />
-                                          <Label prefHeight="25.0" prefWidth="71.0" text="Puck Position" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                            <TextField fx:id="drillName" prefHeight="25.0" prefWidth="399.0" />
-                                          <TextField fx:id="drillCategory" prefHeight="30.0" prefWidth="167.0" />
-                                          <TextField fx:id="drillDifficulty" prefHeight="30.0" prefWidth="87.0" />
-                                          <TextField fx:id="drillParticipation" prefHeight="25.0" prefWidth="104.0" />
-                                          <TextField fx:id="puckPosition" prefHeight="30.0" prefWidth="143.0" />
-                                          <CheckBox fx:id="drillStation" mnemonicParsing="false" prefHeight="17.0" prefWidth="87.0" text="Station" />
-                                          <TableView fx:id="drillTags" prefHeight="457.0" prefWidth="224.0" VBox.vgrow="ALWAYS">
-                                             <columns>
-                                                <TableColumn fx:id="tagCol" minWidth="223.0" prefWidth="223.0" text="Tags">
+        <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0"
+              spacing="5.0" AnchorPane.bottomAnchor="780.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save"/>
+                <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Cancel"/>
+            </children>
+        </HBox>
+        <SplitPane dividerPositions="0.3543771043771044, 0.7104377104377104" layoutX="423.0" layoutY="100.0"
+                   prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="758.0" prefWidth="545.0">
+                    <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                                    <children>
+                                        <VBox prefHeight="106.0" prefWidth="90.0" spacing="2.0">
+                                            <children>
+                                                <Label prefHeight="25.0" text="Team"/>
+                                                <Label prefHeight="25.0" text="Date"/>
+                                                <Label prefHeight="25.0" text="Time"/>
+                                                <Label prefHeight="25.0" text="Stadium"/>
+                                                <Label prefHeight="25.0" prefWidth="64.0" text="Main Focus"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                            <children>
+                                                <TextField fx:id="trainingTeam" prefHeight="25.0"/>
+                                                <TextField fx:id="trainingDate" prefHeight="25.0"/>
+                                                <TextField fx:id="trainingTime" prefHeight="25.0"/>
+                                                <TextField fx:id="trainingStadium" prefHeight="25.0"/>
+                                                <TextField fx:id="trainingMainFocus" prefHeight="25.0"/>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <Label prefHeight="25.0" prefWidth="64.0" text="Pointers"/>
+                                                <TextArea fx:id="trainingPointers" prefHeight="130.0"
+                                                          prefWidth="213.0"/>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                                <TabPane fx:id="tablePane" prefHeight="260.0" prefWidth="475.0"
+                                         tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                                    <tabs>
+                                        <Tab fx:id="warmupTab" text="Warmup">
+                                            <content>
+                                                <AnchorPane>
+                                                    <children>
+                                                        <TableView fx:id="warmup" prefWidth="408.0"
+                                                                   AnchorPane.bottomAnchor="0.0"
+                                                                   AnchorPane.leftAnchor="0.0"
+                                                                   AnchorPane.rightAnchor="0.0"
+                                                                   AnchorPane.topAnchor="0.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="wuCol" minWidth="149.0"
+                                                                             prefWidth="182.0" text="Warmup">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="name"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="wuDiffCol" minWidth="48.0"
+                                                                             prefWidth="61.0" text="Difficulty">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="difficulty"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="wuPlayerCol" minWidth="25.0"
+                                                                             prefWidth="45.0" text="Players">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="participation"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="wuPrioCol" minWidth="50.0"
+                                                                             prefWidth="82.0" text="Puck Position">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="puckPosition"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="wuSI" minWidth="34.0"
+                                                                             prefWidth="36.0" text="Index">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="sortingIndex"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                            </columns>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                            </columnResizePolicy>
+                                                        </TableView>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="togetherTab" text="Together">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <TableView fx:id="together" AnchorPane.bottomAnchor="0.0"
+                                                                   AnchorPane.leftAnchor="0.0"
+                                                                   AnchorPane.rightAnchor="0.0"
+                                                                   AnchorPane.topAnchor="0.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="tgCol" minWidth="68.0"
+                                                                             prefWidth="173.0" text="Together">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="name"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="tgDiffCol" minWidth="58.0"
+                                                                             prefWidth="58.0" text="Difficulty">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="difficulty"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="tgPlayerCol" minWidth="26.0"
+                                                                             prefWidth="52.0" text="Players">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="participation"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="tgPrioCol" minWidth="50.0"
+                                                                             prefWidth="86.0" text="Puck Position">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="puckPosition"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="tgSI" minWidth="37.0"
+                                                                             prefWidth="37.0" text="Index">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="sortingIndex"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                            </columns>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                            </columnResizePolicy>
+                                                        </TableView>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="stationsTab" text="Stations">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <TableView fx:id="stations" AnchorPane.bottomAnchor="0.0"
+                                                                   AnchorPane.leftAnchor="0.0"
+                                                                   AnchorPane.rightAnchor="0.0"
+                                                                   AnchorPane.topAnchor="0.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="stCol" minWidth="79.0"
+                                                                             prefWidth="176.0" text="Stations">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="name"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="stDiffCol" minWidth="58.0"
+                                                                             prefWidth="58.0" text="Difficulty">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="difficulty"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="stPlayerCol" minWidth="39.0"
+                                                                             prefWidth="55.0" text="Players">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="participation"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="stPrioCol" minWidth="50.0"
+                                                                             prefWidth="83.0" text="Puck Position">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="puckPosition"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="stSI" minWidth="36.0"
+                                                                             prefWidth="36.0" text="Index">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="sortingIndex"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                            </columns>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                            </columnResizePolicy>
+                                                        </TableView>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="backupTab" text="Backup">
+                                            <content>
+                                                <AnchorPane prefHeight="304.0" prefWidth="408.0">
+                                                    <children>
+                                                        <TableView fx:id="backup" AnchorPane.bottomAnchor="0.0"
+                                                                   AnchorPane.leftAnchor="0.0"
+                                                                   AnchorPane.rightAnchor="0.0"
+                                                                   AnchorPane.topAnchor="0.0">
+                                                            <columns>
+                                                                <TableColumn fx:id="buCol" minWidth="58.0"
+                                                                             prefWidth="183.0" text="Backup">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="name"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="buDiffCol" minWidth="57.0"
+                                                                             prefWidth="57.0" text="Difficulty">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="difficulty"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="buPlayerCol" minWidth="46.0"
+                                                                             prefWidth="46.0" text="Players">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="participation"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="buPrioCol" minWidth="50.0"
+                                                                             prefWidth="86.0" text="Puck Position">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="puckPosition"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                                <TableColumn fx:id="buSI" minWidth="36.0"
+                                                                             prefWidth="36.0" text="Index">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="sortingIndex"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                            </columns>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                            </columnResizePolicy>
+                                                        </TableView>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="l1Tab" text="L1">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+                                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label text="Line 1"/>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <VBox prefWidth="150.0">
+                                                                            <children>
+                                                                                <TextField fx:id="jersey1"
+                                                                                           promptText="Jersey Colour"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox alignment="TOP_CENTER" prefWidth="25.0">
+                                                                            <children>
+                                                                                <Label prefHeight="25.0" text="GK"/>
+                                                                                <Label prefHeight="25.0" text="DL"/>
+                                                                                <Label prefHeight="25.0" text="DR"/>
+                                                                                <Label prefHeight="25.0" text="C"/>
+                                                                                <Label prefHeight="25.0" text="FL"/>
+                                                                                <Label prefHeight="25.0" text="FR"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox HBox.hgrow="ALWAYS">
+                                                                            <children>
+                                                                                <TextField fx:id="gk1"
+                                                                                           VBox.vgrow="ALWAYS"/>
+                                                                                <TextField fx:id="dl1"/>
+                                                                                <TextField fx:id="dr1"/>
+                                                                                <TextField fx:id="c1"/>
+                                                                                <TextField fx:id="fl1"/>
+                                                                                <TextField fx:id="fr1"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="l2Tab" text="L2">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+                                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label text="Line 2"/>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <VBox prefWidth="150.0">
+                                                                            <children>
+                                                                                <TextField fx:id="jersey2"
+                                                                                           promptText="Jersey Colour"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox alignment="TOP_CENTER" prefWidth="25.0">
+                                                                            <children>
+                                                                                <Label prefHeight="25.0" text="GK"/>
+                                                                                <Label prefHeight="25.0" text="DL"/>
+                                                                                <Label prefHeight="25.0" text="DR"/>
+                                                                                <Label prefHeight="25.0" text="C"/>
+                                                                                <Label prefHeight="25.0" text="FL"/>
+                                                                                <Label prefHeight="25.0" text="FR"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox HBox.hgrow="ALWAYS">
+                                                                            <children>
+                                                                                <TextField fx:id="gk2"
+                                                                                           VBox.vgrow="ALWAYS"/>
+                                                                                <TextField fx:id="dl2"/>
+                                                                                <TextField fx:id="dr2"/>
+                                                                                <TextField fx:id="c2"/>
+                                                                                <TextField fx:id="fl2"/>
+                                                                                <TextField fx:id="fr2"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="l3Tab" text="L3">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+                                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label text="Line 3"/>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <VBox prefWidth="150.0">
+                                                                            <children>
+                                                                                <TextField fx:id="jersey3"
+                                                                                           promptText="Jersey Colour"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox alignment="TOP_CENTER" prefWidth="25.0">
+                                                                            <children>
+                                                                                <Label prefHeight="25.0" text="GK"/>
+                                                                                <Label prefHeight="25.0" text="DL"/>
+                                                                                <Label prefHeight="25.0" text="DR"/>
+                                                                                <Label prefHeight="25.0" text="C"/>
+                                                                                <Label prefHeight="25.0" text="FL"/>
+                                                                                <Label prefHeight="25.0" text="FR"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox HBox.hgrow="ALWAYS">
+                                                                            <children>
+                                                                                <TextField fx:id="gk3"
+                                                                                           VBox.vgrow="ALWAYS"/>
+                                                                                <TextField fx:id="dl3"/>
+                                                                                <TextField fx:id="dr3"/>
+                                                                                <TextField fx:id="c3"/>
+                                                                                <TextField fx:id="fl3"/>
+                                                                                <TextField fx:id="fr3"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="l4Tab" text="L4">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+                                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label text="Line 4"/>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <VBox prefWidth="150.0">
+                                                                            <children>
+                                                                                <TextField fx:id="jersey4"
+                                                                                           promptText="Jersey Colour"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox alignment="TOP_CENTER" prefWidth="25.0">
+                                                                            <children>
+                                                                                <Label prefHeight="25.0" text="GK"/>
+                                                                                <Label prefHeight="25.0" text="DL"/>
+                                                                                <Label prefHeight="25.0" text="DR"/>
+                                                                                <Label prefHeight="25.0" text="C"/>
+                                                                                <Label prefHeight="25.0" text="FL"/>
+                                                                                <Label prefHeight="25.0" text="FR"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox HBox.hgrow="ALWAYS">
+                                                                            <children>
+                                                                                <TextField fx:id="gk4"
+                                                                                           VBox.vgrow="ALWAYS"/>
+                                                                                <TextField fx:id="dl4"/>
+                                                                                <TextField fx:id="dr4"/>
+                                                                                <TextField fx:id="c4"/>
+                                                                                <TextField fx:id="fl4"/>
+                                                                                <TextField fx:id="fr4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="l5Tab" text="L5">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+                                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label text="Line 5"/>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <VBox prefWidth="150.0">
+                                                                            <children>
+                                                                                <TextField fx:id="jersey5"
+                                                                                           promptText="Jersey Colour"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox alignment="TOP_CENTER" prefWidth="25.0">
+                                                                            <children>
+                                                                                <Label prefHeight="25.0" text="GK"/>
+                                                                                <Label prefHeight="25.0" text="DL"/>
+                                                                                <Label prefHeight="25.0" text="DR"/>
+                                                                                <Label prefHeight="25.0" text="C"/>
+                                                                                <Label prefHeight="25.0" text="FL"/>
+                                                                                <Label prefHeight="25.0" text="FR"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox HBox.hgrow="ALWAYS">
+                                                                            <children>
+                                                                                <TextField fx:id="gk5"
+                                                                                           VBox.vgrow="ALWAYS"/>
+                                                                                <TextField fx:id="dl5"/>
+                                                                                <TextField fx:id="dr5"/>
+                                                                                <TextField fx:id="c5"/>
+                                                                                <TextField fx:id="fl5"/>
+                                                                                <TextField fx:id="fr5"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                        <Tab fx:id="l6Tab" text="L6">
+                                            <content>
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0">
+                                                    <children>
+                                                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0"
+                                                              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                            <children>
+                                                                <Label text="Line 6"/>
+                                                                <HBox prefHeight="100.0" prefWidth="200.0">
+                                                                    <children>
+                                                                        <VBox prefWidth="150.0">
+                                                                            <children>
+                                                                                <TextField fx:id="jersey6"
+                                                                                           promptText="Jersey Colour"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox alignment="TOP_CENTER" prefWidth="25.0">
+                                                                            <children>
+                                                                                <Label prefHeight="25.0" text="GK"/>
+                                                                                <Label prefHeight="25.0" text="DL"/>
+                                                                                <Label prefHeight="25.0" text="DR"/>
+                                                                                <Label prefHeight="25.0" text="C"/>
+                                                                                <Label prefHeight="25.0" text="FL"/>
+                                                                                <Label prefHeight="25.0" text="FR"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox HBox.hgrow="ALWAYS">
+                                                                            <children>
+                                                                                <TextField fx:id="gk6"
+                                                                                           VBox.vgrow="ALWAYS"/>
+                                                                                <TextField fx:id="dl6"/>
+                                                                                <TextField fx:id="dr6"/>
+                                                                                <TextField fx:id="c6"/>
+                                                                                <TextField fx:id="fl6"/>
+                                                                                <TextField fx:id="fr6"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </HBox>
+                                                            </children>
+                                                        </VBox>
+                                                    </children>
+                                                </AnchorPane>
+                                            </content>
+                                        </Tab>
+                                    </tabs>
+                                </TabPane>
+                                <HBox spacing="5.0" VBox.vgrow="ALWAYS">
+                                    <children>
+                                        <TabPane prefHeight="313.0" prefWidth="379.0" tabClosingPolicy="UNAVAILABLE">
+                                            <tabs>
+                                                <Tab text="Lineup last game">
+                                                    <content>
+                                                        <AnchorPane prefHeight="278.0" prefWidth="372.0">
+                                                            <children>
+                                                                <GridPane prefHeight="278.0" prefWidth="263.0"
+                                                                          AnchorPane.bottomAnchor="0.0"
+                                                                          AnchorPane.leftAnchor="0.0"
+                                                                          AnchorPane.rightAnchor="0.0"
+                                                                          AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="100.0"/>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="100.0"/>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="100.0"/>
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="1">
+                                                                            <children>
+                                                                                <Label fx:id="lgGK1"/>
+                                                                                <Label fx:id="lgGK2"/>
+                                                                                <Label fx:id="lgGK3"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <Label fx:id="lgRD1"/>
+                                                                                <Label fx:id="lgRD2"/>
+                                                                                <Label fx:id="lgRD3"/>
+                                                                                <Label fx:id="lgRD4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="2"
+                                                                              GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <Label fx:id="lgLD1"/>
+                                                                                <Label fx:id="lgLD2"/>
+                                                                                <Label fx:id="lgLD3"/>
+                                                                                <Label fx:id="lgLD4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.rowIndex="3">
+                                                                            <children>
+                                                                                <Label fx:id="lgRF1"/>
+                                                                                <Label fx:id="lgRF2"/>
+                                                                                <Label fx:id="lgRF3"/>
+                                                                                <Label fx:id="lgRF4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="1"
+                                                                              GridPane.rowIndex="2">
+                                                                            <children>
+                                                                                <Label fx:id="lgC1"/>
+                                                                                <Label fx:id="lgC2"/>
+                                                                                <Label fx:id="lgC3"/>
+                                                                                <Label fx:id="lgC4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="2"
+                                                                              GridPane.rowIndex="3">
+                                                                            <children>
+                                                                                <Label fx:id="lgLF1"/>
+                                                                                <Label fx:id="lgLF2"/>
+                                                                                <Label fx:id="lgLF3"/>
+                                                                                <Label fx:id="lgLF4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </GridPane>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </content>
+                                                </Tab>
+                                                <Tab text="Lineup next game">
+                                                    <content>
+                                                        <AnchorPane>
+                                                            <children>
+                                                                <GridPane layoutY="-7.0" AnchorPane.bottomAnchor="0.0"
+                                                                          AnchorPane.leftAnchor="0.0"
+                                                                          AnchorPane.rightAnchor="0.0"
+                                                                          AnchorPane.topAnchor="0.0">
+                                                                    <columnConstraints>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="100.0"/>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="100.0"/>
+                                                                        <ColumnConstraints hgrow="SOMETIMES"
+                                                                                           minWidth="10.0"
+                                                                                           prefWidth="100.0"/>
+                                                                    </columnConstraints>
+                                                                    <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                        <RowConstraints minHeight="10.0"
+                                                                                        prefHeight="30.0"
+                                                                                        vgrow="SOMETIMES"/>
+                                                                    </rowConstraints>
+                                                                    <children>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="1">
+                                                                            <children>
+                                                                                <Label fx:id="ngGK1"/>
+                                                                                <Label fx:id="ngGK2"/>
+                                                                                <Label fx:id="ngGK3"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <Label fx:id="ngRD1"/>
+                                                                                <Label fx:id="ngRD2"/>
+                                                                                <Label fx:id="ngRD3"/>
+                                                                                <Label fx:id="ngRD4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="2"
+                                                                              GridPane.rowIndex="1">
+                                                                            <children>
+                                                                                <Label fx:id="ngLD1"/>
+                                                                                <Label fx:id="ngLD2"/>
+                                                                                <Label fx:id="ngLD3"/>
+                                                                                <Label fx:id="ngLD4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.rowIndex="3">
+                                                                            <children>
+                                                                                <Label fx:id="ngRF1"/>
+                                                                                <Label fx:id="ngRF2"/>
+                                                                                <Label fx:id="ngRF3"/>
+                                                                                <Label fx:id="ngRF4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="1"
+                                                                              GridPane.rowIndex="2">
+                                                                            <children>
+                                                                                <Label fx:id="ngC1"/>
+                                                                                <Label fx:id="ngC2"/>
+                                                                                <Label fx:id="ngC3"/>
+                                                                                <Label fx:id="ngC4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                        <VBox prefHeight="75.0" prefWidth="125.0"
+                                                                              GridPane.columnIndex="2"
+                                                                              GridPane.rowIndex="3">
+                                                                            <children>
+                                                                                <Label fx:id="ngLF1"/>
+                                                                                <Label fx:id="ngLF2"/>
+                                                                                <Label fx:id="ngLF3"/>
+                                                                                <Label fx:id="ngLF4"/>
+                                                                            </children>
+                                                                        </VBox>
+                                                                    </children>
+                                                                </GridPane>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </content>
+                                                </Tab>
+                                            </tabs>
+                                        </TabPane>
+                                        <TableView fx:id="availablePlayers" prefHeight="314.0" prefWidth="218.0"
+                                                   HBox.hgrow="ALWAYS">
+                                            <columns>
+                                                <TableColumn prefWidth="40.0" text="Players">
                                                     <cellValueFactory>
-                                                        <PropertyValueFactory property="tags" />
+                                                        <PropertyValueFactory property="lastName"/>
                                                     </cellValueFactory>
                                                 </TableColumn>
-                                             </columns>
-                                             <columnResizePolicy>
-                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                             </columnResizePolicy>
-                                          </TableView>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                      <AnchorPane prefHeight="464.0" prefWidth="329.0">
-                           <children>
-                              <VBox spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <children>
-                                    <FlowPane hgap="5.0" prefWrapLength="330.0" vgap="5.0" VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <ComboBox fx:id="cbDifficulty" prefWidth="162.0" promptText="Difficulty" />
-                                          <ComboBox fx:id="cbParticipation" prefWidth="162.0" promptText="Participation" />
-                                          <ComboBox fx:id="cbStation" prefWidth="162.0" promptText="Station" />
-                                          <ComboBox fx:id="cbTags" prefWidth="162.0" promptText="Tags" />
-                                          <ComboBox fx:id="cbCategory" prefWidth="162.0" promptText="Category" />
-                                          <Button fx:id="resetFilters" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Reset all filters" />
-                                       </children>
-                                    </FlowPane>
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <TextField fx:id="searchBox" prefHeight="25.0" prefWidth="265.0" promptText="Search" />
-                                          <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Search" />
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <HBox layoutY="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
-                                 <children>
-                                    <TableView fx:id="drillTable" prefHeight="322.0" prefWidth="297.0" HBox.hgrow="ALWAYS">
-                                       <columns>
-                                          <TableColumn fx:id="dtNameCol" minWidth="116.0" prefWidth="157.0" text="Name">
-                                             <cellValueFactory>
-                                                <PropertyValueFactory property="name" />
-                                             </cellValueFactory>
-                                          </TableColumn>
-                                          <TableColumn fx:id="dtDiffCol" minWidth="55.0" prefWidth="60.0" text="Difficulty">
-                                             <cellValueFactory>
-                                                <PropertyValueFactory property="difficulty" />
-                                             </cellValueFactory>
-                                          </TableColumn>
-                                          <TableColumn fx:id="dtPlayerCol" minWidth="45.0" prefWidth="45.0" text="Players">
-                                             <cellValueFactory>
-                                                <PropertyValueFactory property="participation" />
-                                             </cellValueFactory>
-                                          </TableColumn>
-                                       </columns>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                    <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Button fx:id="warmupButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Warmup" />
-                                          <Button fx:id="togetherButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Together" />
-                                          <Button fx:id="stationsButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Stations" />
-                                          <Button fx:id="backupButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Backup" />
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </AnchorPane>
-                    </items>
-                  </SplitPane>
-               </children>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+                                                <TableColumn prefWidth="35.0" text="Players">
+                                                    <cellValueFactory>
+                                                        <PropertyValueFactory property="firstName"/>
+                                                    </cellValueFactory>
+                                                </TableColumn>
+                                            </columns>
+                                            <columnResizePolicy>
+                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                            </columnResizePolicy>
+                                        </TableView>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </AnchorPane>
+                <AnchorPane prefHeight="758.0" prefWidth="618.0">
+                    <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <children>
+                                <ImageView fx:id="drillImage" fitHeight="287.61" fitWidth="407.0" pickOnBounds="true"
+                                           preserveRatio="true"/>
+                                <TextArea fx:id="drillDescription" VBox.vgrow="ALWAYS"/>
+                            </children>
+                        </VBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                    <children>
+                        <SplitPane dividerPositions="0.37433862433862436" orientation="VERTICAL" prefHeight="200.0"
+                                   prefWidth="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane>
+                                    <children>
+                                        <HBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <VBox prefHeight="289.0" prefWidth="119.0" spacing="2.0">
+                                                    <children>
+                                                        <Label prefHeight="25.0" text="Drill"/>
+                                                        <Label prefHeight="25.0" text="Category"/>
+                                                        <Label prefHeight="25.0" text="Difficulty"/>
+                                                        <Label prefHeight="25.0" text="Participation"/>
+                                                        <Label prefHeight="25.0" prefWidth="71.0" text="Puck Position"/>
+                                                    </children>
+                                                </VBox>
+                                                <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0"
+                                                      HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <TextField fx:id="drillName" prefHeight="25.0"
+                                                                   prefWidth="399.0"/>
+                                                        <TextField fx:id="drillCategory" prefHeight="30.0"
+                                                                   prefWidth="167.0"/>
+                                                        <TextField fx:id="drillDifficulty" prefHeight="30.0"
+                                                                   prefWidth="87.0"/>
+                                                        <TextField fx:id="drillParticipation" prefHeight="25.0"
+                                                                   prefWidth="104.0"/>
+                                                        <TextField fx:id="puckPosition" prefHeight="30.0"
+                                                                   prefWidth="143.0"/>
+                                                        <CheckBox fx:id="drillStation" mnemonicParsing="false"
+                                                                  prefHeight="17.0" prefWidth="87.0" text="Station"/>
+                                                        <TableView fx:id="drillTags" prefHeight="457.0"
+                                                                   prefWidth="224.0" VBox.vgrow="ALWAYS">
+                                                            <columns>
+                                                                <TableColumn fx:id="tagCol" minWidth="223.0"
+                                                                             prefWidth="223.0" text="Tags">
+                                                                    <cellValueFactory>
+                                                                        <PropertyValueFactory property="tags"/>
+                                                                    </cellValueFactory>
+                                                                </TableColumn>
+                                                            </columns>
+                                                            <columnResizePolicy>
+                                                                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                            </columnResizePolicy>
+                                                        </TableView>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </AnchorPane>
+                                <AnchorPane prefHeight="464.0" prefWidth="329.0">
+                                    <children>
+                                        <VBox spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                              AnchorPane.topAnchor="0.0">
+                                            <children>
+                                                <FlowPane hgap="5.0" prefWrapLength="330.0" vgap="5.0"
+                                                          VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <ComboBox fx:id="cbDifficulty" prefWidth="162.0"
+                                                                  promptText="Difficulty"/>
+                                                        <ComboBox fx:id="cbParticipation" prefWidth="162.0"
+                                                                  promptText="Participation"/>
+                                                        <ComboBox fx:id="cbStation" prefWidth="162.0"
+                                                                  promptText="Station"/>
+                                                        <ComboBox fx:id="cbTags" prefWidth="162.0" promptText="Tags"/>
+                                                        <ComboBox fx:id="cbCategory" prefWidth="162.0"
+                                                                  promptText="Category"/>
+                                                        <Button fx:id="resetFilters" alignment="CENTER"
+                                                                mnemonicParsing="false" prefHeight="25.0"
+                                                                prefWidth="162.0" text="Reset all filters"/>
+                                                    </children>
+                                                </FlowPane>
+                                                <HBox VBox.vgrow="ALWAYS">
+                                                    <children>
+                                                        <TextField fx:id="searchBox" prefHeight="25.0" prefWidth="265.0"
+                                                                   promptText="Search"/>
+                                                        <Button fx:id="searchButton" mnemonicParsing="false"
+                                                                prefHeight="25.0" prefWidth="64.0" text="Search"/>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <HBox layoutY="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+                                            <children>
+                                                <TableView fx:id="drillTable" prefHeight="322.0" prefWidth="297.0"
+                                                           HBox.hgrow="ALWAYS">
+                                                    <columns>
+                                                        <TableColumn fx:id="dtNameCol" minWidth="116.0"
+                                                                     prefWidth="157.0" text="Name">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="name"/>
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="dtDiffCol" minWidth="55.0" prefWidth="60.0"
+                                                                     text="Difficulty">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="difficulty"/>
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="dtPlayerCol" minWidth="45.0"
+                                                                     prefWidth="45.0" text="Players">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="participation"/>
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                    </columns>
+                                                    <columnResizePolicy>
+                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                                    </columnResizePolicy>
+                                                </TableView>
+                                                <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0"
+                                                      HBox.hgrow="ALWAYS">
+                                                    <children>
+                                                        <Button fx:id="warmupButton" mnemonicParsing="false"
+                                                                prefHeight="25.0" prefWidth="64.0" text="Warmup"/>
+                                                        <Button fx:id="togetherButton" mnemonicParsing="false"
+                                                                prefHeight="25.0" prefWidth="64.0" text="Together"/>
+                                                        <Button fx:id="stationsButton" mnemonicParsing="false"
+                                                                prefHeight="25.0" prefWidth="64.0" text="Stations"/>
+                                                        <Button fx:id="backupButton" mnemonicParsing="false"
+                                                                prefHeight="25.0" prefWidth="64.0" text="Backup"/>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </AnchorPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                </AnchorPane>
+            </items>
+        </SplitPane>
     </children>
-   <padding>
-      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-   </padding>
+    <padding>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+    </padding>
 </AnchorPane>

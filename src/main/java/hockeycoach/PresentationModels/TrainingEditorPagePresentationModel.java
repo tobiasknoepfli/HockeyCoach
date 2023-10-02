@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class TrainingEditorPagePresentationModel extends PresentationModel{
     List<Drill> drills;
     FilteredList<Drill> filteredDrills;
+    List<Player> availablePlayersList = new ArrayList<>();
 
     ImageView drillImage;
     TextField drillName;
@@ -49,6 +51,7 @@ public class TrainingEditorPagePresentationModel extends PresentationModel{
     TableView<Drill> together;
     TableView<Drill> stations;
     TableView<Drill> backup;
+    TableView<Player> availablePlayers;
     TextField trainingDate;
     TextField trainingTime;
     TextField trainingStadium;
@@ -87,6 +90,7 @@ public class TrainingEditorPagePresentationModel extends PresentationModel{
         together = (TableView) root.lookup("#together");
         stations = (TableView) root.lookup("#stations");
         backup = (TableView) root.lookup("#backup");
+        availablePlayers = (TableView) root.lookup("availablePlayers");
         trainingDate = (TextField) root.lookup("#trainingDate");
         trainingTime = (TextField) root.lookup("#trainingTime");
         trainingStadium = (TextField) root.lookup("#trainingStadium");
@@ -120,6 +124,9 @@ public class TrainingEditorPagePresentationModel extends PresentationModel{
         drillTable.getItems().clear();
         drillTable.getItems().addAll(drills);
 
+        availablePlayersList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        availablePlayers.getItems().clear();
+        availablePlayers.getItems().addAll(availablePlayersList);
         filteredDrills = new FilteredList<>(FXCollections.observableList(drills), d -> true);
         drillTable.setItems(filteredDrills);
         cbCategory.setOnAction(event -> filterDrillTable());

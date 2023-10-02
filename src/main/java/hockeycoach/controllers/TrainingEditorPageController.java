@@ -1,6 +1,7 @@
 package hockeycoach.controllers;
 
 import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -116,6 +117,9 @@ public class TrainingEditorPageController {
 
     @FXML
     private TextField puckPosition;
+
+    @FXML
+    private TableView<Player> availablePlayers;
 
 
 }
