@@ -488,7 +488,7 @@
                                                     <content>
                                                         <AnchorPane prefHeight="278.0" prefWidth="372.0">
                                                             <children>
-                                                                <GridPane prefHeight="278.0" prefWidth="263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                <GridPane alignment="TOP_CENTER" prefHeight="278.0" prefWidth="263.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                     <columnConstraints>
                                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -501,7 +501,7 @@
                                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                     </rowConstraints>
                                                                     <children>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                             <children>
                                                                                 <Label fx:id="lgGK1" />
                                                                                 <Label fx:id="lgGK2" />
@@ -509,7 +509,7 @@
                                                                                 <Label fx:id="lgGK4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="1">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                                             <children>
                                                                                 <Label fx:id="lgRD1" />
                                                                                 <Label fx:id="lgRD2" />
@@ -517,7 +517,7 @@
                                                                                 <Label fx:id="lgRD4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="2">
                                                                             <children>
                                                                                 <Label fx:id="lgLD1" />
                                                                                 <Label fx:id="lgLD2" />
@@ -525,7 +525,7 @@
                                                                                 <Label fx:id="lgLD4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="3">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2">
                                                                             <children>
                                                                                 <Label fx:id="lgRF1" />
                                                                                 <Label fx:id="lgRF2" />
@@ -533,7 +533,7 @@
                                                                                 <Label fx:id="lgRF4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                             <children>
                                                                                 <Label fx:id="lgC1" />
                                                                                 <Label fx:id="lgC2" />
@@ -541,7 +541,7 @@
                                                                                 <Label fx:id="lgC4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0">
                                                                             <children>
                                                                                 <Label fx:id="lgLF1" />
                                                                                 <Label fx:id="lgLF2" />
@@ -552,6 +552,9 @@
                                                                     </children>
                                                                 </GridPane>
                                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
                                                         </AnchorPane>
                                                     </content>
                                                 </Tab>
@@ -559,7 +562,7 @@
                                                     <content>
                                                         <AnchorPane>
                                                             <children>
-                                                                <GridPane layoutY="-7.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                <GridPane alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                     <columnConstraints>
                                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -572,7 +575,7 @@
                                                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                                                     </rowConstraints>
                                                                     <children>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                                                             <children>
                                                                                 <Label fx:id="ngGK1" />
                                                                                 <Label fx:id="ngGK2" />
@@ -580,7 +583,7 @@
                                                                                 <Label fx:id="ngGK4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="1">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
                                                                             <children>
                                                                                 <Label fx:id="ngRD1" />
                                                                                 <Label fx:id="ngRD2" />
@@ -588,7 +591,7 @@
                                                                                 <Label fx:id="ngRD4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="2">
                                                                             <children>
                                                                                 <Label fx:id="ngLD1" />
                                                                                 <Label fx:id="ngLD2" />
@@ -596,7 +599,7 @@
                                                                                 <Label fx:id="ngLD4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.rowIndex="3">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2">
                                                                             <children>
                                                                                 <Label fx:id="ngRF1" />
                                                                                 <Label fx:id="ngRF2" />
@@ -604,7 +607,7 @@
                                                                                 <Label fx:id="ngRF4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                             <children>
                                                                                 <Label fx:id="ngC1" />
                                                                                 <Label fx:id="ngC2" />
@@ -612,7 +615,7 @@
                                                                                 <Label fx:id="ngC4" />
                                                                             </children>
                                                                         </VBox>
-                                                                        <VBox prefHeight="75.0" prefWidth="125.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                                                                        <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0">
                                                                             <children>
                                                                                 <Label fx:id="ngLF1" />
                                                                                 <Label fx:id="ngLF2" />
@@ -623,6 +626,9 @@
                                                                     </children>
                                                                 </GridPane>
                                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
                                                         </AnchorPane>
                                                     </content>
                                                 </Tab>
@@ -712,7 +718,7 @@
                                 </AnchorPane>
                                 <AnchorPane prefHeight="464.0" prefWidth="329.0">
                                     <children>
-                                        <VBox spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <VBox spacing="10.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
                                                 <FlowPane hgap="5.0" prefWrapLength="330.0" vgap="5.0" VBox.vgrow="ALWAYS">
                                                     <children>
@@ -732,7 +738,7 @@
                                                 </HBox>
                                             </children>
                                         </VBox>
-                                        <HBox layoutY="160.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
+                                        <HBox layoutY="160.0" prefHeight="339.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
                                             <children>
                                                 <TableView fx:id="drillTable" prefHeight="322.0" prefWidth="297.0" HBox.hgrow="ALWAYS">
                                                     <columns>
