@@ -4,6 +4,8 @@ import hockeycoach.mainClasses.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 public class GameEditorController {
     @FXML
@@ -89,4 +91,10 @@ public class GameEditorController {
 
     @FXML
     private Button saveButton;
+
+    @FXML
+    private AnchorPane lineupAnchorPane;
+
+    @FXML
+    private GridPane lineupGrid;
 }

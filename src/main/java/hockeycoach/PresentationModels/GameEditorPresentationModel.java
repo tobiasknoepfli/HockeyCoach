@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
 import java.io.File;
@@ -59,6 +61,8 @@ public class GameEditorPresentationModel extends PresentationModel {
     List<TextField> textFields, ppTextFields, bpTextFields, captainTeamList;
     Button refreshPlayerList;
     Button saveButton;
+    AnchorPane lineupAnchorPane;
+    GridPane lineupGrid;
 
     TextField gk1;
     TextField dl1, dl2, dl3, dl4;
@@ -94,6 +98,8 @@ public class GameEditorPresentationModel extends PresentationModel {
         captain = (TextField) root.lookup("#captain ");
         assistant1 = (TextField) root.lookup("#assistant1");
         assistant2 = (TextField) root.lookup("#assistant2");
+        lineupAnchorPane  =(AnchorPane) root.lookup("#lineupAnchorPane");
+        lineupGrid = (GridPane) root.lookup("#lineupGrid");
 
         lineupTab = lineupTabPane.getTabs().get(0);
         powerplayTab = lineupTabPane.getTabs().get(1);
@@ -171,6 +177,11 @@ public class GameEditorPresentationModel extends PresentationModel {
         File file = new File("src/main/java/hockeycoach/files/background/board.jpg");
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
+        boardImage.fitWidthProperty().bind(lineupAnchorPane.widthProperty());
+        boardImage.fitWidthProperty().bind(lineupGrid.widthProperty());
+        boardImage.setPreserveRatio(false);
+
+
         ppBoardImage.setImage(image);
         bpBoardImage.setImage(image);
 

@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -10,153 +13,280 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.GameEditorController">
     <children>
-        <TabPane fx:id="lineupTabPane" layoutX="299.0" layoutY="67.0" prefHeight="747.0" prefWidth="530.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab fx:id="lineupTab" text="Lineup">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="718.0" prefWidth="536.0">
-                     <children>
-                        <ImageView fx:id="boardImage" fitHeight="721.0" fitWidth="530.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextField fx:id="gk1" layoutX="190.0" layoutY="80.0" />
-                        <TextField fx:id="dl1" layoutX="365.0" layoutY="145.0" />
-                        <TextField fx:id="dl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="dl3" layoutX="365.0" layoutY="195.0" />
-                        <TextField fx:id="dl4" layoutX="365.0" layoutY="220.0" />
-                        <TextField fx:id="dr1" layoutX="15.0" layoutY="145.0" />
-                        <TextField fx:id="dr2" layoutX="15.0" layoutY="170.0" />
-                        <TextField fx:id="dr3" layoutX="15.0" layoutY="195.0" />
-                        <TextField fx:id="dr4" layoutX="15.0" layoutY="220.0" />
-                        <TextField fx:id="c1" layoutX="190.0" layoutY="220.0" />
-                        <TextField fx:id="c2" layoutX="190.0" layoutY="245.0" />
-                        <TextField fx:id="c3" layoutX="190.0" layoutY="270.0" />
-                        <TextField fx:id="c4" layoutX="190.0" layoutY="295.0" />
-                        <TextField fx:id="fl1" layoutX="365.0" layoutY="295.0" />
-                        <TextField fx:id="fl2" layoutX="365.0" layoutY="320.0" />
-                        <TextField fx:id="fl3" layoutX="365.0" layoutY="345.0" />
-                        <TextField fx:id="fl4" layoutX="365.0" layoutY="370.0" />
-                        <TextField fx:id="fr1" layoutX="15.0" layoutY="295.0" />
-                        <TextField fx:id="fr2" layoutX="15.0" layoutY="320.0" />
-                        <TextField fx:id="fr3" layoutX="15.0" layoutY="345.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="fr4" layoutX="15.0" layoutY="370.0" />
-                        <TextField fx:id="sgk1" layoutX="15.0" layoutY="638.0" />
-                        <TextField fx:id="sgk2" layoutX="15.0" layoutY="663.0" />
-                        <TextField fx:id="sd1" layoutX="190.0" layoutY="625.0" />
-                        <TextField fx:id="sd2" layoutX="190.0" layoutY="650.0" />
-                        <TextField fx:id="sd3" layoutX="190.0" layoutY="675.0" />
-                        <TextField fx:id="sf1" layoutX="365.0" layoutY="625.0" />
-                        <TextField fx:id="sf2" layoutX="365.0" layoutY="650.0" />
-                        <TextField fx:id="sf3" layoutX="365.0" layoutY="675.0" />
-                        <Label layoutX="15.0" layoutY="570.0" prefHeight="25.0" prefWidth="64.0" text="Substitutes" />
-                        <Label layoutX="15.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Goalkeepers" />
-                        <Label layoutX="190.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
-                        <Label layoutX="365.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
-                     </children></AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="powerplayTab" text="Powerplay">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="ppBoardImage" fitHeight="721.0" fitWidth="530.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextField fx:id="ppdl1" layoutX="365.0" layoutY="145.0" />
-                        <TextField fx:id="ppdl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="ppdlfiller" layoutX="365.0" layoutY="210.0" />
-                        <TextField fx:id="ppdr1" layoutX="15.0" layoutY="145.0" />
-                        <TextField fx:id="ppdr2" layoutX="15.0" layoutY="170.0" />
-                        <TextField fx:id="ppdrfiller" layoutX="15.0" layoutY="210.0" />
-                        <TextField fx:id="ppc1" layoutX="190.0" layoutY="220.0" />
-                        <TextField fx:id="ppc2" layoutX="190.0" layoutY="245.0" />
-                        <TextField fx:id="ppcfiller" layoutX="190.0" layoutY="285.0" />
-                        <TextField fx:id="ppfl1" layoutX="365.0" layoutY="295.0" />
-                        <TextField fx:id="ppfl2" layoutX="365.0" layoutY="320.0" />
-                        <TextField fx:id="ppflfiller" layoutX="365.0" layoutY="360.0" />
-                        <TextField fx:id="ppfr1" layoutX="15.0" layoutY="295.0" />
-                        <TextField fx:id="ppfr2" layoutX="15.0" layoutY="320.0" />
-                        <TextField fx:id="ppfrfiller" layoutX="15.0" layoutY="360.0" prefHeight="25.0" prefWidth="149.0" />
-                     </children></AnchorPane>
-                    </content>
-                </Tab>
-                <Tab fx:id="boxplayTab" text="Boxplay">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ImageView fx:id="bpBoardImage" fitHeight="721.0" fitWidth="530.0" pickOnBounds="true" preserveRatio="true" />
-                        <TextField fx:id="bpdl1" layoutX="365.0" layoutY="145.0" />
-                        <TextField fx:id="bpdl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="bpdlfiller" layoutX="365.0" layoutY="210.0" />
-                        <TextField fx:id="bpdr1" layoutX="15.0" layoutY="145.0" />
-                        <TextField fx:id="bpdr2" layoutX="15.0" layoutY="170.0" />
-                        <TextField fx:id="bpdrfiller" layoutX="15.0" layoutY="210.0" />
-                        <TextField fx:id="bpfl1" layoutX="365.0" layoutY="295.0" />
-                        <TextField fx:id="bpfl2" layoutX="365.0" layoutY="320.0" />
-                        <TextField fx:id="bpflfiller" layoutX="365.0" layoutY="360.0" />
-                        <TextField fx:id="bpfr1" layoutX="15.0" layoutY="295.0" />
-                        <TextField fx:id="bpfr2" layoutX="15.0" layoutY="320.0" />
-                        <TextField fx:id="bpfrfiller" layoutX="15.0" layoutY="360.0" prefHeight="25.0" prefWidth="149.0" />
-                        <TextField fx:id="bpsd1" layoutX="15.0" layoutY="625.0" />
-                        <TextField fx:id="bpsd2" layoutX="15.0" layoutY="650.0" />
-                        <TextField fx:id="bpsf1" layoutX="365.0" layoutY="625.0" />
-                        <TextField fx:id="bpsf2" layoutX="365.0" layoutY="650.0" />
-                        <Label layoutX="15.0" layoutY="570.0" prefHeight="25.0" prefWidth="64.0" text="Substitutes" />
-                        <Label layoutX="15.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
-                        <Label layoutX="365.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
-                     </children></AnchorPane>
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
-        <Label layoutX="12.0" layoutY="67.0" prefHeight="25.0" prefWidth="64.0" text="Date" />
-        <TextField fx:id="gameDate" layoutX="77.0" layoutY="64.0" prefHeight="30.0" prefWidth="213.0" />
-        <TextField fx:id="gameTime" layoutX="77.0" layoutY="94.0" prefHeight="30.0" prefWidth="213.0" />
-        <Label layoutX="12.0" layoutY="97.0" prefHeight="25.0" prefWidth="64.0" text="Time" />
-        <TextField fx:id="gameStadium" layoutX="77.0" layoutY="124.0" prefHeight="30.0" prefWidth="213.0" />
-        <Label layoutX="12.0" layoutY="127.0" prefHeight="25.0" prefWidth="64.0" text="Stadium" />
-        <TextField fx:id="gameTeam" layoutX="77.0" layoutY="152.0" prefHeight="30.0" prefWidth="213.0" />
-        <Label layoutX="12.0" layoutY="155.0" prefHeight="25.0" prefWidth="64.0" text="Team" />
-        <TextField fx:id="gameOpponent" layoutX="77.0" layoutY="182.0" prefHeight="30.0" prefWidth="213.0" />
-        <Label layoutX="12.0" layoutY="185.0" prefHeight="25.0" prefWidth="64.0" text="Opponent" />
-        <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0">
+        <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0" AnchorPane.bottomAnchor="780.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
                 <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Cancel" />
             </children>
         </HBox>
-      <TableView fx:id="teamPlayers" layoutX="14.0" layoutY="391.0" prefHeight="424.0" prefWidth="275.0">
-         <columns>
-            <TableColumn fx:id="playerLastName" minWidth="75.0" prefWidth="75.0" text="Last Name">
-               <cellValueFactory>
-                  <PropertyValueFactory property="lastName" />
-               </cellValueFactory>
-            </TableColumn>
-            <TableColumn fx:id="playerFirstName" minWidth="75.0" prefWidth="75.0" text="First Name">
-               <cellValueFactory>
-                  <PropertyValueFactory property="firstName" />
-               </cellValueFactory>
-            </TableColumn>
-             <TableColumn fx:id="playerPositions" minWidth="75.0" prefWidth="75.0" text="Positions">
-                 <cellValueFactory>
-                     <PropertyValueFactory property="positions" />
-                 </cellValueFactory>
-             </TableColumn>
-             <TableColumn fx:id="stick" minWidth="50.0" prefWidth="50.0" text="Stick">
-                 <cellValueFactory>
-                     <PropertyValueFactory property="stick" />
-                 </cellValueFactory>
-             </TableColumn>
-         </columns>
-      </TableView>
-      <Button fx:id="refreshPlayerList" layoutX="13.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Refresh Player List" />
-      <Label fx:id="lineOutput" alignment="TOP_CENTER" layoutX="840.0" layoutY="96.0" prefHeight="715.0" prefWidth="352.0" textAlignment="CENTER" />
-      <Label layoutX="12.0" layoutY="250.0" prefHeight="25.0" prefWidth="64.0" text="Captain" />
-      <TextField fx:id="captain" layoutX="77.0" layoutY="248.0" prefHeight="30.0" prefWidth="213.0" />
-      <Label layoutX="12.0" layoutY="281.0" prefHeight="25.0" prefWidth="64.0" text="Assistant 1" />
-      <TextField fx:id="assistant1" layoutX="77.0" layoutY="278.0" prefHeight="30.0" prefWidth="213.0" />
       <Label layoutX="12.0" layoutY="311.0" prefHeight="25.0" prefWidth="64.0" text="Assistant 2" />
-      <TextField fx:id="assistant2" layoutX="77.0" layoutY="308.0" prefHeight="30.0" prefWidth="213.0" />
+      <SplitPane dividerPositions="0.2727272727272727, 0.6759259259259259" layoutX="888.0" layoutY="168.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="413.0">
+               <children>
+                  <VBox layoutX="107.0" layoutY="58.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <VBox prefHeight="133.0" prefWidth="44.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                      <Label prefHeight="25.0" prefWidth="64.0" text="Team" />
+                                      <Label prefHeight="25.0" prefWidth="64.0" text="Opponent" />
+                                      <Label prefHeight="25.0" prefWidth="64.0" text="Date" />
+                                      <Label prefHeight="25.0" prefWidth="64.0" text="Time" />
+                                      <Label prefHeight="25.0" prefWidth="64.0" text="Stadium" />
+                                 </children>
+                              </VBox>
+                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                      <TextField fx:id="gameTeam" prefHeight="25.0" />
+                                      <TextField fx:id="gameOpponent" prefHeight="25.0" />
+                                      <TextField fx:id="gameDate" prefHeight="25.0" />
+                                      <TextField fx:id="gameTime" prefHeight="25.0" />
+                                      <TextField fx:id="gameStadium" prefHeight="25.0" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <VBox prefWidth="150.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="64.0" text="Captain" VBox.vgrow="ALWAYS" />
+                                    <Label prefHeight="25.0" prefWidth="64.0" text="Assistant 1" VBox.vgrow="ALWAYS" />
+                                    <Label prefHeight="25.0" prefWidth="64.0" text="Assistant 2" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                              <VBox prefWidth="258.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <TextField fx:id="captain" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
+                                    <TextField fx:id="assistant1" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
+                                    <TextField fx:id="assistant2" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT">
+                           <children>
+                              <Button fx:id="refreshPlayerList" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Refresh Player List" />
+                           </children>
+                        </HBox>
+                        <TableView fx:id="teamPlayers" VBox.vgrow="ALWAYS">
+                           <columns>
+                              <TableColumn fx:id="playerLastName" minWidth="75.0" prefWidth="75.0" text="Last Name">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="lastName" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn fx:id="playerFirstName" minWidth="75.0" prefWidth="75.0" text="First Name">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="firstName" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                               <TableColumn fx:id="playerPositions" minWidth="75.0" prefWidth="75.0" text="Positions">
+                                   <cellValueFactory>
+                                       <PropertyValueFactory property="positions" />
+                                   </cellValueFactory>
+                               </TableColumn>
+                               <TableColumn fx:id="stick" minWidth="50.0" prefWidth="50.0" text="Stick">
+                                   <cellValueFactory>
+                                       <PropertyValueFactory property="stick" />
+                                   </cellValueFactory>
+                               </TableColumn>
+                           </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </AnchorPane>
+          <AnchorPane>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                    <TabPane fx:id="lineupTabPane" layoutX="-46.0" layoutY="-57.0" prefHeight="747.0" prefWidth="530.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <tabs>
+                            <Tab fx:id="lineupTab" text="Lineup">
+                                <content>
+                                    <AnchorPane fx:id="lineupAnchorPane">
+                                 <children>
+                                    <ImageView fx:id="boardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <viewport>
+                                          <Rectangle2D />
+                                       </viewport>
+                                    </ImageView>
+                                    <GridPane fx:id="lineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                             <children>
+                                                <TextField fx:id="gk1" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <TextField fx:id="dl1" alignment="CENTER" />
+                                                <TextField fx:id="dl2" alignment="CENTER" prefHeight="25.0" prefWidth="149.0" />
+                                                <TextField fx:id="dl3" alignment="CENTER" />
+                                                <TextField fx:id="dl4" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <children>
+                                                <TextField fx:id="dr1" alignment="CENTER" />
+                                                <TextField fx:id="dr2" alignment="CENTER" />
+                                                <TextField fx:id="dr3" alignment="CENTER" />
+                                                <TextField fx:id="dr4" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <TextField fx:id="c1" alignment="CENTER" />
+                                                <TextField fx:id="c2" alignment="CENTER" />
+                                                <TextField fx:id="c3" alignment="CENTER" />
+                                                <TextField fx:id="c4" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0">
+                                             <children>
+                                                <TextField fx:id="fl1" alignment="CENTER" />
+                                                <TextField fx:id="fl2" alignment="CENTER" />
+                                                <TextField fx:id="fl3" alignment="CENTER" />
+                                                <TextField fx:id="fl4" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2">
+                                             <children>
+                                                <TextField fx:id="fr1" alignment="CENTER" />
+                                                <TextField fx:id="fr2" alignment="CENTER" />
+                                                <TextField fx:id="fr3" alignment="CENTER" prefHeight="25.0" prefWidth="149.0" />
+                                                <TextField fx:id="fr4" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="2.0" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Goalkeepers" />
+                                                <TextField fx:id="sgk1" alignment="CENTER" />
+                                                <TextField fx:id="sgk2" alignment="CENTER" />
+                                                <TextField fx:id="sgk3" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
+                                                <TextField fx:id="sd1" alignment="CENTER" />
+                                                <TextField fx:id="sd2" alignment="CENTER" />
+                                                <TextField fx:id="sd3" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
+                                                <TextField fx:id="sf1" alignment="CENTER" />
+                                                <TextField fx:id="sf2" alignment="CENTER" />
+                                                <TextField fx:id="sf3" alignment="CENTER" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </AnchorPane>
+                                </content>
+                            </Tab>
+                            <Tab fx:id="powerplayTab" text="Powerplay">
+                                <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="ppBoardImage" fitHeight="721.0" fitWidth="463.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TextField fx:id="ppdl1" layoutX="365.0" layoutY="145.0" />
+                                    <TextField fx:id="ppdl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
+                                    <TextField fx:id="ppdlfiller" layoutX="365.0" layoutY="210.0" />
+                                    <TextField fx:id="ppdr1" layoutX="15.0" layoutY="145.0" />
+                                    <TextField fx:id="ppdr2" layoutX="15.0" layoutY="170.0" />
+                                    <TextField fx:id="ppdrfiller" layoutX="15.0" layoutY="210.0" />
+                                    <TextField fx:id="ppc1" layoutX="190.0" layoutY="220.0" />
+                                    <TextField fx:id="ppc2" layoutX="190.0" layoutY="245.0" />
+                                    <TextField fx:id="ppcfiller" layoutX="190.0" layoutY="285.0" />
+                                    <TextField fx:id="ppfl1" layoutX="365.0" layoutY="295.0" />
+                                    <TextField fx:id="ppfl2" layoutX="365.0" layoutY="320.0" />
+                                    <TextField fx:id="ppflfiller" layoutX="365.0" layoutY="360.0" />
+                                    <TextField fx:id="ppfr1" layoutX="15.0" layoutY="295.0" />
+                                    <TextField fx:id="ppfr2" layoutX="15.0" layoutY="320.0" />
+                                    <TextField fx:id="ppfrfiller" layoutX="15.0" layoutY="360.0" prefHeight="25.0" prefWidth="149.0" />
+                                 </children>
+                              </AnchorPane>
+                                </content>
+                            </Tab>
+                            <Tab fx:id="boxplayTab" text="Boxplay">
+                                <content>
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ImageView fx:id="bpBoardImage" fitHeight="721.0" fitWidth="463.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <TextField fx:id="bpdl1" layoutX="365.0" layoutY="145.0" />
+                                    <TextField fx:id="bpdl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
+                                    <TextField fx:id="bpdlfiller" layoutX="365.0" layoutY="210.0" />
+                                    <TextField fx:id="bpdr1" layoutX="15.0" layoutY="145.0" />
+                                    <TextField fx:id="bpdr2" layoutX="15.0" layoutY="170.0" />
+                                    <TextField fx:id="bpdrfiller" layoutX="15.0" layoutY="210.0" />
+                                    <TextField fx:id="bpfl1" layoutX="365.0" layoutY="295.0" />
+                                    <TextField fx:id="bpfl2" layoutX="365.0" layoutY="320.0" />
+                                    <TextField fx:id="bpflfiller" layoutX="365.0" layoutY="360.0" />
+                                    <TextField fx:id="bpfr1" layoutX="15.0" layoutY="295.0" />
+                                    <TextField fx:id="bpfr2" layoutX="15.0" layoutY="320.0" />
+                                    <TextField fx:id="bpfrfiller" layoutX="15.0" layoutY="360.0" prefHeight="25.0" prefWidth="149.0" />
+                                    <TextField fx:id="bpsd1" layoutX="15.0" layoutY="625.0" />
+                                    <TextField fx:id="bpsd2" layoutX="15.0" layoutY="650.0" />
+                                    <TextField fx:id="bpsf1" layoutX="365.0" layoutY="625.0" />
+                                    <TextField fx:id="bpsf2" layoutX="365.0" layoutY="650.0" />
+                                    <Label layoutX="15.0" layoutY="570.0" prefHeight="25.0" prefWidth="64.0" text="Substitutes" />
+                                    <Label layoutX="15.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
+                                    <Label layoutX="365.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
+                                 </children>
+                              </AnchorPane>
+                                </content>
+                            </Tab>
+                        </tabs>
+                    </TabPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </AnchorPane>
+        </items>
+      </SplitPane>
     </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
 </AnchorPane>
