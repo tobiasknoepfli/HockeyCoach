@@ -84,7 +84,7 @@ public class HeaderPageController {
     @FXML
     private void newTeamButtonAction() {
         NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
-        loadStages("NewTeam","/hockeycoach/new-team-pageOLD.fxml", pm);
+        loadStages("NewTeam","/hockeycoach/new-team-page.fxml", pm);
     }
 
     @FXML

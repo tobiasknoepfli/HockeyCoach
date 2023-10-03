@@ -237,7 +237,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             refreshPlayers();
         });
 
-        textFields.stream().forEach(this::addLineupText);
+//        textFields.stream().forEach(this::addLineupText);
 
         saveButton.setOnAction(event -> {
             Game game = saveGameToDB();
@@ -431,46 +431,46 @@ public class GameEditorPresentationModel extends PresentationModel {
         return new Player("", "", selectedTeam.getName());
     }
 
-    private void addLineupText(TextField textField) {
-        textField.textProperty().addListener((obs, oldValue, newValue) -> {
-            firstLine = new Line(1);
-            firstLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-            firstLine.setDefenderLeft(getPlayerFromTextField(dl1.getText()));
-            firstLine.setDefenderRight(getPlayerFromTextField(dr1.getText()));
-            firstLine.setCenter(getPlayerFromTextField(c1.getText()));
-            firstLine.setForwardLeft(getPlayerFromTextField(fl1.getText()));
-            firstLine.setForwardRight(getPlayerFromTextField(fr1.getText()));
-
-            secondLine = new Line(2);
-            secondLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-            secondLine.setDefenderLeft(getPlayerFromTextField(dl2.getText()));
-            secondLine.setDefenderRight(getPlayerFromTextField(dr2.getText()));
-            secondLine.setCenter(getPlayerFromTextField(c2.getText()));
-            secondLine.setForwardLeft(getPlayerFromTextField(fl2.getText()));
-            secondLine.setForwardRight(getPlayerFromTextField(fr2.getText()));
-
-            thirdLine = new Line(3);
-            thirdLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-            thirdLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
-            thirdLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
-            thirdLine.setCenter(getPlayerFromTextField(c3.getText()));
-            thirdLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
-            thirdLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
-
-            fourthLine = new Line(4);
-            fourthLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-            fourthLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
-            fourthLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
-            fourthLine.setCenter(getPlayerFromTextField(c3.getText()));
-            fourthLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
-            fourthLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
-
-            lineOutput.setText(firstLine.lineupToString() + "\n\n\n\n" +
-                    secondLine.lineupToString() + "\n\n\n\n" +
-                    thirdLine.lineupToString() + "\n\n\n\n" +
-                    fourthLine.lineupToString());
-        });
-    }
+//    private void addLineupText(TextField textField) {
+//        textField.textProperty().addListener((obs, oldValue, newValue) -> {
+//            firstLine = new Line(1);
+//            firstLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+//            firstLine.setDefenderLeft(getPlayerFromTextField(dl1.getText()));
+//            firstLine.setDefenderRight(getPlayerFromTextField(dr1.getText()));
+//            firstLine.setCenter(getPlayerFromTextField(c1.getText()));
+//            firstLine.setForwardLeft(getPlayerFromTextField(fl1.getText()));
+//            firstLine.setForwardRight(getPlayerFromTextField(fr1.getText()));
+//
+//            secondLine = new Line(2);
+//            secondLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+//            secondLine.setDefenderLeft(getPlayerFromTextField(dl2.getText()));
+//            secondLine.setDefenderRight(getPlayerFromTextField(dr2.getText()));
+//            secondLine.setCenter(getPlayerFromTextField(c2.getText()));
+//            secondLine.setForwardLeft(getPlayerFromTextField(fl2.getText()));
+//            secondLine.setForwardRight(getPlayerFromTextField(fr2.getText()));
+//
+//            thirdLine = new Line(3);
+//            thirdLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+//            thirdLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
+//            thirdLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
+//            thirdLine.setCenter(getPlayerFromTextField(c3.getText()));
+//            thirdLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
+//            thirdLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
+//
+//            fourthLine = new Line(4);
+//            fourthLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
+//            fourthLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
+//            fourthLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
+//            fourthLine.setCenter(getPlayerFromTextField(c3.getText()));
+//            fourthLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
+//            fourthLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
+//
+//            lineOutput.setText(firstLine.lineupToString() + "\n\n\n\n" +
+//                    secondLine.lineupToString() + "\n\n\n\n" +
+//                    thirdLine.lineupToString() + "\n\n\n\n" +
+//                    fourthLine.lineupToString());
+//        });
+//    }
 
     private Game saveGameToDB() {
         Game game = new Game();
