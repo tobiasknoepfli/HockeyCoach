@@ -142,6 +142,9 @@ public class DBLoader {
                 game.setOpponent(resultSet.getString("opponent"));
                 game.setStadium(resultSet.getString("stadium"));
                 game.setTeam(resultSet.getInt("team"));
+                game.setCaptain(getPlayerByID(resultSet.getInt("captain")));
+                game.setAssistant1(getPlayerByID(resultSet.getInt("assistant1")));
+                game.setAssistant2(getPlayerByID(resultSet.getInt("assistant2")));
 
                 gameList.add(game);
 
@@ -494,5 +497,90 @@ public class DBLoader {
             e.printStackTrace();
         }
         return lines;
+    }
+
+    public List<PowerplayLine> getPPLines(String query) {
+        List<PowerplayLine> lines = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                PowerplayLine line = new PowerplayLine();
+                line.setGameID(resultSet.getInt("gameID"));
+                line.setLineNr(resultSet.getInt("lineNr"));
+                line.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
+                line.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
+                line.setCenter(getPlayerByID(resultSet.getInt("center")));
+                line.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
+                line.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+
+                lines.add(line);
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
+    public List<BoxplayLine> getBPLines(String query) {
+        List<BoxplayLine> lines = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                BoxplayLine line = new BoxplayLine();
+                line.setGameID(resultSet.getInt("gameID"));
+                line.setLineNr(resultSet.getInt("lineNr"));
+                line.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
+                line.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
+                line.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
+                line.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+
+                lines.add(line);
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lines;
+    }
+
+    public SubstituteLine getSubLines(String query) {
+        SubstituteLine line = new SubstituteLine();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while(resultSet.next()){
+                line.setGameID(resultSet.getInt("gameID"));
+                line.setLineNr(resultSet.getInt("lineNr"));
+                line.setGoalkeeper1(getPlayerByID(resultSet.getInt("goalkeeper1")));
+                line.setGoalkeeper2(getPlayerByID(resultSet.getInt("goalkeeper2")));
+                line.setGoalkeeper3(getPlayerByID(resultSet.getInt("goalkeeper3")));
+                line.setDefender1(getPlayerByID(resultSet.getInt("defender1")));
+                line.setDefender2(getPlayerByID(resultSet.getInt("defender2")));
+                line.setDefender3(getPlayerByID(resultSet.getInt("defender3")));
+                line.setForward1(getPlayerByID(resultSet.getInt("forward1")));
+                line.setForward2(getPlayerByID(resultSet.getInt("forward2")));
+                line.setForward3(getPlayerByID(resultSet.getInt("forward3")));
+                line.setBoxplayDefender1(getPlayerByID(resultSet.getInt("boxplayDefender1")));
+                line.setBoxplayDefender2(getPlayerByID(resultSet.getInt("boxplayDefender2")));
+                line.setBoxplayForward1(getPlayerByID(resultSet.getInt("boxplayForward1")));
+                line.setBoxplayForward2(getPlayerByID(resultSet.getInt("boxplayForward2")));
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return line;
     }
 }

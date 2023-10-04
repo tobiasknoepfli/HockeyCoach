@@ -47,6 +47,9 @@ public class HeaderPageController {
     private Button gameEditorButton;
 
     @FXML
+    private Button gameButton;
+
+    @FXML
     private void closeButtonAction() {
         Platform.exit();
     }
@@ -99,7 +102,13 @@ public class HeaderPageController {
         loadStages("GameEditor","/hockeycoach/game-editor-page.fxml", pm);
     }
 
-    private void loadStages(String buttonAction, String fxml, PresentationModel presentationModel) {
+    @FXML
+    private void gameButtonAction(){
+        GamePresentationModel pm = new GamePresentationModel();
+        loadStages("Game","/hockeycoach/game-page.fxml", pm);
+    }
+
+    public void loadStages(String buttonAction, String fxml, PresentationModel presentationModel) {
         if (openStages.containsKey(buttonAction)) {
             Stage existingStage = openStages.get(buttonAction);
             existingStage.toFront();

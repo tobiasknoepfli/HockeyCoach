@@ -24,6 +24,8 @@
                                 prefHeight="68.0" prefWidth="100.0" text="Player"/>
                         <Button fx:id="trainingButton" mnemonicParsing="false" onAction="#trainingButtonAction"
                                 prefHeight="68.0" prefWidth="100.0" text="Training"/>
+                        <Button fx:id="gameButton" mnemonicParsing="false" onAction="#gameButtonAction"
+                                prefHeight="68.0" prefWidth="100.0" text="Game"/>
                     </children>
                 </HBox>
                 <HBox alignment="TOP_RIGHT" layoutX="600.0" layoutY="6.0" maxHeight="70.0" maxWidth="1190.0"

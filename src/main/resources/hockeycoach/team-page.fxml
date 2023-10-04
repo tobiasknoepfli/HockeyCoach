@@ -8,63 +8,51 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<AnchorPane style="-fx-background-color: rgb(100,0,0);" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.TeamPageController">
+<AnchorPane style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.TeamPageController">
     <children>
-        <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="0" layoutY="0" prefWidth="1000.0" spacing="5.0"
-              AnchorPane.bottomAnchor="780.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+        <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="0" layoutY="0" prefWidth="1000.0" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="saveButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0"
-                        prefWidth="40.0" text="s" HBox.hgrow="NEVER"/>
-                <Button fx:id="editButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0"
-                        prefWidth="40.0" text="e"/>
-                <Button fx:id="cancelButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0"
-                        prefWidth="40.0" text="c"/>
-                <Button fx:id="deleteButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0"
-                        prefWidth="40.0" text="d"/>
-                <Button fx:id="closeWindowButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false"
-                        prefHeight="40.0" prefWidth="40.0" text="x"/>
+                <Button fx:id="saveButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="s" HBox.hgrow="NEVER" />
+                <Button fx:id="editButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="e" />
+                <Button fx:id="cancelButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="c" />
+                <Button fx:id="deleteButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="d" />
+                <Button fx:id="closeWindowButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="x" />
             </children>
         </HBox>
-        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+        <SplitPane dividerPositions="0.5" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <VBox layoutX="-410.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox layoutX="-410.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                                     <children>
-                                        <ImageView fx:id="teamLogo" fitHeight="150.0" fitWidth="150.0"
-                                                   pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS"/>
-                                        <TextField fx:id="teamName" HBox.hgrow="ALWAYS"/>
+                                        <ImageView fx:id="teamLogo" fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS" />
+                                        <TextField fx:id="teamName" HBox.hgrow="ALWAYS" />
                                     </children>
                                 </HBox>
                                 <HBox spacing="5.0">
                                     <children>
                                         <VBox spacing="2.0">
                                             <children>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Home Stadium"
-                                                       VBox.vgrow="ALWAYS"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Address"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="ZIP City"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Country"/>
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Home Stadium" VBox.vgrow="ALWAYS" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Address" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="ZIP City" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Country" />
                                             </children>
                                         </VBox>
                                         <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <TextField fx:id="stadiumName" VBox.vgrow="ALWAYS"/>
-                                                <TextField fx:id="stadiumStreet"/>
-                                                <TextField fx:id="stadiumZipCity"/>
-                                                <TextField fx:id="stadiumCountry"/>
+                                                <TextField fx:id="stadiumName" VBox.vgrow="ALWAYS" />
+                                                <TextField fx:id="stadiumStreet" />
+                                                <TextField fx:id="stadiumZipCity" />
+                                                <TextField fx:id="stadiumCountry" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -73,17 +61,16 @@
                                     <children>
                                         <VBox prefWidth="150.0" spacing="2.0">
                                             <children>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Contact Name"
-                                                       VBox.vgrow="ALWAYS"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Contact Phone"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Contact Email"/>
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Contact Name" VBox.vgrow="ALWAYS" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Contact Phone" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Contact Email" />
                                             </children>
                                         </VBox>
                                         <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <TextField fx:id="contactName" VBox.vgrow="ALWAYS"/>
-                                                <TextField fx:id="contactPhone"/>
-                                                <TextField fx:id="contactEmail"/>
+                                                <TextField fx:id="contactName" VBox.vgrow="ALWAYS" />
+                                                <TextField fx:id="contactPhone" />
+                                                <TextField fx:id="contactEmail" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -92,35 +79,32 @@
                                     <children>
                                         <VBox spacing="2.0">
                                             <children>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Website"
-                                                       VBox.vgrow="ALWAYS"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Founded"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="President"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Current League"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach"/>
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Captain"/>
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Website" VBox.vgrow="ALWAYS" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Founded" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="President" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Current League" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="Captain" />
                                             </children>
                                         </VBox>
                                         <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <TextField fx:id="website" VBox.vgrow="ALWAYS"/>
-                                                <TextField fx:id="founded"/>
-                                                <TextField fx:id="presidentName"/>
-                                                <TextField fx:id="currentLeague"/>
-                                                <TextField fx:id="headCoachName"/>
-                                                <TextField fx:id="captainName"/>
+                                                <TextField fx:id="website" VBox.vgrow="ALWAYS" />
+                                                <TextField fx:id="founded" />
+                                                <TextField fx:id="presidentName" />
+                                                <TextField fx:id="currentLeague" />
+                                                <TextField fx:id="headCoachName" />
+                                                <TextField fx:id="captainName" />
                                             </children>
                                         </VBox>
                                     </children>
                                 </HBox>
                                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Label text="Notes" VBox.vgrow="ALWAYS"/>
+                                        <Label text="Notes" VBox.vgrow="ALWAYS" />
                                         <AnchorPane VBox.vgrow="ALWAYS">
                                             <children>
-                                                <TextArea fx:id="notes" AnchorPane.bottomAnchor="0.0"
-                                                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                                          AnchorPane.topAnchor="0.0"/>
+                                                <TextArea fx:id="notes" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                             </children>
                                         </AnchorPane>
                                     </children>
@@ -129,77 +113,72 @@
                         </VBox>
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                     <children>
-                        <VBox alignment="TOP_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox alignment="TOP_RIGHT" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <AnchorPane>
                                     <children>
-                                        <Button fx:id="editPlayerButton" layoutX="234.0" layoutY="45.0"
-                                                mnemonicParsing="false" text="Edit Players in Team"
-                                                AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                                        <Button fx:id="editPlayerButton" layoutX="234.0" layoutY="45.0" mnemonicParsing="false" text="Edit Players in Team" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </AnchorPane>
                                 <AnchorPane>
                                     <children>
-                                        <Label alignment="CENTER" text="Players" AnchorPane.bottomAnchor="0.0"
-                                               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                                               AnchorPane.topAnchor="0.0"/>
+                                        <Label alignment="CENTER" text="Players" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                     </children>
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </AnchorPane>
                                 <TableView fx:id="teamPlayers" VBox.vgrow="ALWAYS">
                                     <columns>
                                         <TableColumn minWidth="-1.0" text="Last Name">
                                             <cellValueFactory>
-                                                <PropertyValueFactory property="lastName"/>
+                                                <PropertyValueFactory property="lastName" />
                                             </cellValueFactory>
                                         </TableColumn>
                                         <TableColumn minWidth="-1.0" text="First Name">
                                             <cellValueFactory>
-                                                <PropertyValueFactory property="firstName"/>
+                                                <PropertyValueFactory property="firstName" />
                                             </cellValueFactory>
                                         </TableColumn>
                                         <TableColumn minWidth="-1.0" text="Jersey Number">
                                             <cellValueFactory>
-                                                <PropertyValueFactory property="jersey"/>
+                                                <PropertyValueFactory property="jersey" />
                                             </cellValueFactory>
                                         </TableColumn>
                                         <TableColumn minWidth="-1.0" text="Position">
                                             <cellValueFactory>
-                                                <PropertyValueFactory property="positions"/>
+                                                <PropertyValueFactory property="positions" />
                                             </cellValueFactory>
                                         </TableColumn>
                                         <TableColumn minWidth="-1.0" text="Stick">
                                             <cellValueFactory>
-                                                <PropertyValueFactory property="stick"/>
+                                                <PropertyValueFactory property="stick" />
                                             </cellValueFactory>
                                         </TableColumn>
                                     </columns>
                                     <columnResizePolicy>
-                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                     </columnResizePolicy>
                                 </TableView>
                             </children>
                         </VBox>
                     </children>
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                 </AnchorPane>
             </items>
         </SplitPane>
     </children>
     <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
     </padding>
 </AnchorPane>

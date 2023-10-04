@@ -9,6 +9,7 @@ import hockeycoach.mainClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
+import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 
 public class PlayerToTeamPresentationModel extends PresentationModel{
     Team selectedTeam = new Team();
+    Player draggedPlayer;
     DBLoader dbLoader = new DBLoader();
     DBWriter dbWriter = new DBWriter();
     DBDeleter dbDeleter = new DBDeleter();
@@ -55,6 +57,9 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
 
         addButton.setOnAction(event -> addSelectedPlayers());
         removeButton.setOnAction(event -> removeSelectedPlayers());
+
+        dragAndDrop(teamPlayers, allPlayers);
+        dragAndDrop(allPlayers, teamPlayers);
 
         saveButton.setOnAction(event -> saveToDB());
     }
@@ -107,4 +112,58 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
                 .forEach(playerXTeam -> dbDeleter.removeFromPlayerXList(playerXTeam));
 
     }
+
+    private void dragAndDrop(TableView<Player> sourceTableView, TableView<Player> targetTableView) {
+        sourceTableView.setRowFactory(tv -> {
+            TableRow<Player> row = new TableRow<>();
+
+            row.setOnDragDetected(event -> {
+                if (!row.isEmpty()) {
+                    int index = row.getIndex();
+                    Dragboard dragboard = row.startDragAndDrop(TransferMode.MOVE);
+
+                    ClipboardContent content = new ClipboardContent();
+                    content.putString(Integer.toString(index));
+                    dragboard.setContent(content);
+
+                    event.consume();
+                }
+            });
+
+            return row;
+        });
+
+        targetTableView.setOnDragOver(event -> {
+            if (event.getGestureSource() != targetTableView &&
+                    event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+
+            event.consume();
+        });
+
+        targetTableView.setOnDragDropped(event -> {
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+
+            if (db.hasString()) {
+                int sourceIndex = Integer.parseInt(db.getString());
+                Player playerToMove = sourceTableView.getItems().get(sourceIndex);
+
+                if (!targetTableView.getItems().contains(playerToMove)) {
+                    targetTableView.getItems().add(playerToMove);
+                    success = true;
+                }
+                
+                sourceTableView.getItems().remove(sourceIndex);
+
+                event.setDropCompleted(success);
+            }
+
+            event.consume();
+        });
+    }
+
+
+
 }

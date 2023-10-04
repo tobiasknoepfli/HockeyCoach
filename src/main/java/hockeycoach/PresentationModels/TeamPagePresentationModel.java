@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBEditor;
 import hockeycoach.DB.DBLoader;
+import hockeycoach.controllers.HeaderPageController;
 import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.SingletonTeam;
@@ -122,18 +123,9 @@ public class TeamPagePresentationModel extends PresentationModel {
 
     private void setupEventListeners() {
         editPlayerButton.setOnAction(event -> {
-            try {
-                FXMLLoader playerToTeamLoader = new FXMLLoader(getClass().getResource("/hockeycoach/player-to-team.fxml"));
-                Pane playerToTeamPage = playerToTeamLoader.load();
-//                contentPane.getChildren().clear();
-//                contentPane.getChildren().add(playerToTeamPage);
-
-                PlayerToTeamPresentationModel playerToTeamPresentationModel = new PlayerToTeamPresentationModel();
-                playerToTeamPresentationModel.initializeControls(playerToTeamPage);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            HeaderPageController headerPageController = new HeaderPageController();
+                PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
+                headerPageController.loadStages("TeamplayerEditor","/hockeycoach/player-to-team.fxml", pm);
         });
 
         editButton.setOnAction(event -> {

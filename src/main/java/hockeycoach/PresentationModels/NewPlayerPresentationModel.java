@@ -79,7 +79,11 @@ public class NewPlayerPresentationModel extends PresentationModel {
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(allPlayersList);
 
-        setControlsDisabled(true);
+        if(allPlayersList.size() == 0){
+            setControlsDisabled(false);
+        } else {
+            setControlsDisabled(true);
+        }
 
         setupEventListeners();
     }
