@@ -93,8 +93,8 @@ public class GameEditorController {
     private Button saveButton;
 
     @FXML
-    private AnchorPane lineupAnchorPane;
+    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
 
     @FXML
-    private GridPane lineupGrid;
+    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 }

@@ -224,56 +224,150 @@
                             </Tab>
                             <Tab fx:id="powerplayTab" text="Powerplay">
                                 <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <AnchorPane fx:id="ppAnchorPane">
                                  <children>
-                                    <ImageView fx:id="ppBoardImage" fitHeight="721.0" fitWidth="463.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <TextField fx:id="ppdl1" layoutX="365.0" layoutY="145.0" />
-                                    <TextField fx:id="ppdl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
-                                    <TextField fx:id="ppdlfiller" layoutX="365.0" layoutY="210.0" />
-                                    <TextField fx:id="ppdr1" layoutX="15.0" layoutY="145.0" />
-                                    <TextField fx:id="ppdr2" layoutX="15.0" layoutY="170.0" />
-                                    <TextField fx:id="ppdrfiller" layoutX="15.0" layoutY="210.0" />
-                                    <TextField fx:id="ppc1" layoutX="190.0" layoutY="220.0" />
-                                    <TextField fx:id="ppc2" layoutX="190.0" layoutY="245.0" />
-                                    <TextField fx:id="ppcfiller" layoutX="190.0" layoutY="285.0" />
-                                    <TextField fx:id="ppfl1" layoutX="365.0" layoutY="295.0" />
-                                    <TextField fx:id="ppfl2" layoutX="365.0" layoutY="320.0" />
-                                    <TextField fx:id="ppflfiller" layoutX="365.0" layoutY="360.0" />
-                                    <TextField fx:id="ppfr1" layoutX="15.0" layoutY="295.0" />
-                                    <TextField fx:id="ppfr2" layoutX="15.0" layoutY="320.0" />
-                                    <TextField fx:id="ppfrfiller" layoutX="15.0" layoutY="360.0" prefHeight="25.0" prefWidth="149.0" />
+                                    <ImageView fx:id="ppBoardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <GridPane fx:id="ppLineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <TextField fx:id="ppdl1" />
+                                                <TextField fx:id="ppdl2" prefHeight="25.0" prefWidth="149.0" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="ppdlfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <children>
+                                                <TextField fx:id="ppdr1" />
+                                                <TextField fx:id="ppdr2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="ppdrfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                             <children>
+                                                <TextField fx:id="ppc1" />
+                                                <TextField fx:id="ppc2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="ppcfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0">
+                                             <children>
+                                                <TextField fx:id="ppfl1" />
+                                                <TextField fx:id="ppfl2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="ppflfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2">
+                                             <children>
+                                                <TextField fx:id="ppfr1" />
+                                                <TextField fx:id="ppfr2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="ppfrfiller" prefHeight="25.0" prefWidth="149.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
                                  </children>
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                               </AnchorPane>
                                 </content>
                             </Tab>
-                            <Tab fx:id="boxplayTab" text="Boxplay">
-                                <content>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                        <Tab fx:id="boxplayTab" text="Boxplay">
+                          <content>
+                            <AnchorPane fx:id="bpAnchorPane">
+                                 <padding>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                 </padding>
                                  <children>
-                                    <ImageView fx:id="bpBoardImage" fitHeight="721.0" fitWidth="463.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <TextField fx:id="bpdl1" layoutX="365.0" layoutY="145.0" />
-                                    <TextField fx:id="bpdl2" layoutX="365.0" layoutY="170.0" prefHeight="25.0" prefWidth="149.0" />
-                                    <TextField fx:id="bpdlfiller" layoutX="365.0" layoutY="210.0" />
-                                    <TextField fx:id="bpdr1" layoutX="15.0" layoutY="145.0" />
-                                    <TextField fx:id="bpdr2" layoutX="15.0" layoutY="170.0" />
-                                    <TextField fx:id="bpdrfiller" layoutX="15.0" layoutY="210.0" />
-                                    <TextField fx:id="bpfl1" layoutX="365.0" layoutY="295.0" />
-                                    <TextField fx:id="bpfl2" layoutX="365.0" layoutY="320.0" />
-                                    <TextField fx:id="bpflfiller" layoutX="365.0" layoutY="360.0" />
-                                    <TextField fx:id="bpfr1" layoutX="15.0" layoutY="295.0" />
-                                    <TextField fx:id="bpfr2" layoutX="15.0" layoutY="320.0" />
-                                    <TextField fx:id="bpfrfiller" layoutX="15.0" layoutY="360.0" prefHeight="25.0" prefWidth="149.0" />
-                                    <TextField fx:id="bpsd1" layoutX="15.0" layoutY="625.0" />
-                                    <TextField fx:id="bpsd2" layoutX="15.0" layoutY="650.0" />
-                                    <TextField fx:id="bpsf1" layoutX="365.0" layoutY="625.0" />
-                                    <TextField fx:id="bpsf2" layoutX="365.0" layoutY="650.0" />
-                                    <Label layoutX="15.0" layoutY="570.0" prefHeight="25.0" prefWidth="64.0" text="Substitutes" />
-                                    <Label layoutX="15.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
-                                    <Label layoutX="365.0" layoutY="600.0" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
+                                    <ImageView fx:id="bpBoardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                    <GridPane fx:id="bpLineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.rowIndex="2">
+                                             <children>
+                                                <TextField fx:id="bpdl1" />
+                                                <TextField fx:id="bpdl2" prefHeight="25.0" prefWidth="149.0" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="bpdlfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                             <children>
+                                                <TextField fx:id="bpdr1" />
+                                                <TextField fx:id="bpdr2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="bpdrfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0">
+                                             <children>
+                                                <TextField fx:id="bpfl1" />
+                                                <TextField fx:id="bpfl2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="bpflfiller" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2">
+                                             <children>
+                                                <TextField fx:id="bpfr1" />
+                                                <TextField fx:id="bpfr2" />
+                                                <Label prefHeight="25.0" />
+                                                <TextField fx:id="bpfrfiller" prefHeight="25.0" prefWidth="149.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label prefHeight="25.0" prefWidth="149.0" text="Defenders" />
+                                                <TextField fx:id="bpsd1" />
+                                                <TextField fx:id="bpsd2" />
+                                                <Label prefHeight="25.0" />
+                                             </children>
+                                          </VBox>
+                                          <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                             <children>
+                                                <Label prefHeight="25.0" prefWidth="149.0" text="Forwards" />
+                                                <TextField fx:id="bpsf1" />
+                                                <TextField fx:id="bpsf2" />
+                                                <Label prefHeight="25.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </AnchorPane>
-                                </content>
-                            </Tab>
+                          </content>
+                        </Tab>
                         </tabs>
                     </TabPane>
                </children>

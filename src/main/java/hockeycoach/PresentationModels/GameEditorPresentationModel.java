@@ -61,8 +61,8 @@ public class GameEditorPresentationModel extends PresentationModel {
     List<TextField> textFields, ppTextFields, bpTextFields, captainTeamList;
     Button refreshPlayerList;
     Button saveButton;
-    AnchorPane lineupAnchorPane;
-    GridPane lineupGrid;
+    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
+    GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 
     TextField gk1;
     TextField dl1, dl2, dl3, dl4;
@@ -98,8 +98,12 @@ public class GameEditorPresentationModel extends PresentationModel {
         captain = (TextField) root.lookup("#captain ");
         assistant1 = (TextField) root.lookup("#assistant1");
         assistant2 = (TextField) root.lookup("#assistant2");
-        lineupAnchorPane  =(AnchorPane) root.lookup("#lineupAnchorPane");
+        lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
+        ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
+        bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
         lineupGrid = (GridPane) root.lookup("#lineupGrid");
+        ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
+        bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
 
         lineupTab = lineupTabPane.getTabs().get(0);
         powerplayTab = lineupTabPane.getTabs().get(1);
@@ -181,9 +185,15 @@ public class GameEditorPresentationModel extends PresentationModel {
         boardImage.fitWidthProperty().bind(lineupGrid.widthProperty());
         boardImage.setPreserveRatio(false);
 
-
         ppBoardImage.setImage(image);
+        ppBoardImage.fitWidthProperty().bind(ppAnchorPane.widthProperty());
+        ppBoardImage.fitWidthProperty().bind(ppLineupGrid.widthProperty());
+        ppBoardImage.setPreserveRatio(false);
+
         bpBoardImage.setImage(image);
+        bpBoardImage.fitWidthProperty().bind(bpAnchorPane.widthProperty());
+        bpBoardImage.fitWidthProperty().bind(bpLineupGrid.widthProperty());
+        bpBoardImage.setPreserveRatio(false);
 
         TextField[] tf = {gk1,
                 dl1, dl2, dl3, dl4,
@@ -195,7 +205,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                 sd1, sd2, sd3,
                 sf1, sf2, sf3};
 
-        TextField[] captainTeam = {captain,assistant1,assistant2};
+        TextField[] captainTeam = {captain, assistant1, assistant2};
 
         TextField[] pptf = {ppdl1, ppdl2, ppdlfiller,
                 ppdr1, ppdr2, ppdrfiller,
