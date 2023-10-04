@@ -1,7 +1,7 @@
 package hockeycoach.mainClasses;
 
 public class SubstituteLine extends Line {
-    Player goalkeeper1, goalkeeper2;
+    Player goalkeeper1, goalkeeper2, goalkeeper3;
     Player defender1, defender2, defender3;
     Player forward1, forward2, forward3;
     Player boxplayDefender1, boxplayDefender2;
@@ -28,6 +28,14 @@ public class SubstituteLine extends Line {
 
     public void setGoalkeeper2(Player goalkeeper2) {
         this.goalkeeper2 = goalkeeper2;
+    }
+
+    public Player getGoalkeeper3() {
+        return goalkeeper3;
+    }
+
+    public void setGoalkeeper3(Player goalkeeper3) {
+        this.goalkeeper3 = goalkeeper3;
     }
 
     public Player getDefender1() {

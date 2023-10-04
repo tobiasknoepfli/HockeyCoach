@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
 
+    DBLoader dbLoader = new DBLoader();
     Team selectedTeam;
     List<Player> playerList;
     Player draggedPlayer;
@@ -70,7 +71,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     TextField c1, c2, c3, c4;
     TextField fl1, fl2, fl3, fl4;
     TextField fr1, fr2, fr3, fr4;
-    TextField sgk1, sgk2;
+    TextField sgk1, sgk2, sgk3;
     TextField sd1, sd2, sd3;
     TextField sf1, sf2, sf3;
     TextField ppdl1, ppdl2, ppdlfiller, ppdr1, ppdr2, ppdrfiller;
@@ -78,8 +79,15 @@ public class GameEditorPresentationModel extends PresentationModel {
     TextField bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller;
     TextField bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller;
     TextField bpsd1, bpsd2, bpsf1, bpsf2;
-
-    Label lineOutput;
+    Label lbfl1, lbfl2, lbfl3, lbfl4, lbfr1, lbfr2, lbfr3, lbfr4;
+    Label lbc1, lbc2, lbc3, lbc4, lbgk1, lbgk2, lbgk3, lbgk4;
+    Label lbdl1, lbdl2, lbdl3, lbdl4, lbdr1, lbdr2, lbdr3, lbdr4;
+    Label lgGK1, lgGK2, lgGK3, lgGK4;
+    Label lgRD1, lgRD2, lgRD3, lgRD4, lgLD1, lgLD2, lgLD3, lgLD4;
+    Label lgRF1, lgRF2, lgRF3, lgRF4, lgC1, lgC2, lgC3, lgC4, lgLF1, lgLF2, lgLF3, lgLF4;
+    Label ngGK1, ngGK2, ngGK3, ngGK4;
+    Label ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4;
+    Label ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
 
     public void initializeControls(Pane root) {
         gameDate = (TextField) root.lookup("#gameDate");
@@ -135,6 +143,7 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         sgk1 = (TextField) root.lookup("#sgk1");
         sgk2 = (TextField) root.lookup("#sgk2");
+        sgk3 = (TextField) root.lookup("#sgk3");
         sd1 = (TextField) root.lookup("#sd1");
         sd2 = (TextField) root.lookup("#sd2");
         sd3 = (TextField) root.lookup("#sd3");
@@ -176,7 +185,80 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpsd1 = (TextField) root.lookup("#bpsd1");
         bpsd2 = (TextField) root.lookup("#bpsd2");
 
-        lineOutput = (Label) root.lookup("#lineOutput");
+        lbfl1 = (Label) root.lookup("#lbfl1");
+        lbfl2 = (Label) root.lookup("#lbfl2");
+        lbfl3 = (Label) root.lookup("#lbfl3");
+        lbfl4 = (Label) root.lookup("#lbfl4");
+        lbfr1 = (Label) root.lookup("#lbfr1");
+        lbfr2 = (Label) root.lookup("#lbfr2");
+        lbfr3 = (Label) root.lookup("#lbfr3");
+        lbfr4 = (Label) root.lookup("#lbfr4");
+        lbc1 = (Label) root.lookup("#lbc1");
+        lbc2 = (Label) root.lookup("#lbc2");
+        lbc3 = (Label) root.lookup("#lbc3");
+        lbc4 = (Label) root.lookup("#lbc4");
+        lbgk1 = (Label) root.lookup("#lbgk1");
+        lbgk2 = (Label) root.lookup("#lbgk2");
+        lbgk3 = (Label) root.lookup("#lbgk3");
+        lbgk4 = (Label) root.lookup("#lbgk4");
+        lbdl1 = (Label) root.lookup("#lbdl1");
+        lbdl2 = (Label) root.lookup("#lbdl2");
+        lbdl3 = (Label) root.lookup("#lbdl3");
+        lbdl4 = (Label) root.lookup("#lbdl4");
+        lbdr1 = (Label) root.lookup("#lbdr1");
+        lbdr2 = (Label) root.lookup("#lbdr2");
+        lbdr3 = (Label) root.lookup("#lbdr3");
+        lbdr4 = (Label) root.lookup("#lbdr4");
+
+        lgGK1 = (Label) root.lookup("#lgGK1");
+        lgGK2 = (Label) root.lookup("#lgGK2");
+        lgGK3 = (Label) root.lookup("#lgGK3");
+        lgGK4 = (Label) root.lookup("#lgGK4");
+        lgRD1 = (Label) root.lookup("#lgRD1");
+        lgRD2 = (Label) root.lookup("#lgRD2");
+        lgRD3 = (Label) root.lookup("#lgRD3");
+        lgRD4 = (Label) root.lookup("#lgRD4");
+        lgLD1 = (Label) root.lookup("#lgLD1");
+        lgLD2 = (Label) root.lookup("#lgLD2");
+        lgLD3 = (Label) root.lookup("#lgLD3");
+        lgLD4 = (Label) root.lookup("#lgLD4");
+        lgRF1 = (Label) root.lookup("#lgRF1");
+        lgRF2 = (Label) root.lookup("#lgRF2");
+        lgRF3 = (Label) root.lookup("#lgRF3");
+        lgRF4 = (Label) root.lookup("#lgRF4");
+        lgC1 = (Label) root.lookup("#lgC1");
+        lgC2 = (Label) root.lookup("#lgC2");
+        lgC3 = (Label) root.lookup("#lgC3");
+        lgC4 = (Label) root.lookup("#lgC4");
+        lgLF1 = (Label) root.lookup("#lgLF1");
+        lgLF2 = (Label) root.lookup("#lgLF2");
+        lgLF3 = (Label) root.lookup("#lgLF3");
+        lgLF4 = (Label) root.lookup("#lgLF4");
+        ngGK1 = (Label) root.lookup("#ngGK1");
+        ngGK2 = (Label) root.lookup("#ngGK2");
+        ngGK3 = (Label) root.lookup("#ngGK3");
+        ngGK4 = (Label) root.lookup("#ngGK4");
+        ngRD1 = (Label) root.lookup("#ngRD1");
+        ngRD2 = (Label) root.lookup("#ngRD2");
+        ngRD3 = (Label) root.lookup("#ngRD3");
+        ngRD4 = (Label) root.lookup("#ngRD4");
+        ngLD1 = (Label) root.lookup("#ngLD1");
+        ngLD2 = (Label) root.lookup("#ngLD2");
+        ngLD3 = (Label) root.lookup("#ngLD3");
+        ngLD4 = (Label) root.lookup("#ngLD4");
+        ngRF1 = (Label) root.lookup("#ngRF1");
+        ngRF2 = (Label) root.lookup("#ngRF2");
+        ngRF3 = (Label) root.lookup("#ngRF3");
+        ngRF4 = (Label) root.lookup("#ngRF4");
+        ngC1 = (Label) root.lookup("#ngC1");
+        ngC2 = (Label) root.lookup("#ngC2");
+        ngC3 = (Label) root.lookup("#ngC3");
+        ngC4 = (Label) root.lookup("#ngC4");
+        ngLF1 = (Label) root.lookup("#ngLF1");
+        ngLF2 = (Label) root.lookup("#ngLF2");
+        ngLF3 = (Label) root.lookup("#ngLF3");
+        ngLF4 = (Label) root.lookup("#ngLF4");
+
 
         File file = new File("src/main/java/hockeycoach/files/background/board.jpg");
         Image image = new Image(file.toURI().toString());
@@ -249,6 +331,8 @@ public class GameEditorPresentationModel extends PresentationModel {
             refreshPlayers();
         });
 
+        showGameLines(lastGameLines(), nextGameLines());
+
         setupEventListeners();
 
     }
@@ -258,7 +342,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             refreshPlayers();
         });
 
-//        textFields.stream().forEach(this::addLineupText);
+        textFields.stream().forEach(this::addLineupText);
 
         saveButton.setOnAction(event -> {
             Game game = saveGameToDB();
@@ -452,46 +536,34 @@ public class GameEditorPresentationModel extends PresentationModel {
         return new Player("", "", selectedTeam.getName());
     }
 
-//    private void addLineupText(TextField textField) {
-//        textField.textProperty().addListener((obs, oldValue, newValue) -> {
-//            firstLine = new Line(1);
-//            firstLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-//            firstLine.setDefenderLeft(getPlayerFromTextField(dl1.getText()));
-//            firstLine.setDefenderRight(getPlayerFromTextField(dr1.getText()));
-//            firstLine.setCenter(getPlayerFromTextField(c1.getText()));
-//            firstLine.setForwardLeft(getPlayerFromTextField(fl1.getText()));
-//            firstLine.setForwardRight(getPlayerFromTextField(fr1.getText()));
-//
-//            secondLine = new Line(2);
-//            secondLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-//            secondLine.setDefenderLeft(getPlayerFromTextField(dl2.getText()));
-//            secondLine.setDefenderRight(getPlayerFromTextField(dr2.getText()));
-//            secondLine.setCenter(getPlayerFromTextField(c2.getText()));
-//            secondLine.setForwardLeft(getPlayerFromTextField(fl2.getText()));
-//            secondLine.setForwardRight(getPlayerFromTextField(fr2.getText()));
-//
-//            thirdLine = new Line(3);
-//            thirdLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-//            thirdLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
-//            thirdLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
-//            thirdLine.setCenter(getPlayerFromTextField(c3.getText()));
-//            thirdLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
-//            thirdLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
-//
-//            fourthLine = new Line(4);
-//            fourthLine.setGoalkeeper(getPlayerFromTextField(gk1.getText()));
-//            fourthLine.setDefenderLeft(getPlayerFromTextField(dl3.getText()));
-//            fourthLine.setDefenderRight(getPlayerFromTextField(dr3.getText()));
-//            fourthLine.setCenter(getPlayerFromTextField(c3.getText()));
-//            fourthLine.setForwardLeft(getPlayerFromTextField(fl3.getText()));
-//            fourthLine.setForwardRight(getPlayerFromTextField(fr3.getText()));
-//
-//            lineOutput.setText(firstLine.lineupToString() + "\n\n\n\n" +
-//                    secondLine.lineupToString() + "\n\n\n\n" +
-//                    thirdLine.lineupToString() + "\n\n\n\n" +
-//                    fourthLine.lineupToString());
-//        });
-//    }
+    private void addLineupText(TextField textField) {
+        textField.textProperty().addListener((obs, oldValue, newValue) -> {
+            lbfl1.setText(fl1.getText());
+            lbfl2.setText(fl2.getText());
+            lbfl3.setText(fl3.getText());
+            lbfl4.setText(fl4.getText());
+            lbfr1.setText(fr1.getText());
+            lbfr2.setText(fr2.getText());
+            lbfr3.setText(fr3.getText());
+            lbfr4.setText(fr4.getText());
+            lbc1.setText(c1.getText());
+            lbc2.setText(c2.getText());
+            lbc3.setText(c3.getText());
+            lbc4.setText(c4.getText());
+            lbgk1.setText(gk1.getText());
+            lbgk2.setText(sgk1.getText());
+            lbgk3.setText(sgk2.getText());
+            lbgk4.setText(sgk3.getText());
+            lbdl1.setText(dl1.getText());
+            lbdl2.setText(dl2.getText());
+            lbdl3.setText(dl3.getText());
+            lbdl4.setText(dl4.getText());
+            lbdr1.setText(dr1.getText());
+            lbdr2.setText(dr2.getText());
+            lbdr3.setText(dr3.getText());
+            lbdr4.setText(dr4.getText());
+        });
+    }
 
     private Game saveGameToDB() {
         Game game = new Game();
@@ -578,5 +650,133 @@ public class GameEditorPresentationModel extends PresentationModel {
         subsLine.setBoxplayForward2(getPlayerFromTextField(bpsf2.getText()));
     }
 
+    public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {
+        Line firstLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 1)
+                .findAny().orElse(null);
+        if(firstLineLastGame!=null) {
+            lgGK1.setText(getPlayerName(firstLineLastGame.getGoalkeeper()));
+            lgLD1.setText(getPlayerName(firstLineLastGame.getDefenderLeft()));
+            lgRD1.setText(getPlayerName(firstLineLastGame.getDefenderRight()));
+            lgLF1.setText(getPlayerName(firstLineLastGame.getForwardLeft()));
+            lgC1.setText(getPlayerName(firstLineLastGame.getCenter()));
+            lgRF1.setText(getPlayerName(firstLineLastGame.getForwardRight()));
+        }
 
+        Line secondLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 2)
+                .findAny().orElse(null);
+        if(secondLineLastGame !=null) {
+            lgGK2.setText(getPlayerName(secondLineLastGame.getGoalkeeper()));
+            lgRD2.setText(getPlayerName(secondLineLastGame.getDefenderRight()));
+            lgLD2.setText(getPlayerName(secondLineLastGame.getDefenderLeft()));
+            lgRF2.setText(getPlayerName(secondLineLastGame.getForwardRight()));
+            lgC2.setText(getPlayerName(secondLineLastGame.getCenter()));
+            lgLF2.setText(getPlayerName(secondLineLastGame.getForwardLeft()));
+        }
+
+        Line thirdLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 3)
+                .findAny().orElse(null);
+        if(thirdLineLastGame!=null) {
+            lgGK3.setText(getPlayerName(thirdLineLastGame.getGoalkeeper()));
+            lgRD3.setText(getPlayerName(thirdLineLastGame.getDefenderRight()));
+            lgLD3.setText(getPlayerName(thirdLineLastGame.getDefenderLeft()));
+            lgRF3.setText(getPlayerName(thirdLineLastGame.getForwardRight()));
+            lgC3.setText(getPlayerName(thirdLineLastGame.getCenter()));
+            lgLF3.setText(getPlayerName(thirdLineLastGame.getForwardLeft()));
+        }
+
+        Line fourthLineLastGame = pastGameLines.stream()
+                .filter(line -> line.getLineNr() == 4)
+                .findAny().orElse(null);
+        if(fourthLineLastGame!=null) {
+            lgGK4.setText(getPlayerName(fourthLineLastGame.getGoalkeeper()));
+            lgRD4.setText(getPlayerName(fourthLineLastGame.getDefenderRight()));
+            lgLD4.setText(getPlayerName(fourthLineLastGame.getDefenderLeft()));
+            lgRF4.setText(getPlayerName(fourthLineLastGame.getForwardRight()));
+            lgC4.setText(getPlayerName(fourthLineLastGame.getCenter()));
+            lgLF4.setText(getPlayerName(fourthLineLastGame.getForwardLeft()));
+        }
+
+        Line firstLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==1)
+                .findAny().orElse(null);
+        if(firstLineNextGame!=null) {
+            ngGK1.setText(getPlayerName(firstLineNextGame.getGoalkeeper()));
+            ngLD1.setText(getPlayerName(firstLineNextGame.getDefenderLeft()));
+            ngRD1.setText(getPlayerName(firstLineNextGame.getDefenderRight()));
+            ngLF1.setText(getPlayerName(firstLineNextGame.getForwardLeft()));
+            ngC1.setText(getPlayerName(firstLineNextGame.getCenter()));
+            ngRF1.setText(getPlayerName(firstLineNextGame.getForwardRight()));
+        }
+
+        Line secondLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==2)
+                .findAny().orElse(null);
+        if(secondLineNextGame!=null) {
+            ngGK2.setText(getPlayerName(secondLineNextGame.getGoalkeeper()));
+            ngLD2.setText(getPlayerName(secondLineNextGame.getDefenderLeft()));
+            ngRD2.setText(getPlayerName(secondLineNextGame.getDefenderRight()));
+            ngLF2.setText(getPlayerName(secondLineNextGame.getForwardLeft()));
+            ngC2.setText(getPlayerName(secondLineNextGame.getCenter()));
+            ngRF2.setText(getPlayerName(secondLineNextGame.getForwardRight()));
+        }
+
+        Line thirdLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==3)
+                .findAny().orElse(null);
+        if(thirdLineNextGame!=null) {
+            ngGK3.setText(getPlayerName(thirdLineNextGame.getGoalkeeper()));
+            ngLD3.setText(getPlayerName(thirdLineNextGame.getDefenderLeft()));
+            ngRD3.setText(getPlayerName(thirdLineNextGame.getDefenderRight()));
+            ngLF3.setText(getPlayerName(thirdLineNextGame.getForwardLeft()));
+            ngC3.setText(getPlayerName(thirdLineNextGame.getCenter()));
+            ngRF3.setText(getPlayerName(thirdLineNextGame.getForwardRight()));
+        }
+
+        Line fourthLineNextGame = nextGameLines.stream()
+                .filter(line -> line.getLineNr()==4)
+                .findAny().orElse(null);
+        if(fourthLineNextGame!=null) {
+            ngGK4.setText(getPlayerName(fourthLineNextGame.getGoalkeeper()));
+            ngLD4.setText(getPlayerName(fourthLineNextGame.getDefenderLeft()));
+            ngRD4.setText(getPlayerName(fourthLineNextGame.getDefenderRight()));
+            ngLF4.setText(getPlayerName(fourthLineNextGame.getForwardLeft()));
+            ngC4.setText(getPlayerName(fourthLineNextGame.getCenter()));
+            ngRF4.setText(getPlayerName(fourthLineNextGame.getForwardRight()));
+        }
+    }
+
+    public String getPlayerName(Player player) {
+        if (player.getPlayerID() >0) {
+            return player.getLastName() + " " + player.getFirstName();
+        } else {
+            return "";
+        }
+    }
+
+    public List<Line> lastGameLines() {
+        LocalDate today = LocalDate.now();
+        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        Game closestPastGame = teamGames.stream()
+                .filter(game -> game.getGameDate().isBefore(today))
+                .max(Comparator.comparing(Game::getGameDate))
+                .orElse(null);
+        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+
+        return lines;
+    }
+
+    public List<Line> nextGameLines() {
+        LocalDate today = LocalDate.now();
+        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        Game closestNextGame = teamGames.stream()
+                .filter(game -> game.getGameDate().isAfter(today))
+                .min(Comparator.comparing(Game::getGameDate))
+                .orElse(null);
+        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+
+        return lines;
+    }
 }

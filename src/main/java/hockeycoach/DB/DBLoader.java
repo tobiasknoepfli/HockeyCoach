@@ -254,7 +254,6 @@ public class DBLoader {
             if (resultSet.next()) {
                 player.setPlayerID(resultSet.getInt("playerID"));
                 player.setFirstName(resultSet.getString("firstName"));
-                System.out.println(player.getPlayerID());
                 player.setLastName(resultSet.getString("lastName"));
                 player.setStreet(resultSet.getString("street"));
                 player.setZip(resultSet.getInt("zip"));
