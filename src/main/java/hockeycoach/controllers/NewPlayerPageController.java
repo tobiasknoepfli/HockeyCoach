@@ -64,7 +64,4 @@ public class NewPlayerPageController {
     @FXML
     private Button saveButton;
 
-    @FXML
-    private AnchorPane photoAnchorPane;
-
 }

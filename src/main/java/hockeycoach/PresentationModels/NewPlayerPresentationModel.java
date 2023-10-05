@@ -50,7 +50,6 @@ public class NewPlayerPresentationModel extends PresentationModel {
     TextArea weaknesses;
     TextArea notes;
     Button saveButton;
-    AnchorPane photoAnchorPane;
 
     @Override
     public void initializeControls(Pane root) {
@@ -72,16 +71,12 @@ public class NewPlayerPresentationModel extends PresentationModel {
         weaknesses = (TextArea) root.lookup("#weaknesses");
         notes = (TextArea) root.lookup("#notes");
         saveButton = (Button) root.lookup("#saveButton");
-        photoAnchorPane = (AnchorPane) root.lookup("#photoAnchorPane");
 
         DBLoader dbLoader = new DBLoader();
         allPlayersList = dbLoader.getAllPlayers("SELECT * FROM player");
 
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(allPlayersList);
-
-        playerPhoto.fitWidthProperty().bind(photoAnchorPane.widthProperty());
-        playerPhoto.setPreserveRatio(false);
 
         if(allPlayersList.size() == 0){
             setControlsDisabled(false);

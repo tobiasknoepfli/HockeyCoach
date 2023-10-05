@@ -21,7 +21,7 @@
                 <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
             </children>
         </HBox>
-      <SplitPane dividerPositions="0.2996632996632997, 0.7365319865319865" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+      <SplitPane dividerPositions="0.3, 0.75" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <items>
           <AnchorPane>
                <padding>
@@ -169,7 +169,7 @@
                   </VBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="photoAnchorPane" prefWidth="312.0">
+            <AnchorPane>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
