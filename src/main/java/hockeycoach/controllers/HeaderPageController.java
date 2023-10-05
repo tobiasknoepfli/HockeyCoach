@@ -29,9 +29,6 @@ public class HeaderPageController {
     private AnchorPane headerPane;
 
     @FXML
-    private AnchorPane contentPane;
-
-    @FXML
     private Button homeButton;
 
     @FXML
