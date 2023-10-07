@@ -11,6 +11,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -20,10 +21,38 @@
     <children>
       <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Save" />
-            <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Edit" />
-            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Cancel" />
-            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="Delete" />
+            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/icons_save.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/icons_edit.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/icons_cancel.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/icons_close.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
          </children>
       </HBox>
       <SplitPane dividerPositions="0.19031719532554256, 0.6377295492487479" layoutX="270.0" layoutY="451.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">

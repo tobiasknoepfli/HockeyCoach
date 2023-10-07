@@ -763,6 +763,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
+        if(closestPastGame==null){closestPastGame=new Game();}
         List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
 
         return lines;
@@ -775,6 +776,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
+        if(closestNextGame==null){closestNextGame=new Game();}
         List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
 
         return lines;
