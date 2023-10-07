@@ -12,8 +12,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hockeycoach.AppStarter.DB_URL;
+
 public class DBLoaderTeamList {
-    private static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
 
     public List<Team> getAllTeamNames() {
         List<Team> teams = new ArrayList<>();

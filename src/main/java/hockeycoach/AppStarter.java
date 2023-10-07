@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AppStarter extends Application {
+    public static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
+
     public static double WIDTH = Screen.getPrimary().getVisualBounds().getWidth();
     public static double HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
     public static double BAR_HEIGHT = 80;

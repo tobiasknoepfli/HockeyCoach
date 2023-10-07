@@ -11,9 +11,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class DBLoader {
-    private static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
+import static hockeycoach.AppStarter.DB_URL;
 
+public class DBLoader {
     public ArrayList<Player> getAllPlayers(String query) {
         ArrayList<Player> playerList = new ArrayList<>();
         try {

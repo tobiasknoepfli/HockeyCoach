@@ -5,8 +5,10 @@ import hockeycoach.mainClasses.Team;
 
 import java.sql.*;
 
+import static hockeycoach.AppStarter.DB_URL;
+
 public class DBEditor {
-    private static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
+
 
     public void editPlayer(Player player) {
         String query = "UPDATE player SET " +
