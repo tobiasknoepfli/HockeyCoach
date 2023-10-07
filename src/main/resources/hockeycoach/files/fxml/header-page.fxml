@@ -16,7 +16,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/icons_close.png" />
+                              <Image url="@../icons/icons_close.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -24,7 +24,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/icons_home.png" />
+                              <Image url="@../icons/icons_home.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -32,7 +32,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/icons_team.png" />
+                              <Image url="@../icons/icons_team.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -40,7 +40,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/icons_player.png" />
+                              <Image url="@../icons/icons_player.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -48,7 +48,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/icons_training.png" />
+                              <Image url="@../icons/icons_training.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -56,7 +56,7 @@
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@icons/icons_game.png" />
+                              <Image url="@../icons/icons_game.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>

@@ -8,7 +8,7 @@ import java.sql.Date;
 import java.util.*;
 
 public class DBWriter {
-    private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
+    private static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
 
     public void addPlayerToTeam(Team team, Player player) {
         String query = "INSERT INTO playerXteam" + "(playerID, teamID, jersey, role) VALUES (?,?,?,?)";

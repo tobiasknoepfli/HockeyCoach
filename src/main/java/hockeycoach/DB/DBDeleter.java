@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBDeleter {
-    private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
+    private static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
 
     public void removeFromPlayerXList(PlayerXTeam playerXTeam) {
         String query = "DELETE FROM playerXteam WHERE id = " + playerXTeam.getID();

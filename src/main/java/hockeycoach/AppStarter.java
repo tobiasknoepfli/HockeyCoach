@@ -31,7 +31,7 @@ public class AppStarter extends Application {
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
 
-        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("header-page.fxml"));
+        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("files/fxml/header-page.fxml"));
         Pane root = mainPaneLoader.load();
         Scene toolbarScene = new Scene(root, WIDTH, HEIGHT);
 
@@ -47,7 +47,7 @@ public class AppStarter extends Application {
         contentStage.setY(80);
         contentStage.initStyle(StageStyle.UNDECORATED);
 
-        FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("start-page.fxml"));
+        FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("files/fxml/start-page.fxml"));
         Pane content = startPageLoader.load();
 
         Scene contentScene = new Scene(content, WIDTH, HEIGHT-BAR_HEIGHT);

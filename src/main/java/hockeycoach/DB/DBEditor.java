@@ -6,7 +6,7 @@ import hockeycoach.mainClasses.Team;
 import java.sql.*;
 
 public class DBEditor {
-    private static final String DB_URL = "jdbc:ucanaccess://src/main/java/hockeycoach/files/database/hockeydb.accdb";
+    private static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
 
     public void editPlayer(Player player) {
         String query = "UPDATE player SET " +

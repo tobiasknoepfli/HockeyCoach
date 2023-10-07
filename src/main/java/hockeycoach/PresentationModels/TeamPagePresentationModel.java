@@ -125,7 +125,7 @@ public class TeamPagePresentationModel extends PresentationModel {
         editPlayerButton.setOnAction(event -> {
             HeaderPageController headerPageController = new HeaderPageController();
                 PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
-                headerPageController.loadStages("TeamplayerEditor","/hockeycoach/player-to-team.fxml", pm);
+                headerPageController.loadStages("TeamplayerEditor","/hockeycoach/files/fxml/player-to-team.fxml", pm);
         });
 
         editButton.setOnAction(event -> {
