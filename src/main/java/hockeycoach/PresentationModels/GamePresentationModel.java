@@ -346,10 +346,11 @@ public class GamePresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getPlayerID() > 0) {
-            return player.getLastName() + " " + player.getFirstName();
-        } else {
-            return "";
+        if (player != null) {
+            if (player.getPlayerID() > 0) {
+                return player.getLastName() + " " + player.getFirstName();
+            }
         }
+        return "";
     }
 }

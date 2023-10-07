@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoaderTeamList;
 import hockeycoach.DB.DBWriter;
+import hockeycoach.controllers.HeaderPageController;
 import hockeycoach.mainClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
@@ -331,17 +332,8 @@ public class NewTeamPagePresentationModel extends PresentationModel {
     }
 
     private void callStartPage(){
-        try{
-            FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/start-page.fxml"));
-            Pane startPage = startPageLoader.load();
-            contentPane.getChildren().clear();
-            contentPane.getChildren().add(startPage);
-
-            StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
-            startPagePresentationModel.initializeControls(contentPane);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+        StartPagePresentationModel pm = new StartPagePresentationModel();
+        HeaderPageController headerPageController = new HeaderPageController();
+        headerPageController.loadStages("Home","/hockeycoach/files/fxml/start-page.fxml",pm);
     }
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -12,51 +14,57 @@
             <children>
                 <HBox layoutX="5.0" layoutY="9.0" maxHeight="70.0" maxWidth="1190.0" minWidth="595.0" prefHeight="70.0" prefWidth="595.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
                     <children>
-                        <Button fx:id="CloseButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="68.0" prefWidth="68.0">
+                        <Button fx:id="CloseButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/icons_close.png" />
+                              <Image url="@../icons/icons_closeButton.png" />
+                           </image>
+                           <viewport>
+                              <Rectangle2D />
+                           </viewport>
+                        </ImageView>
+                     </graphic>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></Button>
+                        <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeButtonAction" prefHeight="70.0" prefWidth="100.0">
+                     <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons_homeButton.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                        <Button fx:id="homeButton" mnemonicParsing="false" onAction="#homeButtonAction" prefHeight="68.0" prefWidth="68.0">
+                        <Button fx:id="teamButton" mnemonicParsing="false" onAction="#teamButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/icons_home.png" />
+                              <Image url="@../icons/icons_teamButton.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                        <Button fx:id="teamButton" mnemonicParsing="false" onAction="#teamButtonAction" prefHeight="68.0" prefWidth="68.0">
+                        <Button fx:id="playerButton" mnemonicParsing="false" onAction="#playerButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/icons_team.png" />
+                              <Image url="@../icons/icons_playerButton.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                        <Button fx:id="playerButton" mnemonicParsing="false" onAction="#playerButtonAction" prefHeight="68.0" prefWidth="68.0">
+                        <Button fx:id="trainingButton" mnemonicParsing="false" onAction="#trainingButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/icons_player.png" />
+                              <Image url="@../icons/icons_trainingButton.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
-                        <Button fx:id="trainingButton" mnemonicParsing="false" onAction="#trainingButtonAction" prefHeight="68.0" prefWidth="68.0">
+                        <Button fx:id="gameButton" mnemonicParsing="false" onAction="#gameButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../icons/icons_training.png" />
-                           </image>
-                        </ImageView>
-                     </graphic></Button>
-                        <Button fx:id="gameButton" mnemonicParsing="false" onAction="#gameButtonAction" prefHeight="68.0" prefWidth="68.0">
-                     <graphic>
-                        <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_game.png" />
+                              <Image url="@../icons/icons_gameButton.png" />
                            </image>
                         </ImageView>
                      </graphic></Button>
@@ -64,10 +72,10 @@
                 </HBox>
                 <HBox alignment="TOP_RIGHT" layoutX="600.0" layoutY="6.0" maxHeight="70.0" maxWidth="1190.0" minWidth="595.0" prefHeight="70.0" prefWidth="595.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                     <children>
-                        <Button fx:id="newTeamButton" mnemonicParsing="false" onAction="#newTeamButtonAction" prefHeight="68.0" prefWidth="100.0" text="New Team" />
-                        <Button fx:id="newPlayerButton" mnemonicParsing="false" onAction="#newPlayerButtonAction" prefHeight="68.0" prefWidth="100.0" text="New Player" />
-                        <Button fx:id="trainingEditorButton" mnemonicParsing="false" onAction="#trainingEditorAction" prefHeight="68.0" prefWidth="100.0" text="Training Editor" />
-                        <Button fx:id="gameEditorButton" mnemonicParsing="false" onAction="#gameEditorAction" prefHeight="68.0" prefWidth="100.0" text="Game Editor" />
+                        <Button fx:id="newTeamButton" mnemonicParsing="false" onAction="#newTeamButtonAction" prefHeight="70.0" prefWidth="100.0" text="New Team" />
+                        <Button fx:id="newPlayerButton" mnemonicParsing="false" onAction="#newPlayerButtonAction" prefHeight="70.0" prefWidth="100.0" text="New Player" />
+                        <Button fx:id="trainingEditorButton" mnemonicParsing="false" onAction="#trainingEditorAction" prefHeight="70.0" prefWidth="100.0" text="Training Editor" />
+                        <Button fx:id="gameEditorButton" mnemonicParsing="false" onAction="#gameEditorAction" prefHeight="70.0" prefWidth="100.0" text="Game Editor" />
                     </children>
                 </HBox>
             </children>
