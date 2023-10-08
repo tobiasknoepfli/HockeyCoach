@@ -1,6 +1,6 @@
 package hockeycoach.DB;
 
-import hockeycoach.mainClasses.PlayerXTeam;
+import hockeycoach.supportClasses.PlayerXTeam;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

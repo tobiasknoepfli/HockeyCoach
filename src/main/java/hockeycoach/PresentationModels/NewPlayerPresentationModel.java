@@ -2,7 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.DB.DBWriter;
-import hockeycoach.mainClasses.ImageChooser;
+import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
@@ -11,7 +11,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
 
@@ -24,6 +23,8 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static hockeycoach.AppStarter.PHOTOS;
 
 public class NewPlayerPresentationModel extends PresentationModel {
     MouseEvent event;
@@ -171,7 +172,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
             }
 
             String destinationFileName = playerPhotoText + "." + imageFormat;
-            String destinationDirectory = "src/main/java/hockeycoach/files/photos";
+            String destinationDirectory = PHOTOS;
 
             try {
                 URL imageUrl = new URL(selectedImage.getUrl());

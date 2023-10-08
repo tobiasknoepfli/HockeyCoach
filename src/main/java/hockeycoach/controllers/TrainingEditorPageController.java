@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
-public class TrainingEditorPageController {
+public class TrainingEditorPageController extends Controller{
     @FXML
     private TableView<Player> playerList;
 

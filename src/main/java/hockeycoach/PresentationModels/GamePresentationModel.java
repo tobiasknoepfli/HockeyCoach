@@ -2,12 +2,12 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Box;
 
 import java.util.List;
 

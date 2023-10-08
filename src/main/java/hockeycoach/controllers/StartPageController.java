@@ -1,14 +1,14 @@
 package hockeycoach.controllers;
 
 import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 
-public class StartPageController {
+public class StartPageController extends  Controller{
     @FXML
     private TableView<Team> teamsTable;
 

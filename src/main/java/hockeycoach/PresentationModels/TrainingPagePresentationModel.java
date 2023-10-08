@@ -2,7 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.*;
-import javafx.fxml.FXML;
+import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,4 +1,6 @@
-package hockeycoach.mainClasses;
+package hockeycoach.supportClasses;
+
+import hockeycoach.mainClasses.Team;
 
 public class SingletonTeam {
     private static SingletonTeam instance;

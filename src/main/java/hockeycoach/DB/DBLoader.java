@@ -1,9 +1,7 @@
 package hockeycoach.DB;
 
 import hockeycoach.mainClasses.*;
-import javafx.collections.FXCollections;
-import javafx.scene.control.TextField;
-import org.w3c.dom.views.DocumentView;
+import hockeycoach.supportClasses.PlayerXTeam;
 
 import java.sql.*;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package hockeycoach.mainClasses;
+package hockeycoach.supportClasses;
 
 public class PlayerXTeam {
     private int ID;

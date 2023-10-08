@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
-public class GameController {
+public class GameController extends Controller {
 
     @FXML
     private HBox controlBox;

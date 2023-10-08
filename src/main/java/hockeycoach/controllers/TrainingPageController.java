@@ -8,7 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class TrainingPageController {
+public class TrainingPageController extends Controller {
 
     @FXML
     private TableView<Training> trainingTable;

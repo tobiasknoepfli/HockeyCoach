@@ -1,4 +1,4 @@
-package hockeycoach.mainClasses;
+package hockeycoach.supportClasses;
 
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;

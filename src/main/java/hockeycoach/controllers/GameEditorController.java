@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
-public class GameEditorController {
+public class GameEditorController extends Controller {
     @FXML
     private TextField gameDate, gameTime;
 

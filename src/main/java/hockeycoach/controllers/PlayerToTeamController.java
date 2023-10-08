@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-public class PlayerToTeamController {
+public class PlayerToTeamController extends Controller {
     @FXML
     private TableView teamPlayers;
 

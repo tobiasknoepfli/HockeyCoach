@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.SingletonTeam;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

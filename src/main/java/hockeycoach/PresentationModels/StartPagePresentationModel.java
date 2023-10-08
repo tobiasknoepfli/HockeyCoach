@@ -3,7 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader;
 import hockeycoach.DB.DBLoaderTeamList;
 import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import javafx.application.Platform;

@@ -12,4 +12,6 @@ module com.example.hockeycoach {
     opens hockeycoach.mainClasses to javafx.fxml;
     exports hockeycoach.controllers;
     opens hockeycoach.controllers to javafx.fxml;
+    exports hockeycoach.supportClasses;
+    opens hockeycoach.supportClasses to javafx.fxml;
 }

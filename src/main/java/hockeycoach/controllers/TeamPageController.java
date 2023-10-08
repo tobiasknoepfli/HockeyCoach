@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
-public class TeamPageController {
+public class TeamPageController extends  Controller{
     @FXML
     private ImageView teamLogo;
 

@@ -2,9 +2,9 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBEditor;
 import hockeycoach.DB.DBLoader;
-import hockeycoach.mainClasses.ImageChooser;
+import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +25,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import static hockeycoach.AppStarter.PHOTOS;
 
 public class PlayerPagePresentationModel extends PresentationModel {
     MouseEvent event;
@@ -224,7 +226,7 @@ public class PlayerPagePresentationModel extends PresentationModel {
             }
 
             String destinationFileName = playerPhotoText + "." + imageFormat;
-            String destinationDirectory = "src/main/java/hockeycoach/files/photos";
+            String destinationDirectory = PHOTOS;
 
             try {
                 URL imageUrl = new URL(selectedImage.getUrl());

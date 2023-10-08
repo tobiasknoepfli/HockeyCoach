@@ -3,15 +3,16 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoaderTeamList;
 import hockeycoach.DB.DBWriter;
 import hockeycoach.controllers.HeaderPageController;
-import hockeycoach.mainClasses.ImageChooser;
+import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
@@ -20,47 +21,41 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static hockeycoach.AppStarter.*;
+
+
 public class NewTeamPagePresentationModel extends PresentationModel {
-    private Pane contentPane;
     MouseEvent event;
-
-    ImageView teamLogo;
-    TextField teamName;
-    TextField stadiumName;
-    TextField stadiumStreet;
-    TextField stadiumZipCity;
-    TextField stadiumCountry;
-    TextField contactName;
-    TextField contactPhone;
-    TextField contactEmail;
-    TextField website;
-    TextField founded;
-    TextField presidentName;
-    TextField currentLeague;
-    TextField headCoachName;
-    TextField captainName;
     TableView<Player> teamPlayers;
-    TextArea notes;
-    Label controlLabel;
-    Label controlZip;
-    Label controlContact;
-    Label controlFounded;
-    Label controlHeadCoach;
-    Label controlCaptain;
-    Label controlPresident;
-    TextField imageName;
-    Button saveButton;
-    Button cancelButton;
-
     List<Team> teamList = new ArrayList();
+
+    @FXML
+    ImageView teamLogo = new ImageView();
+
+    @FXML
+    TextField teamName,
+            stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
+            contactName, contactPhone, contactEmail,
+            website, founded, currentLeague,
+            presidentName, headCoachName, captainName;
+
+    @FXML
+    TextArea notes;
+
+    @FXML
+    Label controlLabel, controlZip, controlContact, controlFounded,
+            controlHeadCoach, controlCaptain, controlPresident;
+
+    @FXML
+    Button saveButton, cancelButton, closeWindowButton;
+
 
     @Override
     public void initializeControls(Pane root) {
+
         teamLogo = (ImageView) root.lookup("#teamLogo");
         teamName = (TextField) root.lookup("#teamName");
         stadiumName = (TextField) root.lookup("#stadiumName");
@@ -79,9 +74,9 @@ public class NewTeamPagePresentationModel extends PresentationModel {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         notes = (TextArea) root.lookup("#notes");
         controlLabel = (Label) root.lookup("#controlLabel");
-        imageName = (TextField) root.lookup("#imageName");
         saveButton = (Button) root.lookup("#saveButton");
         cancelButton = (Button) root.lookup("#cancelButton");
+        closeWindowButton = (Button) root.lookup("#closeWindowButton");
         controlZip = (Label) root.lookup("#controlZip");
         controlContact = (Label) root.lookup("#controlContact");
         controlFounded = (Label) root.lookup("#controlFounded");
@@ -93,6 +88,12 @@ public class NewTeamPagePresentationModel extends PresentationModel {
         teamList = dbLoaderTeamList.getAllTeamNames();
 
         setControlsDisabled(true);
+
+        closeWindowButton.setOnAction(event -> {
+            closeWindow(root);
+            openStages.remove("NewTeam");
+        });
+
         setupEventListeners();
     }
 
@@ -257,7 +258,7 @@ public class NewTeamPagePresentationModel extends PresentationModel {
             }
 
             String destinationFileName = imageNameText + "." + imageFormat;
-            String destinationDirectory = "src/main/java/hockeycoach/files/logos";
+            String destinationDirectory = LOGOS;
 
             try {
                 URL imageUrl = new URL(selectedImage.getUrl());
@@ -331,9 +332,14 @@ public class NewTeamPagePresentationModel extends PresentationModel {
         captainName.clear();
     }
 
-    private void callStartPage(){
+    private void callStartPage() {
         StartPagePresentationModel pm = new StartPagePresentationModel();
         HeaderPageController headerPageController = new HeaderPageController();
-        headerPageController.loadStages("Home","/hockeycoach/files/fxml/start-page.fxml",pm);
+        headerPageController.loadStages("Home", HOME_FXML, pm);
+    }
+
+    public static void closeWindow(Node node) {
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.close();
     }
 }

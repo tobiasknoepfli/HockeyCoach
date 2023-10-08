@@ -3,11 +3,10 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBEditor;
 import hockeycoach.DB.DBLoader;
 import hockeycoach.controllers.HeaderPageController;
-import hockeycoach.mainClasses.ImageChooser;
+import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
-import hockeycoach.mainClasses.SingletonTeam;
+import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,6 +20,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+
+import static hockeycoach.AppStarter.LOGOS;
+import static hockeycoach.AppStarter.PLAYER_TO_TEAM_FXML;
 
 public class TeamPagePresentationModel extends PresentationModel {
 
@@ -125,7 +127,7 @@ public class TeamPagePresentationModel extends PresentationModel {
         editPlayerButton.setOnAction(event -> {
             HeaderPageController headerPageController = new HeaderPageController();
                 PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
-                headerPageController.loadStages("TeamplayerEditor","/hockeycoach/files/fxml/player-to-team.fxml", pm);
+                headerPageController.loadStages("TeamPlayerEditor",PLAYER_TO_TEAM_FXML, pm);
         });
 
         editButton.setOnAction(event -> {
@@ -224,7 +226,7 @@ public class TeamPagePresentationModel extends PresentationModel {
             }
 
             String destinationFileName = imageNameText + "." + imageFormat;
-            String destinationDirectory = "src/main/java/hockeycoach/files/logos";
+            String destinationDirectory = LOGOS;
 
             try {
                 URL imageUrl = new URL(selectedImage.getUrl());

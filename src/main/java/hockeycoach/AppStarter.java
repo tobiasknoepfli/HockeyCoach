@@ -17,6 +17,23 @@ import java.util.Map;
 public class AppStarter extends Application {
     public static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
 
+    public static final String HOME_FXML = "/hockeycoach/files/fxml/start-page.fxml";
+    public static final String TEAM_FXML = "/hockeycoach/files/fxml/team-page.fxml";
+    public static final String PLAYER_FXML = "/hockeycoach/files/fxml/player-page.fxml";
+    public static final String TRAINING_FXML = "/hockeycoach/files/fxml/training-page.fxml";
+    public static final String GAME_FXML = "/hockeycoach/files/fxml/game-page.fxml";
+    public static final String TRAINING_EDITOR_FXML = "/hockeycoach/files/fxml/training-editor-page.fxml";
+    public static final String GAME_EDITOR_FXML = "/hockeycoach/files/fxml/game-editor-page.fxml";
+    public static final String NEW_TEAM_FXML = "/hockeycoach/files/fxml/new-team-page.fxml";
+    public static final String NEW_PLAYER_FXML = "/hockeycoach/files/fxml/new-player-page.fxml";
+    public static final String PLAYER_TO_TEAM_FXML = "/hockeycoach/files/fxml/player-to-team.fxml";
+
+    public static final String LOGOS = "/src/main/resources/hockeycoach/files/logos/";
+    public static final String PHOTOS = "/src/main/resources/hockeycoach/files/photos";
+
+    public static final String BOARD = "/src/main/resources/hockeycoach/files/background/Board.jpg";
+
+
     public static double WIDTH = Screen.getPrimary().getVisualBounds().getWidth();
     public static double HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();
     public static double BAR_HEIGHT = 80;
@@ -41,8 +58,6 @@ public class AppStarter extends Application {
         stage.show();
 
 
-
-
         Stage contentStage = new Stage();
 
         contentStage.setX(0);
@@ -52,14 +67,14 @@ public class AppStarter extends Application {
         FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("files/fxml/start-page.fxml"));
         Pane content = startPageLoader.load();
 
-        Scene contentScene = new Scene(content, WIDTH, HEIGHT-BAR_HEIGHT);
+        Scene contentScene = new Scene(content, WIDTH, HEIGHT - BAR_HEIGHT);
         contentStage.setScene(contentScene);
 
         StartPagePresentationModel startPagePresentationModel = new StartPagePresentationModel();
         startPagePresentationModel.initializeControls(content);
 
         contentStage.show();
-        openStages.put("Home",contentStage);
+        openStages.put("Home", contentStage);
     }
 
 

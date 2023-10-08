@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader;
 import hockeycoach.DB.DBWriter;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +17,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static hockeycoach.AppStarter.BOARD;
 
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
@@ -260,7 +263,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         ngLF4 = (Label) root.lookup("#ngLF4");
 
 
-        File file = new File("src/main/java/hockeycoach/files/background/board.jpg");
+        File file = new File(BOARD);
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
         boardImage.fitWidthProperty().bind(lineupAnchorPane.widthProperty());

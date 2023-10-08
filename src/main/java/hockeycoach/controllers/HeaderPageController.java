@@ -2,8 +2,6 @@ package hockeycoach.controllers;
 
 import hockeycoach.PresentationModels.*;
 
-import hockeycoach.mainClasses.SingletonTeam;
-import hockeycoach.mainClasses.Team;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,36 +13,20 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URL;
 
 import static hockeycoach.AppStarter.*;
 
-public class HeaderPageController {
+public class HeaderPageController extends Controller {
 
     @FXML
-    private Button closeButton;
+    private Button closeButton, homeButton, teamButton, playerButton, trainingButton, gameButton;
 
     @FXML
     private AnchorPane headerPane;
 
     @FXML
-    private Button homeButton;
-
-    @FXML
-    private Button teamButton;
-
-    @FXML
-    private Button playerButton;
-
-    @FXML
-    private Button trainingButton;
-
-    @FXML
     private Button gameEditorButton;
-
-    @FXML
-    private Button gameButton;
 
     @FXML
     private void closeButtonAction() {
@@ -54,55 +36,55 @@ public class HeaderPageController {
     @FXML
     private void homeButtonAction() {
         StartPagePresentationModel pm = new StartPagePresentationModel();
-        loadStages("Home","/hockeycoach/files/fxml/start-page.fxml",pm);
+        loadStages("Home", HOME_FXML, pm);
     }
 
     @FXML
     public void teamButtonAction() {
         TeamPagePresentationModel pm = new TeamPagePresentationModel();
-        loadStages("Team","/hockeycoach/files/fxml/team-page.fxml",pm);
+        loadStages("Team", TEAM_FXML, pm);
     }
 
     @FXML
     private void playerButtonAction() {
         PlayerPagePresentationModel pm = new PlayerPagePresentationModel();
-        loadStages("Player", "/hockeycoach/files/fxml/player-page.fxml", pm);
+        loadStages("Player", PLAYER_FXML, pm);
     }
 
     @FXML
     private void trainingButtonAction() {
         TrainingPagePresentationModel pm = new TrainingPagePresentationModel();
-        loadStages("Training", "/hockeycoach/files/fxml/training-page.fxml",pm);
+        loadStages("Training", TRAINING_FXML, pm);
     }
 
     @FXML
     private void trainingEditorAction() {
         TrainingEditorPagePresentationModel pm = new TrainingEditorPagePresentationModel();
-        loadStages("TrainingEditor", "/hockeycoach/files/fxml/training-editor-page.fxml", pm);
+        loadStages("TrainingEditor", TRAINING_EDITOR_FXML, pm);
     }
 
     @FXML
     private void newTeamButtonAction() {
         NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
-        loadStages("NewTeam","/hockeycoach/files/fxml/new-team-page.fxml", pm);
+        loadStages("NewTeam", NEW_TEAM_FXML, pm);
     }
 
     @FXML
     private void newPlayerButtonAction() {
         NewPlayerPresentationModel pm = new NewPlayerPresentationModel();
-        loadStages("NewPlayer","/hockeycoach/files/fxml/new-player-page.fxml",pm);
+        loadStages("NewPlayer", NEW_PLAYER_FXML, pm);
     }
 
     @FXML
     private void gameEditorAction() {
         GameEditorPresentationModel pm = new GameEditorPresentationModel();
-        loadStages("GameEditor","/hockeycoach/files/fxml/game-editor-page.fxml", pm);
+        loadStages("GameEditor", GAME_EDITOR_FXML, pm);
     }
 
     @FXML
-    private void gameButtonAction(){
+    private void gameButtonAction() {
         GamePresentationModel pm = new GamePresentationModel();
-        loadStages("Game","/hockeycoach/files/fxml/game-page.fxml", pm);
+        loadStages("Game", GAME_FXML, pm);
     }
 
     public void loadStages(String buttonAction, String fxml, PresentationModel presentationModel) {

@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-public class NewPlayerPageController {
+public class NewPlayerPageController extends Controller {
     @FXML
     private TableView<Player> allPlayers;
 
