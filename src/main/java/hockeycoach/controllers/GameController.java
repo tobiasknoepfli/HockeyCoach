@@ -10,214 +10,48 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 public class GameController extends Controller {
+    @FXML
+    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
+
+    @FXML
+    private Button saveButton, cancelButton,
+            refreshPlayerList;
+
+    @FXML
+    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 
     @FXML
     private HBox controlBox;
 
     @FXML
-    private Button saveButton, cancelButton;
+    private ImageView boardImage, ppBoardImage, bpBoardImage;
 
     @FXML
-    private TableView<Game> allGames;
-
-    @FXML
-    private TextField gameTeam, gameOpponent, gameDate, gameTime;
-
-    @FXML
-    private TextField gameStadium, captain, assistant1, assistant2;
-
-    @FXML
-    private Button refreshPlayerList;
-
-    @FXML
-    private TableView<Player> teamPlayers;
+    private Tab lineupTab, powerplayTab, boxplayTab;
 
     @FXML
     private TableColumn playerLastName, playerFirstName, playerPositions, stick;
 
     @FXML
+    private TableView<Game> allGames;
+
+    @FXML
+    private TableView<Player> teamPlayers;
+
+    @FXML
     private TabPane lineupTabPane;
 
     @FXML
-    private Tab lineupTab;
-
-    @FXML
-    private AnchorPane lineupAnchorPane;
-
-    @FXML
-    private ImageView boardImage;
-
-    @FXML
-    private GridPane lineupGrid;
-
-    @FXML
-    private TextField gk1, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4;
-
-    @FXML
-    private TextField c1, c2, c3, c4;
-
-    @FXML
-    private TextField fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4, sgk1, sgk2, sgk3;
-
-
-    @FXML
-    private TextField sd1, sd2, sd3, sf1, sf2, sf3;
-
-
-    @FXML
-    private Tab powerplayTab;
-
-
-    @FXML
-    private AnchorPane ppAnchorPane;
-
-
-    @FXML
-    private ImageView ppBoardImage;
-
-
-    @FXML
-    private GridPane ppLineupGrid;
-
-
-    @FXML
-    private TextField ppdl1;
-
-
-    @FXML
-    private TextField ppdl2;
-
-
-    @FXML
-    private TextField ppdlfiller;
-
-
-    @FXML
-    private TextField ppdr1;
-
-
-    @FXML
-    private TextField ppdr2;
-
-
-    @FXML
-    private TextField ppdrfiller;
-
-
-    @FXML
-    private TextField ppc1;
-
-
-    @FXML
-    private TextField ppc2;
-
-
-    @FXML
-    private TextField ppcfiller;
-
-
-    @FXML
-    private TextField ppfl1;
-
-
-    @FXML
-    private TextField ppfl2;
-
-
-    @FXML
-    private TextField ppflfiller;
-
-
-    @FXML
-    private TextField ppfr1;
-
-
-    @FXML
-    private TextField ppfr2;
-
-
-    @FXML
-    private TextField ppfrfiller;
-
-
-    @FXML
-    private Tab boxplayTab;
-
-
-    @FXML
-    private AnchorPane bpAnchorPane;
-
-
-    @FXML
-    private ImageView bpBoardImage;
-
-
-    @FXML
-    private GridPane bpLineupGrid;
-
-
-    @FXML
-    private TextField bpdl1;
-
-
-    @FXML
-    private TextField bpdl2;
-
-
-    @FXML
-    private TextField bpdlfiller;
-
-
-    @FXML
-    private TextField bpdr1;
-
-
-    @FXML
-    private TextField bpdr2;
-
-
-    @FXML
-    private TextField bpdrfiller;
-
-
-    @FXML
-    private TextField bpfl1;
-
-
-    @FXML
-    private TextField bpfl2;
-
-
-    @FXML
-    private TextField bpflfiller;
-
-
-    @FXML
-    private TextField bpfr1;
-
-
-    @FXML
-    private TextField bpfr2;
-
-
-    @FXML
-    private TextField bpfrfiller;
-
-
-    @FXML
-    private TextField bpsd1;
-
-
-    @FXML
-    private TextField bpsd2;
-
-
-    @FXML
-    private TextField bpsf1;
-
-
-    @FXML
-    private TextField bpsf2;
-
-
+    private TextField gameTeam, gameOpponent, gameDate, gameTime,
+            gameStadium, captain, assistant1, assistant2,
+            gk1, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
+            c1, c2, c3, c4,
+            fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4,
+            sgk1, sgk2, sgk3,
+            sd1, sd2, sd3, sf1, sf2, sf3,
+            ppdl1, ppdl2, ppdlfiller, ppdr1, ppdr2, ppdrfiller,
+            ppc1, ppc2, ppcfiller, ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
+            bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
+            bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
+            bpsd1, bpsd2, bpsf1, bpsf2;
 }

@@ -8,20 +8,11 @@ import javafx.scene.control.TextField;
 
 public class PlayerToTeamController extends Controller {
     @FXML
-    private TableView teamPlayers;
-
+    private Button addButton,removeButton,
+            saveButton;
     @FXML
-    private TableView allPlayers;
+    private TableView teamPlayers,allPlayers;
 
     @FXML
     private TextField team;
-
-    @FXML
-    private Button addButton;
-
-    @FXML
-    private Button removeButton;
-
-    @FXML
-    private Button saveButton;
 }

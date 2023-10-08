@@ -10,6 +10,9 @@ import javafx.scene.control.TableView;
 
 public class StartPageController extends  Controller{
     @FXML
+    private Button closeWindowButton;
+
+    @FXML
     private TableView<Team> teamsTable;
 
     @FXML
@@ -17,9 +20,6 @@ public class StartPageController extends  Controller{
 
     @FXML
     private TableView<Training> trainingsTable;
-
-    @FXML
-    private Button closeWindowButton;
 
     @FXML
     public void setSelectedTeam() {

@@ -18,15 +18,12 @@ import java.net.URL;
 import static hockeycoach.AppStarter.*;
 
 public class HeaderPageController extends Controller {
-
-    @FXML
-    private Button closeButton, homeButton, teamButton, playerButton, trainingButton, gameButton;
-
     @FXML
     private AnchorPane headerPane;
 
     @FXML
-    private Button gameEditorButton;
+    private Button closeButton, homeButton, teamButton, playerButton, trainingButton, gameButton,
+            gameEditorButton;
 
     @FXML
     private void closeButtonAction() {

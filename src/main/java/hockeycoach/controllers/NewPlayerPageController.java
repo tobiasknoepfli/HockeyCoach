@@ -11,57 +11,20 @@ import javafx.scene.layout.AnchorPane;
 
 public class NewPlayerPageController extends Controller {
     @FXML
-    private TableView<Player> allPlayers;
+    private Button saveButton;
 
     @FXML
     private ImageView playerPhoto;
 
     @FXML
-    private TextField playerFirstName;
+    private TableView<Player> allPlayers;
 
     @FXML
-    private TextField playerLastName;
+    private TextArea notes, strengths, weaknesses;
 
     @FXML
-    private TextField street;
+    private TextField playerFirstName, playerLastName, street, zip, city, country, phone, email,
+            positions, aLicence, bLicence, stick;
 
-    @FXML
-    private TextField zip;
-
-    @FXML
-    private TextField city;
-
-    @FXML
-    private TextField country;
-
-    @FXML
-    private TextField phone;
-
-    @FXML
-    private TextField email;
-
-    @FXML
-    private TextField positions;
-
-    @FXML
-    private TextField aLicence;
-
-    @FXML
-    private TextField bLicence;
-
-    @FXML
-    private TextField stick;
-
-    @FXML
-    private TextArea strengths;
-
-    @FXML
-    private TextArea weaknesses;
-
-    @FXML
-    private TextArea notes;
-
-    @FXML
-    private Button saveButton;
 
 }
