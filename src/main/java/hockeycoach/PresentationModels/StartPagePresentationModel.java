@@ -6,10 +6,12 @@ import hockeycoach.mainClasses.Game;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
+import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -17,7 +19,7 @@ import java.util.List;
 
 import static hockeycoach.AppStarter.openStages;
 
-public class StartPagePresentationModel extends PresentationModel {
+public class StartPagePresentationModel extends PresentationModel implements pmInterface {
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
@@ -51,6 +53,7 @@ public class StartPagePresentationModel extends PresentationModel {
         });
 
         setupEventListeners();
+        useTooltips();
     }
 
     public void setupEventListeners() {
@@ -84,5 +87,10 @@ public class StartPagePresentationModel extends PresentationModel {
     public static void closeWindow(Node node){
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void useTooltips() {
+        createHoverInfo(closeWindowButton,"close window");
     }
 }

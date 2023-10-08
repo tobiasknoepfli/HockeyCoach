@@ -12,9 +12,22 @@
 
 <AnchorPane style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.StartPageController">
    <children>
-      <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="0" layoutY="0" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="controlBoxLeft" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="closeWindowButton" maxWidth="40.0" minWidth="40.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" HBox.hgrow="NEVER">
+            <Button fx:id="newTeamButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0" HBox.hgrow="NEVER">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons_newTeam.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <HBox fx:id="controlBoxRight" alignment="TOP_RIGHT" layoutX="0" layoutY="0" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="closeWindowButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0" HBox.hgrow="NEVER">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -19,9 +19,31 @@
 
 <AnchorPane fx:id="trainingPage" maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.TrainingPageController">
     <children>
-      <HBox fx:id="controlBox" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" prefHeight="41.0" prefWidth="1190.0" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="controlBoxLeft" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="700.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+            <Button fx:id="backButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons_back.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="newTrainingButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons_newTraining.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
+      <HBox fx:id="controlBoxRight" alignment="TOP_RIGHT" layoutX="5.0" layoutY="7.0" spacing="5.0" AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -29,7 +51,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+            <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -37,7 +59,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+            <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -45,14 +67,23 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0">
+            <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/icons_delete.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button fx:id="closeWindowButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/icons_close.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+            </Button>
          </children>
       </HBox>
       <SplitPane dividerPositions="0.19031719532554256, 0.6377295492487479" layoutX="270.0" layoutY="451.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">

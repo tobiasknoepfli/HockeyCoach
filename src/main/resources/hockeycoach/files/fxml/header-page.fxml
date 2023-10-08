@@ -10,9 +10,9 @@
 
 <AnchorPane fx:id="mainPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.HeaderPageController">
     <children>
-        <AnchorPane fx:id="headerPane" prefHeight="80.0" prefWidth="1200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane fx:id="headerPane" prefHeight="80.0" prefWidth="1200.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
             <children>
-                <HBox layoutX="5.0" layoutY="9.0" maxHeight="70.0" maxWidth="1190.0" minWidth="595.0" prefHeight="70.0" prefWidth="595.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0">
+                <HBox alignment="CENTER_LEFT" layoutX="5.0" layoutY="9.0" maxHeight="70.0" maxWidth="1190.0" minWidth="595.0" prefHeight="70.0" prefWidth="595.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Button fx:id="CloseButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
@@ -68,14 +68,6 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                    </children>
-                </HBox>
-                <HBox alignment="TOP_RIGHT" layoutX="600.0" layoutY="6.0" maxHeight="70.0" maxWidth="1190.0" minWidth="595.0" prefHeight="70.0" prefWidth="595.0" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                    <children>
-                        <Button fx:id="newTeamButton" mnemonicParsing="false" onAction="#newTeamButtonAction" prefHeight="70.0" prefWidth="100.0" text="New Team" />
-                        <Button fx:id="newPlayerButton" mnemonicParsing="false" onAction="#newPlayerButtonAction" prefHeight="70.0" prefWidth="100.0" text="New Player" />
-                        <Button fx:id="trainingEditorButton" mnemonicParsing="false" onAction="#trainingEditorAction" prefHeight="70.0" prefWidth="100.0" text="Training Editor" />
-                        <Button fx:id="gameEditorButton" mnemonicParsing="false" onAction="#gameEditorAction" prefHeight="70.0" prefWidth="100.0" text="Game Editor" />
                     </children>
                 </HBox>
             </children>
