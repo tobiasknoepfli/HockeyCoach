@@ -15,6 +15,7 @@ import java.util.List;
 public class TrainingPagePresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+    List<Training> trainingList;
 
     TableView<Training> trainingTable;
     TextField trainingDate;
@@ -100,7 +101,7 @@ public class TrainingPagePresentationModel extends PresentationModel {
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
 
-        List<Training> trainingList = dbLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + selectedTeam.getTeamID() + "%'");
+        trainingList = dbLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + selectedTeam.getTeamID() + "%'");
 
         if (!trainingList.isEmpty()) {
             trainingTable.getItems().clear();

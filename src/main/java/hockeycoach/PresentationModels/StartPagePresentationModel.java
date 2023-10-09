@@ -10,6 +10,7 @@ import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
@@ -17,10 +18,11 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 
-import static hockeycoach.AppStarter.GAME_FXML;
+import static hockeycoach.AppStarter.*;
 
 public class StartPagePresentationModel extends PresentationModel implements pmInterface {
     ButtonControls buttonControls = new ButtonControls();
+    Team selectedTeam;
 
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
@@ -40,7 +42,7 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
         DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
         DBLoaderTeamList.dataIntoTeamTable(teamsTable);
 
-        Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         if (selectedTeam != null) {
             Platform.runLater(() -> {
                 teamsTable.requestFocus();
@@ -75,6 +77,13 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
             }
         });
 
+        newTeamButton.setOnAction(event ->{
+            NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
+            HeaderPageController headerPageController = new HeaderPageController();
+            headerPageController.loadStages("NewTeam",NEW_TEAM_FXML,pm);
+
+        });
+
         gamesTable.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 Game selectedGame = gamesTable.getSelectionModel().getSelectedItem();
@@ -91,6 +100,28 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
                             pm.allGames.requestFocus();
                             pm.allGames.scrollTo(index);
                             pm.allGames.getSelectionModel().select(index);
+                        }
+                    }
+                });
+            }
+        });
+
+        trainingsTable.setOnMouseClicked(event ->{
+            if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2){
+                Training selectedTraining = trainingsTable.getSelectionModel().getSelectedItem();
+
+                TrainingPagePresentationModel pm = new TrainingPagePresentationModel();
+                HeaderPageController headerPageController = new HeaderPageController();
+                headerPageController.loadStages("Training", TRAINING_FXML,pm);
+
+                Platform.runLater(()->{
+                    pm.trainingTable.getSelectionModel().select(selectedTraining);
+                    for(Training t:pm.trainingList){
+                        if(t.getTrainingID() == selectedTraining.getTrainingID()){
+                            int index = pm.trainingList.indexOf(t);
+                            pm.trainingTable.requestFocus();
+                            pm.trainingTable.scrollTo(index);
+                            pm.trainingTable.getSelectionModel().select(index);
                         }
                     }
                 });

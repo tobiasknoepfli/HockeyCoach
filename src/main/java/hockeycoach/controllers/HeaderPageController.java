@@ -20,10 +20,10 @@ import static hockeycoach.AppStarter.*;
 
 public class HeaderPageController extends Controller {
     @FXML
-    private AnchorPane  mainPane, headerPane;
+    private AnchorPane mainPane, headerPane;
 
     @FXML
-    private Button  closeButton, homeButton, teamButton, playerButton, trainingButton, gameButton;
+    public Button closeButton, homeButton, teamButton, playerButton, trainingButton, gameButton;
 
     @FXML
     private void closeButtonAction() {
