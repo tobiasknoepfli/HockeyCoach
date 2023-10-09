@@ -2,7 +2,6 @@ package hockeycoach.controllers;
 
 import hockeycoach.PresentationModels.*;
 
-import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,11 +13,10 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
 
 import static hockeycoach.AppStarter.*;
 
-public class HeaderPageController extends Controller {
+public class HeaderController extends Controller {
     @FXML
     private AnchorPane mainPane, headerPane;
 
@@ -32,37 +30,37 @@ public class HeaderPageController extends Controller {
 
     @FXML
     private void homeButtonAction() {
-        StartPagePresentationModel pm = new StartPagePresentationModel();
+        StartPresentationModel pm = new StartPresentationModel();
         loadStages("Home", HOME_FXML, pm);
     }
 
     @FXML
     public void teamButtonAction() {
-        TeamPagePresentationModel pm = new TeamPagePresentationModel();
+        TeamPresentationModel pm = new TeamPresentationModel();
         loadStages("Team", TEAM_FXML, pm);
     }
 
     @FXML
     private void playerButtonAction() {
-        PlayerPagePresentationModel pm = new PlayerPagePresentationModel();
+        PlayerPresentationModel pm = new PlayerPresentationModel();
         loadStages("Player", PLAYER_FXML, pm);
     }
 
     @FXML
     private void trainingButtonAction() {
-        TrainingPagePresentationModel pm = new TrainingPagePresentationModel();
+        TrainingPresentationModel pm = new TrainingPresentationModel();
         loadStages("Training", TRAINING_FXML, pm);
     }
 
     @FXML
     private void trainingEditorAction() {
-        TrainingEditorPagePresentationModel pm = new TrainingEditorPagePresentationModel();
+        TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
         loadStages("TrainingEditor", TRAINING_EDITOR_FXML, pm);
     }
 
     @FXML
     private void newTeamButtonAction() {
-        NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
+        NewTeamPresentationModel pm = new NewTeamPresentationModel();
         loadStages("NewTeam", NEW_TEAM_FXML, pm);
     }
 

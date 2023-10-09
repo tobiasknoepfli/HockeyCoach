@@ -7,9 +7,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 
-public class NewPlayerPageController extends Controller {
+public class NewPlayerController extends Controller {
     @FXML
     private Button saveButton;
 

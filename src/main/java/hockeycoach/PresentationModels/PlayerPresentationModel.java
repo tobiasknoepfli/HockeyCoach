@@ -1,7 +1,8 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBEditor;
-import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.SingletonTeam;
@@ -28,7 +29,7 @@ import java.util.List;
 
 import static hockeycoach.AppStarter.PHOTOS;
 
-public class PlayerPagePresentationModel extends PresentationModel {
+public class PlayerPresentationModel extends PresentationModel {
     MouseEvent event;
     Player selectedPlayer;
     Team selectedTeam;
@@ -85,7 +86,8 @@ public class PlayerPagePresentationModel extends PresentationModel {
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
-        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         if (!playerList.isEmpty()) {
             teamPlayers.getItems().clear();

@@ -1,12 +1,12 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoaderTeamList;
+import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.DB.DBWriter;
-import hockeycoach.controllers.HeaderPageController;
+import hockeycoach.controllers.HeaderController;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
-import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -27,29 +27,24 @@ import java.util.stream.Collectors;
 import static hockeycoach.AppStarter.*;
 
 
-public class NewTeamPagePresentationModel extends PresentationModel {
+public class NewTeamPresentationModel extends PresentationModel {
     MouseEvent event;
     TableView<Player> teamPlayers;
     List<Team> teamList = new ArrayList();
 
-    @FXML
     ImageView teamLogo = new ImageView();
 
-    @FXML
     TextField teamName,
             stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
             contactName, contactPhone, contactEmail,
             website, founded, currentLeague,
             presidentName, headCoachName, captainName;
 
-    @FXML
     TextArea notes;
 
-    @FXML
     Label controlLabel, controlZip, controlContact, controlFounded,
             controlHeadCoach, controlCaptain, controlPresident;
 
-    @FXML
     Button saveButton, cancelButton, closeWindowButton;
 
 
@@ -84,14 +79,14 @@ public class NewTeamPagePresentationModel extends PresentationModel {
         controlCaptain = (Label) root.lookup("#controlCaptain");
         controlPresident = (Label) root.lookup("#controlPresident");
 
-        DBLoaderTeamList dbLoaderTeamList = new DBLoaderTeamList();
-        teamList = dbLoaderTeamList.getAllTeamNames();
+        DBTeamLoader dbTeamLoader = new DBTeamLoader();
+        teamList = dbTeamLoader.getAllTeams("SELECT * FROM team");
 
         setControlsDisabled(true);
 
         closeWindowButton.setOnAction(event -> {
-            closeWindow(root);
-            openStages.remove("NewTeam");
+            ButtonControls buttonControls = new ButtonControls();
+            buttonControls.closeWindow(root,"NewTeam");
         });
 
         setupEventListeners();
@@ -333,9 +328,9 @@ public class NewTeamPagePresentationModel extends PresentationModel {
     }
 
     private void callStartPage() {
-        StartPagePresentationModel pm = new StartPagePresentationModel();
-        HeaderPageController headerPageController = new HeaderPageController();
-        headerPageController.loadStages("Home", HOME_FXML, pm);
+        StartPresentationModel pm = new StartPresentationModel();
+        HeaderController headerController = new HeaderController();
+        headerController.loadStages("Home", HOME_FXML, pm);
     }
 
     public static void closeWindow(Node node) {

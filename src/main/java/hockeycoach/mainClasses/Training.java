@@ -9,7 +9,7 @@ public class Training {
     private Date trainingDate;
     private Time trainingTime;
     private String stadium;
-    private String team;
+    private int team;
     private String mainFocus;
     private String pointers;
     private ArrayList<Drill> warmup;
@@ -20,7 +20,7 @@ public class Training {
     public Training() {
     }
 
-    public Training(int trainingID, Date trainingDate, Time trainingTime, String stadium, String team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
+    public Training(int trainingID, Date trainingDate, Time trainingTime, String stadium, int team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
         this.trainingID = trainingID;
         this.trainingDate = trainingDate;
         this.trainingTime = trainingTime;
@@ -58,11 +58,11 @@ public class Training {
         this.trainingTime = trainingTime;
     }
 
-    public String getTeam() {
+    public int getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(int team) {
         this.team = team;
     }
 

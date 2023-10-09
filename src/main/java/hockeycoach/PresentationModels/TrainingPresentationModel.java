@@ -1,6 +1,9 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBLoader.DBDrillLoader;
+import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBTrainingLinesLoader;
+import hockeycoach.DB.DBLoader.DBTrainingLoader;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
@@ -12,7 +15,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-public class TrainingPagePresentationModel extends PresentationModel {
+public class TrainingPresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     List<Training> trainingList;
@@ -100,34 +103,38 @@ public class TrainingPagePresentationModel extends PresentationModel {
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
+        DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
 
-        trainingList = dbLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + selectedTeam.getTeamID() + "%'");
+        trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getTeamID());
 
         if (!trainingList.isEmpty()) {
             trainingTable.getItems().clear();
             trainingTable.getItems().addAll(trainingList);
         }
 
+        team.setText(selectedTeam.getName());
+
         setupEventListeners();
     }
 
     public void setupEventListeners() {
-        trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTrianing, newSelectedTraining) -> {
+        trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
             if (newSelectedTraining != null) {
                 trainingDate.setText(dateFormat.format(newSelectedTraining.getTrainingDate()));
                 trainingTime.setText(newSelectedTraining.getTrainingTime().toLocalTime().format(timeFormatter));
                 stadium.setText(newSelectedTraining.getStadium());
                 mainFocus.setText(newSelectedTraining.getMainFocus());
                 pointers.setText(newSelectedTraining.getPointers());
-                team.setText(newSelectedTraining.getTeam());
 
                 DBLoader dbLoader = new DBLoader();
-                List<Drill> drillList = dbLoader.getDrills("SELECT * FROM drill");
-                List<Drill> warmupList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'warmup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "warmup", newSelectedTraining.getTrainingID());
-                List<Drill> togetherList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'together' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "together", newSelectedTraining.getTrainingID());
-                List<Drill> stationsList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'stations' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "stations", newSelectedTraining.getTrainingID());
-                List<Drill> backupList = dbLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'backup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "backup", newSelectedTraining.getTrainingID());
-                trainingLines = dbLoader.getTrainingLines("SELECT * FROM trainingLines WHERE trainingID =" + newSelectedTraining.getTrainingID());
+                DBDrillLoader dbDrillLoader = new DBDrillLoader();
+                DBTrainingLinesLoader  dbTrainingLinesLoader = new DBTrainingLinesLoader();
+                List<Drill> drillList = dbDrillLoader.getDrills("SELECT * FROM drill");
+                List<Drill> warmupList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'warmup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "warmup", newSelectedTraining.getTrainingID());
+                List<Drill> togetherList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'together' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "together", newSelectedTraining.getTrainingID());
+                List<Drill> stationsList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'stations' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "stations", newSelectedTraining.getTrainingID());
+                List<Drill> backupList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'backup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "backup", newSelectedTraining.getTrainingID());
+                trainingLines = dbTrainingLinesLoader.getTrainingLines("SELECT * FROM trainingLines WHERE trainingID =" + newSelectedTraining.getTrainingID());
 
                 if (!warmupList.isEmpty()) {
                     warmup.getItems().clear();

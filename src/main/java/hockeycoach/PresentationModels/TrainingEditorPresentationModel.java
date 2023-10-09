@@ -1,6 +1,6 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBLoader.*;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -22,7 +22,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 
-public class TrainingEditorPagePresentationModel extends PresentationModel {
+public class TrainingEditorPresentationModel extends PresentationModel {
     List<Drill> drills;
     FilteredList<Drill> filteredDrills;
     List<Player> availablePlayersList;
@@ -31,6 +31,9 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
 
     Team selectedTeam;
     DBLoader dbLoader;
+    DBLineLoader dbLineLoader;
+    DBPlayerLoader dbPlayerLoader;
+    DBGameLoader dbGameLoader;
     ImageView drillImage;
     TextField drillName;
     TextField drillCategory;
@@ -226,9 +229,10 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         dbLoader = new DBLoader();
-        drills = dbLoader.getDrills("SELECT * FROM drill");
+        DBDrillLoader dbDrillLoader = new DBDrillLoader();
+        drills = dbDrillLoader.getDrills("SELECT * FROM drill");
 
-        allPlayers = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         TextField[] jerseys = {jersey1, jersey2, jersey3, jersey4, jersey5, jersey6};
         TextField[] players = {gk1, gk2, gk3, gk4, gk5, gk6,
@@ -359,7 +363,7 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
         backupButton.setOnAction(event -> moveSelectedDrills(backup, backupTab));
         stationsButton.setOnAction(event -> moveDrillsIfStationsTrue());
 
-        availablePlayersList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        availablePlayersList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
         playerList.getItems().clear();
         playerList.getItems().addAll(availablePlayersList);
     }
@@ -721,24 +725,24 @@ public class TrainingEditorPagePresentationModel extends PresentationModel {
 
     public List<Line> lastGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
         Game closestPastGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
 
         return lines;
     }
 
     public List<Line> nextGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
         Game closestNextGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
 
         return lines;
     }

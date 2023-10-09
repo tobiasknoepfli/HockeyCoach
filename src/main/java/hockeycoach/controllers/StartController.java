@@ -10,7 +10,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.HBox;
 
-public class StartPageController extends  Controller{
+public class StartController extends  Controller{
     @FXML
     private Button  newTeamButton, closeWindowButton;
 

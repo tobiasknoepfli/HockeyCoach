@@ -1,8 +1,9 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBDeleter;
-import hockeycoach.DB.DBLoader;
-import hockeycoach.DB.DBWriter;
+import hockeycoach.DB.*;
+import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.PlayerXTeam;
 import hockeycoach.supportClasses.SingletonTeam;
@@ -20,6 +21,8 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
     Team selectedTeam = new Team();
     Player draggedPlayer;
     DBLoader dbLoader = new DBLoader();
+    DBPlayerXTeamLoader dbPlayerXTeamLoader = new DBPlayerXTeamLoader();
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBWriter dbWriter = new DBWriter();
     DBDeleter dbDeleter = new DBDeleter();
     List<Player> allPlayerList = new ArrayList<>();
@@ -42,8 +45,8 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
 
-        allPlayerList = dbLoader.getPlayers("SELECT * FROM player", selectedTeam.getTeamID());
-        teamPlayerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.playerID = tx.playerID WHERE teamID = '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        allPlayerList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
+        teamPlayerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.playerID = tx.playerID WHERE teamID = '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(filterPlayerIDs(teamPlayerList, allPlayerList));
@@ -89,7 +92,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
 
     private void saveToDB() {
         List<Player> teamPlayerList = teamPlayers.getItems().stream().toList();
-        List<PlayerXTeam> playerXteam = dbLoader.getPlayerXTeam("SELECT * FROM playerXteam");
+        List<PlayerXTeam> playerXteam = dbPlayerXTeamLoader.getPlayerXTeam("SELECT * FROM playerXteam");
 
         List<PlayerXTeam> filteredTeamList = playerXteam.stream()
                 .filter(entry -> entry.getTeamID() == selectedTeam.getTeamID())

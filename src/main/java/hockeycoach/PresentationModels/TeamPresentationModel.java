@@ -1,8 +1,10 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBEditor;
-import hockeycoach.DB.DBLoader;
-import hockeycoach.controllers.HeaderPageController;
+import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.DB.DBLoader.DBTeamLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.SingletonTeam;
@@ -24,7 +26,7 @@ import java.util.List;
 import static hockeycoach.AppStarter.LOGOS;
 import static hockeycoach.AppStarter.PLAYER_TO_TEAM_FXML;
 
-public class TeamPagePresentationModel extends PresentationModel {
+public class TeamPresentationModel extends PresentationModel {
 
     Team selectedTeam;
     MouseEvent event;
@@ -78,14 +80,15 @@ public class TeamPagePresentationModel extends PresentationModel {
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
-        List<Team> teamInfo = dbLoader.getTeam("SELECT * FROM team WHERE name LIKE '%" + selectedTeam.getName() + "%'");
-        List<Player> playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
-        Team team = teamInfo.get(0);
+        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+        DBTeamLoader dbTeamLoader = new DBTeamLoader();
+        Team team = dbTeamLoader.getTeam("SELECT * FROM team WHERE teamID =" + selectedTeam.getTeamID());
+        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         disableControls(true);
 
         try {
-            if (!teamInfo.isEmpty()) {
+            if (team != null) {
                 File imageFile = new File(team.getLogo());
 
                 if (imageFile.exists()) {
@@ -125,9 +128,9 @@ public class TeamPagePresentationModel extends PresentationModel {
 
     private void setupEventListeners() {
         editPlayerButton.setOnAction(event -> {
-            HeaderPageController headerPageController = new HeaderPageController();
+            HeaderController headerController = new HeaderController();
                 PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
-                headerPageController.loadStages("TeamPlayerEditor",PLAYER_TO_TEAM_FXML, pm);
+                headerController.loadStages("TeamPlayerEditor",PLAYER_TO_TEAM_FXML, pm);
         });
 
         editButton.setOnAction(event -> {

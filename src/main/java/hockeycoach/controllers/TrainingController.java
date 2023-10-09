@@ -8,7 +8,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class TrainingPageController extends Controller {
+public class TrainingController extends Controller {
     @FXML
     private ImageView drillImage;
 

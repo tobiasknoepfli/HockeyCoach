@@ -1,8 +1,9 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader;
-import hockeycoach.DB.DBLoaderTeamList;
-import hockeycoach.controllers.HeaderPageController;
+import hockeycoach.DB.DBLoader.DBGameLoader;
+import hockeycoach.DB.DBLoader.DBTeamLoader;
+import hockeycoach.DB.DBLoader.DBTrainingLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Game;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
@@ -10,7 +11,6 @@ import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseButton;
@@ -20,7 +20,7 @@ import java.util.List;
 
 import static hockeycoach.AppStarter.*;
 
-public class StartPagePresentationModel extends PresentationModel implements pmInterface {
+public class StartPresentationModel extends PresentationModel implements pmInterface {
     ButtonControls buttonControls = new ButtonControls();
     Team selectedTeam;
 
@@ -29,7 +29,7 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
     TableView<Training> trainingsTable;
     Button newTeamButton, closeWindowButton;
 
-    public StartPagePresentationModel() {
+    public StartPresentationModel() {
     }
 
     public void initializeControls(Pane root) {
@@ -39,8 +39,10 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
         closeWindowButton = (Button) root.lookup("#closeWindowButton");
         newTeamButton = (Button) root.lookup("#newTeamButton");
 
-        DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
-        DBLoaderTeamList.dataIntoTeamTable(teamsTable);
+        DBTeamLoader dbTeamLoader = new DBTeamLoader();
+        List<Team> allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        teamsTable.getItems().clear();
+        teamsTable.getItems().addAll(allTeams);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         if (selectedTeam != null) {
@@ -63,24 +65,24 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
     public void setupEventListeners() {
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
-                DBLoader DBLoader = new DBLoader();
-                List<Game> games = DBLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
+                DBGameLoader dbGameLoader = new DBGameLoader();
+                List<Game> games = dbGameLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
                 populateGamesTable(games);
             }
         });
 
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
-                DBLoader DBLoader = new DBLoader();
-                List<Training> trainings = DBLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
+                DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
+                List<Training> trainings = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
                 populateTrainingsTable(trainings);
             }
         });
 
         newTeamButton.setOnAction(event ->{
-            NewTeamPagePresentationModel pm = new NewTeamPagePresentationModel();
-            HeaderPageController headerPageController = new HeaderPageController();
-            headerPageController.loadStages("NewTeam",NEW_TEAM_FXML,pm);
+            NewTeamPresentationModel pm = new NewTeamPresentationModel();
+            HeaderController headerController = new HeaderController();
+            headerController.loadStages("NewTeam",NEW_TEAM_FXML,pm);
 
         });
 
@@ -89,8 +91,8 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
                 Game selectedGame = gamesTable.getSelectionModel().getSelectedItem();
 
                 GamePresentationModel pm = new GamePresentationModel();
-                HeaderPageController headerPageController = new HeaderPageController();
-                headerPageController.loadStages("Game", GAME_FXML, pm);
+                HeaderController headerController = new HeaderController();
+                headerController.loadStages("Game", GAME_FXML, pm);
 
                 Platform.runLater(() -> {
                     pm.allGames.getSelectionModel().select(selectedGame);
@@ -110,9 +112,9 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
             if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2){
                 Training selectedTraining = trainingsTable.getSelectionModel().getSelectedItem();
 
-                TrainingPagePresentationModel pm = new TrainingPagePresentationModel();
-                HeaderPageController headerPageController = new HeaderPageController();
-                headerPageController.loadStages("Training", TRAINING_FXML,pm);
+                TrainingPresentationModel pm = new TrainingPresentationModel();
+                HeaderController headerController = new HeaderController();
+                headerController.loadStages("Training", TRAINING_FXML,pm);
 
                 Platform.runLater(()->{
                     pm.trainingTable.getSelectionModel().select(selectedTraining);

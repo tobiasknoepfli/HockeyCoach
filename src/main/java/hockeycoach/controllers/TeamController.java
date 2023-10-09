@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
-public class TeamPageController extends Controller {
+public class TeamController extends Controller {
     @FXML
     private Button editPlayerButton,
             saveButton, editButton, cancelButton, deleteButton;

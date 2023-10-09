@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
-public class NewTeamPageController extends Controller {
+public class NewTeamController extends Controller {
     @FXML
     private Button saveButton, cancelButton, closeWindowButton;
 

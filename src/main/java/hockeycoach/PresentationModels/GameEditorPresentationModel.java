@@ -1,7 +1,10 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader;
-import hockeycoach.DB.DBWriter;
+import hockeycoach.DB.*;
+import hockeycoach.DB.DBLoader.DBGameLoader;
+import hockeycoach.DB.DBLoader.DBLineLoader;
+import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
@@ -24,6 +27,9 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
 
     DBLoader dbLoader = new DBLoader();
+    DBGameLoader dbGameLoader = new DBGameLoader();
+    DBLineLoader dbLineLoader = new DBLineLoader();
+
     Team selectedTeam;
     List<Player> playerList;
     Player draggedPlayer;
@@ -323,7 +329,8 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
-        playerList = dbLoader.getPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        DBPlayerLoader dbPlayerLoader  = new DBPlayerLoader();
+        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         teamPlayers.getItems().clear();
         teamPlayers.getItems().setAll(playerList);
@@ -761,26 +768,26 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     public List<Line> lastGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
         Game closestPastGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
         if(closestPastGame==null){closestPastGame=new Game();}
-        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
 
         return lines;
     }
 
     public List<Line> nextGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
         Game closestNextGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
         if(closestNextGame==null){closestNextGame=new Game();}
-        List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
 
         return lines;
     }

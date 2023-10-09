@@ -9,7 +9,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 
-public class PlayerPageController extends Controller {
+public class PlayerController extends Controller {
     @FXML
     private Button saveButton, editButton, cancelButton, deleteButton;
 

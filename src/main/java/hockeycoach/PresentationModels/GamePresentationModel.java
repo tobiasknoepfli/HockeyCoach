@@ -1,6 +1,8 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBLoader.DBGameLoader;
+import hockeycoach.DB.DBLoader.DBLineLoader;
+import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
@@ -99,6 +101,8 @@ public class GamePresentationModel extends PresentationModel {
     TextField bpsf2;
 
     DBLoader dbLoader = new DBLoader();
+    DBGameLoader dbGameLoader = new DBGameLoader();
+    DBLineLoader dbLineLoader = new DBLineLoader();
     List<Game> allGameList;
     Team selectedTeam;
 
@@ -192,7 +196,7 @@ public class GamePresentationModel extends PresentationModel {
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
 
-        allGameList = dbLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getTeamID());
+        allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getTeamID());
         allGames.getItems().clear();
         allGames.getItems().addAll(allGameList);
 
@@ -211,7 +215,7 @@ public class GamePresentationModel extends PresentationModel {
             assistant1.setText(newValue.getAssistant1().getLastName() + " " + newValue.getAssistant1().getFirstName());
             assistant2.setText(newValue.getAssistant2().getLastName() + " " + newValue.getAssistant2().getFirstName());
 
-            List<Line> lines = dbLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getGameID());
+            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getGameID());
 
             Line firstLine = lines.stream()
                     .filter(line -> line.getLineNr() == 1)
@@ -258,7 +262,7 @@ public class GamePresentationModel extends PresentationModel {
                 fl4.setText(getPlayerName(fourthLine.getForwardLeft()));
             }
 
-            List<PowerplayLine> ppLine = dbLoader.getPPLines("SELECT * FROM powerplayLine WHERE gameID = " + newValue.getGameID());
+            List<PowerplayLine> ppLine = dbLineLoader.getPPLines("SELECT * FROM powerplayLine WHERE gameID = " + newValue.getGameID());
 
             PowerplayLine firstPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 1)
@@ -293,7 +297,7 @@ public class GamePresentationModel extends PresentationModel {
                 ppfrfiller.setText(getPlayerName(fillerPPLine.getForwardRight()));
             }
 
-            List<BoxplayLine> bpLine = dbLoader.getBPLines("SELECT * FROM boxplayLine WHERE gameID = " + newValue.getGameID());
+            List<BoxplayLine> bpLine = dbLineLoader.getBPLines("SELECT * FROM boxplayLine WHERE gameID = " + newValue.getGameID());
 
             BoxplayLine firstBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 1)
@@ -325,7 +329,7 @@ public class GamePresentationModel extends PresentationModel {
                 bpfrfiller.setText(getPlayerName(thirdBPLine.getForwardRight()));
             }
 
-            SubstituteLine substituteLine = dbLoader.getSubLines("SELECT * FROM substituteLine WHERE gameID =" + newValue.getGameID());
+            SubstituteLine substituteLine = dbLineLoader.getSubLine("SELECT * FROM substituteLine WHERE gameID =" + newValue.getGameID());
 
             if (substituteLine != null) {
                 sgk1.setText(getPlayerName(substituteLine.getGoalkeeper1()));

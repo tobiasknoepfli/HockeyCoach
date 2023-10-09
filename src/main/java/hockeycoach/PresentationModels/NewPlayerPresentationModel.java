@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader;
+import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBWriter;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
@@ -74,7 +75,8 @@ public class NewPlayerPresentationModel extends PresentationModel {
         saveButton = (Button) root.lookup("#saveButton");
 
         DBLoader dbLoader = new DBLoader();
-        allPlayersList = dbLoader.getAllPlayers("SELECT * FROM player");
+        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+        allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
 
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(allPlayersList);
@@ -131,7 +133,8 @@ public class NewPlayerPresentationModel extends PresentationModel {
             clearAllFields();
 
             DBLoader dbLoader =new DBLoader();
-            allPlayersList = dbLoader.getAllPlayers("SELECT * FROM player");
+            DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+            allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
             allPlayers.getItems().clear();
             allPlayers.getItems().addAll(allPlayersList);
             allPlayers.refresh();
