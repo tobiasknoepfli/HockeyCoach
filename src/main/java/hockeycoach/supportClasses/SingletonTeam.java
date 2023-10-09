@@ -17,6 +17,10 @@ public class SingletonTeam {
         return instance;
     }
 
+    public static void setInstance(SingletonTeam instance) {
+        SingletonTeam.instance = instance;
+    }
+
     public Team getSelectedTeam() {
         return selectedTeam;
     }
@@ -25,11 +29,11 @@ public class SingletonTeam {
         this.selectedTeam = selectedTeam;
     }
 
-    public void setIndex(int index){
-        this.index = index;
+    public int getIndex() {
+        return index;
     }
 
-    public int getIndex(){
-        return index;
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

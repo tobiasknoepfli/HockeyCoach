@@ -14,7 +14,7 @@
             <children>
                 <HBox alignment="CENTER_LEFT" layoutX="5.0" layoutY="9.0" maxHeight="70.0" maxWidth="1190.0" minWidth="595.0" prefHeight="70.0" prefWidth="595.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <Button fx:id="CloseButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="70.0" prefWidth="100.0">
+                        <Button fx:id="closeButton" mnemonicParsing="false" onAction="#closeButtonAction" prefHeight="70.0" prefWidth="100.0">
                      <graphic>
                         <ImageView fitHeight="60.0" fitWidth="90.0" pickOnBounds="true" preserveRatio="true">
                            <image>

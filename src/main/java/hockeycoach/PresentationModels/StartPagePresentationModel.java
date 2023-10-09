@@ -2,37 +2,40 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader;
 import hockeycoach.DB.DBLoaderTeamList;
+import hockeycoach.controllers.HeaderPageController;
 import hockeycoach.mainClasses.Game;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 import java.util.List;
 
-import static hockeycoach.AppStarter.openStages;
+import static hockeycoach.AppStarter.GAME_FXML;
 
 public class StartPagePresentationModel extends PresentationModel implements pmInterface {
+    ButtonControls buttonControls = new ButtonControls();
+
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
-    Button closeWindowButton;
+    Button newTeamButton, closeWindowButton;
 
-    public StartPagePresentationModel(){
+    public StartPagePresentationModel() {
     }
 
     public void initializeControls(Pane root) {
         teamsTable = (TableView) root.lookup("#teamsTable");
         gamesTable = (TableView) root.lookup("#gamesTable");
         trainingsTable = (TableView) root.lookup("#trainingsTable");
-        closeWindowButton  = (Button) root.lookup("#closeWindowButton");
+        closeWindowButton = (Button) root.lookup("#closeWindowButton");
+        newTeamButton = (Button) root.lookup("#newTeamButton");
 
         DBLoaderTeamList DBLoaderTeamList = new DBLoaderTeamList();
         DBLoaderTeamList.dataIntoTeamTable(teamsTable);
@@ -47,9 +50,8 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
                 teamsTable.getFocusModel().focus(index);
             });
         }
-        closeWindowButton.setOnAction(event->{
-            closeWindow(root);
-            openStages.remove("Home");
+        closeWindowButton.setOnAction(event -> {
+            buttonControls.closeWindow(root, "Home");
         });
 
         setupEventListeners();
@@ -72,6 +74,28 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
                 populateTrainingsTable(trainings);
             }
         });
+
+        gamesTable.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                Game selectedGame = gamesTable.getSelectionModel().getSelectedItem();
+
+                GamePresentationModel pm = new GamePresentationModel();
+                HeaderPageController headerPageController = new HeaderPageController();
+                headerPageController.loadStages("Game", GAME_FXML, pm);
+
+                Platform.runLater(() -> {
+                    pm.allGames.getSelectionModel().select(selectedGame);
+                    for (Game g:pm.allGameList){
+                        if(g.getGameID() == selectedGame.getGameID()){
+                            int index = pm.allGameList.indexOf(g);
+                            pm.allGames.requestFocus();
+                            pm.allGames.scrollTo(index);
+                            pm.allGames.getSelectionModel().select(index);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void populateGamesTable(List<Game> games) {
@@ -84,13 +108,9 @@ public class StartPagePresentationModel extends PresentationModel implements pmI
         trainingsTable.getItems().addAll(trainings);
     }
 
-    public static void closeWindow(Node node){
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
-    }
-
     @Override
     public void useTooltips() {
-        createHoverInfo(closeWindowButton,"close window");
+        createHoverInfo(closeWindowButton, "close window");
+        createHoverInfo(newTeamButton, "new team");
     }
 }
