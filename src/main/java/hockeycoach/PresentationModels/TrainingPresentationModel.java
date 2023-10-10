@@ -4,6 +4,7 @@ import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBTrainingLinesLoader;
 import hockeycoach.DB.DBLoader.DBTrainingLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
@@ -14,6 +15,8 @@ import javafx.scene.layout.Pane;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import static hockeycoach.AppStarter.NEW_DRILL_FXML;
 
 public class TrainingPresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -34,6 +37,7 @@ public class TrainingPresentationModel extends PresentationModel {
     ImageView drillImage;
     TextField drillName;
     TrainingLines trainingLines = new TrainingLines();
+    Button newDrillButton;
 
     TextField jersey1, jersey2, jersey3, jersey4, jersey5, jersey6;
     TextField gk1, gk2, gk3, gk4, gk5, gk6;
@@ -57,6 +61,7 @@ public class TrainingPresentationModel extends PresentationModel {
         backup = (TableView) root.lookup("#backup");
         drillImage = (ImageView) root.lookup("#drillImage");
         drillName = (TextField) root.lookup("#drillName");
+        newDrillButton = (Button) root.lookup("#newDrillButton");
 
         jersey1 = (TextField) root.lookup("#jersey1");
         jersey2 = (TextField) root.lookup("#jersey2");
@@ -118,6 +123,12 @@ public class TrainingPresentationModel extends PresentationModel {
     }
 
     public void setupEventListeners() {
+        newDrillButton.setOnAction(event ->{
+            NewDrillPresentationModel pm = new NewDrillPresentationModel();
+            HeaderController headerController = new HeaderController();
+            headerController.loadStages("newDrill",NEW_DRILL_FXML,pm);
+        });
+
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
             if (newSelectedTraining != null) {
                 trainingDate.setText(dateFormat.format(newSelectedTraining.getTrainingDate()));
