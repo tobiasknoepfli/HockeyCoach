@@ -341,6 +341,12 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                     cbPuckPosition,cbStation,cbTags);
         });
 
+        resetFilters.setOnAction(event->{
+            comboBoxFilter.clearFilter(drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
     }
 
     public void eventListenersFromTable(TableView<Drill> tableView) {
@@ -403,18 +409,17 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         filteredDrills.setPredicate(filterPredicate);
     }
 
-    @FXML
-    private void resetAllFilters() {
-        drillTable.getSelectionModel().clearSelection();
-        cbCategory.getSelectionModel().select(0);
-        cbDifficulty.getSelectionModel().select(0);
-        cbParticipation.getSelectionModel().select(0);
-        cbTags.getSelectionModel().select(0);
-        cbStation.getSelectionModel().select(0);
-        searchBox.clear();
-
-        filteredDrills.setPredicate(null);
-    }
+//    private void resetAllFilters() {
+//        drillTable.getSelectionModel().clearSelection();
+//        cbCategory.getSelectionModel().select(0);
+//        cbDifficulty.getSelectionModel().select(0);
+//        cbParticipation.getSelectionModel().select(0);
+//        cbTags.getSelectionModel().select(0);
+//        cbStation.getSelectionModel().select(0);
+//        searchBox.clear();
+//
+//        filteredDrills.setPredicate(null);
+//    }
 
     private void moveSelectedDrills(TableView<Drill> targetList, Tab tab) {
         ObservableList<Drill> selectedDrills = drillTable.getSelectionModel().getSelectedItems();

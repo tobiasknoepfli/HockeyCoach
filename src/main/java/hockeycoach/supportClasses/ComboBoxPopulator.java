@@ -4,6 +4,8 @@ import hockeycoach.mainClasses.Drill;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TableView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
