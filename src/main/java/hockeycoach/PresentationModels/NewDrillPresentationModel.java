@@ -2,6 +2,8 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.mainClasses.Drill;
+import hockeycoach.supportClasses.ComboBoxFilter;
+import hockeycoach.supportClasses.ComboBoxPopulator;
 import hockeycoach.supportClasses.Difficulty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
@@ -14,16 +16,23 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class NewDrillPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
-    List<Drill> allDrillList;
+    List<Drill> allDrillList, filteredDrills;
+    ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
+    ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
 
-    Button backButton, newDrillButton, saveButton, editButton, cancelButton, deleteButton, closeWindowButton, searchButton, newCategoryButton, newTagButton, resetButton;
+    Button backButton, newDrillButton, saveButton, editButton, cancelButton,
+            deleteButton, closeWindowButton, searchButton, newCategoryButton,
+            newTagButton, resetButton;
     TextField searchBox, drillName, newCategory, addNewTag;
-    ComboBox drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter, drillPuckPositionFilter, drillStationFilter, drillCategory, drillParticipation, drillDifficulty, drillPuckPosition, drillStation;
+    ComboBox drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
+            drillPuckPositionFilter, drillStationFilter, drillCategory, drillParticipation,
+            drillDifficulty, drillPuckPosition, drillStation, drillTagsFilter;
     TableView<Drill> allDrills;
     TableView<String> drillTags;
     ImageView drillImage;
@@ -57,6 +66,7 @@ public class NewDrillPresentationModel extends PresentationModel {
         newCategoryButton = (Button) root.lookup("#newCategoryButton");
         newTagButton = (Button) root.lookup("#newTagButton");
         drillTags = (TableView) root.lookup("#drillTags");
+        drillTagsFilter = (ComboBox) root.lookup("#drillTagsFilter");
 
         allDrillList = dbDrillLoader.getDrills("SELECT * FROM drill");
 
@@ -91,6 +101,48 @@ public class NewDrillPresentationModel extends PresentationModel {
                 drillImage.setImage(null);
             }
         });
+        comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
+        comboBoxPopulator.setParticipation(allDrillList, drillParticipationFilter);
+        comboBoxPopulator.setDifficulty(allDrillList, drillDifficultyFilter);
+        comboBoxPopulator.setPuckPosition(allDrillList, drillPuckPositionFilter);
+        comboBoxPopulator.setStation(allDrillList, drillStationFilter);
+        comboBoxPopulator.setTags(allDrillList, drillTagsFilter);
 
+
+        drillCategoryFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
+                    drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
+                    drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
+
+        drillParticipationFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
+                    drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
+                    drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
+
+        drillDifficultyFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
+                    drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
+                    drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
+
+        drillPuckPositionFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
+                    drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
+                    drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
+
+        drillStationFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
+                    drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
+                    drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
+
+        drillTagsFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
+                    drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
+                    drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
     }
 }

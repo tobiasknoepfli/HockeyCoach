@@ -2,8 +2,13 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.ComboBoxFilter;
+import hockeycoach.supportClasses.ComboBoxPopulator;
 import hockeycoach.supportClasses.SingletonTeam;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,9 +48,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     TextArea drillDescription;
     TableView<String> drillTags;
     ComboBox<String> cbCategory;
-    ComboBox<Object> cbDifficulty;
+    ComboBox<String> cbDifficulty;
     ComboBox<String> cbParticipation;
-    ComboBox<Object> cbStation;
+    ComboBox<Boolean> cbStation;
     ComboBox<String> cbTags;
     TextField searchBox;
     Button searchButton;
@@ -257,15 +262,12 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         drillTable.getItems().clear();
         drillTable.getItems().addAll(drillList);
 
-        filteredDrills = new FilteredList<>(FXCollections.observableList(drillList), d -> true);
-        drillTable.setItems(filteredDrills);
-        cbCategory.setOnAction(event -> filterDrillTable());
-        cbTags.setOnAction(event -> filterDrillTable());
-        cbStation.setOnAction(event -> filterDrillTable());
-        cbParticipation.setOnAction(event -> filterDrillTable());
-        cbDifficulty.setOnAction(event -> filterDrillTable());
-        searchButton.setOnAction(event -> searchDrillTable());
-        resetFilters.setOnAction(event -> resetAllFilters());
+        ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
+        comboBoxPopulator.setCategory(drillList, cbCategory);
+        comboBoxPopulator.setDifficulty(drillList, cbDifficulty);
+        comboBoxPopulator.setParticipation(drillList, cbParticipation);
+        comboBoxPopulator.setStation(drillList, cbStation);
+        comboBoxPopulator.setTags(drillList, cbTags);
 
         removeDrillSetup(warmup);
         removeDrillSetup(together);
@@ -280,7 +282,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         showGameLines(lastGameLines(), nextGameLines());
 
         setupEventListeners();
-
     }
 
     public void setupEventListeners() {
@@ -289,75 +290,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         eventListenersFromTable(together);
         eventListenersFromTable(stations);
         eventListenersFromTable(backup);
-
-        ObservableList<String> categories = FXCollections.observableArrayList();
-        drillList.forEach(drill -> {
-            String category = drill.getCategory();
-            categories.add(category);
-        });
-        ObservableList<String> categoryList = categories.stream()
-                .distinct()
-                .sorted(String::compareTo)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        categoryList.add(0, "Category");
-        cbCategory.setItems(categoryList);
-        cbCategory.getSelectionModel().select(0);
-
-        ObservableList<Object> difficulties = FXCollections.observableArrayList();
-        drillList.forEach(drill -> {
-            int difficulty = drill.getDifficulty();
-            difficulties.add(difficulty);
-        });
-        ObservableList<Object> difficultiesList = difficulties.stream()
-                .distinct()
-                .map(item -> (Integer) item)
-                .sorted(Integer::compareTo)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        difficultiesList.add(0, "Difficulty");
-        cbDifficulty.setItems(difficultiesList);
-        cbDifficulty.getSelectionModel().select(0);
-
-        ObservableList<String> participations = FXCollections.observableArrayList();
-        drillList.forEach(drill -> {
-            String participation = drill.getParticipation();
-            participations.add(participation);
-        });
-        ObservableList<String> participationList = participations.stream()
-                .distinct()
-                .sorted(String::compareTo)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        participationList.add(0, "Participation");
-        cbParticipation.setItems(participationList);
-        cbParticipation.getSelectionModel().select(0);
-
-        ObservableList<Object> stations = FXCollections.observableArrayList();
-        drillList.forEach(drill -> {
-            Boolean station = drill.getStation();
-            stations.add(station);
-        });
-        ObservableList<Object> stationsList = stations.stream()
-                .distinct()
-                .sorted(Collections.reverseOrder())
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        stationsList.add(0, "Stations");
-        cbStation.setItems(stationsList);
-        cbStation.getSelectionModel().select(0);
-
-        ObservableList<String> tags = FXCollections.observableArrayList();
-        drillList.forEach(drill -> {
-            ArrayList<String> tag = drill.getTags();
-            tags.addAll(tag);
-        });
-
-        ObservableList<String> tagList = tags.stream()
-                .distinct()
-                .sorted(String::compareTo)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-        tagList.add(0, "Tags");
-        cbTags.setItems((ObservableList<String>) tagList);
-        cbTags.getSelectionModel().select(0);
-
-        cbCategory.setOnAction(event -> filterDrillTable());
 
         warmupButton.setOnAction(event -> moveSelectedDrills(warmup, warmupTab));
         togetherButton.setOnAction(event -> moveSelectedDrills(together, togetherTab));
@@ -401,17 +333,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         });
     }
 
-    public void filterDrillTable() {
-        drillTable.getSelectionModel().clearSelection();
-        Predicate<Drill> filterPredicate = drill ->
-                (cbCategory.getValue() == null || cbCategory.getValue().equals("Category") || cbCategory.getValue().equals(drill.getCategory())) &&
-                        (cbDifficulty.getValue() == null || cbDifficulty.getValue().equals("Difficulty") || cbDifficulty.getValue().equals(drill.getDifficulty())) &&
-                        (cbParticipation.getValue() == null || cbParticipation.getValue().equals("Participation") || cbParticipation.getValue().equals(drill.getParticipation())) &&
-                        (cbStation.getValue() == null || cbStation.getValue().equals("Stations") || cbStation.getValue().equals(drill.getStation())) &&
-                        (cbTags.getValue() == null || cbTags.getValue().equals("Tags") || drill.getTags().contains(cbTags.getValue()));
-
-        filteredDrills.setPredicate(filterPredicate);
-    }
 
     public void searchDrillTable() {
         drillTable.getSelectionModel().clearSelection();

@@ -108,6 +108,7 @@
                               <ComboBox fx:id="drillDifficultyFilter" prefHeight="25.0" prefWidth="200.0" promptText="Difficulty" />
                               <ComboBox fx:id="drillPuckPositionFilter" prefWidth="200.0" promptText="Puck Position" />
                               <ComboBox fx:id="drillStationFilter" prefWidth="200.0" promptText="Station" />
+                              <ComboBox fx:id="drillTagsFilter" prefWidth="200.0" promptText="Tags" />
                            </children>
                         </HBox>
                         <TableView fx:id="allDrills" VBox.vgrow="ALWAYS">
