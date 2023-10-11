@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static hockeycoach.AppStarter.NEW_DRILL_FXML;
+import static hockeycoach.AppStarter.TRAINING_EDITOR_FXML;
 
 public class TrainingPresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -37,7 +38,7 @@ public class TrainingPresentationModel extends PresentationModel {
     ImageView drillImage;
     TextField drillName;
     TrainingLines trainingLines = new TrainingLines();
-    Button newDrillButton;
+    Button newDrillButton,newTrainingButton;
 
     TextField jersey1, jersey2, jersey3, jersey4, jersey5, jersey6;
     TextField gk1, gk2, gk3, gk4, gk5, gk6;
@@ -62,6 +63,7 @@ public class TrainingPresentationModel extends PresentationModel {
         drillImage = (ImageView) root.lookup("#drillImage");
         drillName = (TextField) root.lookup("#drillName");
         newDrillButton = (Button) root.lookup("#newDrillButton");
+        newTrainingButton = (Button) root.lookup("#newTrainingButton");
 
         jersey1 = (TextField) root.lookup("#jersey1");
         jersey2 = (TextField) root.lookup("#jersey2");
@@ -129,6 +131,12 @@ public class TrainingPresentationModel extends PresentationModel {
             headerController.loadStages("newDrill",NEW_DRILL_FXML,pm);
         });
 
+        newTrainingButton.setOnAction(event ->{
+            TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
+            HeaderController headerController = new HeaderController();
+            headerController.loadStages("trainingEditor",TRAINING_EDITOR_FXML,pm);
+        });
+
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
             if (newSelectedTraining != null) {
                 trainingDate.setText(dateFormat.format(newSelectedTraining.getTrainingDate()));
@@ -165,7 +173,6 @@ public class TrainingPresentationModel extends PresentationModel {
                 }
 
                 setTrainingLines(trainingLines);
-
 
             }
         });

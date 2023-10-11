@@ -23,17 +23,17 @@ import java.util.stream.Collectors;
 
 
 public class TrainingEditorPresentationModel extends PresentationModel {
-    List<Drill> drills;
+    List<Drill> drillList;
     FilteredList<Drill> filteredDrills;
     List<Player> availablePlayersList;
     List<Player> allPlayers;
     Player draggedPlayer;
 
     Team selectedTeam;
-    DBLoader dbLoader;
-    DBLineLoader dbLineLoader;
-    DBPlayerLoader dbPlayerLoader;
-    DBGameLoader dbGameLoader;
+    DBLoader dbLoader = new DBLoader();
+    DBLineLoader dbLineLoader = new DBLineLoader();
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+    DBGameLoader dbGameLoader = new DBGameLoader();
     ImageView drillImage;
     TextField drillName;
     TextField drillCategory;
@@ -230,7 +230,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         dbLoader = new DBLoader();
         DBDrillLoader dbDrillLoader = new DBDrillLoader();
-        drills = dbDrillLoader.getDrills("SELECT * FROM drill");
+        drillList = dbDrillLoader.getDrills("SELECT * FROM drill");
 
         allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
@@ -255,9 +255,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         trainingTeam.setText(selectedTeam.getName());
 
         drillTable.getItems().clear();
-        drillTable.getItems().addAll(drills);
+        drillTable.getItems().addAll(drillList);
 
-        filteredDrills = new FilteredList<>(FXCollections.observableList(drills), d -> true);
+        filteredDrills = new FilteredList<>(FXCollections.observableList(drillList), d -> true);
         drillTable.setItems(filteredDrills);
         cbCategory.setOnAction(event -> filterDrillTable());
         cbTags.setOnAction(event -> filterDrillTable());
@@ -291,7 +291,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         eventListenersFromTable(backup);
 
         ObservableList<String> categories = FXCollections.observableArrayList();
-        drills.forEach(drill -> {
+        drillList.forEach(drill -> {
             String category = drill.getCategory();
             categories.add(category);
         });
@@ -304,7 +304,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         cbCategory.getSelectionModel().select(0);
 
         ObservableList<Object> difficulties = FXCollections.observableArrayList();
-        drills.forEach(drill -> {
+        drillList.forEach(drill -> {
             int difficulty = drill.getDifficulty();
             difficulties.add(difficulty);
         });
@@ -318,7 +318,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         cbDifficulty.getSelectionModel().select(0);
 
         ObservableList<String> participations = FXCollections.observableArrayList();
-        drills.forEach(drill -> {
+        drillList.forEach(drill -> {
             String participation = drill.getParticipation();
             participations.add(participation);
         });
@@ -331,7 +331,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         cbParticipation.getSelectionModel().select(0);
 
         ObservableList<Object> stations = FXCollections.observableArrayList();
-        drills.forEach(drill -> {
+        drillList.forEach(drill -> {
             Boolean station = drill.getStation();
             stations.add(station);
         });
@@ -344,10 +344,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         cbStation.getSelectionModel().select(0);
 
         ObservableList<String> tags = FXCollections.observableArrayList();
-        drills.forEach(drill -> {
+        drillList.forEach(drill -> {
             ArrayList<String> tag = drill.getTags();
             tags.addAll(tag);
         });
+
         ObservableList<String> tagList = tags.stream()
                 .distinct()
                 .sorted(String::compareTo)
@@ -620,7 +621,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         Line firstLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 1)
                 .findAny().orElse(null);
-        if(firstLineLastGame!=null) {
+        if (firstLineLastGame != null) {
             lgGK1.setText(getPlayerName(firstLineLastGame.getGoalkeeper()));
             lgLD1.setText(getPlayerName(firstLineLastGame.getDefenderLeft()));
             lgRD1.setText(getPlayerName(firstLineLastGame.getDefenderRight()));
@@ -632,7 +633,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         Line secondLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 2)
                 .findAny().orElse(null);
-        if(secondLineLastGame !=null) {
+        if (secondLineLastGame != null) {
             lgGK2.setText(getPlayerName(secondLineLastGame.getGoalkeeper()));
             lgRD2.setText(getPlayerName(secondLineLastGame.getDefenderRight()));
             lgLD2.setText(getPlayerName(secondLineLastGame.getDefenderLeft()));
@@ -644,7 +645,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         Line thirdLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 3)
                 .findAny().orElse(null);
-        if(thirdLineLastGame!=null) {
+        if (thirdLineLastGame != null) {
             lgGK3.setText(getPlayerName(thirdLineLastGame.getGoalkeeper()));
             lgRD3.setText(getPlayerName(thirdLineLastGame.getDefenderRight()));
             lgLD3.setText(getPlayerName(thirdLineLastGame.getDefenderLeft()));
@@ -656,7 +657,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         Line fourthLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 4)
                 .findAny().orElse(null);
-        if(fourthLineLastGame!=null) {
+        if (fourthLineLastGame != null) {
             lgGK4.setText(getPlayerName(fourthLineLastGame.getGoalkeeper()));
             lgRD4.setText(getPlayerName(fourthLineLastGame.getDefenderRight()));
             lgLD4.setText(getPlayerName(fourthLineLastGame.getDefenderLeft()));
@@ -666,9 +667,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         }
 
         Line firstLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==1)
+                .filter(line -> line.getLineNr() == 1)
                 .findAny().orElse(null);
-        if(firstLineNextGame!=null) {
+        if (firstLineNextGame != null) {
             ngGK1.setText(getPlayerName(firstLineNextGame.getGoalkeeper()));
             ngLD1.setText(getPlayerName(firstLineNextGame.getDefenderLeft()));
             ngRD1.setText(getPlayerName(firstLineNextGame.getDefenderRight()));
@@ -678,9 +679,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         }
 
         Line secondLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==2)
+                .filter(line -> line.getLineNr() == 2)
                 .findAny().orElse(null);
-        if(secondLineNextGame!=null) {
+        if (secondLineNextGame != null) {
             ngGK2.setText(getPlayerName(secondLineNextGame.getGoalkeeper()));
             ngLD2.setText(getPlayerName(secondLineNextGame.getDefenderLeft()));
             ngRD2.setText(getPlayerName(secondLineNextGame.getDefenderRight()));
@@ -690,9 +691,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         }
 
         Line thirdLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==3)
+                .filter(line -> line.getLineNr() == 3)
                 .findAny().orElse(null);
-        if(thirdLineNextGame!=null) {
+        if (thirdLineNextGame != null) {
             ngGK3.setText(getPlayerName(thirdLineNextGame.getGoalkeeper()));
             ngLD3.setText(getPlayerName(thirdLineNextGame.getDefenderLeft()));
             ngRD3.setText(getPlayerName(thirdLineNextGame.getDefenderRight()));
@@ -702,9 +703,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         }
 
         Line fourthLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==4)
+                .filter(line -> line.getLineNr() == 4)
                 .findAny().orElse(null);
-        if(fourthLineNextGame!=null) {
+        if (fourthLineNextGame != null) {
             ngGK4.setText(getPlayerName(fourthLineNextGame.getGoalkeeper()));
             ngLD4.setText(getPlayerName(fourthLineNextGame.getDefenderLeft()));
             ngRD4.setText(getPlayerName(fourthLineNextGame.getDefenderRight()));
@@ -715,7 +716,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getPlayerID() >0) {
+        if (player.getPlayerID() > 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";

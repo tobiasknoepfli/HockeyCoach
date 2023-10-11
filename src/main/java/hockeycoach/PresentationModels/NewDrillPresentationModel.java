@@ -3,12 +3,15 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.supportClasses.Difficulty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ public class NewDrillPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
     List<Drill> allDrillList;
 
-    Button backButton, newDrillButton, saveButton, editButton, cancelButton, deleteButton, closeWindowButton, searchButton, newCategoryButton, newTagButton,resetButton;
+    Button backButton, newDrillButton, saveButton, editButton, cancelButton, deleteButton, closeWindowButton, searchButton, newCategoryButton, newTagButton, resetButton;
     TextField searchBox, drillName, newCategory, addNewTag;
     ComboBox drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter, drillPuckPositionFilter, drillStationFilter, drillCategory, drillParticipation, drillDifficulty, drillPuckPosition, drillStation;
     TableView<Drill> allDrills;
@@ -71,6 +74,16 @@ public class NewDrillPresentationModel extends PresentationModel {
             drillDifficulty.setValue(Difficulty.fromValue(newDrill.getDifficulty()));
             drillPuckPosition.setValue(newDrill.getPuckPosition());
             drillStation.setValue(newDrill.getStation());
+
+            TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
+            tagColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
+                @Override
+                public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> param) {
+                    return new ReadOnlyObjectWrapper<>(param.getValue());
+                }
+            });
+            drillTags.getItems().clear();
+            drillTags.getItems().addAll(newDrill.getTags());
 
             try {
                 drillImage.setImage(new Image(newDrill.getImageLink()));

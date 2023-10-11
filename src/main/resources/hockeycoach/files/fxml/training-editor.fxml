@@ -782,7 +782,7 @@
                                 </AnchorPane>
                                 <AnchorPane prefHeight="464.0" prefWidth="329.0">
                                     <children>
-                                        <VBox spacing="10.0" AnchorPane.bottomAnchor="340.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                        <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <children>
                                                 <FlowPane hgap="5.0" prefWrapLength="330.0" vgap="5.0" VBox.vgrow="ALWAYS">
                                                     <children>
@@ -800,42 +800,42 @@
                                                         <Button fx:id="searchButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Search" />
                                                     </children>
                                                 </HBox>
+                                              <HBox VBox.vgrow="ALWAYS">
+                                                  <children>
+                                                      <TableView fx:id="drillTable" HBox.hgrow="ALWAYS">
+                                                          <columns>
+                                                              <TableColumn fx:id="dtNameCol" minWidth="116.0" prefWidth="157.0" text="Name">
+                                                                  <cellValueFactory>
+                                                                      <PropertyValueFactory property="name" />
+                                                                  </cellValueFactory>
+                                                              </TableColumn>
+                                                              <TableColumn fx:id="dtDiffCol" minWidth="55.0" prefWidth="60.0" text="Difficulty">
+                                                                  <cellValueFactory>
+                                                                      <PropertyValueFactory property="difficulty" />
+                                                                  </cellValueFactory>
+                                                              </TableColumn>
+                                                              <TableColumn fx:id="dtPlayerCol" minWidth="45.0" prefWidth="45.0" text="Players">
+                                                                  <cellValueFactory>
+                                                                      <PropertyValueFactory property="participation" />
+                                                                  </cellValueFactory>
+                                                              </TableColumn>
+                                                          </columns>
+                                                          <columnResizePolicy>
+                                                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                          </columnResizePolicy>
+                                                      </TableView>
+                                                      <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                                          <children>
+                                                              <Button fx:id="warmupButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Warmup" />
+                                                              <Button fx:id="togetherButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Together" />
+                                                              <Button fx:id="stationsButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Stations" />
+                                                              <Button fx:id="backupButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Backup" />
+                                                          </children>
+                                                      </VBox>
+                                                  </children>
+                                              </HBox>
                                             </children>
                                         </VBox>
-                                        <HBox layoutY="160.0" prefHeight="339.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="130.0">
-                                            <children>
-                                                <TableView fx:id="drillTable" prefHeight="322.0" prefWidth="297.0" HBox.hgrow="ALWAYS">
-                                                    <columns>
-                                                        <TableColumn fx:id="dtNameCol" minWidth="116.0" prefWidth="157.0" text="Name">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="name" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                        <TableColumn fx:id="dtDiffCol" minWidth="55.0" prefWidth="60.0" text="Difficulty">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="difficulty" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                        <TableColumn fx:id="dtPlayerCol" minWidth="45.0" prefWidth="45.0" text="Players">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="participation" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                    </columns>
-                                                    <columnResizePolicy>
-                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                                    </columnResizePolicy>
-                                                </TableView>
-                                                <VBox alignment="CENTER" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
-                                                    <children>
-                                                        <Button fx:id="warmupButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Warmup" />
-                                                        <Button fx:id="togetherButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Together" />
-                                                        <Button fx:id="stationsButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Stations" />
-                                                        <Button fx:id="backupButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="64.0" text="Backup" />
-                                                    </children>
-                                                </VBox>
-                                            </children>
-                                        </HBox>
                                     </children>
                                 </AnchorPane>
                             </items>
