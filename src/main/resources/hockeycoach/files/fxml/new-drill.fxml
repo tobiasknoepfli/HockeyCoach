@@ -186,7 +186,7 @@
                                  <columns>
                                     <TableColumn fx:id="tagCol" minWidth="-1.0" prefWidth="150.0" text="Tags">
                                        <cellValueFactory>
-                                          <PropertyValueFactory property="tags" />
+                                          <PropertyValueFactory property="name" />
                                        </cellValueFactory>
                                     </TableColumn>
                                  </columns>
