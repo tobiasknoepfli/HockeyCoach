@@ -791,6 +791,7 @@
                                                         <ComboBox fx:id="cbStation" prefWidth="162.0" promptText="Station" />
                                                         <ComboBox fx:id="cbTags" prefWidth="162.0" promptText="Tags" />
                                                         <ComboBox fx:id="cbCategory" prefWidth="162.0" promptText="Category" />
+                                          <ComboBox fx:id="cbPuckPosition" prefWidth="162.0" promptText="Puck Position" />
                                                         <Button fx:id="resetFilters" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="162.0" text="Reset all filters" />
                                                     </children>
                                                 </FlowPane>

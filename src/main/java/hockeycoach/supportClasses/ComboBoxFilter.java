@@ -37,7 +37,7 @@ public class ComboBoxFilter {
         if (difficultyBox.getValue() != null) {
             Difficulty selectedDifficulty = (Difficulty) difficultyBox.getValue();
             filteredDrills = filteredDrills.stream()
-                    .filter(drill -> drill.getDifficulty() == selectedDifficulty.getValue())
+                    .filter(drill -> Difficulty.fromValue(drill.getDifficulty()) == selectedDifficulty)
                     .collect(Collectors.toList());
         }
 

@@ -4,6 +4,7 @@ import hockeycoach.DB.DBLoader.*;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.ComboBoxFilter;
 import hockeycoach.supportClasses.ComboBoxPopulator;
+import hockeycoach.supportClasses.Difficulty;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
@@ -48,10 +49,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     TextArea drillDescription;
     TableView<String> drillTags;
     ComboBox<String> cbCategory;
-    ComboBox<String> cbDifficulty;
+    ComboBox<Difficulty> cbDifficulty;
     ComboBox<String> cbParticipation;
     ComboBox<Boolean> cbStation;
     ComboBox<String> cbTags;
+    ComboBox<String> cbPuckPosition;
     TextField searchBox;
     Button searchButton;
     Button resetFilters;
@@ -108,6 +110,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         cbParticipation = (ComboBox) root.lookup("#cbParticipation");
         cbStation = (ComboBox) root.lookup("#cbStation");
         cbTags = (ComboBox) root.lookup("#cbTags");
+        cbPuckPosition = (ComboBox) root.lookup("#cbPuckPosition");
         searchBox = (TextField) root.lookup("#searchBox");
         searchButton = (Button) root.lookup("#searchButton");
         drillTable = (TableView) root.lookup("#drillTable");
@@ -268,6 +271,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         comboBoxPopulator.setParticipation(drillList, cbParticipation);
         comboBoxPopulator.setStation(drillList, cbStation);
         comboBoxPopulator.setTags(drillList, cbTags);
+        comboBoxPopulator.setPuckPosition(drillList,cbPuckPosition);
 
         removeDrillSetup(warmup);
         removeDrillSetup(together);
@@ -299,6 +303,44 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         availablePlayersList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
         playerList.getItems().clear();
         playerList.getItems().addAll(availablePlayersList);
+
+        ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
+        cbCategory.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
+        cbParticipation.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
+        cbDifficulty.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
+        cbPuckPosition.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
+        cbStation.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
+        cbTags.valueProperty().addListener((obs, oldVal, newVal) -> {
+            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
+                    cbCategory,cbParticipation,cbDifficulty,
+                    cbPuckPosition,cbStation,cbTags);
+        });
+
     }
 
     public void eventListenersFromTable(TableView<Drill> tableView) {
@@ -652,9 +694,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
-
-        return lines;
+        if (closestPastGame != null) {
+            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+            return lines;
+        }
+        return new ArrayList<>();
     }
 
     public List<Line> nextGameLines() {
@@ -664,9 +708,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
-
-        return lines;
+        if(closestNextGame!=null) {
+            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+            return lines;
+        }
+        return new ArrayList<>();
     }
 
 }

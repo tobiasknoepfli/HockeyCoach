@@ -8,6 +8,7 @@ import javafx.scene.control.ComboBox;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,21 +45,16 @@ public class ComboBoxPopulator {
         comboBox.getItems().addAll(observableList);
     }
 
-    public void setDifficulty(List<Drill> allDrillList, ComboBox<String> comboBox) {
-        List<String> difficultyList = new ArrayList<>();
-        allDrillList.stream()
-                .forEach(drill -> {
-                    int difficulty = drill.getDifficulty();
-                    String diff = String.valueOf(Difficulty.fromValue(difficulty));
-                    difficultyList.add(diff);
-                });
-        observableList = difficultyList.stream()
+    public void setDifficulty(List<Drill> allDrillList, ComboBox<Difficulty> comboBox) {
+        List<Difficulty> difficultyList = allDrillList.stream()
+                .map(drill -> Difficulty.fromValue(drill.getDifficulty()))
                 .distinct()
-                .sorted(String::compareTo)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+                .sorted(Comparator.comparing(Difficulty::getValue))
+                .collect(Collectors.toList());
 
-        comboBox.getItems().addAll(observableList);
+        comboBox.getItems().addAll(difficultyList);
     }
+
 
     public void setPuckPosition(List<Drill> allDrillList, ComboBox<String> comboBox) {
         List<String> puckPositionList = new ArrayList<>();
