@@ -156,6 +156,7 @@ public class DBLineLoader extends DBLoader {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
+            resultSet.next();
             substituteLine = setSubstituteLine(resultSet);
 
             connection.close();
