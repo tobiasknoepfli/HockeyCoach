@@ -13,7 +13,7 @@ public class GameEditorController extends Controller {
 
     @FXML
     private Button refreshPlayerList,
-            saveButton;
+            saveButton, backButton;
 
     @FXML
     private GridPane lineupGrid, ppLineupGrid, bpLineupGrid;

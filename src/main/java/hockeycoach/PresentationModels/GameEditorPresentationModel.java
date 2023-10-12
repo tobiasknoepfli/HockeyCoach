@@ -5,6 +5,7 @@ import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
@@ -21,7 +22,7 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static hockeycoach.AppStarter.BOARD;
+import static hockeycoach.AppStarter.*;
 
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
@@ -64,7 +65,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     ImageView boardImage,ppBoardImage,bpBoardImage;
 
     List<TextField> textFields, ppTextFields, bpTextFields, captainTeamList;
-    Button refreshPlayerList,saveButton;
+    Button refreshPlayerList,saveButton,backButton;
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 
@@ -101,6 +102,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
         saveButton = (Button) root.lookup("#saveButton");
+        backButton =(Button)    root.lookup("#backButton");
         lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
         captain = (TextField) root.lookup("#captain ");
         assistant1 = (TextField) root.lookup("#assistant1");
@@ -334,6 +336,12 @@ public class GameEditorPresentationModel extends PresentationModel {
         showGameLines(lastGameLines(), nextGameLines());
 
         setupEventListeners();
+
+        backButton.setOnAction(event ->{
+            HeaderController headerController = new HeaderController();
+            GamePresentationModel pm = new GamePresentationModel();
+            headerController.loadStages(GAME,GAME_FXML,pm);
+        });
 
     }
 
