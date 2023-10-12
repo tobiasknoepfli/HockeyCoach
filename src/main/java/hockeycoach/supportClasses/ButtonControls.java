@@ -79,13 +79,13 @@ public class ButtonControls {
 
     public void openTrainingEditor(Node closingNode,String closingNodeName) {
         TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
-        headerController.loadStages(TRAINING_EDITOR,TRAINING_EDITOR,pm);
+        headerController.loadStages(TRAINING_EDITOR,TRAINING_EDITOR_FXML,pm);
         closeWindow(closingNode,closingNodeName);
     }
 
     public void openTraining(Node closingNode,String closingNodeName) {
         TrainingPresentationModel pm = new TrainingPresentationModel();
-        headerController.loadStages(TRAINING,TRAINING_EDITOR,pm);
+        headerController.loadStages(TRAINING,TRAINING_FXML,pm);
         closeWindow(closingNode,closingNodeName);
     }
 }
