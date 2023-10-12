@@ -6,6 +6,7 @@ import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.controllers.GameEditorController;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -146,10 +147,10 @@ public class GamePresentationModel extends PresentationModel {
 
         gameTeam.setText(selectedTeam.getName());
 
-        setupEventListeners();
+        setupEventListeners(root);
     }
 
-    public void setupEventListeners() {
+    public void setupEventListeners(Pane root) {
         allGames.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             gameOpponent.setText(newValue.getOpponent());
             gameDate.setText(String.valueOf(newValue.getGameDate()));
@@ -293,8 +294,8 @@ public class GamePresentationModel extends PresentationModel {
         });
 
         newGameButton.setOnAction(event ->{
-            GameEditorPresentationModel pm = new GameEditorPresentationModel();
-            headerController.loadStages(GAME_EDITOR,GAME_EDITOR_FXML,pm);
+            ButtonControls buttonControls = new ButtonControls();
+            buttonControls.openGameEditor(root,GAME);
         });
 
         backButton.setOnAction(event ->{

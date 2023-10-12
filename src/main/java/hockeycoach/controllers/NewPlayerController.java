@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 
 public class NewPlayerController extends Controller {
     @FXML
-    private Button saveButton;
+    private Button saveButton,backButton;
 
     @FXML
     private ImageView playerPhoto;

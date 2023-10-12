@@ -37,7 +37,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
             street, zip, city, country, phone, email,
             positions, aLicence, bLicence, stick;
     TextArea strengths, weaknesses, notes;
-    Button saveButton;
+    Button saveButton,backButton;
 
     @Override
     public void initializeControls(Pane root) {
@@ -59,6 +59,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         weaknesses = (TextArea) root.lookup("#weaknesses");
         notes = (TextArea) root.lookup("#notes");
         saveButton = (Button) root.lookup("#saveButton");
+        backButton = (Button) root.lookup("#backButton");
 
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
