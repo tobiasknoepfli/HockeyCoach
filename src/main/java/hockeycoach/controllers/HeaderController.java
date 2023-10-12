@@ -2,6 +2,7 @@ package hockeycoach.controllers;
 
 import hockeycoach.PresentationModels.*;
 
+import hockeycoach.supportClasses.ButtonControls;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -100,6 +101,7 @@ public class HeaderController extends Controller {
                 Scene contentScene = new Scene(newPane, WIDTH, HEIGHT - BAR_HEIGHT);
                 newStage.setScene(contentScene);
 
+                openStages.put(buttonAction,newStage);
                 newStage.show();
 
                 presentationModel.initializeControls(newPane);
