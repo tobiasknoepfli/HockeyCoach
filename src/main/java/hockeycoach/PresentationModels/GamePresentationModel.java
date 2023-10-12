@@ -3,6 +3,8 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.controllers.GameEditorController;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
@@ -13,8 +15,12 @@ import javafx.scene.layout.Pane;
 
 import java.util.List;
 
+import static hockeycoach.AppStarter.*;
+
 public class GamePresentationModel extends PresentationModel {
-    Button saveButton, cancelButton, refreshPlayerList;
+    HeaderController headerController = new HeaderController();
+
+    Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
     TextField gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
             captain, assistant1, assistant2,
             gk1,
@@ -47,6 +53,8 @@ public class GamePresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         saveButton = (Button) root.lookup("#saveButton");
         cancelButton = (Button) root.lookup("#cancelButton");
+        backButton = (Button) root.lookup("#backButton");
+        newGameButton = (Button) root.lookup("#newGameButton");
         allGames = (TableView) root.lookup("#allGames");
         gameTeam = (TextField) root.lookup("#gameTeam");
         gameOpponent = (TextField) root.lookup("#gameOpponent");
@@ -282,6 +290,16 @@ public class GamePresentationModel extends PresentationModel {
                 bpsf1.setText(getPlayerName(substituteLine.getBoxplayForward1()));
                 bpsf2.setText(getPlayerName(substituteLine.getBoxplayForward2()));
             }
+        });
+
+        newGameButton.setOnAction(event ->{
+            GameEditorPresentationModel pm = new GameEditorPresentationModel();
+            headerController.loadStages(GAME_EDITOR,GAME_EDITOR_FXML,pm);
+        });
+
+        backButton.setOnAction(event ->{
+            StartPresentationModel pm = new StartPresentationModel();
+            headerController.loadStages(HOME,HOME_FXML,pm);
         });
     }
 
