@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBDrillLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.supportClasses.ComboBoxFilter;
 import hockeycoach.supportClasses.ComboBoxPopulator;
@@ -20,11 +21,15 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static hockeycoach.AppStarter.TRAINING_EDITOR;
+import static hockeycoach.AppStarter.TRAINING_EDITOR_FXML;
+
 public class NewDrillPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
     List<Drill> allDrillList, filteredDrills;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
+    HeaderController headerController = new HeaderController();
 
     Button backButton, newDrillButton, saveButton, editButton, cancelButton,
             deleteButton, closeWindowButton, searchButton, newCategoryButton,
@@ -143,6 +148,11 @@ public class NewDrillPresentationModel extends PresentationModel {
             comboBoxFilter.setFilter(filteredDrills,allDrillList,allDrills,
                     drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
                     drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        });
+
+        backButton.setOnAction(event ->{
+            TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
+            headerController.loadStages(TRAINING_EDITOR,TRAINING_EDITOR_FXML,pm);
         });
     }
 }
