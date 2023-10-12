@@ -36,7 +36,7 @@ public class TeamPresentationModel extends PresentationModel {
             website, founded, currentLeague,
             presidentName, headCoachName, captainName;
     TableView<Player> teamPlayers;
-    Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton;
+    Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton, newTeamButton;
     TextArea notes;
 
 
@@ -63,6 +63,7 @@ public class TeamPresentationModel extends PresentationModel {
         editButton = (Button) root.lookup("#editButton");
         cancelButton = (Button) root.lookup("#cancelButton");
         deleteButton = (Button) root.lookup("#deleteButton");
+        newTeamButton = (Button) root.lookup("#newTeamButton");
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -129,6 +130,12 @@ public class TeamPresentationModel extends PresentationModel {
             team.setLogo(saveTeamLogo());
             DBEditor dbEditor = new DBEditor();
             dbEditor.editTeam(team);
+        });
+
+        newTeamButton.setOnAction(event->{
+            HeaderController headerController = new HeaderController();
+            NewTeamPresentationModel pm = new NewTeamPresentationModel();
+            headerController.loadStages(NEW_TEAM,NEW_TEAM_FXML,pm);
         });
     }
 
