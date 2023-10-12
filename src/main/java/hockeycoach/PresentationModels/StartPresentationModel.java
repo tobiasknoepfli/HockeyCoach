@@ -55,7 +55,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             });
         }
         closeWindowButton.setOnAction(event -> {
-            buttonControls.closeWindow(root, "Home");
+            buttonControls.closeWindow(root, HOME);
         });
 
         setupEventListeners();
@@ -79,10 +79,10 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             }
         });
 
-        newTeamButton.setOnAction(event ->{
+        newTeamButton.setOnAction(event -> {
             NewTeamPresentationModel pm = new NewTeamPresentationModel();
             HeaderController headerController = new HeaderController();
-            headerController.loadStages("NewTeam",NEW_TEAM_FXML,pm);
+            headerController.loadStages(NEW_TEAM, NEW_TEAM_FXML, pm);
 
         });
 
@@ -92,12 +92,12 @@ public class StartPresentationModel extends PresentationModel implements pmInter
 
                 GamePresentationModel pm = new GamePresentationModel();
                 HeaderController headerController = new HeaderController();
-                headerController.loadStages("Game", GAME_FXML, pm);
+                headerController.loadStages(GAME, GAME_FXML, pm);
 
                 Platform.runLater(() -> {
                     pm.allGames.getSelectionModel().select(selectedGame);
-                    for (Game g:pm.allGameList){
-                        if(g.getGameID() == selectedGame.getGameID()){
+                    for (Game g : pm.allGameList) {
+                        if (g.getGameID() == selectedGame.getGameID()) {
                             int index = pm.allGameList.indexOf(g);
                             pm.allGames.requestFocus();
                             pm.allGames.scrollTo(index);
@@ -108,18 +108,18 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             }
         });
 
-        trainingsTable.setOnMouseClicked(event ->{
-            if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2){
+        trainingsTable.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 Training selectedTraining = trainingsTable.getSelectionModel().getSelectedItem();
 
                 TrainingPresentationModel pm = new TrainingPresentationModel();
                 HeaderController headerController = new HeaderController();
-                headerController.loadStages("Training", TRAINING_FXML,pm);
+                headerController.loadStages(TRAINING, TRAINING_FXML, pm);
 
-                Platform.runLater(()->{
+                Platform.runLater(() -> {
                     pm.trainingTable.getSelectionModel().select(selectedTraining);
-                    for(Training t:pm.trainingList){
-                        if(t.getTrainingID() == selectedTraining.getTrainingID()){
+                    for (Training t : pm.trainingList) {
+                        if (t.getTrainingID() == selectedTraining.getTrainingID()) {
                             int index = pm.trainingList.indexOf(t);
                             pm.trainingTable.requestFocus();
                             pm.trainingTable.scrollTo(index);

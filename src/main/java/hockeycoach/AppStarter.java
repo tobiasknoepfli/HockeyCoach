@@ -16,6 +16,18 @@ import java.util.Map;
 public class AppStarter extends Application {
     public static final String DB_URL = "jdbc:ucanaccess://src/main/resources/hockeycoach/files/database/hockeydb.accdb";
 
+    public static final String HOME = "home";
+    public static final String TEAM = "team";
+    public static final String PLAYER = "player";
+    public static final String TRAINING = "training";
+    public static final String GAME = "game";
+    public static final String TRAINING_EDITOR = "trainingEditor";
+    public static final String GAME_EDITOR = "gameEditor";
+    public static final String NEW_TEAM = "newTeam";
+    public static final String NEW_PLAYER = "newPlayer";
+    public static final String PLAYER_TO_TEAM = "playerToTeam";
+    public static final String NEW_DRILL = "newDrill";
+
     public static final String HOME_FXML = "/hockeycoach/files/fxml/start.fxml";
     public static final String TEAM_FXML = "/hockeycoach/files/fxml/team.fxml";
     public static final String PLAYER_FXML = "/hockeycoach/files/fxml/player.fxml";
@@ -73,7 +85,7 @@ public class AppStarter extends Application {
         startPresentationModel.initializeControls(content);
 
         contentStage.show();
-        openStages.put("Home", contentStage);
+        openStages.put(HOME, contentStage);
     }
 
 

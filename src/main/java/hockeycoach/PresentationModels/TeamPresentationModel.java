@@ -23,8 +23,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-import static hockeycoach.AppStarter.LOGOS;
-import static hockeycoach.AppStarter.PLAYER_TO_TEAM_FXML;
+import static hockeycoach.AppStarter.*;
 
 public class TeamPresentationModel extends PresentationModel {
 
@@ -130,7 +129,7 @@ public class TeamPresentationModel extends PresentationModel {
         editPlayerButton.setOnAction(event -> {
             HeaderController headerController = new HeaderController();
                 PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
-                headerController.loadStages("TeamPlayerEditor",PLAYER_TO_TEAM_FXML, pm);
+                headerController.loadStages(PLAYER_TO_TEAM,PLAYER_TO_TEAM_FXML, pm);
         });
 
         editButton.setOnAction(event -> {

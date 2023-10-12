@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 
 public class PlayerController extends Controller {
     @FXML
-    private Button saveButton, editButton, cancelButton, deleteButton;
+    private Button saveButton, editButton, cancelButton, deleteButton, newPlayerButton;
 
     @FXML
     private ImageView playerPhoto;

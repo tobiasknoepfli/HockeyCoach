@@ -31,55 +31,55 @@ public class HeaderController extends Controller {
     @FXML
     private void homeButtonAction() {
         StartPresentationModel pm = new StartPresentationModel();
-        loadStages("Home", HOME_FXML, pm);
+        loadStages(HOME, HOME_FXML, pm);
     }
 
     @FXML
     public void teamButtonAction() {
         TeamPresentationModel pm = new TeamPresentationModel();
-        loadStages("Team", TEAM_FXML, pm);
+        loadStages(TEAM, TEAM_FXML, pm);
     }
 
     @FXML
     private void playerButtonAction() {
         PlayerPresentationModel pm = new PlayerPresentationModel();
-        loadStages("Player", PLAYER_FXML, pm);
+        loadStages(PLAYER, PLAYER_FXML, pm);
     }
 
     @FXML
     private void trainingButtonAction() {
         TrainingPresentationModel pm = new TrainingPresentationModel();
-        loadStages("Training", TRAINING_FXML, pm);
+        loadStages(TRAINING, TRAINING_FXML, pm);
     }
 
     @FXML
     private void trainingEditorAction() {
         TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
-        loadStages("TrainingEditor", TRAINING_EDITOR_FXML, pm);
+        loadStages(TRAINING_EDITOR, TRAINING_EDITOR_FXML, pm);
     }
 
     @FXML
     private void newTeamButtonAction() {
         NewTeamPresentationModel pm = new NewTeamPresentationModel();
-        loadStages("NewTeam", NEW_TEAM_FXML, pm);
+        loadStages(NEW_TEAM, NEW_TEAM_FXML, pm);
     }
 
     @FXML
     private void newPlayerButtonAction() {
         NewPlayerPresentationModel pm = new NewPlayerPresentationModel();
-        loadStages("NewPlayer", NEW_PLAYER_FXML, pm);
+        loadStages(NEW_PLAYER, NEW_PLAYER_FXML, pm);
     }
 
     @FXML
     private void gameEditorAction() {
         GameEditorPresentationModel pm = new GameEditorPresentationModel();
-        loadStages("GameEditor", GAME_EDITOR_FXML, pm);
+        loadStages(GAME_EDITOR, GAME_EDITOR_FXML, pm);
     }
 
     @FXML
     private void gameButtonAction() {
         GamePresentationModel pm = new GamePresentationModel();
-        loadStages("Game", GAME_FXML, pm);
+        loadStages(GAME, GAME_FXML, pm);
     }
 
     public void loadStages(String buttonAction, String fxml, PresentationModel presentationModel) {

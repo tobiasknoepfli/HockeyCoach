@@ -86,7 +86,7 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         closeWindowButton.setOnAction(event -> {
             ButtonControls buttonControls = new ButtonControls();
-            buttonControls.closeWindow(root,"NewTeam");
+            buttonControls.closeWindow(root,NEW_TEAM);
         });
 
         setupEventListeners();
@@ -330,7 +330,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     private void callStartPage() {
         StartPresentationModel pm = new StartPresentationModel();
         HeaderController headerController = new HeaderController();
-        headerController.loadStages("Home", HOME_FXML, pm);
+        headerController.loadStages(HOME, HOME_FXML, pm);
     }
 
     public static void closeWindow(Node node) {

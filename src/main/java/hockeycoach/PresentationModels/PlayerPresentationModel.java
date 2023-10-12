@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBEditor;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.SingletonTeam;
@@ -27,7 +28,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-import static hockeycoach.AppStarter.PHOTOS;
+import static hockeycoach.AppStarter.*;
 
 public class PlayerPresentationModel extends PresentationModel {
     MouseEvent event;
@@ -37,26 +38,12 @@ public class PlayerPresentationModel extends PresentationModel {
     TableView<Player> teamPlayers;
     TableView<Team> playerTeams;
     ImageView playerPhoto;
-    TextField playerName;
-    TextField team;
-    TextField street;
-    TextField zipCity;
-    TextField country;
-    TextField phone;
-    TextField email;
-    TextField jersey;
-    TextField positions;
-    TextArea strengths;
-    TextArea weaknesses;
-    TextArea notes;
-    TextField role;
-    TextField aLicence;
-    TextField bLicence;
-    TextField stick;
-    Button saveButton;
-    Button editButton;
-    Button cancelButton;
-    Button deleteButton;
+    TextField playerName,team,street,zipCity,country,
+            phone,email,jersey,positions,role,
+            aLicence,bLicence,stick;
+    TextArea strengths,weaknesses,notes;
+
+    Button saveButton,editButton,cancelButton,deleteButton,newPlayerButton;
 
     public void initializeControls(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
@@ -82,6 +69,7 @@ public class PlayerPresentationModel extends PresentationModel {
         editButton = (Button) root.lookup("#editButton");
         cancelButton = (Button) root.lookup("#cancelButton");
         deleteButton = (Button) root.lookup("#deleteButton");
+        newPlayerButton = (Button) root.lookup("#newPlayerButton");
 
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
@@ -153,6 +141,12 @@ public class PlayerPresentationModel extends PresentationModel {
             DBEditor dbEditor = new DBEditor();
             dbEditor.editPlayer(player);
             dbEditor.editJerseyAndRole(player, selectedTeam);
+        });
+
+        newPlayerButton.setOnAction(event ->{
+            HeaderController headerController = new HeaderController();
+            NewPlayerPresentationModel pm = new NewPlayerPresentationModel();
+            headerController.loadStages(NEW_PLAYER,NEW_PLAYER_FXML,pm);
         });
     }
 
@@ -232,7 +226,7 @@ public class PlayerPresentationModel extends PresentationModel {
 
             try {
                 URL imageUrl = new URL(selectedImage.getUrl());
-                String decodedImageUrl = decodeUrl(imageUrl.getPath()); // Decode the URL
+                String decodedImageUrl = decodeUrl(imageUrl.getPath());
                 File selectedImageFile = new File(decodedImageUrl);
                 Path destinationPath = Path.of(destinationDirectory, destinationFileName);
 

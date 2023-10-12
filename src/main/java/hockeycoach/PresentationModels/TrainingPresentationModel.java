@@ -16,8 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static hockeycoach.AppStarter.NEW_DRILL_FXML;
-import static hockeycoach.AppStarter.TRAINING_EDITOR_FXML;
+import static hockeycoach.AppStarter.*;
 
 public class TrainingPresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -128,13 +127,13 @@ public class TrainingPresentationModel extends PresentationModel {
         newDrillButton.setOnAction(event ->{
             NewDrillPresentationModel pm = new NewDrillPresentationModel();
             HeaderController headerController = new HeaderController();
-            headerController.loadStages("newDrill",NEW_DRILL_FXML,pm);
+            headerController.loadStages(NEW_DRILL,NEW_DRILL_FXML,pm);
         });
 
         newTrainingButton.setOnAction(event ->{
             TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
             HeaderController headerController = new HeaderController();
-            headerController.loadStages("trainingEditor",TRAINING_EDITOR_FXML,pm);
+            headerController.loadStages(TRAINING_EDITOR,TRAINING_EDITOR_FXML,pm);
         });
 
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
