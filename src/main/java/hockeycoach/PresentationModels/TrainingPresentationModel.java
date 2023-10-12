@@ -24,28 +24,22 @@ public class TrainingPresentationModel extends PresentationModel {
     List<Training> trainingList;
 
     TableView<Training> trainingTable;
-    TextField trainingDate;
-    TextField trainingTime;
-    TextField team;
-    TextField stadium;
-    TextField mainFocus;
-    TextArea pointers;
-    TableView<Drill> warmup;
-    TableView<Drill> together;
-    TableView<Drill> stations;
-    TableView<Drill> backup;
-    ImageView drillImage;
-    TextField drillName;
-    TrainingLines trainingLines = new TrainingLines();
-    Button newDrillButton,newTrainingButton;
 
-    TextField jersey1, jersey2, jersey3, jersey4, jersey5, jersey6;
-    TextField gk1, gk2, gk3, gk4, gk5, gk6;
-    TextField dl1, dl2, dl3, dl4, dl5, dl6;
-    TextField dr1, dr2, dr3, dr4, dr5, dr6;
-    TextField c1, c2, c3, c4, c5, c6;
-    TextField fl1, fl2, fl3, fl4, fl5, fl6;
-    TextField fr1, fr2, fr3, fr4, fr5, fr6;
+    TextArea pointers;
+    TableView<Drill> warmup, together, stations, backup;
+    ImageView drillImage;
+
+    TrainingLines trainingLines = new TrainingLines();
+    Button newDrillButton, newTrainingButton;
+
+    TextField drillName, trainingDate, trainingTime, team, stadium, mainFocus,
+            jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
+            gk1, gk2, gk3, gk4, gk5, gk6,
+            dl1, dl2, dl3, dl4, dl5, dl6,
+            dr1, dr2, dr3, dr4, dr5, dr6,
+            c1, c2, c3, c4, c5, c6,
+            fl1, fl2, fl3, fl4, fl5, fl6,
+            fr1, fr2, fr3, fr4, fr5, fr6;
 
     public void initializeControls(Pane root) {
         trainingTable = (TableView) root.lookup("#trainingTable");
@@ -124,16 +118,16 @@ public class TrainingPresentationModel extends PresentationModel {
     }
 
     public void setupEventListeners() {
-        newDrillButton.setOnAction(event ->{
+        newDrillButton.setOnAction(event -> {
             NewDrillPresentationModel pm = new NewDrillPresentationModel();
             HeaderController headerController = new HeaderController();
-            headerController.loadStages(NEW_DRILL,NEW_DRILL_FXML,pm);
+            headerController.loadStages(NEW_DRILL, NEW_DRILL_FXML, pm);
         });
 
-        newTrainingButton.setOnAction(event ->{
+        newTrainingButton.setOnAction(event -> {
             TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
             HeaderController headerController = new HeaderController();
-            headerController.loadStages(TRAINING_EDITOR,TRAINING_EDITOR_FXML,pm);
+            headerController.loadStages(TRAINING_EDITOR, TRAINING_EDITOR_FXML, pm);
         });
 
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
@@ -146,7 +140,7 @@ public class TrainingPresentationModel extends PresentationModel {
 
                 DBLoader dbLoader = new DBLoader();
                 DBDrillLoader dbDrillLoader = new DBDrillLoader();
-                DBTrainingLinesLoader  dbTrainingLinesLoader = new DBTrainingLinesLoader();
+                DBTrainingLinesLoader dbTrainingLinesLoader = new DBTrainingLinesLoader();
                 List<Drill> drillList = dbDrillLoader.getDrills("SELECT * FROM drill");
                 List<Drill> warmupList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'warmup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "warmup", newSelectedTraining.getTrainingID());
                 List<Drill> togetherList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'together' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "together", newSelectedTraining.getTrainingID());

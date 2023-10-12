@@ -31,27 +31,14 @@ public class TeamPresentationModel extends PresentationModel {
     MouseEvent event;
 
     ImageView teamLogo;
-    TextField teamName;
-    TextField stadiumName;
-    TextField stadiumStreet;
-    TextField stadiumZipCity;
-    TextField stadiumCountry;
-    TextField contactName;
-    TextField contactPhone;
-    TextField contactEmail;
-    TextField website;
-    TextField founded;
-    TextField presidentName;
-    TextField currentLeague;
-    TextField headCoachName;
-    TextField captainName;
+    TextField teamName, stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
+            contactName, contactPhone, contactEmail,
+            website, founded, currentLeague,
+            presidentName, headCoachName, captainName;
     TableView<Player> teamPlayers;
-    Button editPlayerButton;
+    Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton;
     TextArea notes;
-    Button saveButton;
-    Button editButton;
-    Button cancelButton;
-    Button deleteButton;
+
 
     public void initializeControls(Pane root) {
         teamLogo = (ImageView) root.lookup("#teamLogo");
@@ -128,8 +115,8 @@ public class TeamPresentationModel extends PresentationModel {
     private void setupEventListeners() {
         editPlayerButton.setOnAction(event -> {
             HeaderController headerController = new HeaderController();
-                PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
-                headerController.loadStages(PLAYER_TO_TEAM,PLAYER_TO_TEAM_FXML, pm);
+            PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
+            headerController.loadStages(PLAYER_TO_TEAM, PLAYER_TO_TEAM_FXML, pm);
         });
 
         editButton.setOnAction(event -> {

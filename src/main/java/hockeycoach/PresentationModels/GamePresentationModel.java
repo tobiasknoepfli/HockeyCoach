@@ -14,98 +14,34 @@ import javafx.scene.layout.Pane;
 import java.util.List;
 
 public class GamePresentationModel extends PresentationModel {
-    Button saveButton;
-    Button cancelButton;
+    Button saveButton, cancelButton, refreshPlayerList;
+    TextField gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
+            captain, assistant1, assistant2,
+            gk1,
+            dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
+            c1, c2, c3, c4,
+            fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4,
+            sgk1, sgk2, sgk3,
+            sd1, sd2, sd3, sf1, sf2, sf3,
+            ppdl1, ppdl2, ppdlfiller, ppdr1, ppdr2, ppdrfiller,
+            ppc1, ppc2, ppcfiller,
+            ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
+            bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
+            bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
+            bpsd1, bpsd2, bpsf1, bpsf2;
 
     TableView<Game> allGames;
-    TextField gameTeam;
-    TextField gameOpponent;
-    TextField gameDate;
-    TextField gameTime;
-    TextField gameStadium;
-    TextField captain;
-    TextField assistant1;
-    TextField assistant2;
-    Button refreshPlayerList;
     TableView<Player> teamPlayers;
     TabPane lineupTabPane;
-    AnchorPane lineupAnchorPane;
-    ImageView boardImage;
-    GridPane lineupGrid;
-    TextField gk1;
-    TextField dl1;
-    TextField dl2;
-    TextField dl3;
-    TextField dl4;
-    TextField dr1;
-    TextField dr2;
-    TextField dr3;
-    TextField dr4;
-    TextField c1;
-    TextField c2;
-    TextField c3;
-    TextField c4;
-    TextField fl1;
-    TextField fl2;
-    TextField fl3;
-    TextField fl4;
-    TextField fr1;
-    TextField fr2;
-    TextField fr3;
-    TextField fr4;
-    TextField sgk1;
-    TextField sgk2;
-    TextField sgk3;
-    TextField sd1;
-    TextField sd2;
-    TextField sd3;
-    TextField sf1;
-    TextField sf2;
-    TextField sf3;
-    AnchorPane ppAnchorPane;
-    ImageView ppBoardImage;
-    GridPane ppLineupGrid;
-    TextField ppdl1;
-    TextField ppdl2;
-    TextField ppdlfiller;
-    TextField ppdr1;
-    TextField ppdr2;
-    TextField ppdrfiller;
-    TextField ppc1;
-    TextField ppc2;
-    TextField ppcfiller;
-    TextField ppfl1;
-    TextField ppfl2;
-    TextField ppflfiller;
-    TextField ppfr1;
-    TextField ppfr2;
-    TextField ppfrfiller;
-    AnchorPane bpAnchorPane;
-    ImageView bpBoardImage;
-    GridPane bpLineupGrid;
-    TextField bpdl1;
-    TextField bpdl2;
-    TextField bpdlfiller;
-    TextField bpdr1;
-    TextField bpdr2;
-    TextField bpdrfiller;
-    TextField bpfl1;
-    TextField bpfl2;
-    TextField bpflfiller;
-    TextField bpfr1;
-    TextField bpfr2;
-    TextField bpfrfiller;
-    TextField bpsd1;
-    TextField bpsd2;
-    TextField bpsf1;
-    TextField bpsf2;
+    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
+    ImageView boardImage, ppBoardImage, bpBoardImage;
+    GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 
     DBLoader dbLoader = new DBLoader();
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
     List<Game> allGameList;
     Team selectedTeam;
-
 
     @Override
     public void initializeControls(Pane root) {

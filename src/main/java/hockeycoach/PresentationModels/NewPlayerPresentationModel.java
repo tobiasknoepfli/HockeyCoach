@@ -29,28 +29,14 @@ import static hockeycoach.AppStarter.PHOTOS;
 
 public class NewPlayerPresentationModel extends PresentationModel {
     MouseEvent event;
-    List<Player> allPlayersList;
-    List<Player> fnFiltered;
-    List<Player> lnFiltered;
-    List<Player> streetFiltered;
+    List<Player> allPlayersList, fnFiltered, lnFiltered, streetFiltered;
 
     TableView<Player> allPlayers;
     ImageView playerPhoto;
-    TextField playerFirstName;
-    TextField playerLastName;
-    TextField street;
-    TextField zip;
-    TextField city;
-    TextField country;
-    TextField phone;
-    TextField email;
-    TextField positions;
-    TextField aLicence;
-    TextField bLicence;
-    TextField stick;
-    TextArea strengths;
-    TextArea weaknesses;
-    TextArea notes;
+    TextField playerFirstName, playerLastName,
+            street, zip, city, country, phone, email,
+            positions, aLicence, bLicence, stick;
+    TextArea strengths, weaknesses, notes;
     Button saveButton;
 
     @Override
@@ -81,7 +67,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(allPlayersList);
 
-        if(allPlayersList.size() == 0){
+        if (allPlayersList.size() == 0) {
             setControlsDisabled(false);
         } else {
             setControlsDisabled(true);
@@ -132,7 +118,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
             dbWriter.writeNewPlayer(newPlayer);
             clearAllFields();
 
-            DBLoader dbLoader =new DBLoader();
+            DBLoader dbLoader = new DBLoader();
             DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
             allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
             allPlayers.getItems().clear();
@@ -209,7 +195,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         newPlayer.setStreet(street.getText());
         try {
             newPlayer.setZip(Integer.parseInt(zip.getText()));
-        } catch(Exception e){
+        } catch (Exception e) {
             newPlayer.setZip(0000);
         }
 
@@ -228,7 +214,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         return newPlayer;
     }
 
-    private void clearAllFields(){
+    private void clearAllFields() {
         playerFirstName.clear();
         playerLastName.clear();
         street.clear();

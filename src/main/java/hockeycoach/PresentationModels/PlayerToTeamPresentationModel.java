@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PlayerToTeamPresentationModel extends PresentationModel{
+public class PlayerToTeamPresentationModel extends PresentationModel {
     Team selectedTeam = new Team();
     Player draggedPlayer;
     DBLoader dbLoader = new DBLoader();
@@ -31,9 +31,8 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
     TableView<Player> teamPlayers;
     TableView<Player> allPlayers;
     TextField team;
-    Button addButton;
-    Button removeButton;
-    Button saveButton;
+
+    Button addButton, removeButton, saveButton;
 
     public void initializeControls(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
@@ -157,7 +156,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
                     targetTableView.getItems().add(playerToMove);
                     success = true;
                 }
-                
+
                 sourceTableView.getItems().remove(sourceIndex);
 
                 event.setDropCompleted(success);
@@ -166,7 +165,6 @@ public class PlayerToTeamPresentationModel extends PresentationModel{
             event.consume();
         });
     }
-
 
 
 }

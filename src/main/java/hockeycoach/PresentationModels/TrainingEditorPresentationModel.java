@@ -30,9 +30,10 @@ import java.util.stream.Collectors;
 
 public class TrainingEditorPresentationModel extends PresentationModel {
     List<Drill> drillList;
+    List<Player> availablePlayersList, allPlayers;
+
     FilteredList<Drill> filteredDrills;
-    List<Player> availablePlayersList;
-    List<Player> allPlayers;
+
     Player draggedPlayer;
 
     Team selectedTeam;
@@ -40,61 +41,49 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     DBLineLoader dbLineLoader = new DBLineLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBGameLoader dbGameLoader = new DBGameLoader();
-    ImageView drillImage;
-    TextField drillName;
-    TextField drillCategory;
-    TextField drillDifficulty;
-    TextField drillParticipation;
-    CheckBox drillStation;
-    TextArea drillDescription;
-    TableView<String> drillTags;
-    ComboBox<String> cbCategory;
-    ComboBox<Difficulty> cbDifficulty;
-    ComboBox<String> cbParticipation;
-    ComboBox<Boolean> cbStation;
-    ComboBox<String> cbTags;
-    ComboBox<String> cbPuckPosition;
-    TextField searchBox;
-    Button searchButton;
-    Button resetFilters;
-    TableView<Drill> drillTable;
-    TableView<Drill> warmup;
-    TableView<Drill> together;
-    TableView<Drill> stations;
-    TableView<Drill> backup;
-    TableView<Player> playerList;
-    TextField trainingDate;
-    TextField trainingTime;
-    TextField trainingStadium;
-    TextField trainingTeam;
-    TextField trainingMainFocus;
-    TextField puckPosition;
-    TextArea trainingPointers;
-    Button warmupButton;
-    Button togetherButton;
-    Button stationsButton;
-    Button backupButton;
-    TabPane tablePane;
-    Tab warmupTab;
-    Tab togetherTab;
-    Tab stationsTab;
-    Tab backupTab;
-    TextField jersey1, jersey2, jersey3, jersey4, jersey5, jersey6;
-    TextField gk1, gk2, gk3, gk4, gk5, gk6;
-    TextField dl1, dl2, dl3, dl4, dl5, dl6;
-    TextField dr1, dr2, dr3, dr4, dr5, dr6;
-    TextField c1, c2, c3, c4, c5, c6;
-    TextField fl1, fl2, fl3, fl4, fl5, fl6;
-    TextField fr1, fr2, fr3, fr4, fr5, fr6;
-    Label lgGK1, lgGK2, lgGK3, lgGK4;
-    Label lgRD1, lgRD2, lgRD3, lgRD4, lgLD1, lgLD2, lgLD3, lgLD4;
-    Label lgRF1, lgRF2, lgRF3, lgRF4, lgC1, lgC2, lgC3, lgC4, lgLF1, lgLF2, lgLF3, lgLF4;
-    Label ngGK1, ngGK2, ngGK3, ngGK4;
-    Label ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4;
-    Label ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
 
-    private ArrayList<TextField> jerseysArrayList;
-    private ArrayList<TextField> playersArrayList;
+    ImageView drillImage;
+
+    TextField drillName, drillCategory, drillDifficulty, drillParticipation, searchBox,
+            trainingDate, trainingTime, trainingStadium, trainingTeam, trainingMainFocus,
+            puckPosition,
+            jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
+            gk1, gk2, gk3, gk4, gk5, gk6,
+            dl1, dl2, dl3, dl4, dl5, dl6,
+            dr1, dr2, dr3, dr4, dr5, dr6,
+            c1, c2, c3, c4, c5, c6,
+            fl1, fl2, fl3, fl4, fl5, fl6,
+            fr1, fr2, fr3, fr4, fr5, fr6;
+
+    CheckBox drillStation;
+
+    TextArea drillDescription, trainingPointers;
+
+    TableView<String> drillTags;
+    TableView<Drill> drillTable, warmup, together, stations, backup;
+
+    ComboBox<String> cbCategory, cbParticipation, cbTags, cbPuckPosition;
+
+    ComboBox<Difficulty> cbDifficulty;
+
+    ComboBox<Boolean> cbStation;
+
+    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton;
+
+    TableView<Player> playerList;
+
+    TabPane tablePane;
+
+    Tab warmupTab, togetherTab, stationsTab, backupTab;
+
+    Label lgGK1, lgGK2, lgGK3, lgGK4,
+            lgRD1, lgRD2, lgRD3, lgRD4, lgLD1, lgLD2, lgLD3, lgLD4,
+            lgRF1, lgRF2, lgRF3, lgRF4, lgC1, lgC2, lgC3, lgC4, lgLF1, lgLF2, lgLF3, lgLF4,
+            ngGK1, ngGK2, ngGK3, ngGK4,
+            ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4,
+            ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
+
+    private ArrayList<TextField> jerseysArrayList, playersArrayList;
 
     public void initializeControls(Pane root) {
         drillImage = (ImageView) root.lookup("#drillImage");
@@ -271,7 +260,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         comboBoxPopulator.setParticipation(drillList, cbParticipation);
         comboBoxPopulator.setStation(drillList, cbStation);
         comboBoxPopulator.setTags(drillList, cbTags);
-        comboBoxPopulator.setPuckPosition(drillList,cbPuckPosition);
+        comboBoxPopulator.setPuckPosition(drillList, cbPuckPosition);
 
         removeDrillSetup(warmup);
         removeDrillSetup(together);
@@ -306,45 +295,45 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
         cbCategory.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
         cbParticipation.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
         cbDifficulty.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
         cbPuckPosition.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
         cbStation.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
         cbTags.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills,drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
-        resetFilters.setOnAction(event->{
-            comboBoxFilter.clearFilter(drillList,drillTable,
-                    cbCategory,cbParticipation,cbDifficulty,
-                    cbPuckPosition,cbStation,cbTags);
+        resetFilters.setOnAction(event -> {
+            comboBoxFilter.clearFilter(drillList, drillTable,
+                    cbCategory, cbParticipation, cbDifficulty,
+                    cbPuckPosition, cbStation, cbTags);
         });
 
     }
@@ -713,7 +702,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        if(closestNextGame!=null) {
+        if (closestNextGame != null) {
             List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
             return lines;
         }
