@@ -6,6 +6,7 @@ import hockeycoach.DB.DBLoader.DBTrainingLinesLoader;
 import hockeycoach.DB.DBLoader.DBTrainingLoader;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -19,6 +20,7 @@ import java.util.List;
 import static hockeycoach.AppStarter.*;
 
 public class TrainingPresentationModel extends PresentationModel {
+    ButtonControls buttonControls = new ButtonControls();
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     List<Training> trainingList;
@@ -114,20 +116,16 @@ public class TrainingPresentationModel extends PresentationModel {
 
         team.setText(selectedTeam.getName());
 
-        setupEventListeners();
+        setupEventListeners(root);
     }
 
-    public void setupEventListeners() {
+    public void setupEventListeners(Pane root) {
         newDrillButton.setOnAction(event -> {
-            NewDrillPresentationModel pm = new NewDrillPresentationModel();
-            HeaderController headerController = new HeaderController();
-            headerController.loadStages(NEW_DRILL, NEW_DRILL_FXML, pm);
+            buttonControls.openNewDrill(root,TRAINING);
         });
 
         newTrainingButton.setOnAction(event -> {
-            TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
-            HeaderController headerController = new HeaderController();
-            headerController.loadStages(TRAINING_EDITOR, TRAINING_EDITOR_FXML, pm);
+            buttonControls.openTrainingEditor(root,TRAINING);
         });
 
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {

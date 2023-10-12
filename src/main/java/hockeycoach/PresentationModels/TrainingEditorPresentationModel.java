@@ -2,10 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.mainClasses.*;
-import hockeycoach.supportClasses.ComboBoxFilter;
-import hockeycoach.supportClasses.ComboBoxPopulator;
-import hockeycoach.supportClasses.Difficulty;
-import hockeycoach.supportClasses.SingletonTeam;
+import hockeycoach.supportClasses.*;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -31,6 +28,7 @@ import java.util.stream.Collectors;
 public class TrainingEditorPresentationModel extends PresentationModel {
     List<Drill> drillList;
     List<Player> availablePlayersList, allPlayers;
+    ButtonControls buttonControls = new ButtonControls();
 
     FilteredList<Drill> filteredDrills;
 
@@ -274,10 +272,10 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         showGameLines(lastGameLines(), nextGameLines());
 
-        setupEventListeners();
+        setupEventListeners(root);
     }
 
-    public void setupEventListeners() {
+    public void setupEventListeners(Pane root) {
         eventListenersFromTable(drillTable);
         eventListenersFromTable(warmup);
         eventListenersFromTable(together);

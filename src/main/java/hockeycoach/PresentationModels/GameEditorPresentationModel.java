@@ -7,6 +7,7 @@ import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -26,6 +27,7 @@ import static hockeycoach.AppStarter.*;
 
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
+    ButtonControls buttonControls = new ButtonControls();
 
     DBLoader dbLoader = new DBLoader();
     DBGameLoader dbGameLoader = new DBGameLoader();
@@ -335,17 +337,15 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         showGameLines(lastGameLines(), nextGameLines());
 
-        setupEventListeners();
-
-        backButton.setOnAction(event ->{
-            HeaderController headerController = new HeaderController();
-            GamePresentationModel pm = new GamePresentationModel();
-            headerController.loadStages(GAME,GAME_FXML,pm);
-        });
+        setupEventListeners(root);
 
     }
 
-    public void setupEventListeners() {
+    public void setupEventListeners(Pane root) {
+        backButton.setOnAction(event ->{
+            buttonControls.openGameEditor(root,GAME_EDITOR);
+        });
+
         lineupTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             refreshPlayers();
         });

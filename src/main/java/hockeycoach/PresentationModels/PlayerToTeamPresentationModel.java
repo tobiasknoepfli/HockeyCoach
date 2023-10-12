@@ -5,6 +5,7 @@ import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
 import hockeycoach.mainClasses.Player;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.PlayerXTeam;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
@@ -18,6 +19,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PlayerToTeamPresentationModel extends PresentationModel {
+    ButtonControls buttonControls = new ButtonControls();
+
     Team selectedTeam = new Team();
     Player draggedPlayer;
     DBLoader dbLoader = new DBLoader();

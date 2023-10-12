@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBWriter;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import javafx.collections.ListChangeListener;
@@ -30,6 +31,7 @@ import static hockeycoach.AppStarter.PHOTOS;
 public class NewPlayerPresentationModel extends PresentationModel {
     MouseEvent event;
     List<Player> allPlayersList, fnFiltered, lnFiltered, streetFiltered;
+    ButtonControls buttonControls = new ButtonControls();
 
     TableView<Player> allPlayers;
     ImageView playerPhoto;
@@ -74,10 +76,10 @@ public class NewPlayerPresentationModel extends PresentationModel {
             setControlsDisabled(true);
         }
 
-        setupEventListeners();
+        setupEventListeners(root);
     }
 
-    public void setupEventListeners() {
+    public void setupEventListeners(Pane root) {
         playerFirstName.textProperty().addListener((obs, oldValue, newValue) -> {
             fnFiltered = allPlayersList.stream()
                     .filter(player -> player.getFirstName().toLowerCase().contains(newValue.toLowerCase()))

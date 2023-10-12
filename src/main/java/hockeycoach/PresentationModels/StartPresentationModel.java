@@ -54,15 +54,16 @@ public class StartPresentationModel extends PresentationModel implements pmInter
                 teamsTable.getFocusModel().focus(index);
             });
         }
+
+        setupEventListeners(root);
+        useTooltips();
+    }
+
+    public void setupEventListeners(Pane root) {
         closeWindowButton.setOnAction(event -> {
             buttonControls.closeWindow(root, HOME);
         });
 
-        setupEventListeners();
-        useTooltips();
-    }
-
-    public void setupEventListeners() {
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
                 DBGameLoader dbGameLoader = new DBGameLoader();

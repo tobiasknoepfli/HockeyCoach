@@ -19,7 +19,7 @@ import java.util.List;
 import static hockeycoach.AppStarter.*;
 
 public class GamePresentationModel extends PresentationModel {
-    HeaderController headerController = new HeaderController();
+    ButtonControls buttonControls = new ButtonControls();
 
     Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
     TextField gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
@@ -294,13 +294,11 @@ public class GamePresentationModel extends PresentationModel {
         });
 
         newGameButton.setOnAction(event ->{
-            ButtonControls buttonControls = new ButtonControls();
             buttonControls.openGameEditor(root,GAME);
         });
 
         backButton.setOnAction(event ->{
-            StartPresentationModel pm = new StartPresentationModel();
-            headerController.loadStages(HOME,HOME_FXML,pm);
+            buttonControls.openHome(root,GAME);
         });
     }
 

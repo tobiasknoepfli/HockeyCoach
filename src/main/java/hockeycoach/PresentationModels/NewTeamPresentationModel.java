@@ -31,6 +31,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     MouseEvent event;
     TableView<Player> teamPlayers;
     List<Team> teamList = new ArrayList();
+    ButtonControls buttonControls = new ButtonControls();
 
     ImageView teamLogo = new ImageView();
 
@@ -84,15 +85,10 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         setControlsDisabled(true);
 
-        closeWindowButton.setOnAction(event -> {
-            ButtonControls buttonControls = new ButtonControls();
-            buttonControls.closeWindow(root,NEW_TEAM);
-        });
-
-        setupEventListeners();
+        setupEventListeners(root);
     }
 
-    public void setupEventListeners() {
+    public void setupEventListeners(Pane root) {
         teamName.textProperty().addListener((obs, oldValue, newValue) -> {
             List<Team> newList = teamList.stream()
                     .filter(team -> team.getName().toLowerCase().contains(newValue.toLowerCase()))
@@ -140,6 +136,10 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         captainName.textProperty().addListener((obs, oldValue, newValue) -> {
             controlFields();
+        });
+
+        closeWindowButton.setOnAction(event -> {
+            buttonControls.closeWindow(root,NEW_TEAM);
         });
     }
 

@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Drill;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ComboBoxFilter;
 import hockeycoach.supportClasses.ComboBoxPopulator;
 import hockeycoach.supportClasses.Difficulty;
@@ -21,15 +22,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static hockeycoach.AppStarter.TRAINING_EDITOR;
-import static hockeycoach.AppStarter.TRAINING_EDITOR_FXML;
+import static hockeycoach.AppStarter.*;
 
 public class NewDrillPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
     List<Drill> allDrillList, filteredDrills;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
-    HeaderController headerController = new HeaderController();
+    ButtonControls buttonControls = new ButtonControls();
 
     Button backButton, newDrillButton, saveButton, editButton, cancelButton,
             deleteButton, closeWindowButton, searchButton, newCategoryButton,
@@ -78,10 +78,10 @@ public class NewDrillPresentationModel extends PresentationModel {
         allDrills.getItems().clear();
         allDrills.getItems().setAll(allDrillList);
 
-        setupEventListeners();
+        setupEventListeners(root);
     }
 
-    private void setupEventListeners() {
+    private void setupEventListeners(Pane root) {
         allDrills.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
             drillName.setText(newDrill.getName());
             drillCategory.setValue(newDrill.getCategory());
@@ -151,8 +151,7 @@ public class NewDrillPresentationModel extends PresentationModel {
         });
 
         backButton.setOnAction(event ->{
-            TrainingEditorPresentationModel pm = new TrainingEditorPresentationModel();
-            headerController.loadStages(TRAINING_EDITOR,TRAINING_EDITOR_FXML,pm);
+            buttonControls.openTrainingEditor(root,NEW_DRILL);
         });
     }
 }

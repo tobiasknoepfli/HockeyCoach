@@ -5,6 +5,7 @@ import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.controllers.HeaderController;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.SingletonTeam;
@@ -26,6 +27,7 @@ import java.util.List;
 import static hockeycoach.AppStarter.*;
 
 public class TeamPresentationModel extends PresentationModel {
+    ButtonControls buttonControls = new ButtonControls();
 
     Team selectedTeam;
     MouseEvent event;
@@ -108,12 +110,12 @@ public class TeamPresentationModel extends PresentationModel {
             teamPlayers.getItems().clear();
             teamPlayers.getItems().addAll(playerList);
         }
-        setupEventListeners();
+        setupEventListeners(root);
 
         teamLogo.setOnMouseClicked(event -> handleImageClick());
     }
 
-    private void setupEventListeners() {
+    private void setupEventListeners(Pane root) {
         editPlayerButton.setOnAction(event -> {
             HeaderController headerController = new HeaderController();
             PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
@@ -132,10 +134,8 @@ public class TeamPresentationModel extends PresentationModel {
             dbEditor.editTeam(team);
         });
 
-        newTeamButton.setOnAction(event->{
-            HeaderController headerController = new HeaderController();
-            NewTeamPresentationModel pm = new NewTeamPresentationModel();
-            headerController.loadStages(NEW_TEAM,NEW_TEAM_FXML,pm);
+        newTeamButton.setOnAction(event -> {
+            buttonControls.openNewTeam(root,TEAM);
         });
     }
 
