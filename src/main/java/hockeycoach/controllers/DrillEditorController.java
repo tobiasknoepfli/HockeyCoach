@@ -3,9 +3,8 @@ package hockeycoach.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 
-public class NewDrillController {
+public class DrillEditorController {
     @FXML
     private Button backButton, newDrillButton, saveButton, editButton,
             cancelButton, deleteButton, closeWindowButton, searchButton,

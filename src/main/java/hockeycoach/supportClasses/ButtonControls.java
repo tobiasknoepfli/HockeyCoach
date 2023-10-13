@@ -2,10 +2,6 @@ package hockeycoach.supportClasses;
 
 import hockeycoach.PresentationModels.*;
 import hockeycoach.controllers.HeaderController;
-import hockeycoach.controllers.NewDrillController;
-import hockeycoach.controllers.NewPlayerController;
-import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.Player;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -36,7 +32,7 @@ public class ButtonControls {
     }
 
     public void openNewDrill(Node closingNode,String closingNodeName) {
-        NewDrillPresentationModel pm = new NewDrillPresentationModel();
+        DrillEditorPresentationModel pm = new DrillEditorPresentationModel();
         headerController.loadStages(NEW_DRILL,NEW_DRILL_FXML,pm);
         closeWindow(closingNode,closingNodeName);
     }

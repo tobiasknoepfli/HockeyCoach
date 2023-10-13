@@ -9,6 +9,7 @@ import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
+import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static hockeycoach.AppStarter.*;
 
@@ -29,7 +31,10 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
-    DBPlayerLoader dbPlayerLoader  = new DBPlayerLoader();
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+
+    private Stack<TextFieldAction> textFieldActions = new Stack<>();
+    private TextFieldAction textFieldAction = new TextFieldAction();
 
     ButtonControls buttonControls = new ButtonControls();
 
@@ -60,22 +65,22 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     SubstituteLine subsLine = new SubstituteLine();
 
-    TextField gameDate,gameTime,gameStadium,gameTeam,gameOpponent,
-            captain, assistant1, assistant2;
-    TableView<Player> teamPlayers,availablePlayers;
+    TableView<Player> teamPlayers, availablePlayers;
 
-    ImageView boardImage,ppBoardImage,bpBoardImage;
+    ImageView boardImage, ppBoardImage, bpBoardImage;
 
     List<TextField> textFields, ppTextFields, bpTextFields, captainTeamList;
-    Button refreshPlayerList,saveButton,backButton;
+    Button refreshPlayerList, saveButton, backButton;
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 
-    TextField gk1,
+    TextField gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
+            captain, assistant1, assistant2,
+            gk1,
             dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
             c1, c2, c3, c4,
             fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4,
-            sgk1, sgk2, sgk3,sd1, sd2, sd3,sf1, sf2, sf3,
+            sgk1, sgk2, sgk3, sd1, sd2, sd3, sf1, sf2, sf3,
             ppdl1, ppdl2, ppdlfiller, ppdr1, ppdr2, ppdrfiller,
             ppc1, ppc2, ppcfiller, ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
@@ -105,7 +110,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
         saveButton = (Button) root.lookup("#saveButton");
-        backButton =(Button)    root.lookup("#backButton");
+        backButton = (Button) root.lookup("#backButton");
         lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
         captain = (TextField) root.lookup("#captain ");
         assistant1 = (TextField) root.lookup("#assistant1");
@@ -280,6 +285,9 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpBoardImage.fitWidthProperty().bind(bpLineupGrid.widthProperty());
         bpBoardImage.setPreserveRatio(false);
 
+        TextField[] fields = {gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
+                captain, assistant1, assistant2};
+
         TextField[] tf = {gk1,
                 dl1, dl2, dl3, dl4,
                 dr1, dr2, dr3, dr4,
@@ -303,6 +311,13 @@ public class GameEditorPresentationModel extends PresentationModel {
                 bpfl1, bpfl2, bpflfiller,
                 bpfr1, bpfr2, bpfrfiller,
                 bpsd1, bpsd2, bpsf1, bpsf2};
+
+        TextField[] allTextFields = Stream.concat(Arrays.stream(fields), (Arrays.stream(captainTeam)))
+                .toArray(TextField[]::new);
+
+        for (TextField t : allTextFields) {
+            textFieldAction.setupTextFieldUndo(t, textFieldActions);
+        }
 
         textFields = new ArrayList<>(Arrays.asList(tf));
         ppTextFields = new ArrayList<>(Arrays.asList(pptf));
@@ -349,8 +364,8 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-        backButton.setOnAction(event ->{
-            buttonControls.openGameEditor(root,GAME_EDITOR);
+        backButton.setOnAction(event -> {
+            textFieldAction.undoLastAction(textFieldActions);
         });
 
         saveButton.setOnAction(event -> {
@@ -671,7 +686,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         Line firstLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 1)
                 .findAny().orElse(null);
-        if(firstLineLastGame!=null) {
+        if (firstLineLastGame != null) {
             lgGK1.setText(getPlayerName(firstLineLastGame.getGoalkeeper()));
             lgLD1.setText(getPlayerName(firstLineLastGame.getDefenderLeft()));
             lgRD1.setText(getPlayerName(firstLineLastGame.getDefenderRight()));
@@ -683,7 +698,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         Line secondLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 2)
                 .findAny().orElse(null);
-        if(secondLineLastGame !=null) {
+        if (secondLineLastGame != null) {
             lgGK2.setText(getPlayerName(secondLineLastGame.getGoalkeeper()));
             lgRD2.setText(getPlayerName(secondLineLastGame.getDefenderRight()));
             lgLD2.setText(getPlayerName(secondLineLastGame.getDefenderLeft()));
@@ -695,7 +710,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         Line thirdLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 3)
                 .findAny().orElse(null);
-        if(thirdLineLastGame!=null) {
+        if (thirdLineLastGame != null) {
             lgGK3.setText(getPlayerName(thirdLineLastGame.getGoalkeeper()));
             lgRD3.setText(getPlayerName(thirdLineLastGame.getDefenderRight()));
             lgLD3.setText(getPlayerName(thirdLineLastGame.getDefenderLeft()));
@@ -707,7 +722,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         Line fourthLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 4)
                 .findAny().orElse(null);
-        if(fourthLineLastGame!=null) {
+        if (fourthLineLastGame != null) {
             lgGK4.setText(getPlayerName(fourthLineLastGame.getGoalkeeper()));
             lgRD4.setText(getPlayerName(fourthLineLastGame.getDefenderRight()));
             lgLD4.setText(getPlayerName(fourthLineLastGame.getDefenderLeft()));
@@ -717,9 +732,9 @@ public class GameEditorPresentationModel extends PresentationModel {
         }
 
         Line firstLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==1)
+                .filter(line -> line.getLineNr() == 1)
                 .findAny().orElse(null);
-        if(firstLineNextGame!=null) {
+        if (firstLineNextGame != null) {
             ngGK1.setText(getPlayerName(firstLineNextGame.getGoalkeeper()));
             ngLD1.setText(getPlayerName(firstLineNextGame.getDefenderLeft()));
             ngRD1.setText(getPlayerName(firstLineNextGame.getDefenderRight()));
@@ -729,9 +744,9 @@ public class GameEditorPresentationModel extends PresentationModel {
         }
 
         Line secondLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==2)
+                .filter(line -> line.getLineNr() == 2)
                 .findAny().orElse(null);
-        if(secondLineNextGame!=null) {
+        if (secondLineNextGame != null) {
             ngGK2.setText(getPlayerName(secondLineNextGame.getGoalkeeper()));
             ngLD2.setText(getPlayerName(secondLineNextGame.getDefenderLeft()));
             ngRD2.setText(getPlayerName(secondLineNextGame.getDefenderRight()));
@@ -741,9 +756,9 @@ public class GameEditorPresentationModel extends PresentationModel {
         }
 
         Line thirdLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==3)
+                .filter(line -> line.getLineNr() == 3)
                 .findAny().orElse(null);
-        if(thirdLineNextGame!=null) {
+        if (thirdLineNextGame != null) {
             ngGK3.setText(getPlayerName(thirdLineNextGame.getGoalkeeper()));
             ngLD3.setText(getPlayerName(thirdLineNextGame.getDefenderLeft()));
             ngRD3.setText(getPlayerName(thirdLineNextGame.getDefenderRight()));
@@ -753,9 +768,9 @@ public class GameEditorPresentationModel extends PresentationModel {
         }
 
         Line fourthLineNextGame = nextGameLines.stream()
-                .filter(line -> line.getLineNr()==4)
+                .filter(line -> line.getLineNr() == 4)
                 .findAny().orElse(null);
-        if(fourthLineNextGame!=null) {
+        if (fourthLineNextGame != null) {
             ngGK4.setText(getPlayerName(fourthLineNextGame.getGoalkeeper()));
             ngLD4.setText(getPlayerName(fourthLineNextGame.getDefenderLeft()));
             ngRD4.setText(getPlayerName(fourthLineNextGame.getDefenderRight()));
@@ -766,7 +781,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getPlayerID() >0) {
+        if (player.getPlayerID() > 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";
@@ -780,7 +795,9 @@ public class GameEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        if(closestPastGame==null){closestPastGame=new Game();}
+        if (closestPastGame == null) {
+            closestPastGame = new Game();
+        }
         List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
 
         return lines;
@@ -793,7 +810,9 @@ public class GameEditorPresentationModel extends PresentationModel {
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
-        if(closestNextGame==null){closestNextGame=new Game();}
+        if (closestNextGame == null) {
+            closestNextGame = new Game();
+        }
         List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
 
         return lines;

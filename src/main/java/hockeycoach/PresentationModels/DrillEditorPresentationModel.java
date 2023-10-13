@@ -1,35 +1,30 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBDrillLoader;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Drill;
-import hockeycoach.supportClasses.ButtonControls;
-import hockeycoach.supportClasses.ComboBoxFilter;
-import hockeycoach.supportClasses.ComboBoxPopulator;
-import hockeycoach.supportClasses.Difficulty;
+import hockeycoach.supportClasses.*;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Stack;
 
 import static hockeycoach.AppStarter.*;
 
-public class NewDrillPresentationModel extends PresentationModel {
+public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
     List<Drill> allDrillList, filteredDrills;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
     ButtonControls buttonControls = new ButtonControls();
+
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
+    TextFieldAction textFieldAction= new TextFieldAction();
 
     Button backButton, newDrillButton, saveButton, editButton, cancelButton,
             deleteButton, closeWindowButton, searchButton, newCategoryButton,
@@ -79,6 +74,11 @@ public class NewDrillPresentationModel extends PresentationModel {
         allDrills.getItems().clear();
         allDrills.getItems().setAll(allDrillList);
 
+        TextField[] textFields = {searchBox, drillName, newCategory, addNewTag};
+        for (TextField t:textFields){
+            textFieldAction.setupTextFieldUndo(t,textFieldActions);
+        }
+
         getDBEntries(root);
         setupButtons(root);
 
@@ -93,7 +93,7 @@ public class NewDrillPresentationModel extends PresentationModel {
     @Override
     public void setupButtons(Pane root) {
         backButton.setOnAction(event ->{
-            buttonControls.openTrainingEditor(root,NEW_DRILL);
+            textFieldAction.undoLastAction(textFieldActions);
         });
     }
 
