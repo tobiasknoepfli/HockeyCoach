@@ -42,6 +42,7 @@ public class NewDrillPresentationModel extends PresentationModel {
     TableView<String> drillTags;
     ImageView drillImage;
 
+    @Override
     public void initializeControls(Pane root) {
         backButton = (Button) root.lookup("#backButton");
         newDrillButton = (Button) root.lookup("#newDrillButton");
@@ -78,10 +79,26 @@ public class NewDrillPresentationModel extends PresentationModel {
         allDrills.getItems().clear();
         allDrills.getItems().setAll(allDrillList);
 
+        getDBEntries(root);
+        setupButtons(root);
+
         setupEventListeners(root);
     }
 
-    private void setupEventListeners(Pane root) {
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+        backButton.setOnAction(event ->{
+            buttonControls.openTrainingEditor(root,NEW_DRILL);
+        });
+    }
+
+    @Override
+    public void setupEventListeners(Pane root) {
         allDrills.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
             drillName.setText(newDrill.getName());
             drillCategory.setValue(newDrill.getCategory());
@@ -150,8 +167,6 @@ public class NewDrillPresentationModel extends PresentationModel {
                     drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
         });
 
-        backButton.setOnAction(event ->{
-            buttonControls.openTrainingEditor(root,NEW_DRILL);
-        });
+
     }
 }

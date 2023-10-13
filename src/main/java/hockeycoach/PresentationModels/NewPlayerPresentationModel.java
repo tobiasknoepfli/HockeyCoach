@@ -79,6 +79,30 @@ public class NewPlayerPresentationModel extends PresentationModel {
         setupEventListeners(root);
     }
 
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+        saveButton.setOnAction(event -> {
+            String photoPath = savePlayerPhoto();
+            Player newPlayer = readData(photoPath);
+            DBWriter dbWriter = new DBWriter();
+            dbWriter.writeNewPlayer(newPlayer);
+            clearAllFields();
+
+            DBLoader dbLoader = new DBLoader();
+            DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+            allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
+            allPlayers.getItems().clear();
+            allPlayers.getItems().addAll(allPlayersList);
+            allPlayers.refresh();
+        });
+    }
+
+    @Override
     public void setupEventListeners(Pane root) {
         playerFirstName.textProperty().addListener((obs, oldValue, newValue) -> {
             fnFiltered = allPlayersList.stream()
@@ -114,20 +138,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
 
         playerPhoto.setOnMouseClicked(event -> handleImageClick());
 
-        saveButton.setOnAction(event -> {
-            String photoPath = savePlayerPhoto();
-            Player newPlayer = readData(photoPath);
-            DBWriter dbWriter = new DBWriter();
-            dbWriter.writeNewPlayer(newPlayer);
-            clearAllFields();
 
-            DBLoader dbLoader = new DBLoader();
-            DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-            allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
-            allPlayers.getItems().clear();
-            allPlayers.getItems().addAll(allPlayersList);
-            allPlayers.refresh();
-        });
     }
 
     private void setControlsDisabled(boolean disabled) {

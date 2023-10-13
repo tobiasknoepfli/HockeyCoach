@@ -83,6 +83,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     private ArrayList<TextField> jerseysArrayList, playersArrayList;
 
+    @Override
     public void initializeControls(Pane root) {
         drillImage = (ImageView) root.lookup("#drillImage");
         drillName = (TextField) root.lookup("#drillName");
@@ -275,6 +276,17 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         setupEventListeners(root);
     }
 
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+
+    }
+
+    @Override
     public void setupEventListeners(Pane root) {
         eventListenersFromTable(drillTable);
         eventListenersFromTable(warmup);

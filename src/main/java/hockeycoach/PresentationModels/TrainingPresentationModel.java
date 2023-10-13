@@ -43,6 +43,7 @@ public class TrainingPresentationModel extends PresentationModel {
             fl1, fl2, fl3, fl4, fl5, fl6,
             fr1, fr2, fr3, fr4, fr5, fr6;
 
+    @Override
     public void initializeControls(Pane root) {
         trainingTable = (TableView) root.lookup("#trainingTable");
         trainingDate = (TextField) root.lookup("#trainingDate");
@@ -119,6 +120,17 @@ public class TrainingPresentationModel extends PresentationModel {
         setupEventListeners(root);
     }
 
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+
+    }
+
+    @Override
     public void setupEventListeners(Pane root) {
         newDrillButton.setOnAction(event -> {
             buttonControls.openNewDrill(root,TRAINING);

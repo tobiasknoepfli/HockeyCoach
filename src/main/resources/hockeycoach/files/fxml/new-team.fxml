@@ -30,15 +30,6 @@
          <children>
             <HBox fx:id="controlBoxLeft" spacing="5.0">
                <children>
-                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_back.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
                   <Button fx:id="newTeamButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                      <font>
                         <Font name="Wingdings 3" size="12.0" />
@@ -47,6 +38,15 @@
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../icons/icons_newTeam.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons_back.png" />
                            </image>
                         </ImageView>
                      </graphic>

@@ -37,6 +37,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
 
     Button addButton, removeButton, saveButton;
 
+    @Override
     public void initializeControls(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         allPlayers = (TableView) root.lookup("#allPlayers");
@@ -67,6 +68,21 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
         dragAndDrop(allPlayers, teamPlayers);
 
         saveButton.setOnAction(event -> saveToDB());
+    }
+
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+
+    }
+
+    @Override
+    public void setupEventListeners(Pane root) {
+
     }
 
     private List<Player> filterPlayerIDs(List<Player> teamPlayerList, List<Player> allPlayerList) {

@@ -32,6 +32,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
     public StartPresentationModel() {
     }
 
+    @Override
     public void initializeControls(Pane root) {
         teamsTable = (TableView) root.lookup("#teamsTable");
         gamesTable = (TableView) root.lookup("#gamesTable");
@@ -59,6 +60,17 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         useTooltips();
     }
 
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+
+    }
+
+    @Override
     public void setupEventListeners(Pane root) {
         closeWindowButton.setOnAction(event -> {
             buttonControls.closeWindow(root, HOME);

@@ -27,11 +27,11 @@ import static hockeycoach.AppStarter.*;
 
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
-    ButtonControls buttonControls = new ButtonControls();
-
-    DBLoader dbLoader = new DBLoader();
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
+    DBPlayerLoader dbPlayerLoader  = new DBPlayerLoader();
+
+    ButtonControls buttonControls = new ButtonControls();
 
     Team selectedTeam;
     List<Player> playerList;
@@ -91,6 +91,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4,
             ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
 
+    @Override
     public void initializeControls(Pane root) {
         gameDate = (TextField) root.lookup("#gameDate");
         gameTime = (TextField) root.lookup("#gameTime");
@@ -262,7 +263,6 @@ public class GameEditorPresentationModel extends PresentationModel {
         ngLF3 = (Label) root.lookup("#ngLF3");
         ngLF4 = (Label) root.lookup("#ngLF4");
 
-
         File file = new File(BOARD);
         Image image = new Image(file.toURI().toString());
         boardImage.setImage(image);
@@ -322,8 +322,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         doubleClickRemove(captainTeamList);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
-        DBLoader dbLoader = new DBLoader();
-        DBPlayerLoader dbPlayerLoader  = new DBPlayerLoader();
+
         playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
         teamPlayers.getItems().clear();
@@ -337,20 +336,22 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         showGameLines(lastGameLines(), nextGameLines());
 
+        getDBEntries(root);
+        setupButtons(root);
         setupEventListeners(root);
 
     }
 
-    public void setupEventListeners(Pane root) {
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
         backButton.setOnAction(event ->{
             buttonControls.openGameEditor(root,GAME_EDITOR);
         });
-
-        lineupTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            refreshPlayers();
-        });
-
-        textFields.stream().forEach(this::addLineupText);
 
         saveButton.setOnAction(event -> {
             Game game = saveGameToDB();
@@ -389,7 +390,15 @@ public class GameEditorPresentationModel extends PresentationModel {
 
             dbWriter.writeSubstituteLine(game, subsLine);
         });
+    }
 
+    public void setupEventListeners(Pane root) {
+
+        lineupTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            refreshPlayers();
+        });
+
+        textFields.stream().forEach(this::addLineupText);
     }
 
     public void dragCopyEvent(TextField textField) {

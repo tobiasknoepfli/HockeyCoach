@@ -47,6 +47,7 @@ public class PlayerPresentationModel extends PresentationModel {
 
     Button saveButton,editButton,cancelButton,deleteButton,newPlayerButton;
 
+    @Override
     public void initializeControls(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         playerTeams = (TableView) root.lookup("#playerTeams");
@@ -91,6 +92,33 @@ public class PlayerPresentationModel extends PresentationModel {
         disableControls(true);
     }
 
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+        editButton.setOnAction(event -> {
+            if (teamPlayers.getSelectionModel().getSelectedItem() != null) {
+                disableControls(false);
+            }
+        });
+
+        saveButton.setOnAction(event -> {
+            Player player = getPlayerData();
+            player.setPhotoPath(savePlayerPhoto());
+            DBEditor dbEditor = new DBEditor();
+            dbEditor.editPlayer(player);
+            dbEditor.editJerseyAndRole(player, selectedTeam);
+        });
+
+        newPlayerButton.setOnAction(event ->{
+            buttonControls.openNewPlayer(root,PLAYER);
+        });
+    }
+
+    @Override
     public void setupEventListeners(Pane root) {
         teamPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedPlayer, newSelectedPlayer) -> {
             if (newSelectedPlayer != null) {
@@ -131,23 +159,7 @@ public class PlayerPresentationModel extends PresentationModel {
             }
         });
 
-        editButton.setOnAction(event -> {
-            if (teamPlayers.getSelectionModel().getSelectedItem() != null) {
-                disableControls(false);
-            }
-        });
 
-        saveButton.setOnAction(event -> {
-            Player player = getPlayerData();
-            player.setPhotoPath(savePlayerPhoto());
-            DBEditor dbEditor = new DBEditor();
-            dbEditor.editPlayer(player);
-            dbEditor.editJerseyAndRole(player, selectedTeam);
-        });
-
-        newPlayerButton.setOnAction(event ->{
-            buttonControls.openNewPlayer(root,PLAYER);
-        });
     }
 
     private void disableControls(boolean disabled) {

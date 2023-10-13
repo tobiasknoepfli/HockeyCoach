@@ -7,6 +7,11 @@ import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.supportClasses.TextFieldAction;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -32,6 +37,11 @@ public class NewTeamPresentationModel extends PresentationModel {
     TableView<Player> teamPlayers;
     List<Team> teamList = new ArrayList();
     ButtonControls buttonControls = new ButtonControls();
+    private TextField[] textFields;
+    private Stack<TextFieldAction> textFieldActions = new Stack<>();
+    private TextFieldAction textFieldAction= new TextFieldAction();
+
+    DBTeamLoader dbTeamLoader = new DBTeamLoader();
 
     ImageView teamLogo = new ImageView();
 
@@ -46,12 +56,11 @@ public class NewTeamPresentationModel extends PresentationModel {
     Label controlLabel, controlZip, controlContact, controlFounded,
             controlHeadCoach, controlCaptain, controlPresident;
 
-    Button saveButton, cancelButton, closeWindowButton;
+    Button saveButton, cancelButton, closeWindowButton, backButton;
 
 
     @Override
     public void initializeControls(Pane root) {
-
         teamLogo = (ImageView) root.lookup("#teamLogo");
         teamName = (TextField) root.lookup("#teamName");
         stadiumName = (TextField) root.lookup("#stadiumName");
@@ -79,27 +88,30 @@ public class NewTeamPresentationModel extends PresentationModel {
         controlHeadCoach = (Label) root.lookup("#controlHeadCoach");
         controlCaptain = (Label) root.lookup("#controlCaptain");
         controlPresident = (Label) root.lookup("#controlPresident");
+        backButton = (Button) root.lookup("#backButton");
 
-        DBTeamLoader dbTeamLoader = new DBTeamLoader();
-        teamList = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        textFields = new TextField[]{teamName, stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
+                contactName, contactPhone, contactEmail,
+                website, founded, currentLeague,
+                presidentName, headCoachName, captainName};
+        for (TextField t : textFields) {
+            textFieldAction.setupTextFieldUndo(t,textFieldActions);
+        }
 
         setControlsDisabled(true);
 
+        getDBEntries(root);
+        setupButtons(root);
         setupEventListeners(root);
     }
 
-    public void setupEventListeners(Pane root) {
-        teamName.textProperty().addListener((obs, oldValue, newValue) -> {
-            List<Team> newList = teamList.stream()
-                    .filter(team -> team.getName().toLowerCase().contains(newValue.toLowerCase()))
-                    .collect(Collectors.toList());
-            controlLabel.setText("found: " + newList.size());
-            boolean disableControls = newValue.isEmpty() || newList.size() > 0;
-            setControlsDisabled(disableControls);
-        });
+    @Override
+    public void getDBEntries(Pane root){
+        teamList = dbTeamLoader.getAllTeams("SELECT * FROM team");
+    }
 
-        teamLogo.setOnMouseClicked(event -> handleImageClick());
-
+    @Override
+    public void setupButtons(Pane root) {
         saveButton.setOnAction(event -> {
             String logoPath = saveTeamLogo();
             Team newTeam = readData(logoPath);
@@ -113,6 +125,28 @@ public class NewTeamPresentationModel extends PresentationModel {
             clearAllFields();
             callStartPage();
         });
+
+        closeWindowButton.setOnAction(event -> {
+            buttonControls.closeWindow(root, NEW_TEAM);
+        });
+
+        backButton.setOnAction(event -> {
+            textFieldAction.undoLastAction(textFieldActions);
+        });
+    }
+
+    @Override
+    public void setupEventListeners(Pane root) {
+        teamName.textProperty().addListener((obs, oldValue, newValue) -> {
+            List<Team> newList = teamList.stream()
+                    .filter(team -> team.getName().toLowerCase().contains(newValue.toLowerCase()))
+                    .collect(Collectors.toList());
+            controlLabel.setText("found: " + newList.size());
+            boolean disableControls = newValue.isEmpty() || newList.size() > 0;
+            setControlsDisabled(disableControls);
+        });
+
+        teamLogo.setOnMouseClicked(event -> handleImageClick());
 
         stadiumZipCity.textProperty().addListener((obs, oldValue, newValue) -> {
             controlFields();
@@ -136,10 +170,6 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         captainName.textProperty().addListener((obs, oldValue, newValue) -> {
             controlFields();
-        });
-
-        closeWindowButton.setOnAction(event -> {
-            buttonControls.closeWindow(root,NEW_TEAM);
         });
     }
 
@@ -331,10 +361,5 @@ public class NewTeamPresentationModel extends PresentationModel {
         StartPresentationModel pm = new StartPresentationModel();
         HeaderController headerController = new HeaderController();
         headerController.loadStages(HOME, HOME_FXML, pm);
-    }
-
-    public static void closeWindow(Node node) {
-        Stage stage = (Stage) node.getScene().getWindow();
-        stage.close();
     }
 }

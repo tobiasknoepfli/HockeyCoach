@@ -147,9 +147,28 @@ public class GamePresentationModel extends PresentationModel {
 
         gameTeam.setText(selectedTeam.getName());
 
+        getDBEntries(root);
+        setupButtons(root);
         setupEventListeners(root);
     }
 
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+        newGameButton.setOnAction(event ->{
+            buttonControls.openGameEditor(root,GAME);
+        });
+
+        backButton.setOnAction(event ->{
+            buttonControls.openHome(root,GAME);
+        });
+    }
+
+    @Override
     public void setupEventListeners(Pane root) {
         allGames.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             gameOpponent.setText(newValue.getOpponent());
@@ -293,13 +312,7 @@ public class GamePresentationModel extends PresentationModel {
             }
         });
 
-        newGameButton.setOnAction(event ->{
-            buttonControls.openGameEditor(root,GAME);
-        });
 
-        backButton.setOnAction(event ->{
-            buttonControls.openHome(root,GAME);
-        });
     }
 
     public String getPlayerName(Player player) {

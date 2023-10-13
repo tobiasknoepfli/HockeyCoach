@@ -41,7 +41,7 @@ public class TeamPresentationModel extends PresentationModel {
     Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton, newTeamButton;
     TextArea notes;
 
-
+    @Override
     public void initializeControls(Pane root) {
         teamLogo = (ImageView) root.lookup("#teamLogo");
         teamName = (TextField) root.lookup("#teamName");
@@ -115,7 +115,18 @@ public class TeamPresentationModel extends PresentationModel {
         teamLogo.setOnMouseClicked(event -> handleImageClick());
     }
 
-    private void setupEventListeners(Pane root) {
+    @Override
+    public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void setupButtons(Pane root) {
+
+    }
+
+    @Override
+    public void setupEventListeners(Pane root) {
         editPlayerButton.setOnAction(event -> {
             HeaderController headerController = new HeaderController();
             PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
@@ -135,7 +146,7 @@ public class TeamPresentationModel extends PresentationModel {
         });
 
         newTeamButton.setOnAction(event -> {
-            buttonControls.openNewTeam(root,TEAM);
+            buttonControls.openNewTeam(root, TEAM);
         });
     }
 
