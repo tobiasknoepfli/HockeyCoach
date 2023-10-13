@@ -21,8 +21,8 @@ public class TeamController extends Controller {
 
     @FXML
     private TextField teamName,
-            stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
-            contactName, contactPhone, contactEmail,
+            stadiumName, stadiumStreet, stadiumZip,stadiumCity, stadiumCountry,
+            contactFirstName,contactLastName, contactPhone, contactEmail,
             website, founded, currentLeague,
-            presidentName, headCoachName, captainName;
+            presidentFirstName,presidentLastName, headCoachFirstName,headCoachLastName;
 }

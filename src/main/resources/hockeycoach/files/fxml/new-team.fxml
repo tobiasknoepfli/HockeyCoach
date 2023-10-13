@@ -140,11 +140,6 @@
                                       <TextField fx:id="teamName" prefHeight="25.0" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" spacing="2.0">
-                                 <children>
-                                    <Label fx:id="controlLabel" prefHeight="25.0" prefWidth="100.0" />
-                                 </children>
-                              </VBox>
                            </children>
                         </HBox>
                         <HBox spacing="5.0">
@@ -153,7 +148,8 @@
                                  <children>
                                     <Label prefHeight="25.0" prefWidth="150.0" text="Stadium" />
                                     <Label prefHeight="25.0" prefWidth="150.0" text="Street Nr." />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="ZIP City" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="ZIP" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="City" />
                                     <Label prefHeight="25.0" prefWidth="150.0" text="Country" />
                                  </children>
                               </VBox>
@@ -161,41 +157,32 @@
                                  <children>
                                         <TextField fx:id="stadiumName" prefHeight="25.0" />
                                         <TextField fx:id="stadiumStreet" prefHeight="25.0" />
-                                        <TextField fx:id="stadiumZipCity" prefHeight="25.0" />
-                                        <TextField fx:id="stadiumCountry" prefHeight="25.0" />
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER_LEFT" spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
-                                    <Label fx:id="controlZip" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="100.0" />
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
+                                        <TextField fx:id="stadiumZip" prefHeight="25.0" />
+                                        <TextField fx:id="stadiumCity" prefHeight="25.0" />
+                                    <TextField fx:id="stadiumCountry" prefHeight="25.0" />
                                  </children>
                               </VBox>
                            </children>
                         </HBox>
                         <HBox spacing="5.0">
                            <children>
-                              <VBox spacing="2.0">
+                              <VBox prefHeight="79.0" prefWidth="205.0" spacing="2.0">
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Contact FN LN" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="Contact" />
                                     <Label prefHeight="25.0" prefWidth="150.0" text="Phone" />
                                     <Label prefHeight="25.0" prefWidth="150.0" text="E-Mail" />
                                  </children>
                               </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                              <VBox spacing="2.0">
                                  <children>
-                                        <TextField fx:id="contactName" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="contactPhone" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="contactEmail" prefHeight="20.0" prefWidth="306.0" />
+                                    <TextField fx:id="contactFirstName1" prefHeight="20.0" prefWidth="306.0" />
+                                    <TextField fx:id="contactPhone" prefHeight="20.0" prefWidth="306.0" />
+                                    <TextField fx:id="contactEmail" prefHeight="20.0" prefWidth="306.0" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" spacing="2.0">
+                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="controlContact" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="100.0" />
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
+                                        <TextField fx:id="contactLastName" prefHeight="20.0" prefWidth="306.0" />
                                  </children>
                               </VBox>
                            </children>
@@ -216,36 +203,26 @@
                                         <TextField fx:id="currentLeague" prefHeight="20.0" prefWidth="306.0" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
-                                    <Label fx:id="controlFounded" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="100.0" />
-                                    <Label prefHeight="25.0" prefWidth="100.0" />
-                                 </children>
-                              </VBox>
                            </children>
                         </HBox>
                         <HBox spacing="5.0">
                            <children>
-                              <VBox spacing="2.0">
+                              <VBox prefWidth="205.0" spacing="2.0">
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="President FN LN" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach FN LN" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Captain FN LN" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="President" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach" />
                                  </children>
                               </VBox>
                               <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                        <TextField fx:id="presidentName" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="headCoachName" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="captainName" prefHeight="20.0" prefWidth="306.0" />
+                                        <TextField fx:id="presidentFirstName" prefHeight="20.0" prefWidth="306.0" />
+                                        <TextField fx:id="headCoachFirstName" prefHeight="20.0" prefWidth="306.0" />
                                  </children>
                               </VBox>
-                              <VBox alignment="CENTER_LEFT" spacing="2.0">
+                              <VBox spacing="2.0">
                                  <children>
-                                    <Label fx:id="controlPresident" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="100.0" />
-                                    <Label fx:id="controlHeadCoach" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="100.0" />
-                                    <Label fx:id="controlCaptain" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="100.0" />
+                                    <TextField fx:id="presidentLastName" prefHeight="20.0" prefWidth="306.0" />
+                                    <TextField fx:id="headCoachLastName" prefHeight="20.0" prefWidth="306.0" />
                                  </children>
                               </VBox>
                            </children>

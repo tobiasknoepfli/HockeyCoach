@@ -38,10 +38,11 @@ public class TeamPresentationModel extends PresentationModel {
     MouseEvent event;
 
     ImageView teamLogo;
-    TextField teamName, stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
-            contactName, contactPhone, contactEmail,
+    TextField teamName,
+            stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,
+            contactFirstName, contactLastName, contactPhone, contactEmail,
             website, founded, currentLeague,
-            presidentName, headCoachName, captainName;
+            presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName;
     TableView<Player> teamPlayers;
     Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton, newTeamButton, backButton;
     TextArea notes;
@@ -52,17 +53,20 @@ public class TeamPresentationModel extends PresentationModel {
         teamName = (TextField) root.lookup("#teamName");
         stadiumName = (TextField) root.lookup("#stadiumName");
         stadiumStreet = (TextField) root.lookup("#stadiumStreet");
-        stadiumZipCity = (TextField) root.lookup("#stadiumZipCity");
+        stadiumZip = (TextField) root.lookup("#stadiumZip");
+        stadiumCity = (TextField) root.lookup("#stadiumCity");
         stadiumCountry = (TextField) root.lookup("#stadiumCountry");
-        contactName = (TextField) root.lookup("#contactName");
+        contactFirstName = (TextField) root.lookup("#contactFirstName");
+        contactLastName = (TextField) root.lookup("#contactLastName");
         contactPhone = (TextField) root.lookup("#contactPhone");
         contactEmail = (TextField) root.lookup("#contactEmail");
         website = (TextField) root.lookup("#website");
         founded = (TextField) root.lookup("#founded");
-        presidentName = (TextField) root.lookup("#presidentName");
+        presidentFirstName = (TextField) root.lookup("#presidentFirstName");
+        presidentLastName = (TextField) root.lookup("#presidentLastName");
         currentLeague = (TextField) root.lookup("#currentLeague");
-        headCoachName = (TextField) root.lookup("#headCoachName");
-        captainName = (TextField) root.lookup("#captainName");
+        headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
+        headCoachLastName = (TextField) root.lookup("#headCoachLastName");
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         notes = (TextArea) root.lookup("#notes");
         editPlayerButton = (Button) root.lookup("#editPlayerButton");
@@ -80,10 +84,11 @@ public class TeamPresentationModel extends PresentationModel {
         Team team = dbTeamLoader.getTeam("SELECT * FROM team WHERE teamID =" + selectedTeam.getTeamID());
         List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
-        TextField[] textFields = {teamName, stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
-                contactName, contactPhone, contactEmail,
+        TextField[] textFields = {teamName,
+                stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,
+                contactFirstName, contactLastName, contactPhone, contactEmail,
                 website, founded, currentLeague,
-                presidentName, headCoachName, captainName};
+                presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName};
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         disableControls(true);
@@ -105,17 +110,20 @@ public class TeamPresentationModel extends PresentationModel {
         teamName.setText(team.getName());
         stadiumName.setText(team.getStadium());
         stadiumStreet.setText(team.getStreet());
-        stadiumZipCity.setText(team.getZip() + " " + team.getCity());
+        stadiumZip.setText(String.valueOf(team.getZip()));
+        stadiumCity.setText(team.getCity());
         stadiumCountry.setText(team.getCountry());
-        contactName.setText(team.getContactFirstName() + " " + team.getContactLastName());
+        contactFirstName.setText(team.getContactFirstName());
+        contactLastName.setText(team.getContactLastName());
         contactPhone.setText(team.getContactPhone());
         contactEmail.setText(team.getContactEmail());
         website.setText(team.getWebsite());
         founded.setText(String.valueOf(team.getFounded()));
-        presidentName.setText(team.getPresidentFirstName() + " " + team.getPresidentLastName());
+        presidentFirstName.setText(team.getPresidentFirstName());
+        presidentLastName.setText(team.getPresidentLastName());
         currentLeague.setText(team.getLeague());
-        headCoachName.setText(team.getHeadCoachFirstName() + " " + team.getHeadCoachLastName());
-        captainName.setText(team.getCaptainFirstName() + " " + team.getCaptainLastName());
+        headCoachFirstName.setText(team.getHeadCoachFirstName());
+        headCoachLastName.setText(team.getHeadCoachLastName());
         notes.setText(team.getNotes());
 
         if (!playerList.isEmpty()) {
@@ -171,17 +179,20 @@ public class TeamPresentationModel extends PresentationModel {
         teamLogo.setDisable(disabled);
         stadiumName.setDisable(disabled);
         stadiumStreet.setDisable(disabled);
-        stadiumZipCity.setDisable(disabled);
+        stadiumZip.setDisable(disabled);
+        stadiumCity.setDisable(disabled);
         stadiumCountry.setDisable(disabled);
-        contactName.setDisable(disabled);
+        contactFirstName.setDisable(disabled);
+        contactLastName.setDisable(disabled);
         contactEmail.setDisable(disabled);
         contactPhone.setDisable(disabled);
         website.setDisable(disabled);
         founded.setDisable(disabled);
-        presidentName.setDisable(disabled);
+        presidentFirstName.setDisable(disabled);
+        presidentLastName.setDisable(disabled);
         currentLeague.setDisable(disabled);
-        headCoachName.setDisable(disabled);
-        captainName.setDisable(disabled);
+        headCoachFirstName.setDisable(disabled);
+        headCoachLastName.setDisable(disabled);
         notes.setDisable(disabled);
         saveButton.setDisable(disabled);
         cancelButton.setDisable(disabled);
@@ -195,36 +206,20 @@ public class TeamPresentationModel extends PresentationModel {
         team.setName(teamName.getText());
         team.setStadium(stadiumName.getText());
         team.setStreet(stadiumStreet.getText());
-
-        String[] zc = stadiumZipCity.getText().split("\\s+");
-        team.setZip(Integer.parseInt(zc[0]));
-        team.setCity(zc[1]);
-
+        team.setZip(Integer.parseInt(stadiumZip.getText()));
+        team.setCity(stadiumCity.getText());
         team.setCountry(stadiumCountry.getText());
-
-        String[] cn = contactName.getText().split("\\s+");
-        team.setContactFirstName(cn[0]);
-        team.setContactLastName(cn[1]);
-
+        team.setContactFirstName(contactFirstName.getText());
+        team.setContactLastName(contactLastName.getText());
         team.setContactPhone(contactPhone.getText());
         team.setContactEmail(contactEmail.getText());
         team.setWebsite(website.getText());
         team.setFounded(Integer.parseInt(founded.getText()));
-
-        String[] pn = presidentName.getText().split("\\s+");
-        team.setPresidentFirstName(pn[0]);
-        team.setPresidentLastName(pn[1]);
-
+        team.setPresidentFirstName(presidentFirstName.getText());
+        team.setPresidentLastName(presidentLastName.getText());
         team.setLeague(currentLeague.getText());
-
-        String[] hc = headCoachName.getText().split("\\s+");
-        team.setHeadCoachFirstName(hc[0]);
-        team.setHeadCoachLastName(hc[1]);
-
-        String[] can = captainName.getText().split("\\s+");
-        team.setCaptainFirstName(can[0]);
-        team.setCaptainLastName(can[1]);
-
+        team.setHeadCoachFirstName(headCoachFirstName.getText());
+        team.setHeadCoachLastName(headCoachLastName.getText());
         team.setNotes(notes.getText());
 
         return team;

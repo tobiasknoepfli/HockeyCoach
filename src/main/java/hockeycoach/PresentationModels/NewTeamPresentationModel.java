@@ -46,10 +46,10 @@ public class NewTeamPresentationModel extends PresentationModel {
     ImageView teamLogo = new ImageView();
 
     TextField teamName,
-            stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
-            contactName, contactPhone, contactEmail,
+            stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,
+            contactFirstName, contactLastName, contactPhone, contactEmail,
             website, founded, currentLeague,
-            presidentName, headCoachName, captainName;
+            presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName;
 
     TextArea notes;
 
@@ -65,17 +65,20 @@ public class NewTeamPresentationModel extends PresentationModel {
         teamName = (TextField) root.lookup("#teamName");
         stadiumName = (TextField) root.lookup("#stadiumName");
         stadiumStreet = (TextField) root.lookup("#stadiumStreet");
-        stadiumZipCity = (TextField) root.lookup("#stadiumZipCity");
+        stadiumZip = (TextField) root.lookup("#stadiumZip");
+        stadiumCity = (TextField) root.lookup("#stadiumCity");
         stadiumCountry = (TextField) root.lookup("#stadiumCountry");
-        contactName = (TextField) root.lookup("#contactName");
+        contactFirstName = (TextField) root.lookup("#contactFirstName");
+        contactLastName = (TextField) root.lookup("#contactLastName");
         contactPhone = (TextField) root.lookup("#contactPhone");
         contactEmail = (TextField) root.lookup("#contactEmail");
         website = (TextField) root.lookup("#website");
         founded = (TextField) root.lookup("#founded");
-        presidentName = (TextField) root.lookup("#presidentName");
         currentLeague = (TextField) root.lookup("#currentLeague");
-        headCoachName = (TextField) root.lookup("#headCoachName");
-        captainName = (TextField) root.lookup("#captainName");
+        presidentFirstName = (TextField) root.lookup("#presidentFirstName");
+        presidentLastName = (TextField) root.lookup("#presidentLastName");
+        headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
+        headCoachLastName = (TextField) root.lookup("#headCoachLastName");
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         notes = (TextArea) root.lookup("#notes");
         controlLabel = (Label) root.lookup("#controlLabel");
@@ -90,10 +93,11 @@ public class NewTeamPresentationModel extends PresentationModel {
         controlPresident = (Label) root.lookup("#controlPresident");
         backButton = (Button) root.lookup("#backButton");
 
-        textFields = new TextField[]{teamName, stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
-                contactName, contactPhone, contactEmail,
+        textFields = new TextField[]{teamName,
+                stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,
+                contactFirstName, contactLastName, contactPhone, contactEmail,
                 website, founded, currentLeague,
-                presidentName, headCoachName, captainName};
+                presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName};
 
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
@@ -147,46 +151,27 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         teamLogo.setOnMouseClicked(event -> handleImageClick());
 
-        stadiumZipCity.textProperty().addListener((obs, oldValue, newValue) -> {
-            controlFields();
-        });
 
-        contactName.textProperty().addListener((obs, oldValue, newValue) -> {
-            controlFields();
-        });
-
-        founded.textProperty().addListener((obs, oldValue, newValue) -> {
-            controlFields();
-        });
-
-        presidentName.textProperty().addListener((obs, oldValue, newValue) -> {
-            controlFields();
-        });
-
-        headCoachName.textProperty().addListener((obs, oldValue, newValue) -> {
-            controlFields();
-        });
-
-        captainName.textProperty().addListener((obs, oldValue, newValue) -> {
-            controlFields();
-        });
     }
 
     public void setControlsDisabled(boolean disabled) {
         teamLogo.setDisable(disabled);
         stadiumName.setDisable(disabled);
         stadiumStreet.setDisable(disabled);
-        stadiumZipCity.setDisable(disabled);
+        stadiumZip.setDisable(disabled);
+        stadiumCity.setDisable(disabled);
         stadiumCountry.setDisable(disabled);
-        contactName.setDisable(disabled);
+        contactFirstName.setDisable(disabled);
+        contactLastName.setDisable(disabled);
         contactPhone.setDisable(disabled);
         contactEmail.setDisable(disabled);
         website.setDisable(disabled);
         founded.setDisable(disabled);
-        presidentName.setDisable(disabled);
+        presidentFirstName.setDisable(disabled);
+        presidentLastName.setDisable(disabled);
         currentLeague.setDisable(disabled);
-        headCoachName.setDisable(disabled);
-        captainName.setDisable(disabled);
+        headCoachFirstName.setDisable(disabled);
+        headCoachLastName.setDisable(disabled);
         notes.setDisable(disabled);
         saveButton.setDisable(disabled);
     }
@@ -197,80 +182,6 @@ public class NewTeamPresentationModel extends PresentationModel {
         teamLogo.setImage(image);
     }
 
-    private void controlFields() {
-        String zipCityText = stadiumZipCity.getText();
-        if (!zipCityText.isEmpty()) {
-            String[] zip = zipCityText.split("\\s+");
-            try {
-                int z = Integer.parseInt(zip[0]);
-                controlZip.setText("");
-                saveButton.setDisable(false);
-            } catch (NumberFormatException e) {
-                controlZip.setText("x");
-                saveButton.setDisable(true);
-            }
-
-        }
-        String contact = contactName.getText();
-        if (!contact.isEmpty()) {
-            String[] c = contact.split("\\s+");
-            if (c.length == 2) {
-                controlContact.setText("");
-                saveButton.setDisable(false);
-            } else {
-                controlContact.setText("x");
-                saveButton.setDisable(true);
-            }
-        }
-
-        String est = founded.getText();
-        if (!est.isEmpty()) {
-            try {
-                int f = Integer.parseInt(est);
-                controlFounded.setText("");
-                saveButton.setDisable(false);
-            } catch (NumberFormatException e) {
-                controlFounded.setText("x");
-                saveButton.setDisable(true);
-            }
-        }
-
-        String president = presidentName.getText();
-        if (!president.isEmpty()) {
-            String[] p = president.split("\\s+");
-            if (p.length == 2) {
-                controlPresident.setText("");
-                saveButton.setDisable(false);
-            } else {
-                controlPresident.setText("x");
-                saveButton.setDisable(true);
-            }
-        }
-
-        String headCoach = headCoachName.getText();
-        if (!headCoach.isEmpty()) {
-            String[] h = headCoach.split("\\s+");
-            if (h.length == 2) {
-                controlHeadCoach.setText("");
-                saveButton.setDisable(false);
-            } else {
-                controlHeadCoach.setText("x");
-                saveButton.setDisable(true);
-            }
-        }
-
-        String captain = captainName.getText();
-        if (!captain.isEmpty()) {
-            String[] cpt = captain.split("\\s+");
-            if (cpt.length == 2) {
-                controlCaptain.setText("");
-                saveButton.setDisable(false);
-            } else {
-                controlCaptain.setText("x");
-                saveButton.setDisable(true);
-            }
-        }
-    }
 
     private String saveTeamLogo() {
         Image selectedImage = teamLogo.getImage();
@@ -304,34 +215,21 @@ public class NewTeamPresentationModel extends PresentationModel {
         newTeam.setName(teamName.getText());
         newTeam.setStadium(stadiumName.getText());
         newTeam.setStreet(stadiumStreet.getText());
-
-        String[] zc = stadiumZipCity.getText().split("\\s+");
-        newTeam.setZip(Integer.parseInt(zc[0]));
-        newTeam.setCity(zc[1]);
-
+        newTeam.setZip(Integer.parseInt(stadiumZip.getText()));
+        newTeam.setCity(stadiumCity.getText());
         newTeam.setCountry(stadiumCountry.getText());
 
-        String[] cFnLn = contactName.getText().split("\\s+");
-        newTeam.setContactFirstName(cFnLn[0]);
-        newTeam.setContactLastName(cFnLn[1]);
-
+        newTeam.setContactFirstName(contactFirstName.getText());
+        newTeam.setContactLastName(contactLastName.getText());
         newTeam.setContactPhone(contactPhone.getText());
         newTeam.setContactEmail(contactEmail.getText());
         newTeam.setWebsite(website.getText());
         newTeam.setFounded(Integer.parseInt(founded.getText()));
-
-        String[] pFnLn = presidentName.getText().split("\\s+");
-        newTeam.setPresidentFirstName(pFnLn[0]);
-        newTeam.setPresidentLastName(pFnLn[1]);
+        newTeam.setPresidentFirstName(presidentFirstName.getText());
+        newTeam.setPresidentLastName(presidentLastName.getText());
         newTeam.setLeague(currentLeague.getText());
-
-        String[] hCFnLn = headCoachName.getText().split("\\s+");
-        newTeam.setHeadCoachFirstName(hCFnLn[0]);
-        newTeam.setHeadCoachLastName(hCFnLn[1]);
-
-        String[] capFnLn = captainName.getText().split("\\s+");
-        newTeam.setCaptainFirstName(capFnLn[0]);
-        newTeam.setCaptainLastName(capFnLn[1]);
+        newTeam.setHeadCoachFirstName(headCoachFirstName.getText());
+        newTeam.setHeadCoachLastName(headCoachLastName.getText());
         newTeam.setNotes(notes.getText());
 
         newTeam.setLogo(newImage);
@@ -343,17 +241,20 @@ public class NewTeamPresentationModel extends PresentationModel {
         teamLogo.setImage(null);
         stadiumName.clear();
         stadiumStreet.clear();
-        stadiumZipCity.clear();
+        stadiumZip.clear();
+        stadiumCity.clear();
         stadiumCountry.clear();
-        contactName.clear();
+        contactFirstName.clear();
+        contactLastName.clear();
         contactPhone.clear();
         contactEmail.clear();
         website.clear();
         founded.clear();
-        presidentName.clear();
+        presidentFirstName.clear();
+        presidentLastName.clear();
         currentLeague.clear();
-        headCoachName.clear();
-        captainName.clear();
+        headCoachFirstName.clear();
+        headCoachLastName.clear();
     }
 
     private void callStartPage() {

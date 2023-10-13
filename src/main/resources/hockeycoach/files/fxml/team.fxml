@@ -131,7 +131,8 @@
                                             <children>
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Home Stadium" VBox.vgrow="ALWAYS" />
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Address" />
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="ZIP City" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="ZIP" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="City" />
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Country" />
                                             </children>
                                         </VBox>
@@ -139,7 +140,8 @@
                                             <children>
                                                 <TextField fx:id="stadiumName" VBox.vgrow="ALWAYS" />
                                                 <TextField fx:id="stadiumStreet" />
-                                                <TextField fx:id="stadiumZipCity" />
+                                                <TextField fx:id="stadiumZip" />
+                                    <TextField fx:id="stadiumCity" />
                                                 <TextField fx:id="stadiumCountry" />
                                             </children>
                                         </VBox>
@@ -156,11 +158,16 @@
                                         </VBox>
                                         <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <TextField fx:id="contactName" VBox.vgrow="ALWAYS" />
+                                                <TextField fx:id="contactFirstName" VBox.vgrow="ALWAYS" />
                                                 <TextField fx:id="contactPhone" />
                                                 <TextField fx:id="contactEmail" />
                                             </children>
                                         </VBox>
+                              <VBox prefHeight="79.0" prefWidth="203.0" spacing="2.0">
+                                 <children>
+                                    <TextField fx:id="contactLastName" VBox.vgrow="ALWAYS" />
+                                 </children>
+                              </VBox>
                                     </children>
                                 </HBox>
                                 <HBox spacing="5.0">
@@ -169,22 +176,29 @@
                                             <children>
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Website" VBox.vgrow="ALWAYS" />
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Founded" />
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="President" />
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Current League" />
+                                                <Label prefHeight="25.0" prefWidth="150.0" text="President" />
                                                 <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach" />
-                                                <Label prefHeight="25.0" prefWidth="150.0" text="Captain" />
                                             </children>
                                         </VBox>
                                         <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <TextField fx:id="website" VBox.vgrow="ALWAYS" />
                                                 <TextField fx:id="founded" />
-                                                <TextField fx:id="presidentName" />
                                                 <TextField fx:id="currentLeague" />
-                                                <TextField fx:id="headCoachName" />
-                                                <TextField fx:id="captainName" />
+                                                <TextField fx:id="presidentFirstName" />
+                                                <TextField fx:id="headCoachFirstName" />
                                             </children>
                                         </VBox>
+                              <VBox prefHeight="133.0" prefWidth="203.0" spacing="2.0">
+                                 <children>
+                                    <Label prefHeight="25.0" prefWidth="150.0" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" />
+                                    <TextField fx:id="presidentLastName" />
+                                    <TextField fx:id="headCoachLastName" />
+                                 </children>
+                              </VBox>
                                     </children>
                                 </HBox>
                                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" VBox.vgrow="ALWAYS">

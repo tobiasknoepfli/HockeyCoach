@@ -12,17 +12,13 @@ public class NewTeamController extends Controller {
     private ImageView teamLogo;
 
     @FXML
-    private Label controlLabel, controlZip, controlContact, controlFounded,
-            controlHeadCoach, controlCaptain, controlPresident;
-
-    @FXML
     private TextArea notes;
 
     @FXML
     private TextField teamName,
-            stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
-            contactName, contactPhone, contactEmail,
+            stadiumName, stadiumStreet, stadiumZip,stadiumCity, stadiumCountry,
+            contactFirstName, contactLastName, contactPhone, contactEmail,
             website, founded, currentLeague,
-            presidentName, headCoachName, captainName;
+            presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName;
 }
 

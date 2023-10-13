@@ -19,8 +19,6 @@ public class Team {
     private String league;
     private String headCoachFirstName;
     private String headCoachLastName;
-    private String captainFirstName;
-    private String captainLastName;
     private String logo;
     private String notes;
 
@@ -48,7 +46,7 @@ public class Team {
         this.logo = logo;
     }
 
-    public Team(int teamID, String name, String stadium, String street, int zip, String city, String country, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String captainFirstName, String captainLastName, String logo, String notes) {
+    public Team(int teamID, String name, String stadium, String street, int zip, String city, String country, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String logo, String notes) {
         this.teamID = teamID;
         this.name = name;
         this.stadium = stadium;
@@ -67,8 +65,6 @@ public class Team {
         this.league = league;
         this.headCoachFirstName = headCoachFirstName;
         this.headCoachLastName = headCoachLastName;
-        this.captainFirstName = captainFirstName;
-        this.captainLastName = captainLastName;
         this.logo = logo;
         this.notes = notes;
     }
@@ -207,22 +203,6 @@ public class Team {
 
     public void setHeadCoachLastName(String headCoachLastName) {
         this.headCoachLastName = headCoachLastName;
-    }
-
-    public String getCaptainFirstName() {
-        return captainFirstName;
-    }
-
-    public void setCaptainFirstName(String captainFirstName) {
-        this.captainFirstName = captainFirstName;
-    }
-
-    public String getCaptainLastName() {
-        return captainLastName;
-    }
-
-    public void setCaptainLastName(String captainLastName) {
-        this.captainLastName = captainLastName;
     }
 
     public String getNotes() {

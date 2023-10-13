@@ -29,8 +29,6 @@ public class DBTeamLoader extends DBLoader {
             team.setLeague(resultSet.getString("league"));
             team.setHeadCoachFirstName(resultSet.getString("headCoachFirstName"));
             team.setHeadCoachLastName(resultSet.getString("headCoachLastName"));
-            team.setCaptainFirstName(resultSet.getString("captainFirstName"));
-            team.setCaptainLastName(resultSet.getString("captainLastName"));
             team.setLogo(resultSet.getString("logo"));
             team.setNotes(resultSet.getString("notes"));
         } catch (SQLException e) {
