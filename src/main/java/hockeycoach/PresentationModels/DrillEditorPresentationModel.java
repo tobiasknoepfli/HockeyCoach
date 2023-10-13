@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -75,9 +76,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         allDrills.getItems().setAll(allDrillList);
 
         TextField[] textFields = {searchBox, drillName, newCategory, addNewTag};
-        for (TextField t:textFields){
-            textFieldAction.setupTextFieldUndo(t,textFieldActions);
-        }
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
 
         getDBEntries(root);
         setupButtons(root);

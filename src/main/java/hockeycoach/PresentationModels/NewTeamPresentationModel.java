@@ -39,7 +39,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     private TextField[] textFields;
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
-    private TextFieldAction textFieldAction= new TextFieldAction();
+    private TextFieldAction textFieldAction = new TextFieldAction();
 
     DBTeamLoader dbTeamLoader = new DBTeamLoader();
 
@@ -94,9 +94,8 @@ public class NewTeamPresentationModel extends PresentationModel {
                 contactName, contactPhone, contactEmail,
                 website, founded, currentLeague,
                 presidentName, headCoachName, captainName};
-        for (TextField t : textFields) {
-            textFieldAction.setupTextFieldUndo(t,textFieldActions);
-        }
+
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         setControlsDisabled(true);
 
@@ -106,7 +105,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     }
 
     @Override
-    public void getDBEntries(Pane root){
+    public void getDBEntries(Pane root) {
         teamList = dbTeamLoader.getAllTeams("SELECT * FROM team");
     }
 

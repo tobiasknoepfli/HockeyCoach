@@ -10,6 +10,7 @@ import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,12 +23,16 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 import static hockeycoach.AppStarter.*;
 
 public class TeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
+    TextFieldAction textFieldAction = new TextFieldAction();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     Team selectedTeam;
     MouseEvent event;
@@ -38,7 +43,7 @@ public class TeamPresentationModel extends PresentationModel {
             website, founded, currentLeague,
             presidentName, headCoachName, captainName;
     TableView<Player> teamPlayers;
-    Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton, newTeamButton;
+    Button editPlayerButton, saveButton, editButton, cancelButton, deleteButton, newTeamButton, backButton;
     TextArea notes;
 
     @Override
@@ -73,6 +78,12 @@ public class TeamPresentationModel extends PresentationModel {
         DBTeamLoader dbTeamLoader = new DBTeamLoader();
         Team team = dbTeamLoader.getTeam("SELECT * FROM team WHERE teamID =" + selectedTeam.getTeamID());
         List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+
+        TextField[] textFields = {teamName, stadiumName, stadiumStreet, stadiumZipCity, stadiumCountry,
+                contactName, contactPhone, contactEmail,
+                website, founded, currentLeague,
+                presidentName, headCoachName, captainName};
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         disableControls(true);
 
@@ -111,6 +122,8 @@ public class TeamPresentationModel extends PresentationModel {
             teamPlayers.getItems().addAll(playerList);
         }
         setupEventListeners(root);
+        getDBEntries(root);
+        setupButtons(root);
 
         teamLogo.setOnMouseClicked(event -> handleImageClick());
     }
@@ -122,7 +135,9 @@ public class TeamPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-
+        backButton.setOnAction(event -> {
+            textFieldAction.undoLastAction(textFieldActions);
+        });
     }
 
     @Override

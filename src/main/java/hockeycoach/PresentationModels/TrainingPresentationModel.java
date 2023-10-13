@@ -8,6 +8,7 @@ import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
+import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +16,9 @@ import javafx.scene.layout.Pane;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 import static hockeycoach.AppStarter.*;
 
@@ -24,6 +27,8 @@ public class TrainingPresentationModel extends PresentationModel {
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     List<Training> trainingList;
+    TextFieldAction textFieldAction = new TextFieldAction();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     TableView<Training> trainingTable;
 
@@ -32,7 +37,7 @@ public class TrainingPresentationModel extends PresentationModel {
     ImageView drillImage;
 
     TrainingLines trainingLines = new TrainingLines();
-    Button newDrillButton, newTrainingButton;
+    Button newDrillButton, newTrainingButton,backButton;
 
     TextField drillName, trainingDate, trainingTime, team, stadium, mainFocus,
             jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
@@ -60,6 +65,7 @@ public class TrainingPresentationModel extends PresentationModel {
         drillName = (TextField) root.lookup("#drillName");
         newDrillButton = (Button) root.lookup("#newDrillButton");
         newTrainingButton = (Button) root.lookup("#newTrainingButton");
+        backButton = (Button) root.lookup("#backButton");
 
         jersey1 = (TextField) root.lookup("#jersey1");
         jersey2 = (TextField) root.lookup("#jersey2");
@@ -108,6 +114,16 @@ public class TrainingPresentationModel extends PresentationModel {
         DBLoader dbLoader = new DBLoader();
         DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
 
+        TextField[] textFields = {drillName, trainingDate, trainingTime, team, stadium, mainFocus,
+                jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
+                gk1, gk2, gk3, gk4, gk5, gk6,
+                dl1, dl2, dl3, dl4, dl5, dl6,
+                dr1, dr2, dr3, dr4, dr5, dr6,
+                c1, c2, c3, c4, c5, c6,
+                fl1, fl2, fl3, fl4, fl5, fl6,
+                fr1, fr2, fr3, fr4, fr5, fr6};
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+
         trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getTeamID());
 
         if (!trainingList.isEmpty()) {
@@ -117,6 +133,8 @@ public class TrainingPresentationModel extends PresentationModel {
 
         team.setText(selectedTeam.getName());
 
+        getDBEntries(root);
+        setupButtons(root);
         setupEventListeners(root);
     }
 
@@ -127,7 +145,9 @@ public class TrainingPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-
+        backButton.setOnAction(event ->{
+            textFieldAction.undoLastAction(textFieldActions);
+        });
     }
 
     @Override

@@ -6,6 +6,7 @@ import hockeycoach.DB.DBWriter;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
+import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.ListChangeListener;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
@@ -23,7 +24,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.PHOTOS;
@@ -32,6 +35,8 @@ public class NewPlayerPresentationModel extends PresentationModel {
     MouseEvent event;
     List<Player> allPlayersList, fnFiltered, lnFiltered, streetFiltered;
     ButtonControls buttonControls = new ButtonControls();
+    TextFieldAction textFieldAction = new TextFieldAction();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     TableView<Player> allPlayers;
     ImageView playerPhoto;
@@ -39,7 +44,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
             street, zip, city, country, phone, email,
             positions, aLicence, bLicence, stick;
     TextArea strengths, weaknesses, notes;
-    Button saveButton,backButton;
+    Button saveButton, backButton;
 
     @Override
     public void initializeControls(Pane root) {
@@ -67,6 +72,12 @@ public class NewPlayerPresentationModel extends PresentationModel {
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
 
+        TextField[] textFields = {playerFirstName, playerLastName,
+                street, zip, city, country, phone, email,
+                positions, aLicence, bLicence, stick};
+
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(allPlayersList);
 
@@ -76,6 +87,8 @@ public class NewPlayerPresentationModel extends PresentationModel {
             setControlsDisabled(true);
         }
 
+        getDBEntries(root);
+        setupButtons(root);
         setupEventListeners(root);
     }
 
@@ -99,6 +112,10 @@ public class NewPlayerPresentationModel extends PresentationModel {
             allPlayers.getItems().clear();
             allPlayers.getItems().addAll(allPlayersList);
             allPlayers.refresh();
+        });
+
+        backButton.setOnAction(event ->{
+            textFieldAction.undoLastAction(textFieldActions);
         });
     }
 

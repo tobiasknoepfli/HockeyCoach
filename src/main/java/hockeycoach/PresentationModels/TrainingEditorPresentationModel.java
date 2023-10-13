@@ -23,12 +23,15 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class TrainingEditorPresentationModel extends PresentationModel {
     List<Drill> drillList;
     List<Player> availablePlayersList, allPlayers;
     ButtonControls buttonControls = new ButtonControls();
+    TextFieldAction textFieldAction = new TextFieldAction();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     FilteredList<Drill> filteredDrills;
 
@@ -66,7 +69,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     ComboBox<Boolean> cbStation;
 
-    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton;
+    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton;
 
     TableView<Player> playerList;
 
@@ -124,6 +127,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         togetherTab = tablePane.getTabs().get(1);
         stationsTab = tablePane.getTabs().get(2);
         backupTab = tablePane.getTabs().get(3);
+        backButton = (Button) root.lookup("#backButton");
 
         jersey1 = (TextField) root.lookup("#jersey1");
         jersey2 = (TextField) root.lookup("#jersey2");
@@ -238,6 +242,18 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 fl1, fl2, fl3, fl4, fl5, fl6,
                 fr1, fr2, fr3, fr4, fr5, fr6,};
 
+        TextField[] textFields = {drillName, drillCategory, drillDifficulty, drillParticipation, searchBox,
+                trainingDate, trainingTime, trainingStadium, trainingTeam, trainingMainFocus,
+                puckPosition,
+                jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
+                gk1, gk2, gk3, gk4, gk5, gk6,
+                dl1, dl2, dl3, dl4, dl5, dl6,
+                dr1, dr2, dr3, dr4, dr5, dr6,
+                c1, c2, c3, c4, c5, c6,
+                fl1, fl2, fl3, fl4, fl5, fl6,
+                fr1, fr2, fr3, fr4, fr5, fr6};
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
+
         jerseysArrayList = new ArrayList<>(Arrays.asList(jerseys));
         playersArrayList = new ArrayList<>(Arrays.asList(players));
 
@@ -283,7 +299,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-
+        backButton.setOnAction(event->{
+            textFieldAction.undoLastAction(textFieldActions);
+        });
     }
 
     @Override

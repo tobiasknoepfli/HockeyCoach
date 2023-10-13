@@ -63,6 +63,7 @@ public class DBLineLoader extends DBLoader {
     public SubstituteLine setSubstituteLine(ResultSet resultSet) {
         SubstituteLine substituteLine = new SubstituteLine();
         try {
+            resultSet.next();
             substituteLine.setGameID(resultSet.getInt("gameID"));
             substituteLine.setLineNr(resultSet.getInt("lineNr"));
             substituteLine.setGoalkeeper1(getPlayerByID(resultSet.getInt("goalkeeper1")));

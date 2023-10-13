@@ -49,7 +49,7 @@ public class TextFieldAction extends Action {
         });
     }
 
-    public static void undoLastAction(Stack<TextFieldAction> textFieldActions) {
+    public void undoLastAction(Stack<TextFieldAction> textFieldActions) {
         if (!textFieldActions.isEmpty()) {
             TextFieldAction lastAction = textFieldActions.pop();
             lastAction.undo();

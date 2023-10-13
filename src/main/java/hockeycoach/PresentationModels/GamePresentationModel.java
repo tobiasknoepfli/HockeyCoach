@@ -8,18 +8,23 @@ import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
+import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 import static hockeycoach.AppStarter.*;
 
 public class GamePresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
+    TextFieldAction textFieldAction = new TextFieldAction();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
     TextField gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
@@ -44,7 +49,6 @@ public class GamePresentationModel extends PresentationModel {
     ImageView boardImage, ppBoardImage, bpBoardImage;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
 
-    DBLoader dbLoader = new DBLoader();
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
     List<Game> allGameList;
@@ -147,6 +151,23 @@ public class GamePresentationModel extends PresentationModel {
 
         gameTeam.setText(selectedTeam.getName());
 
+        TextField[] textFields = {gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
+                captain, assistant1, assistant2,
+                gk1,
+                dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
+                c1, c2, c3, c4,
+                fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4,
+                sgk1, sgk2, sgk3,
+                sd1, sd2, sd3, sf1, sf2, sf3,
+                ppdl1, ppdl2, ppdlfiller, ppdr1, ppdr2, ppdrfiller,
+                ppc1, ppc2, ppcfiller,
+                ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
+                bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
+                bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
+                bpsd1, bpsd2, bpsf1, bpsf2};
+
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+
         getDBEntries(root);
         setupButtons(root);
         setupEventListeners(root);
@@ -164,7 +185,7 @@ public class GamePresentationModel extends PresentationModel {
         });
 
         backButton.setOnAction(event ->{
-            buttonControls.openHome(root,GAME);
+            textFieldAction.undoLastAction(textFieldActions);
         });
     }
 

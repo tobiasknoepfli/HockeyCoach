@@ -315,9 +315,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         TextField[] allTextFields = Stream.concat(Arrays.stream(fields), (Arrays.stream(captainTeam)))
                 .toArray(TextField[]::new);
 
-        for (TextField t : allTextFields) {
-            textFieldAction.setupTextFieldUndo(t, textFieldActions);
-        }
+        Arrays.stream(allTextFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         textFields = new ArrayList<>(Arrays.asList(tf));
         ppTextFields = new ArrayList<>(Arrays.asList(pptf));

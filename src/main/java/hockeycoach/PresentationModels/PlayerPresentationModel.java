@@ -9,6 +9,7 @@ import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
@@ -27,7 +28,9 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Stack;
 
 import static hockeycoach.AppStarter.*;
 
@@ -36,16 +39,18 @@ public class PlayerPresentationModel extends PresentationModel {
     Player selectedPlayer;
     Team selectedTeam;
     ButtonControls buttonControls = new ButtonControls();
+    TextFieldAction textFieldAction = new TextFieldAction();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     TableView<Player> teamPlayers;
     TableView<Team> playerTeams;
     ImageView playerPhoto;
-    TextField playerName,team,street,zipCity,country,
-            phone,email,jersey,positions,role,
-            aLicence,bLicence,stick;
-    TextArea strengths,weaknesses,notes;
+    TextField playerName, team, street, zipCity, country,
+            phone, email, jersey, positions, role,
+            aLicence, bLicence, stick;
+    TextArea strengths, weaknesses, notes;
 
-    Button saveButton,editButton,cancelButton,deleteButton,newPlayerButton;
+    Button saveButton, editButton, cancelButton, deleteButton, newPlayerButton,backButton;
 
     @Override
     public void initializeControls(Pane root) {
@@ -73,21 +78,27 @@ public class PlayerPresentationModel extends PresentationModel {
         cancelButton = (Button) root.lookup("#cancelButton");
         deleteButton = (Button) root.lookup("#deleteButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
-
+        backButton = (Button) root.lookup("#backButton");
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
+        TextField[] textFields = {playerName, team, street, zipCity, country,
+                phone, email, jersey, positions, role,
+                aLicence, bLicence, stick};
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+
         if (!playerList.isEmpty()) {
             teamPlayers.getItems().clear();
             teamPlayers.getItems().addAll(playerList);
         }
 
-        setupEventListeners(root);
-
         team.setText(selectedTeam.getName());
+        getDBEntries(root);
+        setupButtons(root);
+        setupEventListeners(root);
 
         disableControls(true);
     }
@@ -113,8 +124,12 @@ public class PlayerPresentationModel extends PresentationModel {
             dbEditor.editJerseyAndRole(player, selectedTeam);
         });
 
-        newPlayerButton.setOnAction(event ->{
-            buttonControls.openNewPlayer(root,PLAYER);
+        newPlayerButton.setOnAction(event -> {
+            buttonControls.openNewPlayer(root, PLAYER);
+        });
+
+        backButton.setOnAction(event->{
+            textFieldAction.undoLastAction(textFieldActions);
         });
     }
 
@@ -186,7 +201,7 @@ public class PlayerPresentationModel extends PresentationModel {
         deleteButton.setDisable(disabled);
     }
 
-    private Player getPlayerData(){
+    private Player getPlayerData() {
         Player player = new Player();
 
         player.setPlayerID(selectedPlayer.getPlayerID());

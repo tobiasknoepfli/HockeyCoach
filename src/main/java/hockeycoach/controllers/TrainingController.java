@@ -23,7 +23,7 @@ public class TrainingController extends Controller {
     private TextArea pointers;
 
     @FXML
-    private Button newDrillButton,newTrainingButton;
+    private Button newDrillButton,newTrainingButton,backButton;
 
     @FXML
     private TextField trainingDate, trainingTime,
