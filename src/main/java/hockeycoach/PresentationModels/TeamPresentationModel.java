@@ -71,6 +71,7 @@ public class TeamPresentationModel extends PresentationModel {
         cancelButton = (Button) root.lookup("#cancelButton");
         deleteButton = (Button) root.lookup("#deleteButton");
         newTeamButton = (Button) root.lookup("#newTeamButton");
+        backButton = (Button) root.lookup("#backButton");
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
