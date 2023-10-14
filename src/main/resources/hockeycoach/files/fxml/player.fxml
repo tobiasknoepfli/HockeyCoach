@@ -302,7 +302,7 @@
                                     <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" text="Player-Teams" />
                                       <TableView fx:id="playerTeams" VBox.vgrow="ALWAYS">
                                           <columns>
-                                              <TableColumn fx:id="teamColumn" minWidth="-1.0" prefWidth="199.0" text="Teams">
+                                              <TableColumn fx:id="teamColumn" minWidth="-Infinity" prefWidth="199.0" text="Teams">
                                                   <cellValueFactory>
                                                       <PropertyValueFactory property="name" />
                                                   </cellValueFactory>

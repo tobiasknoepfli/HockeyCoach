@@ -34,7 +34,6 @@ import static hockeycoach.AppStarter.*;
 
 public class NewTeamPresentationModel extends PresentationModel {
     MouseEvent event;
-    TableView<Player> teamPlayers;
     List<Team> teamList = new ArrayList();
     ButtonControls buttonControls = new ButtonControls();
     private TextField[] textFields;
@@ -53,8 +52,7 @@ public class NewTeamPresentationModel extends PresentationModel {
 
     TextArea notes;
 
-    Label controlLabel, controlZip, controlContact, controlFounded,
-            controlHeadCoach, controlCaptain, controlPresident;
+    Label controlLabel;
 
     Button saveButton, cancelButton, closeWindowButton, backButton;
 
@@ -79,19 +77,12 @@ public class NewTeamPresentationModel extends PresentationModel {
         presidentLastName = (TextField) root.lookup("#presidentLastName");
         headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
         headCoachLastName = (TextField) root.lookup("#headCoachLastName");
-        teamPlayers = (TableView) root.lookup("#teamPlayers");
         notes = (TextArea) root.lookup("#notes");
-        controlLabel = (Label) root.lookup("#controlLabel");
         saveButton = (Button) root.lookup("#saveButton");
         cancelButton = (Button) root.lookup("#cancelButton");
         closeWindowButton = (Button) root.lookup("#closeWindowButton");
-        controlZip = (Label) root.lookup("#controlZip");
-        controlContact = (Label) root.lookup("#controlContact");
-        controlFounded = (Label) root.lookup("#controlFounded");
-        controlHeadCoach = (Label) root.lookup("#controlHeadCoach");
-        controlCaptain = (Label) root.lookup("#controlCaptain");
-        controlPresident = (Label) root.lookup("#controlPresident");
         backButton = (Button) root.lookup("#backButton");
+        controlLabel = (Label) root.lookup("#controlLabel");
 
         textFields = new TextField[]{teamName,
                 stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,

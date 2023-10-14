@@ -140,6 +140,11 @@
                                       <TextField fx:id="teamName" prefHeight="25.0" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
+                              <VBox spacing="2.0">
+                                 <children>
+                                    <Label fx:id="controlLabel" prefHeight="25.0" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                         <HBox spacing="5.0">
@@ -175,7 +180,7 @@
                               </VBox>
                               <VBox spacing="2.0">
                                  <children>
-                                    <TextField fx:id="contactFirstName1" prefHeight="20.0" prefWidth="306.0" />
+                                    <TextField fx:id="contactFirstName" prefHeight="20.0" prefWidth="306.0" />
                                     <TextField fx:id="contactPhone" prefHeight="20.0" prefWidth="306.0" />
                                     <TextField fx:id="contactEmail" prefHeight="20.0" prefWidth="306.0" />
                                  </children>

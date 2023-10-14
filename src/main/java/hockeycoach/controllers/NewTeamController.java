@@ -20,5 +20,8 @@ public class NewTeamController extends Controller {
             contactFirstName, contactLastName, contactPhone, contactEmail,
             website, founded, currentLeague,
             presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName;
+
+    @FXML
+    private Label controlLabel;
 }
 

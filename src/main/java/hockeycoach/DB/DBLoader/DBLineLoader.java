@@ -63,7 +63,6 @@ public class DBLineLoader extends DBLoader {
     public SubstituteLine setSubstituteLine(ResultSet resultSet) {
         SubstituteLine substituteLine = new SubstituteLine();
         try {
-            resultSet.next();
             substituteLine.setGameID(resultSet.getInt("gameID"));
             substituteLine.setLineNr(resultSet.getInt("lineNr"));
             substituteLine.setGoalkeeper1(getPlayerByID(resultSet.getInt("goalkeeper1")));
@@ -157,8 +156,9 @@ public class DBLineLoader extends DBLoader {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            resultSet.next();
-            substituteLine = setSubstituteLine(resultSet);
+            if(resultSet.next()){
+                substituteLine = setSubstituteLine(resultSet);
+            };
 
             connection.close();
         } catch (SQLException e) {

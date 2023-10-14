@@ -173,8 +173,6 @@ public class PlayerPresentationModel extends PresentationModel {
                 }
             }
         });
-
-
     }
 
     private void disableControls(boolean disabled) {

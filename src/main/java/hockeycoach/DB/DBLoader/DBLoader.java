@@ -40,7 +40,7 @@ public class DBLoader {
                 Team team = new Team();
                 DBTeamLoader dbTeamLoader = new DBTeamLoader();
 
-                dbTeamLoader.setTeam(resultSet);
+                team = dbTeamLoader.getTeam("SELECT * FROM team WHERE teamID ="+resultSet.getInt("teamID"));
 
                 teamList.add(team);
             }

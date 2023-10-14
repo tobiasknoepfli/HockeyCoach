@@ -45,8 +45,9 @@ public class DBTeamLoader extends DBLoader {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            resultSet.next();
-            team = setTeam(resultSet);
+            if(resultSet.next()){
+                team = setTeam(resultSet);
+            };
 
             connection.close();
 
