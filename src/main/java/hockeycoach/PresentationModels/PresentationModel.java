@@ -14,6 +14,8 @@ public abstract class PresentationModel {
 
     public abstract void setupEventListeners(Pane root);
 
+    public abstract void importFields(Pane root);
+
     public void createHoverInfo(Control control, String string) {
         Tooltip tooltip = new Tooltip(string);
         control.setTooltip(tooltip);

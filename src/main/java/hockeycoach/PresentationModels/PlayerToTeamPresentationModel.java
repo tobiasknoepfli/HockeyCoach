@@ -39,12 +39,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        teamPlayers = (TableView) root.lookup("#teamPlayers");
-        allPlayers = (TableView) root.lookup("#allPlayers");
-        team = (TextField) root.lookup("#team");
-        addButton = (Button) root.lookup("#addButton");
-        removeButton = (Button) root.lookup("#removeButton");
-        saveButton = (Button) root.lookup("#saveButton");
+        importFields(root);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
 
@@ -185,5 +180,15 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
         });
     }
 
+    @Override
+    public void importFields(Pane root) {
+        teamPlayers = (TableView) root.lookup("#teamPlayers");
+        allPlayers = (TableView) root.lookup("#allPlayers");
 
+        team = (TextField) root.lookup("#team");
+
+        addButton = (Button) root.lookup("#addButton");
+        removeButton = (Button) root.lookup("#removeButton");
+        saveButton = (Button) root.lookup("#saveButton");
+    }
 }

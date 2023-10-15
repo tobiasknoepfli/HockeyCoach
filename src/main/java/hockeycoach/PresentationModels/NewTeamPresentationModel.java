@@ -59,30 +59,7 @@ public class NewTeamPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        teamLogo = (ImageView) root.lookup("#teamLogo");
-        teamName = (TextField) root.lookup("#teamName");
-        stadiumName = (TextField) root.lookup("#stadiumName");
-        stadiumStreet = (TextField) root.lookup("#stadiumStreet");
-        stadiumZip = (TextField) root.lookup("#stadiumZip");
-        stadiumCity = (TextField) root.lookup("#stadiumCity");
-        stadiumCountry = (TextField) root.lookup("#stadiumCountry");
-        contactFirstName = (TextField) root.lookup("#contactFirstName");
-        contactLastName = (TextField) root.lookup("#contactLastName");
-        contactPhone = (TextField) root.lookup("#contactPhone");
-        contactEmail = (TextField) root.lookup("#contactEmail");
-        website = (TextField) root.lookup("#website");
-        founded = (TextField) root.lookup("#founded");
-        currentLeague = (TextField) root.lookup("#currentLeague");
-        presidentFirstName = (TextField) root.lookup("#presidentFirstName");
-        presidentLastName = (TextField) root.lookup("#presidentLastName");
-        headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
-        headCoachLastName = (TextField) root.lookup("#headCoachLastName");
-        notes = (TextArea) root.lookup("#notes");
-        saveButton = (Button) root.lookup("#saveButton");
-        cancelButton = (Button) root.lookup("#cancelButton");
-        closeWindowButton = (Button) root.lookup("#closeWindowButton");
-        backButton = (Button) root.lookup("#backButton");
-        controlLabel = (Label) root.lookup("#controlLabel");
+        importFields(root);
 
         textFields = new TextField[]{teamName,
                 stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,
@@ -252,5 +229,37 @@ public class NewTeamPresentationModel extends PresentationModel {
         StartPresentationModel pm = new StartPresentationModel();
         HeaderController headerController = new HeaderController();
         headerController.loadStages(HOME, HOME_FXML, pm);
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        teamLogo = (ImageView) root.lookup("#teamLogo");
+
+        teamName = (TextField) root.lookup("#teamName");
+        stadiumName = (TextField) root.lookup("#stadiumName");
+        stadiumStreet = (TextField) root.lookup("#stadiumStreet");
+        stadiumZip = (TextField) root.lookup("#stadiumZip");
+        stadiumCity = (TextField) root.lookup("#stadiumCity");
+        stadiumCountry = (TextField) root.lookup("#stadiumCountry");
+        contactFirstName = (TextField) root.lookup("#contactFirstName");
+        contactLastName = (TextField) root.lookup("#contactLastName");
+        contactPhone = (TextField) root.lookup("#contactPhone");
+        contactEmail = (TextField) root.lookup("#contactEmail");
+        website = (TextField) root.lookup("#website");
+        founded = (TextField) root.lookup("#founded");
+        currentLeague = (TextField) root.lookup("#currentLeague");
+        presidentFirstName = (TextField) root.lookup("#presidentFirstName");
+        presidentLastName = (TextField) root.lookup("#presidentLastName");
+        headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
+        headCoachLastName = (TextField) root.lookup("#headCoachLastName");
+
+        notes = (TextArea) root.lookup("#notes");
+
+        saveButton = (Button) root.lookup("#saveButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        closeWindowButton = (Button) root.lookup("#closeWindowButton");
+        backButton = (Button) root.lookup("#backButton");
+
+        controlLabel = (Label) root.lookup("#controlLabel");
     }
 }

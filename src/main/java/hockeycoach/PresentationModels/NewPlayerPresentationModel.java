@@ -48,25 +48,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        allPlayers = (TableView) root.lookup("#allPlayers");
-        playerPhoto = (ImageView) root.lookup("#playerPhoto");
-        playerFirstName = (TextField) root.lookup("#playerFirstName");
-        playerLastName = (TextField) root.lookup("#playerLastName");
-        street = (TextField) root.lookup("#street");
-        zip = (TextField) root.lookup("#zip");
-        city = (TextField) root.lookup("#city");
-        country = (TextField) root.lookup("#country");
-        phone = (TextField) root.lookup("#phone");
-        email = (TextField) root.lookup("#email");
-        positions = (TextField) root.lookup("#positions");
-        aLicence = (TextField) root.lookup("#aLicence");
-        bLicence = (TextField) root.lookup("#bLicence");
-        stick = (TextField) root.lookup("#stick");
-        strengths = (TextArea) root.lookup("#strengths");
-        weaknesses = (TextArea) root.lookup("#weaknesses");
-        notes = (TextArea) root.lookup("#notes");
-        saveButton = (Button) root.lookup("#saveButton");
-        backButton = (Button) root.lookup("#backButton");
+        importFields(root);
 
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
@@ -262,5 +244,32 @@ public class NewPlayerPresentationModel extends PresentationModel {
         weaknesses.clear();
         notes.clear();
         playerPhoto.setImage(null);
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        allPlayers = (TableView) root.lookup("#allPlayers");
+
+        playerPhoto = (ImageView) root.lookup("#playerPhoto");
+
+        playerFirstName = (TextField) root.lookup("#playerFirstName");
+        playerLastName = (TextField) root.lookup("#playerLastName");
+        street = (TextField) root.lookup("#street");
+        zip = (TextField) root.lookup("#zip");
+        city = (TextField) root.lookup("#city");
+        country = (TextField) root.lookup("#country");
+        phone = (TextField) root.lookup("#phone");
+        email = (TextField) root.lookup("#email");
+        positions = (TextField) root.lookup("#positions");
+        aLicence = (TextField) root.lookup("#aLicence");
+        bLicence = (TextField) root.lookup("#bLicence");
+        stick = (TextField) root.lookup("#stick");
+
+        strengths = (TextArea) root.lookup("#strengths");
+        weaknesses = (TextArea) root.lookup("#weaknesses");
+        notes = (TextArea) root.lookup("#notes");
+
+        saveButton = (Button) root.lookup("#saveButton");
+        backButton = (Button) root.lookup("#backButton");
     }
 }

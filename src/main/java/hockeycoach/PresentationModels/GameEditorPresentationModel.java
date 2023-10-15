@@ -98,175 +98,7 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        gameDate = (TextField) root.lookup("#gameDate");
-        gameTime = (TextField) root.lookup("#gameTime");
-        gameStadium = (TextField) root.lookup("#gameStadium");
-        gameTeam = (TextField) root.lookup("#gameTeam");
-        gameOpponent = (TextField) root.lookup("#gameOpponent");
-        teamPlayers = (TableView) root.lookup("#teamPlayers");
-        availablePlayers = (TableView) root.lookup("#availablePlayers");
-        boardImage = (ImageView) root.lookup("#boardImage");
-        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
-        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
-        refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
-        saveButton = (Button) root.lookup("#saveButton");
-        backButton = (Button) root.lookup("#backButton");
-        lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
-        captain = (TextField) root.lookup("#captain ");
-        assistant1 = (TextField) root.lookup("#assistant1");
-        assistant2 = (TextField) root.lookup("#assistant2");
-        lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
-        ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
-        bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
-        lineupGrid = (GridPane) root.lookup("#lineupGrid");
-        ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
-        bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
-
-        lineupTab = lineupTabPane.getTabs().get(0);
-        powerplayTab = lineupTabPane.getTabs().get(1);
-        boxplayTab = lineupTabPane.getTabs().get(2);
-
-        gk1 = (TextField) root.lookup("#gk1");
-        dl1 = (TextField) root.lookup("#dl1");
-        dl2 = (TextField) root.lookup("#dl2");
-        dl3 = (TextField) root.lookup("#dl3");
-        dl4 = (TextField) root.lookup("#dl4");
-        dr1 = (TextField) root.lookup("#dr1");
-        dr2 = (TextField) root.lookup("#dr2");
-        dr3 = (TextField) root.lookup("#dr3");
-        dr4 = (TextField) root.lookup("#dr4");
-
-        c1 = (TextField) root.lookup("#c1");
-        c2 = (TextField) root.lookup("#c2");
-        c3 = (TextField) root.lookup("#c3");
-        c4 = (TextField) root.lookup("#c4");
-
-        fl1 = (TextField) root.lookup("#fl1");
-        fl2 = (TextField) root.lookup("#fl2");
-        fl3 = (TextField) root.lookup("#fl3");
-        fl4 = (TextField) root.lookup("#fl4");
-        fr1 = (TextField) root.lookup("#fr1");
-        fr2 = (TextField) root.lookup("#fr2");
-        fr3 = (TextField) root.lookup("#fr3");
-        fr4 = (TextField) root.lookup("#fr4");
-
-        sgk1 = (TextField) root.lookup("#sgk1");
-        sgk2 = (TextField) root.lookup("#sgk2");
-        sgk3 = (TextField) root.lookup("#sgk3");
-        sd1 = (TextField) root.lookup("#sd1");
-        sd2 = (TextField) root.lookup("#sd2");
-        sd3 = (TextField) root.lookup("#sd3");
-        sf1 = (TextField) root.lookup("#sf1");
-        sf2 = (TextField) root.lookup("#sf2");
-        sf3 = (TextField) root.lookup("#sf3");
-
-        ppdl1 = (TextField) root.lookup("#ppdl1");
-        ppdl2 = (TextField) root.lookup("#ppdl2");
-        ppdlfiller = (TextField) root.lookup("#ppdlfiller");
-        ppdr1 = (TextField) root.lookup("#ppdr1");
-        ppdr2 = (TextField) root.lookup("#ppdr2");
-        ppdrfiller = (TextField) root.lookup("#ppdrfiller");
-        ppc1 = (TextField) root.lookup("#ppc1");
-        ppc2 = (TextField) root.lookup("#ppc2");
-        ppcfiller = (TextField) root.lookup("#ppcfiller");
-        ppfl1 = (TextField) root.lookup("#ppfl1");
-        ppfl2 = (TextField) root.lookup("#ppfl2");
-        ppflfiller = (TextField) root.lookup("#ppflfiller");
-        ppfr1 = (TextField) root.lookup("#ppfr1");
-        ppfr2 = (TextField) root.lookup("#ppfr2");
-        ppfrfiller = (TextField) root.lookup("#ppfrfiller");
-
-        bpdl1 = (TextField) root.lookup("#bpdl1");
-        bpdl2 = (TextField) root.lookup("#bpdl2");
-        bpdlfiller = (TextField) root.lookup("#bpdlfiller");
-        bpdr1 = (TextField) root.lookup("#bpdr1");
-        bpdr2 = (TextField) root.lookup("#bpdr2");
-        bpdrfiller = (TextField) root.lookup("#bpdrfiller");
-        bpfl1 = (TextField) root.lookup("#bpfl1");
-        bpfl2 = (TextField) root.lookup("#bpfl2");
-        bpflfiller = (TextField) root.lookup("#bpflfiller");
-        bpfr1 = (TextField) root.lookup("#bpfr1");
-        bpfr2 = (TextField) root.lookup("#bpfr2");
-        bpfrfiller = (TextField) root.lookup("#bpfrfiller");
-
-        bpsf1 = (TextField) root.lookup("#bpsf1");
-        bpsf2 = (TextField) root.lookup("#bpsf2");
-        bpsd1 = (TextField) root.lookup("#bpsd1");
-        bpsd2 = (TextField) root.lookup("#bpsd2");
-
-        lbfl1 = (Label) root.lookup("#lbfl1");
-        lbfl2 = (Label) root.lookup("#lbfl2");
-        lbfl3 = (Label) root.lookup("#lbfl3");
-        lbfl4 = (Label) root.lookup("#lbfl4");
-        lbfr1 = (Label) root.lookup("#lbfr1");
-        lbfr2 = (Label) root.lookup("#lbfr2");
-        lbfr3 = (Label) root.lookup("#lbfr3");
-        lbfr4 = (Label) root.lookup("#lbfr4");
-        lbc1 = (Label) root.lookup("#lbc1");
-        lbc2 = (Label) root.lookup("#lbc2");
-        lbc3 = (Label) root.lookup("#lbc3");
-        lbc4 = (Label) root.lookup("#lbc4");
-        lbgk1 = (Label) root.lookup("#lbgk1");
-        lbgk2 = (Label) root.lookup("#lbgk2");
-        lbgk3 = (Label) root.lookup("#lbgk3");
-        lbgk4 = (Label) root.lookup("#lbgk4");
-        lbdl1 = (Label) root.lookup("#lbdl1");
-        lbdl2 = (Label) root.lookup("#lbdl2");
-        lbdl3 = (Label) root.lookup("#lbdl3");
-        lbdl4 = (Label) root.lookup("#lbdl4");
-        lbdr1 = (Label) root.lookup("#lbdr1");
-        lbdr2 = (Label) root.lookup("#lbdr2");
-        lbdr3 = (Label) root.lookup("#lbdr3");
-        lbdr4 = (Label) root.lookup("#lbdr4");
-
-        lgGK1 = (Label) root.lookup("#lgGK1");
-        lgGK2 = (Label) root.lookup("#lgGK2");
-        lgGK3 = (Label) root.lookup("#lgGK3");
-        lgGK4 = (Label) root.lookup("#lgGK4");
-        lgRD1 = (Label) root.lookup("#lgRD1");
-        lgRD2 = (Label) root.lookup("#lgRD2");
-        lgRD3 = (Label) root.lookup("#lgRD3");
-        lgRD4 = (Label) root.lookup("#lgRD4");
-        lgLD1 = (Label) root.lookup("#lgLD1");
-        lgLD2 = (Label) root.lookup("#lgLD2");
-        lgLD3 = (Label) root.lookup("#lgLD3");
-        lgLD4 = (Label) root.lookup("#lgLD4");
-        lgRF1 = (Label) root.lookup("#lgRF1");
-        lgRF2 = (Label) root.lookup("#lgRF2");
-        lgRF3 = (Label) root.lookup("#lgRF3");
-        lgRF4 = (Label) root.lookup("#lgRF4");
-        lgC1 = (Label) root.lookup("#lgC1");
-        lgC2 = (Label) root.lookup("#lgC2");
-        lgC3 = (Label) root.lookup("#lgC3");
-        lgC4 = (Label) root.lookup("#lgC4");
-        lgLF1 = (Label) root.lookup("#lgLF1");
-        lgLF2 = (Label) root.lookup("#lgLF2");
-        lgLF3 = (Label) root.lookup("#lgLF3");
-        lgLF4 = (Label) root.lookup("#lgLF4");
-        ngGK1 = (Label) root.lookup("#ngGK1");
-        ngGK2 = (Label) root.lookup("#ngGK2");
-        ngGK3 = (Label) root.lookup("#ngGK3");
-        ngGK4 = (Label) root.lookup("#ngGK4");
-        ngRD1 = (Label) root.lookup("#ngRD1");
-        ngRD2 = (Label) root.lookup("#ngRD2");
-        ngRD3 = (Label) root.lookup("#ngRD3");
-        ngRD4 = (Label) root.lookup("#ngRD4");
-        ngLD1 = (Label) root.lookup("#ngLD1");
-        ngLD2 = (Label) root.lookup("#ngLD2");
-        ngLD3 = (Label) root.lookup("#ngLD3");
-        ngLD4 = (Label) root.lookup("#ngLD4");
-        ngRF1 = (Label) root.lookup("#ngRF1");
-        ngRF2 = (Label) root.lookup("#ngRF2");
-        ngRF3 = (Label) root.lookup("#ngRF3");
-        ngRF4 = (Label) root.lookup("#ngRF4");
-        ngC1 = (Label) root.lookup("#ngC1");
-        ngC2 = (Label) root.lookup("#ngC2");
-        ngC3 = (Label) root.lookup("#ngC3");
-        ngC4 = (Label) root.lookup("#ngC4");
-        ngLF1 = (Label) root.lookup("#ngLF1");
-        ngLF2 = (Label) root.lookup("#ngLF2");
-        ngLF3 = (Label) root.lookup("#ngLF3");
-        ngLF4 = (Label) root.lookup("#ngLF4");
+        importFields(root);
 
         File file = new File(BOARD);
         Image image = new Image(file.toURI().toString());
@@ -814,5 +646,184 @@ public class GameEditorPresentationModel extends PresentationModel {
         List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
 
         return lines;
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        teamPlayers = (TableView) root.lookup("#teamPlayers");
+        availablePlayers = (TableView) root.lookup("#availablePlayers");
+
+        boardImage = (ImageView) root.lookup("#boardImage");
+        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
+        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
+
+        refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
+        saveButton = (Button) root.lookup("#saveButton");
+        backButton = (Button) root.lookup("#backButton");
+
+        lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
+
+        lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
+        ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
+        bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
+
+        lineupGrid = (GridPane) root.lookup("#lineupGrid");
+        ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
+        bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
+
+        lineupTab = lineupTabPane.getTabs().get(0);
+        powerplayTab = lineupTabPane.getTabs().get(1);
+        boxplayTab = lineupTabPane.getTabs().get(2);
+
+        gameDate = (TextField) root.lookup("#gameDate");
+        gameTime = (TextField) root.lookup("#gameTime");
+        gameStadium = (TextField) root.lookup("#gameStadium");
+        gameTeam = (TextField) root.lookup("#gameTeam");
+        gameOpponent = (TextField) root.lookup("#gameOpponent");
+        captain = (TextField) root.lookup("#captain ");
+        assistant1 = (TextField) root.lookup("#assistant1");
+        assistant2 = (TextField) root.lookup("#assistant2");
+
+        gk1 = (TextField) root.lookup("#gk1");
+        dl1 = (TextField) root.lookup("#dl1");
+        dl2 = (TextField) root.lookup("#dl2");
+        dl3 = (TextField) root.lookup("#dl3");
+        dl4 = (TextField) root.lookup("#dl4");
+        dr1 = (TextField) root.lookup("#dr1");
+        dr2 = (TextField) root.lookup("#dr2");
+        dr3 = (TextField) root.lookup("#dr3");
+        dr4 = (TextField) root.lookup("#dr4");
+
+        c1 = (TextField) root.lookup("#c1");
+        c2 = (TextField) root.lookup("#c2");
+        c3 = (TextField) root.lookup("#c3");
+        c4 = (TextField) root.lookup("#c4");
+
+        fl1 = (TextField) root.lookup("#fl1");
+        fl2 = (TextField) root.lookup("#fl2");
+        fl3 = (TextField) root.lookup("#fl3");
+        fl4 = (TextField) root.lookup("#fl4");
+        fr1 = (TextField) root.lookup("#fr1");
+        fr2 = (TextField) root.lookup("#fr2");
+        fr3 = (TextField) root.lookup("#fr3");
+        fr4 = (TextField) root.lookup("#fr4");
+
+        sgk1 = (TextField) root.lookup("#sgk1");
+        sgk2 = (TextField) root.lookup("#sgk2");
+        sgk3 = (TextField) root.lookup("#sgk3");
+        sd1 = (TextField) root.lookup("#sd1");
+        sd2 = (TextField) root.lookup("#sd2");
+        sd3 = (TextField) root.lookup("#sd3");
+        sf1 = (TextField) root.lookup("#sf1");
+        sf2 = (TextField) root.lookup("#sf2");
+        sf3 = (TextField) root.lookup("#sf3");
+
+        ppdl1 = (TextField) root.lookup("#ppdl1");
+        ppdl2 = (TextField) root.lookup("#ppdl2");
+        ppdlfiller = (TextField) root.lookup("#ppdlfiller");
+        ppdr1 = (TextField) root.lookup("#ppdr1");
+        ppdr2 = (TextField) root.lookup("#ppdr2");
+        ppdrfiller = (TextField) root.lookup("#ppdrfiller");
+        ppc1 = (TextField) root.lookup("#ppc1");
+        ppc2 = (TextField) root.lookup("#ppc2");
+        ppcfiller = (TextField) root.lookup("#ppcfiller");
+        ppfl1 = (TextField) root.lookup("#ppfl1");
+        ppfl2 = (TextField) root.lookup("#ppfl2");
+        ppflfiller = (TextField) root.lookup("#ppflfiller");
+        ppfr1 = (TextField) root.lookup("#ppfr1");
+        ppfr2 = (TextField) root.lookup("#ppfr2");
+        ppfrfiller = (TextField) root.lookup("#ppfrfiller");
+
+        bpdl1 = (TextField) root.lookup("#bpdl1");
+        bpdl2 = (TextField) root.lookup("#bpdl2");
+        bpdlfiller = (TextField) root.lookup("#bpdlfiller");
+        bpdr1 = (TextField) root.lookup("#bpdr1");
+        bpdr2 = (TextField) root.lookup("#bpdr2");
+        bpdrfiller = (TextField) root.lookup("#bpdrfiller");
+        bpfl1 = (TextField) root.lookup("#bpfl1");
+        bpfl2 = (TextField) root.lookup("#bpfl2");
+        bpflfiller = (TextField) root.lookup("#bpflfiller");
+        bpfr1 = (TextField) root.lookup("#bpfr1");
+        bpfr2 = (TextField) root.lookup("#bpfr2");
+        bpfrfiller = (TextField) root.lookup("#bpfrfiller");
+
+        bpsf1 = (TextField) root.lookup("#bpsf1");
+        bpsf2 = (TextField) root.lookup("#bpsf2");
+        bpsd1 = (TextField) root.lookup("#bpsd1");
+        bpsd2 = (TextField) root.lookup("#bpsd2");
+
+        lbfl1 = (Label) root.lookup("#lbfl1");
+        lbfl2 = (Label) root.lookup("#lbfl2");
+        lbfl3 = (Label) root.lookup("#lbfl3");
+        lbfl4 = (Label) root.lookup("#lbfl4");
+        lbfr1 = (Label) root.lookup("#lbfr1");
+        lbfr2 = (Label) root.lookup("#lbfr2");
+        lbfr3 = (Label) root.lookup("#lbfr3");
+        lbfr4 = (Label) root.lookup("#lbfr4");
+        lbc1 = (Label) root.lookup("#lbc1");
+        lbc2 = (Label) root.lookup("#lbc2");
+        lbc3 = (Label) root.lookup("#lbc3");
+        lbc4 = (Label) root.lookup("#lbc4");
+        lbgk1 = (Label) root.lookup("#lbgk1");
+        lbgk2 = (Label) root.lookup("#lbgk2");
+        lbgk3 = (Label) root.lookup("#lbgk3");
+        lbgk4 = (Label) root.lookup("#lbgk4");
+        lbdl1 = (Label) root.lookup("#lbdl1");
+        lbdl2 = (Label) root.lookup("#lbdl2");
+        lbdl3 = (Label) root.lookup("#lbdl3");
+        lbdl4 = (Label) root.lookup("#lbdl4");
+        lbdr1 = (Label) root.lookup("#lbdr1");
+        lbdr2 = (Label) root.lookup("#lbdr2");
+        lbdr3 = (Label) root.lookup("#lbdr3");
+        lbdr4 = (Label) root.lookup("#lbdr4");
+
+        lgGK1 = (Label) root.lookup("#lgGK1");
+        lgGK2 = (Label) root.lookup("#lgGK2");
+        lgGK3 = (Label) root.lookup("#lgGK3");
+        lgGK4 = (Label) root.lookup("#lgGK4");
+        lgRD1 = (Label) root.lookup("#lgRD1");
+        lgRD2 = (Label) root.lookup("#lgRD2");
+        lgRD3 = (Label) root.lookup("#lgRD3");
+        lgRD4 = (Label) root.lookup("#lgRD4");
+        lgLD1 = (Label) root.lookup("#lgLD1");
+        lgLD2 = (Label) root.lookup("#lgLD2");
+        lgLD3 = (Label) root.lookup("#lgLD3");
+        lgLD4 = (Label) root.lookup("#lgLD4");
+        lgRF1 = (Label) root.lookup("#lgRF1");
+        lgRF2 = (Label) root.lookup("#lgRF2");
+        lgRF3 = (Label) root.lookup("#lgRF3");
+        lgRF4 = (Label) root.lookup("#lgRF4");
+        lgC1 = (Label) root.lookup("#lgC1");
+        lgC2 = (Label) root.lookup("#lgC2");
+        lgC3 = (Label) root.lookup("#lgC3");
+        lgC4 = (Label) root.lookup("#lgC4");
+        lgLF1 = (Label) root.lookup("#lgLF1");
+        lgLF2 = (Label) root.lookup("#lgLF2");
+        lgLF3 = (Label) root.lookup("#lgLF3");
+        lgLF4 = (Label) root.lookup("#lgLF4");
+        ngGK1 = (Label) root.lookup("#ngGK1");
+        ngGK2 = (Label) root.lookup("#ngGK2");
+        ngGK3 = (Label) root.lookup("#ngGK3");
+        ngGK4 = (Label) root.lookup("#ngGK4");
+        ngRD1 = (Label) root.lookup("#ngRD1");
+        ngRD2 = (Label) root.lookup("#ngRD2");
+        ngRD3 = (Label) root.lookup("#ngRD3");
+        ngRD4 = (Label) root.lookup("#ngRD4");
+        ngLD1 = (Label) root.lookup("#ngLD1");
+        ngLD2 = (Label) root.lookup("#ngLD2");
+        ngLD3 = (Label) root.lookup("#ngLD3");
+        ngLD4 = (Label) root.lookup("#ngLD4");
+        ngRF1 = (Label) root.lookup("#ngRF1");
+        ngRF2 = (Label) root.lookup("#ngRF2");
+        ngRF3 = (Label) root.lookup("#ngRF3");
+        ngRF4 = (Label) root.lookup("#ngRF4");
+        ngC1 = (Label) root.lookup("#ngC1");
+        ngC2 = (Label) root.lookup("#ngC2");
+        ngC3 = (Label) root.lookup("#ngC3");
+        ngC4 = (Label) root.lookup("#ngC4");
+        ngLF1 = (Label) root.lookup("#ngLF1");
+        ngLF2 = (Label) root.lookup("#ngLF2");
+        ngLF3 = (Label) root.lookup("#ngLF3");
+        ngLF4 = (Label) root.lookup("#ngLF4");
     }
 }

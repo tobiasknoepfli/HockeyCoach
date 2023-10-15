@@ -56,92 +56,7 @@ public class GamePresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        saveButton = (Button) root.lookup("#saveButton");
-        cancelButton = (Button) root.lookup("#cancelButton");
-        backButton = (Button) root.lookup("#backButton");
-        newGameButton = (Button) root.lookup("#newGameButton");
-        allGames = (TableView) root.lookup("#allGames");
-        gameTeam = (TextField) root.lookup("#gameTeam");
-        gameOpponent = (TextField) root.lookup("#gameOpponent");
-        gameDate = (TextField) root.lookup("#gameDate");
-        gameTime = (TextField) root.lookup("#gameTime");
-        gameStadium = (TextField) root.lookup("#gameStadium");
-        captain = (TextField) root.lookup("#captain");
-        assistant1 = (TextField) root.lookup("#assistant1");
-        assistant2 = (TextField) root.lookup("#assistant2");
-        refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
-        teamPlayers = (TableView) root.lookup("#teamPlayers");
-        lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
-        lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
-        boardImage = (ImageView) root.lookup("#boardImage");
-        lineupGrid = (GridPane) root.lookup("#lineupGrid");
-        gk1 = (TextField) root.lookup("#gk1");
-        dl1 = (TextField) root.lookup("#dl1");
-        dl2 = (TextField) root.lookup("#dl2");
-        dl3 = (TextField) root.lookup("#dl3");
-        dl4 = (TextField) root.lookup("#dl4");
-        dr1 = (TextField) root.lookup("#dr1");
-        dr2 = (TextField) root.lookup("#dr2");
-        dr3 = (TextField) root.lookup("#dr3");
-        dr4 = (TextField) root.lookup("#dr4");
-        c1 = (TextField) root.lookup("#c1");
-        c2 = (TextField) root.lookup("#c2");
-        c3 = (TextField) root.lookup("#c3");
-        c4 = (TextField) root.lookup("#c4");
-        fl1 = (TextField) root.lookup("#fl1");
-        fl2 = (TextField) root.lookup("#fl2");
-        fl3 = (TextField) root.lookup("#fl3");
-        fl4 = (TextField) root.lookup("#fl4");
-        fr1 = (TextField) root.lookup("#fr1");
-        fr2 = (TextField) root.lookup("#fr2");
-        fr3 = (TextField) root.lookup("#fr3");
-        fr4 = (TextField) root.lookup("#fr4");
-        sgk1 = (TextField) root.lookup("#sgk1");
-        sgk2 = (TextField) root.lookup("#sgk2");
-        sgk3 = (TextField) root.lookup("#sgk3");
-        sd1 = (TextField) root.lookup("#sd1");
-        sd2 = (TextField) root.lookup("#sd2");
-        sd3 = (TextField) root.lookup("#sd3");
-        sf1 = (TextField) root.lookup("#sf1");
-        sf2 = (TextField) root.lookup("#sf2");
-        sf3 = (TextField) root.lookup("#sf3");
-        ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
-        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
-        ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
-        ppdl1 = (TextField) root.lookup("#ppdl1");
-        ppdl2 = (TextField) root.lookup("#ppdl2");
-        ppdlfiller = (TextField) root.lookup("#ppdlfiller");
-        ppdr1 = (TextField) root.lookup("#ppdr1");
-        ppdr2 = (TextField) root.lookup("#ppdr2");
-        ppdrfiller = (TextField) root.lookup("#ppdrfiller");
-        ppc1 = (TextField) root.lookup("#ppc1");
-        ppc2 = (TextField) root.lookup("#ppc2");
-        ppcfiller = (TextField) root.lookup("#ppcfiller");
-        ppfl1 = (TextField) root.lookup("#ppfl1");
-        ppfl2 = (TextField) root.lookup("#ppfl2");
-        ppflfiller = (TextField) root.lookup("#ppflfiller");
-        ppfr1 = (TextField) root.lookup("#ppfr1");
-        ppfr2 = (TextField) root.lookup("#ppfr2");
-        ppfrfiller = (TextField) root.lookup("#ppfrfiller");
-        bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
-        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
-        bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
-        bpdl1 = (TextField) root.lookup("#bpdl1");
-        bpdl2 = (TextField) root.lookup("#bpdl2");
-        bpdlfiller = (TextField) root.lookup("#bpdlfiller");
-        bpdr1 = (TextField) root.lookup("#bpdr1");
-        bpdr2 = (TextField) root.lookup("#bpdr2");
-        bpdrfiller = (TextField) root.lookup("#bpdrfiller");
-        bpfl1 = (TextField) root.lookup("#bpfl1");
-        bpfl2 = (TextField) root.lookup("#bpfl2");
-        bpflfiller = (TextField) root.lookup("#bpflfiller");
-        bpfr1 = (TextField) root.lookup("#bpfr1");
-        bpfr2 = (TextField) root.lookup("#bpfr2");
-        bpfrfiller = (TextField) root.lookup("#bpfrfiller");
-        bpsd1 = (TextField) root.lookup("#bpsd1");
-        bpsd2 = (TextField) root.lookup("#bpsd2");
-        bpsf1 = (TextField) root.lookup("#bpsf1");
-        bpsf2 = (TextField) root.lookup("#bpsf2");
+        importFields(root);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
 
@@ -166,7 +81,7 @@ public class GamePresentationModel extends PresentationModel {
                 bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
                 bpsd1, bpsd2, bpsf1, bpsf2};
 
-        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         getDBEntries(root);
         setupButtons(root);
@@ -180,11 +95,11 @@ public class GamePresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-        newGameButton.setOnAction(event ->{
-            buttonControls.openGameEditor(root,GAME);
+        newGameButton.setOnAction(event -> {
+            buttonControls.openGameEditor(root, GAME);
         });
 
-        backButton.setOnAction(event ->{
+        backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
     }
@@ -343,5 +258,104 @@ public class GamePresentationModel extends PresentationModel {
             }
         }
         return "";
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        saveButton = (Button) root.lookup("#saveButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        backButton = (Button) root.lookup("#backButton");
+        newGameButton = (Button) root.lookup("#newGameButton");
+        refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
+
+        allGames = (TableView) root.lookup("#allGames");
+        teamPlayers = (TableView) root.lookup("#teamPlayers");
+
+        lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
+
+        lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
+        ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
+        bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
+
+        boardImage = (ImageView) root.lookup("#boardImage");
+        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
+        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
+
+        lineupGrid = (GridPane) root.lookup("#lineupGrid");
+        ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
+        bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
+
+        gameTeam = (TextField) root.lookup("#gameTeam");
+        gameOpponent = (TextField) root.lookup("#gameOpponent");
+        gameDate = (TextField) root.lookup("#gameDate");
+        gameTime = (TextField) root.lookup("#gameTime");
+        gameStadium = (TextField) root.lookup("#gameStadium");
+        captain = (TextField) root.lookup("#captain");
+        assistant1 = (TextField) root.lookup("#assistant1");
+        assistant2 = (TextField) root.lookup("#assistant2");
+
+        gk1 = (TextField) root.lookup("#gk1");
+        dl1 = (TextField) root.lookup("#dl1");
+        dl2 = (TextField) root.lookup("#dl2");
+        dl3 = (TextField) root.lookup("#dl3");
+        dl4 = (TextField) root.lookup("#dl4");
+        dr1 = (TextField) root.lookup("#dr1");
+        dr2 = (TextField) root.lookup("#dr2");
+        dr3 = (TextField) root.lookup("#dr3");
+        dr4 = (TextField) root.lookup("#dr4");
+        c1 = (TextField) root.lookup("#c1");
+        c2 = (TextField) root.lookup("#c2");
+        c3 = (TextField) root.lookup("#c3");
+        c4 = (TextField) root.lookup("#c4");
+        fl1 = (TextField) root.lookup("#fl1");
+        fl2 = (TextField) root.lookup("#fl2");
+        fl3 = (TextField) root.lookup("#fl3");
+        fl4 = (TextField) root.lookup("#fl4");
+        fr1 = (TextField) root.lookup("#fr1");
+        fr2 = (TextField) root.lookup("#fr2");
+        fr3 = (TextField) root.lookup("#fr3");
+        fr4 = (TextField) root.lookup("#fr4");
+        sgk1 = (TextField) root.lookup("#sgk1");
+        sgk2 = (TextField) root.lookup("#sgk2");
+        sgk3 = (TextField) root.lookup("#sgk3");
+        sd1 = (TextField) root.lookup("#sd1");
+        sd2 = (TextField) root.lookup("#sd2");
+        sd3 = (TextField) root.lookup("#sd3");
+        sf1 = (TextField) root.lookup("#sf1");
+        sf2 = (TextField) root.lookup("#sf2");
+        sf3 = (TextField) root.lookup("#sf3");
+
+        ppdl1 = (TextField) root.lookup("#ppdl1");
+        ppdl2 = (TextField) root.lookup("#ppdl2");
+        ppdlfiller = (TextField) root.lookup("#ppdlfiller");
+        ppdr1 = (TextField) root.lookup("#ppdr1");
+        ppdr2 = (TextField) root.lookup("#ppdr2");
+        ppdrfiller = (TextField) root.lookup("#ppdrfiller");
+        ppc1 = (TextField) root.lookup("#ppc1");
+        ppc2 = (TextField) root.lookup("#ppc2");
+        ppcfiller = (TextField) root.lookup("#ppcfiller");
+        ppfl1 = (TextField) root.lookup("#ppfl1");
+        ppfl2 = (TextField) root.lookup("#ppfl2");
+        ppflfiller = (TextField) root.lookup("#ppflfiller");
+        ppfr1 = (TextField) root.lookup("#ppfr1");
+        ppfr2 = (TextField) root.lookup("#ppfr2");
+        ppfrfiller = (TextField) root.lookup("#ppfrfiller");
+
+        bpdl1 = (TextField) root.lookup("#bpdl1");
+        bpdl2 = (TextField) root.lookup("#bpdl2");
+        bpdlfiller = (TextField) root.lookup("#bpdlfiller");
+        bpdr1 = (TextField) root.lookup("#bpdr1");
+        bpdr2 = (TextField) root.lookup("#bpdr2");
+        bpdrfiller = (TextField) root.lookup("#bpdrfiller");
+        bpfl1 = (TextField) root.lookup("#bpfl1");
+        bpfl2 = (TextField) root.lookup("#bpfl2");
+        bpflfiller = (TextField) root.lookup("#bpflfiller");
+        bpfr1 = (TextField) root.lookup("#bpfr1");
+        bpfr2 = (TextField) root.lookup("#bpfr2");
+        bpfrfiller = (TextField) root.lookup("#bpfrfiller");
+        bpsd1 = (TextField) root.lookup("#bpsd1");
+        bpsd2 = (TextField) root.lookup("#bpsd2");
+        bpsf1 = (TextField) root.lookup("#bpsf1");
+        bpsf2 = (TextField) root.lookup("#bpsf2");
     }
 }

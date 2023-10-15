@@ -54,31 +54,7 @@ public class PlayerPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        teamPlayers = (TableView) root.lookup("#teamPlayers");
-        playerTeams = (TableView) root.lookup("#playerTeams");
-        playerPhoto = (ImageView) root.lookup("#playerPhoto");
-        playerName = (TextField) root.lookup("#playerName");
-        team = (TextField) root.lookup("#team");
-        street = (TextField) root.lookup("#street");
-        zipCity = (TextField) root.lookup("#zipCity");
-        country = (TextField) root.lookup("#country");
-        phone = (TextField) root.lookup("#phone");
-        email = (TextField) root.lookup("#email");
-        jersey = (TextField) root.lookup("#jersey");
-        positions = (TextField) root.lookup("#positions");
-        strengths = (TextArea) root.lookup("#strengths");
-        weaknesses = (TextArea) root.lookup("#weaknesses");
-        notes = (TextArea) root.lookup("#notes");
-        role = (TextField) root.lookup("#role");
-        aLicence = (TextField) root.lookup("#aLicence");
-        bLicence = (TextField) root.lookup("#bLicence");
-        stick = (TextField) root.lookup("#stick");
-        saveButton = (Button) root.lookup("#saveButton");
-        editButton = (Button) root.lookup("#editButton");
-        cancelButton = (Button) root.lookup("#cancelButton");
-        deleteButton = (Button) root.lookup("#deleteButton");
-        newPlayerButton = (Button) root.lookup("#newPlayerButton");
-        backButton = (Button) root.lookup("#backButton");
+        importFields(root);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -271,5 +247,38 @@ public class PlayerPresentationModel extends PresentationModel {
             e.printStackTrace();
             return url;
         }
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        teamPlayers = (TableView) root.lookup("#teamPlayers");
+        playerTeams = (TableView) root.lookup("#playerTeams");
+
+        playerPhoto = (ImageView) root.lookup("#playerPhoto");
+
+        playerName = (TextField) root.lookup("#playerName");
+        team = (TextField) root.lookup("#team");
+        street = (TextField) root.lookup("#street");
+        zipCity = (TextField) root.lookup("#zipCity");
+        country = (TextField) root.lookup("#country");
+        phone = (TextField) root.lookup("#phone");
+        email = (TextField) root.lookup("#email");
+        jersey = (TextField) root.lookup("#jersey");
+        positions = (TextField) root.lookup("#positions");
+        role = (TextField) root.lookup("#role");
+        aLicence = (TextField) root.lookup("#aLicence");
+        bLicence = (TextField) root.lookup("#bLicence");
+        stick = (TextField) root.lookup("#stick");
+
+        strengths = (TextArea) root.lookup("#strengths");
+        weaknesses = (TextArea) root.lookup("#weaknesses");
+        notes = (TextArea) root.lookup("#notes");
+
+        saveButton = (Button) root.lookup("#saveButton");
+        editButton = (Button) root.lookup("#editButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        deleteButton = (Button) root.lookup("#deleteButton");
+        newPlayerButton = (Button) root.lookup("#newPlayerButton");
+        backButton = (Button) root.lookup("#backButton");
     }
 }

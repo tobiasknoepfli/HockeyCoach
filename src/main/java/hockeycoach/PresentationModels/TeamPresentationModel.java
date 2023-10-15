@@ -49,33 +49,7 @@ public class TeamPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        teamLogo = (ImageView) root.lookup("#teamLogo");
-        teamName = (TextField) root.lookup("#teamName");
-        stadiumName = (TextField) root.lookup("#stadiumName");
-        stadiumStreet = (TextField) root.lookup("#stadiumStreet");
-        stadiumZip = (TextField) root.lookup("#stadiumZip");
-        stadiumCity = (TextField) root.lookup("#stadiumCity");
-        stadiumCountry = (TextField) root.lookup("#stadiumCountry");
-        contactFirstName = (TextField) root.lookup("#contactFirstName");
-        contactLastName = (TextField) root.lookup("#contactLastName");
-        contactPhone = (TextField) root.lookup("#contactPhone");
-        contactEmail = (TextField) root.lookup("#contactEmail");
-        website = (TextField) root.lookup("#website");
-        founded = (TextField) root.lookup("#founded");
-        presidentFirstName = (TextField) root.lookup("#presidentFirstName");
-        presidentLastName = (TextField) root.lookup("#presidentLastName");
-        currentLeague = (TextField) root.lookup("#currentLeague");
-        headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
-        headCoachLastName = (TextField) root.lookup("#headCoachLastName");
-        teamPlayers = (TableView) root.lookup("#teamPlayers");
-        notes = (TextArea) root.lookup("#notes");
-        editPlayerButton = (Button) root.lookup("#editPlayerButton");
-        saveButton = (Button) root.lookup("#saveButton");
-        editButton = (Button) root.lookup("#editButton");
-        cancelButton = (Button) root.lookup("#cancelButton");
-        deleteButton = (Button) root.lookup("#deleteButton");
-        newTeamButton = (Button) root.lookup("#newTeamButton");
-        backButton = (Button) root.lookup("#backButton");
+        importFields(root);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -259,5 +233,40 @@ public class TeamPresentationModel extends PresentationModel {
             }
         }
         return null;
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        teamLogo = (ImageView) root.lookup("#teamLogo");
+
+        teamName = (TextField) root.lookup("#teamName");
+        stadiumName = (TextField) root.lookup("#stadiumName");
+        stadiumStreet = (TextField) root.lookup("#stadiumStreet");
+        stadiumZip = (TextField) root.lookup("#stadiumZip");
+        stadiumCity = (TextField) root.lookup("#stadiumCity");
+        stadiumCountry = (TextField) root.lookup("#stadiumCountry");
+        contactFirstName = (TextField) root.lookup("#contactFirstName");
+        contactLastName = (TextField) root.lookup("#contactLastName");
+        contactPhone = (TextField) root.lookup("#contactPhone");
+        contactEmail = (TextField) root.lookup("#contactEmail");
+        website = (TextField) root.lookup("#website");
+        founded = (TextField) root.lookup("#founded");
+        presidentFirstName = (TextField) root.lookup("#presidentFirstName");
+        presidentLastName = (TextField) root.lookup("#presidentLastName");
+        currentLeague = (TextField) root.lookup("#currentLeague");
+        headCoachFirstName = (TextField) root.lookup("#headCoachFirstName");
+        headCoachLastName = (TextField) root.lookup("#headCoachLastName");
+
+        teamPlayers = (TableView) root.lookup("#teamPlayers");
+
+        notes = (TextArea) root.lookup("#notes");
+
+        editPlayerButton = (Button) root.lookup("#editPlayerButton");
+        saveButton = (Button) root.lookup("#saveButton");
+        editButton = (Button) root.lookup("#editButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        deleteButton = (Button) root.lookup("#deleteButton");
+        newTeamButton = (Button) root.lookup("#newTeamButton");
+        backButton = (Button) root.lookup("#backButton");
     }
 }

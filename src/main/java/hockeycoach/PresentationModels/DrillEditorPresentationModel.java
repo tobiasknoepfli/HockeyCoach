@@ -40,35 +40,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        backButton = (Button) root.lookup("#backButton");
-        newDrillButton = (Button) root.lookup("#newDrillButton");
-        saveButton = (Button) root.lookup("#saveButton");
-        editButton = (Button) root.lookup("#editButton");
-        cancelButton = (Button) root.lookup("#cancelButton");
-        deleteButton = (Button) root.lookup("#deleteButton");
-        closeWindowButton = (Button) root.lookup("#closeWindowButton");
-        searchBox = (TextField) root.lookup("#searchBox");
-        searchButton = (Button) root.lookup("#searchButton");
-        resetButton = (Button) root.lookup("#resetButton");
-        drillCategoryFilter = (ComboBox) root.lookup("#drillCategoryFilter");
-        drillParticipationFilter = (ComboBox) root.lookup("#drillParticipationFilter");
-        drillDifficultyFilter = (ComboBox) root.lookup("#drillDifficultyFilter");
-        drillPuckPositionFilter = (ComboBox) root.lookup("#drillPuckPositionFilter");
-        drillStationFilter = (ComboBox) root.lookup("#drillStationFilter");
-        allDrills = (TableView) root.lookup("#allDrills");
-        drillImage = (ImageView) root.lookup("#drillImage");
-        drillName = (TextField) root.lookup("#drillName");
-        drillCategory = (ComboBox) root.lookup("#drillCategory");
-        drillParticipation = (ComboBox) root.lookup("#drillParticipation");
-        drillDifficulty = (ComboBox) root.lookup("#drillDifficulty");
-        drillPuckPosition = (ComboBox) root.lookup("#drillPuckPosition");
-        drillStation = (ComboBox) root.lookup("#drillStation");
-        newCategory = (TextField) root.lookup("#newCategory");
-        addNewTag = (TextField) root.lookup("#addNewTag");
-        newCategoryButton = (Button) root.lookup("#newCategoryButton");
-        newTagButton = (Button) root.lookup("#newTagButton");
-        drillTags = (TableView) root.lookup("#drillTags");
-        drillTagsFilter = (ComboBox) root.lookup("#drillTagsFilter");
+        importFields(root);
 
         allDrillList = dbDrillLoader.getDrills("SELECT * FROM drill");
 
@@ -167,5 +139,42 @@ public class DrillEditorPresentationModel extends PresentationModel {
         });
 
 
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        backButton = (Button) root.lookup("#backButton");
+        newDrillButton = (Button) root.lookup("#newDrillButton");
+        saveButton = (Button) root.lookup("#saveButton");
+        editButton = (Button) root.lookup("#editButton");
+        cancelButton = (Button) root.lookup("#cancelButton");
+        deleteButton = (Button) root.lookup("#deleteButton");
+        closeWindowButton = (Button) root.lookup("#closeWindowButton");
+        searchButton = (Button) root.lookup("#searchButton");
+        resetButton = (Button) root.lookup("#resetButton");
+        newCategoryButton = (Button) root.lookup("#newCategoryButton");
+        newTagButton = (Button) root.lookup("#newTagButton");
+
+        searchBox = (TextField) root.lookup("#searchBox");
+        drillName = (TextField) root.lookup("#drillName");
+        newCategory = (TextField) root.lookup("#newCategory");
+        addNewTag = (TextField) root.lookup("#addNewTag");
+
+        drillCategoryFilter = (ComboBox) root.lookup("#drillCategoryFilter");
+        drillParticipationFilter = (ComboBox) root.lookup("#drillParticipationFilter");
+        drillDifficultyFilter = (ComboBox) root.lookup("#drillDifficultyFilter");
+        drillPuckPositionFilter = (ComboBox) root.lookup("#drillPuckPositionFilter");
+        drillStationFilter = (ComboBox) root.lookup("#drillStationFilter");
+        drillCategory = (ComboBox) root.lookup("#drillCategory");
+        drillParticipation = (ComboBox) root.lookup("#drillParticipation");
+        drillDifficulty = (ComboBox) root.lookup("#drillDifficulty");
+        drillPuckPosition = (ComboBox) root.lookup("#drillPuckPosition");
+        drillStation = (ComboBox) root.lookup("#drillStation");
+        drillTagsFilter = (ComboBox) root.lookup("#drillTagsFilter");
+
+        allDrills = (TableView) root.lookup("#allDrills");
+        drillTags = (TableView) root.lookup("#drillTags");
+
+        drillImage = (ImageView) root.lookup("#drillImage");
     }
 }

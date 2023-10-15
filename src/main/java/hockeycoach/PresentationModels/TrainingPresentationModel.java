@@ -37,7 +37,7 @@ public class TrainingPresentationModel extends PresentationModel {
     ImageView drillImage;
 
     TrainingLines trainingLines = new TrainingLines();
-    Button newDrillButton, newTrainingButton,backButton;
+    Button newDrillButton, newTrainingButton, backButton;
 
     TextField drillName, trainingDate, trainingTime, team, stadium, mainFocus,
             jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
@@ -50,65 +50,7 @@ public class TrainingPresentationModel extends PresentationModel {
 
     @Override
     public void initializeControls(Pane root) {
-        trainingTable = (TableView) root.lookup("#trainingTable");
-        trainingDate = (TextField) root.lookup("#trainingDate");
-        trainingTime = (TextField) root.lookup("#trainingTime");
-        team = (TextField) root.lookup("#team");
-        stadium = (TextField) root.lookup("#stadium");
-        mainFocus = (TextField) root.lookup("#mainFocus");
-        pointers = (TextArea) root.lookup("#pointers");
-        warmup = (TableView) root.lookup("#warmup");
-        together = (TableView) root.lookup("#together");
-        stations = (TableView) root.lookup("#stations");
-        backup = (TableView) root.lookup("#backup");
-        drillImage = (ImageView) root.lookup("#drillImage");
-        drillName = (TextField) root.lookup("#drillName");
-        newDrillButton = (Button) root.lookup("#newDrillButton");
-        newTrainingButton = (Button) root.lookup("#newTrainingButton");
-        backButton = (Button) root.lookup("#backButton");
-
-        jersey1 = (TextField) root.lookup("#jersey1");
-        jersey2 = (TextField) root.lookup("#jersey2");
-        jersey3 = (TextField) root.lookup("#jersey3");
-        jersey4 = (TextField) root.lookup("#jersey4");
-        jersey5 = (TextField) root.lookup("#jersey5");
-        jersey6 = (TextField) root.lookup("#jersey6");
-        gk1 = (TextField) root.lookup("#gk1");
-        gk2 = (TextField) root.lookup("#gk2");
-        gk3 = (TextField) root.lookup("#gk3");
-        gk4 = (TextField) root.lookup("#gk4");
-        gk5 = (TextField) root.lookup("#gk5");
-        gk6 = (TextField) root.lookup("#gk6");
-        dl1 = (TextField) root.lookup("#dl1");
-        dl2 = (TextField) root.lookup("#dl2");
-        dl3 = (TextField) root.lookup("#dl3");
-        dl4 = (TextField) root.lookup("#dl4");
-        dl5 = (TextField) root.lookup("#dl5");
-        dl6 = (TextField) root.lookup("#dl6");
-        dr1 = (TextField) root.lookup("#dr1");
-        dr2 = (TextField) root.lookup("#dr2");
-        dr3 = (TextField) root.lookup("#dr3");
-        dr4 = (TextField) root.lookup("#dr4");
-        dr5 = (TextField) root.lookup("#dr5");
-        dr6 = (TextField) root.lookup("#dr6");
-        c1 = (TextField) root.lookup("#c1");
-        c2 = (TextField) root.lookup("#c2");
-        c3 = (TextField) root.lookup("#c3");
-        c4 = (TextField) root.lookup("#c4");
-        c5 = (TextField) root.lookup("#c5");
-        c6 = (TextField) root.lookup("#c6");
-        fl1 = (TextField) root.lookup("#fl1");
-        fl2 = (TextField) root.lookup("#fl2");
-        fl3 = (TextField) root.lookup("#fl3");
-        fl4 = (TextField) root.lookup("#fl4");
-        fl5 = (TextField) root.lookup("#fl5");
-        fl6 = (TextField) root.lookup("#fl6");
-        fr1 = (TextField) root.lookup("#fr1");
-        fr2 = (TextField) root.lookup("#fr2");
-        fr3 = (TextField) root.lookup("#fr3");
-        fr4 = (TextField) root.lookup("#fr4");
-        fr5 = (TextField) root.lookup("#fr5");
-        fr6 = (TextField) root.lookup("#fr6");
+        importFields(root);
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
         DBLoader dbLoader = new DBLoader();
@@ -122,7 +64,7 @@ public class TrainingPresentationModel extends PresentationModel {
                 c1, c2, c3, c4, c5, c6,
                 fl1, fl2, fl3, fl4, fl5, fl6,
                 fr1, fr2, fr3, fr4, fr5, fr6};
-        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getTeamID());
 
@@ -145,7 +87,7 @@ public class TrainingPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-        backButton.setOnAction(event ->{
+        backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
     }
@@ -153,11 +95,11 @@ public class TrainingPresentationModel extends PresentationModel {
     @Override
     public void setupEventListeners(Pane root) {
         newDrillButton.setOnAction(event -> {
-            buttonControls.openNewDrill(root,TRAINING);
+            buttonControls.openNewDrill(root, TRAINING);
         });
 
         newTrainingButton.setOnAction(event -> {
-            buttonControls.openTrainingEditor(root,TRAINING);
+            buttonControls.openTrainingEditor(root, TRAINING);
         });
 
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
@@ -277,5 +219,70 @@ public class TrainingPresentationModel extends PresentationModel {
         }
     }
 
+    @Override
+    public void importFields(Pane root) {
+        pointers = (TextArea) root.lookup("#pointers");
 
+        trainingTable = (TableView) root.lookup("#trainingTable");
+        warmup = (TableView) root.lookup("#warmup");
+        together = (TableView) root.lookup("#together");
+        stations = (TableView) root.lookup("#stations");
+        backup = (TableView) root.lookup("#backup");
+
+        drillImage = (ImageView) root.lookup("#drillImage");
+
+        newDrillButton = (Button) root.lookup("#newDrillButton");
+        newTrainingButton = (Button) root.lookup("#newTrainingButton");
+        backButton = (Button) root.lookup("#backButton");
+
+        trainingDate = (TextField) root.lookup("#trainingDate");
+        trainingTime = (TextField) root.lookup("#trainingTime");
+        team = (TextField) root.lookup("#team");
+        stadium = (TextField) root.lookup("#stadium");
+        mainFocus = (TextField) root.lookup("#mainFocus");
+        drillName = (TextField) root.lookup("#drillName");
+
+        jersey1 = (TextField) root.lookup("#jersey1");
+        jersey2 = (TextField) root.lookup("#jersey2");
+        jersey3 = (TextField) root.lookup("#jersey3");
+        jersey4 = (TextField) root.lookup("#jersey4");
+        jersey5 = (TextField) root.lookup("#jersey5");
+        jersey6 = (TextField) root.lookup("#jersey6");
+        gk1 = (TextField) root.lookup("#gk1");
+        gk2 = (TextField) root.lookup("#gk2");
+        gk3 = (TextField) root.lookup("#gk3");
+        gk4 = (TextField) root.lookup("#gk4");
+        gk5 = (TextField) root.lookup("#gk5");
+        gk6 = (TextField) root.lookup("#gk6");
+        dl1 = (TextField) root.lookup("#dl1");
+        dl2 = (TextField) root.lookup("#dl2");
+        dl3 = (TextField) root.lookup("#dl3");
+        dl4 = (TextField) root.lookup("#dl4");
+        dl5 = (TextField) root.lookup("#dl5");
+        dl6 = (TextField) root.lookup("#dl6");
+        dr1 = (TextField) root.lookup("#dr1");
+        dr2 = (TextField) root.lookup("#dr2");
+        dr3 = (TextField) root.lookup("#dr3");
+        dr4 = (TextField) root.lookup("#dr4");
+        dr5 = (TextField) root.lookup("#dr5");
+        dr6 = (TextField) root.lookup("#dr6");
+        c1 = (TextField) root.lookup("#c1");
+        c2 = (TextField) root.lookup("#c2");
+        c3 = (TextField) root.lookup("#c3");
+        c4 = (TextField) root.lookup("#c4");
+        c5 = (TextField) root.lookup("#c5");
+        c6 = (TextField) root.lookup("#c6");
+        fl1 = (TextField) root.lookup("#fl1");
+        fl2 = (TextField) root.lookup("#fl2");
+        fl3 = (TextField) root.lookup("#fl3");
+        fl4 = (TextField) root.lookup("#fl4");
+        fl5 = (TextField) root.lookup("#fl5");
+        fl6 = (TextField) root.lookup("#fl6");
+        fr1 = (TextField) root.lookup("#fr1");
+        fr2 = (TextField) root.lookup("#fr2");
+        fr3 = (TextField) root.lookup("#fr3");
+        fr4 = (TextField) root.lookup("#fr4");
+        fr5 = (TextField) root.lookup("#fr5");
+        fr6 = (TextField) root.lookup("#fr6");
+    }
 }

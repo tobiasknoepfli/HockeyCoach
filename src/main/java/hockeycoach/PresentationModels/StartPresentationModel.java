@@ -34,11 +34,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
 
     @Override
     public void initializeControls(Pane root) {
-        teamsTable = (TableView) root.lookup("#teamsTable");
-        gamesTable = (TableView) root.lookup("#gamesTable");
-        trainingsTable = (TableView) root.lookup("#trainingsTable");
-        closeWindowButton = (Button) root.lookup("#closeWindowButton");
-        newTeamButton = (Button) root.lookup("#newTeamButton");
+        importFields(root);
 
         DBTeamLoader dbTeamLoader = new DBTeamLoader();
         List<Team> allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
@@ -158,5 +154,15 @@ public class StartPresentationModel extends PresentationModel implements pmInter
     public void useTooltips() {
         createHoverInfo(closeWindowButton, "close window");
         createHoverInfo(newTeamButton, "new team");
+    }
+
+    @Override
+    public void importFields(Pane root) {
+        teamsTable = (TableView) root.lookup("#teamsTable");
+        gamesTable = (TableView) root.lookup("#gamesTable");
+        trainingsTable = (TableView) root.lookup("#trainingsTable");
+
+        closeWindowButton = (Button) root.lookup("#closeWindowButton");
+        newTeamButton = (Button) root.lookup("#newTeamButton");
     }
 }
