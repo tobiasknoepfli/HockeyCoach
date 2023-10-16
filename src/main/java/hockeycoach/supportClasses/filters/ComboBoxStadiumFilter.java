@@ -23,7 +23,7 @@ public class ComboBoxStadiumFilter extends ComboBoxFilter{
         allStadiums.getItems().addAll(filteredStadiums);
     }
 
-    public void clearFilter(List<Stadium> allStadiumList, TableView<Stadium> allStadiums, ComboBox cityBox){
+    public void resetFilter(List<Stadium> allStadiumList, TableView<Stadium> allStadiums, ComboBox cityBox){
         allStadiums.getSelectionModel().clearSelection();
         cityBox.setValue(null);
 

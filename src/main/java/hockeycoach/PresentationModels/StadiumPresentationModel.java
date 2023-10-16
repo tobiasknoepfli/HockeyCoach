@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.mainClasses.Stadium;
+import hockeycoach.supportClasses.SearchBox;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import hockeycoach.supportClasses.filters.ComboBoxStadiumFilter;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StadiumPresentationModel extends PresentationModel {
+    SearchBox searchBox = new SearchBox();
     DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxStadiumFilter comboBoxStadiumFilter = new ComboBoxStadiumFilter();
@@ -48,7 +50,11 @@ public class StadiumPresentationModel extends PresentationModel {
     @Override
     public void setupButtons(Pane root) {
         clearFilters.setOnAction(event ->{
-            comboBoxStadiumFilter.clearFilter(allStadiumList,allStadiums,cityFilter);
+            comboBoxStadiumFilter.resetFilter(allStadiumList,allStadiums,cityFilter);
+        });
+
+        searchStadiumButton.setOnAction(event ->{
+            searchBox.searchStadium(searchStadium.getText(),allStadiumList,allStadiums);
         });
     }
 
