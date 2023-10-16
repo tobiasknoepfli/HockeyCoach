@@ -2,8 +2,8 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.mainClasses.Stadium;
-import hockeycoach.supportClasses.ComboBoxPopulator;
-import hockeycoach.supportClasses.ComboBoxStadiumFilter;
+import hockeycoach.supportClasses.filters.ComboBoxPopulator;
+import hockeycoach.supportClasses.filters.ComboBoxStadiumFilter;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableView;

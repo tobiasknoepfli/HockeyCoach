@@ -3,6 +3,8 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.supportClasses.*;
+import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
+import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;

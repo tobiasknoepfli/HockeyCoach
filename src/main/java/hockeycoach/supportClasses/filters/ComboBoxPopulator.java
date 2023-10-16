@@ -1,7 +1,8 @@
-package hockeycoach.supportClasses;
+package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.mainClasses.Stadium;
+import hockeycoach.supportClasses.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;

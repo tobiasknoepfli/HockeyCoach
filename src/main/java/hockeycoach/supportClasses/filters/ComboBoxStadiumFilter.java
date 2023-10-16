@@ -1,4 +1,4 @@
-package hockeycoach.supportClasses;
+package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.Stadium;
 import javafx.scene.control.ComboBox;

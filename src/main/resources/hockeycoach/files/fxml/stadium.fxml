@@ -35,7 +35,10 @@
                <children>
                   <Button fx:id="newStadiumButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                      <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/icons_newStadium.png" />
+                           </image></ImageView>
                      </graphic>
                   </Button>
                </children></HBox>
