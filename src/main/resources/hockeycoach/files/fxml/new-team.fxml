@@ -167,6 +167,11 @@
                                     <TextField fx:id="stadiumCountry" prefHeight="25.0" />
                                  </children>
                               </VBox>
+                              <VBox spacing="2.0">
+                                 <children>
+                                    <Button fx:id="fillStadium" mnemonicParsing="false" text="Fill from Database" />
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                         <HBox spacing="5.0">

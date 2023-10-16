@@ -1,6 +1,7 @@
 package hockeycoach.supportClasses;
 
 import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.Stadium;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -96,6 +97,21 @@ public class ComboBoxPopulator {
                     tagList.addAll(drillTags);
                 });
         observableList = tagList.stream()
+                .distinct()
+                .sorted(String::compareTo)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+        comboBox.getItems().addAll(observableList);
+    }
+
+    public void setStadiumCities(List<Stadium> allStadiumList, ComboBox<String> comboBox){
+        List<String> cityList = new ArrayList<>();
+        allStadiumList.stream()
+                .forEach(stadium -> {
+                    String city= stadium.getStadiumPlace();
+                    cityList.add(city);
+                });
+        observableList= cityList.stream()
                 .distinct()
                 .sorted(String::compareTo)
                 .collect(Collectors.toCollection(FXCollections::observableArrayList));

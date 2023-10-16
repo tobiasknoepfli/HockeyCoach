@@ -39,9 +39,9 @@ public class DBPlayerXTeamLoader {
                 playerXteam=setPlayerXTeam(resultSet);
 
                 playerXteamList.add(playerXteam);
-
-                connection.close();
             }
+
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -27,6 +27,7 @@ public class AppStarter extends Application {
     public static final String NEW_PLAYER = "newPlayer";
     public static final String PLAYER_TO_TEAM = "playerToTeam";
     public static final String NEW_DRILL = "drillEditor";
+    public static final String STADIUM = "stadium";
 
     public static final String HOME_FXML = "/hockeycoach/files/fxml/start.fxml";
     public static final String TEAM_FXML = "/hockeycoach/files/fxml/team.fxml";
@@ -39,6 +40,7 @@ public class AppStarter extends Application {
     public static final String NEW_PLAYER_FXML = "/hockeycoach/files/fxml/new-player.fxml";
     public static final String PLAYER_TO_TEAM_FXML = "/hockeycoach/files/fxml/player-to-team.fxml";
     public static final String NEW_DRILL_FXML = "/hockeycoach/files/fxml/drill-editor.fxml";
+    public static final String STADIUM_FXML = "/hockeycoach/files/fxml/stadium.fxml";
 
     public static final String LOGOS = "/src/main/resources/hockeycoach/files/logos/";
     public static final String PHOTOS = "/src/main/resources/hockeycoach/files/photos";

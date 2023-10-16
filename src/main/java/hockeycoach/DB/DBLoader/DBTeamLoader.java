@@ -13,11 +13,7 @@ public class DBTeamLoader extends DBLoader {
         try {
             team.setTeamID(resultSet.getInt("teamID"));
             team.setName(resultSet.getString("name"));
-            team.setStadium(resultSet.getString("stadium"));
-            team.setStreet(resultSet.getString("street"));
-            team.setZip(resultSet.getInt("zip"));
-            team.setCity(resultSet.getString("city"));
-            team.setCountry(resultSet.getString("country"));
+            team.setStadium(resultSet.getInt("stadium"));
             team.setContactFirstName(resultSet.getString("contactFirstName"));
             team.setContactLastName(resultSet.getString("contactLastName"));
             team.setContactPhone(resultSet.getString("contactPhoneNr"));

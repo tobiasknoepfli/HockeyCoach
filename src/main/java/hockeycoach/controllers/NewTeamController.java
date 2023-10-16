@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 
 public class NewTeamController extends Controller {
     @FXML
-    private Button saveButton, cancelButton, closeWindowButton, backButton;
+    private Button saveButton, cancelButton, closeWindowButton, backButton,fillStadium;
 
     @FXML
     private ImageView teamLogo;

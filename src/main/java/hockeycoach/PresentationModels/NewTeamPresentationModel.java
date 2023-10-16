@@ -1,8 +1,10 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.DB.DBWriter;
 import hockeycoach.controllers.HeaderController;
+import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
@@ -34,13 +36,18 @@ import static hockeycoach.AppStarter.*;
 
 public class NewTeamPresentationModel extends PresentationModel {
     MouseEvent event;
+    int counter;
     List<Team> teamList = new ArrayList();
+    List<Stadium> stadiumList = new ArrayList<>();
+    List<Stadium> searchStadiums = new ArrayList<>();
+
     ButtonControls buttonControls = new ButtonControls();
     private TextField[] textFields;
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
     private TextFieldAction textFieldAction = new TextFieldAction();
 
     DBTeamLoader dbTeamLoader = new DBTeamLoader();
+    DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
 
     ImageView teamLogo = new ImageView();
 
@@ -54,7 +61,7 @@ public class NewTeamPresentationModel extends PresentationModel {
 
     Label controlLabel;
 
-    Button saveButton, cancelButton, closeWindowButton, backButton;
+    Button saveButton, cancelButton, closeWindowButton, backButton, fillStadium;
 
 
     @Override
@@ -69,6 +76,8 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
+        counter = 0;
+
         setControlsDisabled(true);
 
         getDBEntries(root);
@@ -79,6 +88,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     @Override
     public void getDBEntries(Pane root) {
         teamList = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        stadiumList = dbStadiumLoader.getAllStadiums("SELECT * FROM stadium");
     }
 
     @Override
@@ -104,6 +114,10 @@ public class NewTeamPresentationModel extends PresentationModel {
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
+
+        fillStadium.setOnAction(event -> {
+            buttonControls.openStadium(root,NEW_TEAM);
+        });
     }
 
     @Override
@@ -118,7 +132,6 @@ public class NewTeamPresentationModel extends PresentationModel {
         });
 
         teamLogo.setOnMouseClicked(event -> handleImageClick());
-
 
     }
 
@@ -181,10 +194,10 @@ public class NewTeamPresentationModel extends PresentationModel {
     private Team readData(String newImage) {
         Team newTeam = new Team();
         newTeam.setName(teamName.getText());
-        newTeam.setStadium(stadiumName.getText());
-        newTeam.setStreet(stadiumStreet.getText());
-        newTeam.setZip(Integer.parseInt(stadiumZip.getText()));
-        newTeam.setCity(stadiumCity.getText());
+        newTeam.setStadium(Integer.parseInt(stadiumName.getText()));
+//        newTeam.setStreet(stadiumStreet.getText());
+//        newTeam.setZip(Integer.parseInt(stadiumZip.getText()));
+//        newTeam.setCity(stadiumCity.getText());
         newTeam.setCountry(stadiumCountry.getText());
 
         newTeam.setContactFirstName(contactFirstName.getText());
@@ -259,6 +272,7 @@ public class NewTeamPresentationModel extends PresentationModel {
         cancelButton = (Button) root.lookup("#cancelButton");
         closeWindowButton = (Button) root.lookup("#closeWindowButton");
         backButton = (Button) root.lookup("#backButton");
+        fillStadium = (Button) root.lookup("#fillStadium");
 
         controlLabel = (Label) root.lookup("#controlLabel");
     }

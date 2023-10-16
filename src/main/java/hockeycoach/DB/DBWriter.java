@@ -63,10 +63,10 @@ public class DBWriter {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setString(1, team.getName());
-            preparedStatement.setString(2, team.getStadium());
-            preparedStatement.setString(3, team.getStreet());
-            preparedStatement.setInt(4, team.getZip());
-            preparedStatement.setString(5, team.getCity());
+//            preparedStatement.setString(2, team.getStadium());
+//            preparedStatement.setString(3, team.getStreet());
+//            preparedStatement.setInt(4, team.getZip());
+//            preparedStatement.setString(5, team.getCity());
             preparedStatement.setString(6, team.getCountry());
             preparedStatement.setString(7, team.getContactFirstName());
             preparedStatement.setString(8, team.getContactLastName());

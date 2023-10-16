@@ -3,15 +3,11 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.*;
-import javafx.beans.binding.Bindings;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +19,6 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class TrainingEditorPresentationModel extends PresentationModel {
@@ -190,45 +185,45 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         playerList.getItems().clear();
         playerList.getItems().addAll(availablePlayersList);
 
-        ComboBoxFilter comboBoxFilter = new ComboBoxFilter();
+        ComboBoxDrillFilter comboBoxDrillFilter = new ComboBoxDrillFilter();
         cbCategory.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });
 
         cbParticipation.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });
 
         cbDifficulty.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });
 
         cbPuckPosition.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });
 
         cbStation.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });
 
         cbTags.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxFilter.setFilter(filteredDrills, drillList, drillTable,
+            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });
 
         resetFilters.setOnAction(event -> {
-            comboBoxFilter.clearFilter(drillList, drillTable,
+            comboBoxDrillFilter.clearFilter(drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
                     cbPuckPosition, cbStation, cbTags);
         });

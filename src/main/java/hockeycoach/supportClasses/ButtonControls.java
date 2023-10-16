@@ -84,4 +84,10 @@ public class ButtonControls {
         headerController.loadStages(TRAINING,TRAINING_FXML,pm);
         closeWindow(closingNode,closingNodeName);
     }
+
+    public void openStadium(Node closingNode, String closingNodeName){
+        StadiumPresentationModel pm = new StadiumPresentationModel();
+        headerController.loadStages(STADIUM,STADIUM_FXML,pm);
+        closeWindow(closingNode,closingNodeName);
+    }
 }

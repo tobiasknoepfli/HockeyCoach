@@ -3,10 +3,10 @@ package hockeycoach.mainClasses;
 public class Team {
     private int teamID;
     private String name;
-    private String stadium;
-    private String street;
-    private int zip;
-    private String city;
+    private int stadium;
+//    private String street;
+//    private int zip;
+//    private String city;
     private String country;
     private String contactFirstName;
     private String contactLastName;
@@ -46,13 +46,10 @@ public class Team {
         this.logo = logo;
     }
 
-    public Team(int teamID, String name, String stadium, String street, int zip, String city, String country, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String logo, String notes) {
+    public Team(int teamID, String name, int stadium,String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String logo, String notes) {
         this.teamID = teamID;
         this.name = name;
         this.stadium = stadium;
-        this.street = street;
-        this.zip = zip;
-        this.city = city;
         this.country = country;
         this.contactFirstName = contactFirstName;
         this.contactLastName = contactLastName;
@@ -85,36 +82,12 @@ public class Team {
         this.name = name;
     }
 
-    public String getStadium() {
+    public int getStadium() {
         return stadium;
     }
 
-    public void setStadium(String stadium) {
+    public void setStadium(int stadium) {
         this.stadium = stadium;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getZip() {
-        return zip;
-    }
-
-    public void setZip(int zip) {
-        this.zip = zip;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getContactFirstName() {
