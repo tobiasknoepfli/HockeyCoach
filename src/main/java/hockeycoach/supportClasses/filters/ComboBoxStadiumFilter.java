@@ -1,6 +1,7 @@
 package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.Stadium;
+import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableView;
@@ -19,16 +20,14 @@ public class ComboBoxStadiumFilter extends ComboBoxFilter{
                     .filter(stadium -> stadium.getStadiumPlace().equals(selectedCity))
                     .collect(Collectors.toList());
         }
-        allStadiums.getItems().clear();
-        allStadiums.getItems().addAll(filteredStadiums);
+        allStadiums.setItems(FXCollections.observableArrayList(filteredStadiums));
     }
 
     public void resetFilter(List<Stadium> allStadiumList, TableView<Stadium> allStadiums, ComboBox cityBox){
         allStadiums.getSelectionModel().clearSelection();
         cityBox.setValue(null);
 
-        allStadiums.getItems().clear();
-        allStadiums.getItems().addAll(allStadiumList);
+        allStadiums.setItems(FXCollections.observableArrayList(allStadiumList));
 
         setComboboxText(cityBox,"City");
     }

@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -18,245 +19,254 @@
 
 <AnchorPane maxHeight="820.0" maxWidth="1200.0" minHeight="820.0" minWidth="1200.0" prefHeight="820.0" prefWidth="1200.0" style="-fx-background-color: darkblue;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hockeycoach.controllers.NewTeamController">
     <children>
-      <GridPane AnchorPane.bottomAnchor="770.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <HBox fx:id="controlBoxLeft" spacing="5.0">
+      <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <GridPane BorderPane.alignment="CENTER">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
                <children>
-                  <Button fx:id="newTeamButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <font>
-                        <Font name="Wingdings 3" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_newTeam.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="backButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_back.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
-            <HBox fx:id="controlBoxRight" alignment="TOP_RIGHT" spacing="5.0" GridPane.columnIndex="2">
-               <children>
-                  <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_save.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <font>
-                        <Font name="Wingdings 3" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_cancel.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_edit.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_delete.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="closeWindowButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
-                     <font>
-                        <Font name="Wingdings 3" size="12.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../icons/icons_close.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <Label alignment="CENTER" text="NEW TEAM" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                     <font>
-                        <Font size="25.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
-         </children>
-      </GridPane>
-      <SplitPane dividerPositions="0.5681818181818182" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-        <items>
-          <AnchorPane>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <children>
-                  <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox fx:id="controlBoxLeft" spacing="5.0">
                      <children>
-                        <HBox spacing="5.0">
+                        <Button fx:id="newTeamButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <font>
+                              <Font name="Wingdings 3" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_newTeam.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="backButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_back.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <HBox fx:id="controlBoxRight" alignment="TOP_RIGHT" spacing="5.0" GridPane.columnIndex="2">
+                     <children>
+                        <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_save.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <font>
+                              <Font name="Wingdings 3" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_delete.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="closeWindowButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <font>
+                              <Font name="Wingdings 3" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_close.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                     </children>
+                  </HBox>
+                  <AnchorPane GridPane.columnIndex="1">
+                     <children>
+                        <Label alignment="CENTER" text="NEW TEAM" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" />
+               </padding>
+            </GridPane>
+         </top>
+         <center>
+            <SplitPane dividerPositions="0.5681818181818182" BorderPane.alignment="CENTER">
+              <items>
+                <AnchorPane>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                        <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox spacing="2.0">
+                              <HBox spacing="5.0">
                                  <children>
-                                      <Label prefHeight="25.0" prefWidth="150.0" text="Team Name" />
+                                    <VBox spacing="2.0">
+                                       <children>
+                                            <Label prefHeight="25.0" prefWidth="150.0" text="Team Name" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                            <TextField fx:id="teamName" prefHeight="25.0" VBox.vgrow="ALWAYS" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label fx:id="controlLabel" prefHeight="25.0" prefWidth="150.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Stadium" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Street Nr." />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="ZIP" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="City" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Country" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                              <TextField fx:id="stadiumName" prefHeight="25.0" />
+                                              <TextField fx:id="stadiumStreet" prefHeight="25.0" />
+                                              <TextField fx:id="stadiumZip" prefHeight="25.0" />
+                                              <TextField fx:id="stadiumCity" prefHeight="25.0" />
+                                          <TextField fx:id="stadiumCountry" prefHeight="25.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Button fx:id="fillStadium" mnemonicParsing="false" text="Fill from Database" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <VBox prefHeight="79.0" prefWidth="205.0" spacing="2.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Contact" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Phone" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="E-Mail" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <TextField fx:id="contactFirstName" prefHeight="20.0" prefWidth="306.0" />
+                                          <TextField fx:id="contactPhone" prefHeight="20.0" prefWidth="306.0" />
+                                          <TextField fx:id="contactEmail" prefHeight="20.0" prefWidth="306.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                              <TextField fx:id="contactLastName" prefHeight="20.0" prefWidth="306.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Website" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Founded" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Current League" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                              <TextField fx:id="website" prefHeight="20.0" prefWidth="306.0" />
+                                              <TextField fx:id="founded" prefHeight="20.0" prefWidth="306.0" />
+                                              <TextField fx:id="currentLeague" prefHeight="20.0" prefWidth="306.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox spacing="5.0">
+                                 <children>
+                                    <VBox prefWidth="205.0" spacing="2.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="President" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                              <TextField fx:id="presidentFirstName" prefHeight="20.0" prefWidth="306.0" />
+                                              <TextField fx:id="headCoachFirstName" prefHeight="20.0" prefWidth="306.0" />
+                                       </children>
+                                    </VBox>
+                                    <VBox spacing="2.0">
+                                       <children>
+                                          <TextField fx:id="presidentLastName" prefHeight="20.0" prefWidth="306.0" />
+                                          <TextField fx:id="headCoachLastName" prefHeight="20.0" prefWidth="306.0" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                      <Label prefHeight="25.0" text="Notes" />
+                                      <TextArea fx:id="notes" prefHeight="191.0" prefWidth="455.0" wrapText="true" VBox.vgrow="ALWAYS" />
                                  </children>
                               </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                      <TextField fx:id="teamName" prefHeight="25.0" VBox.vgrow="ALWAYS" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0">
-                                 <children>
-                                    <Label fx:id="controlLabel" prefHeight="25.0" prefWidth="150.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="5.0">
-                           <children>
-                              <VBox spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Stadium" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Street Nr." />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="ZIP" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="City" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Country" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                        <TextField fx:id="stadiumName" prefHeight="25.0" />
-                                        <TextField fx:id="stadiumStreet" prefHeight="25.0" />
-                                        <TextField fx:id="stadiumZip" prefHeight="25.0" />
-                                        <TextField fx:id="stadiumCity" prefHeight="25.0" />
-                                    <TextField fx:id="stadiumCountry" prefHeight="25.0" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0">
-                                 <children>
-                                    <Button fx:id="fillStadium" mnemonicParsing="false" text="Fill from Database" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="5.0">
-                           <children>
-                              <VBox prefHeight="79.0" prefWidth="205.0" spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Contact" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Phone" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="E-Mail" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0">
-                                 <children>
-                                    <TextField fx:id="contactFirstName" prefHeight="20.0" prefWidth="306.0" />
-                                    <TextField fx:id="contactPhone" prefHeight="20.0" prefWidth="306.0" />
-                                    <TextField fx:id="contactEmail" prefHeight="20.0" prefWidth="306.0" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                        <TextField fx:id="contactLastName" prefHeight="20.0" prefWidth="306.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="5.0">
-                           <children>
-                              <VBox spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Website" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Founded" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Current League" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                        <TextField fx:id="website" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="founded" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="currentLeague" prefHeight="20.0" prefWidth="306.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <HBox spacing="5.0">
-                           <children>
-                              <VBox prefWidth="205.0" spacing="2.0">
-                                 <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="President" />
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Head Coach" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0" HBox.hgrow="ALWAYS">
-                                 <children>
-                                        <TextField fx:id="presidentFirstName" prefHeight="20.0" prefWidth="306.0" />
-                                        <TextField fx:id="headCoachFirstName" prefHeight="20.0" prefWidth="306.0" />
-                                 </children>
-                              </VBox>
-                              <VBox spacing="2.0">
-                                 <children>
-                                    <TextField fx:id="presidentLastName" prefHeight="20.0" prefWidth="306.0" />
-                                    <TextField fx:id="headCoachLastName" prefHeight="20.0" prefWidth="306.0" />
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                        <VBox spacing="5.0" VBox.vgrow="ALWAYS">
-                           <children>
-                                <Label prefHeight="25.0" text="Notes" />
-                                <TextArea fx:id="notes" prefHeight="191.0" prefWidth="455.0" wrapText="true" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane>
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <children>
-                    <ImageView fx:id="teamLogo" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+                  </AnchorPane>
+                <AnchorPane>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <children>
+                          <ImageView fx:id="teamLogo" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+         </center>
+      </BorderPane>
     </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

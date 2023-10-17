@@ -2,6 +2,7 @@ package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.supportClasses.Difficulty;
+import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.TableView;
@@ -67,8 +68,7 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
                     .collect(Collectors.toList());
         }
 
-        allDrills.getItems().clear();
-        allDrills.getItems().setAll(filteredDrills);
+        allDrills.setItems(FXCollections.observableArrayList(filteredDrills));
     }
 
     public void clearFilter(List<Drill> drillList, TableView<Drill> allDrills,
@@ -84,8 +84,7 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
         stationBox.setValue(null);
         tagsBox.setValue(null);
 
-        allDrills.getItems().clear();
-        allDrills.getItems().addAll(drillList);
+        allDrills.setItems(FXCollections.observableArrayList(drillList));
 
         setComboboxText(categoryBox, "Category");
         setComboboxText(participationBox, "Participation");

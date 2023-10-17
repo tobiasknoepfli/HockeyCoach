@@ -2,9 +2,6 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
-import hockeycoach.DB.DBLoader.DBLoader;
-import hockeycoach.controllers.GameEditorController;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;

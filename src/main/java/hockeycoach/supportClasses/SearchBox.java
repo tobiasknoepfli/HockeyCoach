@@ -43,4 +43,9 @@ public class SearchBox {
         FilteredList<Stadium> filteredList = new FilteredList<>(list1,filterPredicate);
         tableView.setItems(filteredList);
     }
+
+    public void clearStadium(TextField searchField, List<Stadium> list, TableView<Stadium> tableView){
+        searchField.clear();
+        tableView.setItems(FXCollections.observableArrayList(list));
+    }
 }

@@ -51,6 +51,7 @@ public class StadiumPresentationModel extends PresentationModel {
     public void setupButtons(Pane root) {
         clearFilters.setOnAction(event ->{
             comboBoxStadiumFilter.resetFilter(allStadiumList,allStadiums,cityFilter);
+            searchBox.clearStadium(searchStadium,allStadiumList,allStadiums);
         });
 
         searchStadiumButton.setOnAction(event ->{
