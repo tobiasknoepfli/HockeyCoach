@@ -1,4 +1,6 @@
-package hockeycoach.mainClasses;
+package hockeycoach.mainClasses.Lines;
+
+import hockeycoach.mainClasses.Player;
 
 public class TrainingLines {
     int trainingID;

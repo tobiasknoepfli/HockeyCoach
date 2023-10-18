@@ -1,6 +1,9 @@
-package hockeycoach.mainClasses;
+package hockeycoach.mainClasses.Lines;
 
-public class BoxplayLine extends Line{
+import hockeycoach.mainClasses.Lines.Line;
+import hockeycoach.mainClasses.Player;
+
+public class BoxplayLine extends Line {
 
 
     public BoxplayLine(){

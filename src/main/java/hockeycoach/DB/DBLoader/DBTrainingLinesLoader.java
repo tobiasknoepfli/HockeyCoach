@@ -1,6 +1,6 @@
 package hockeycoach.DB.DBLoader;
 
-import hockeycoach.mainClasses.TrainingLines;
+import hockeycoach.mainClasses.Lines.TrainingLines;
 
 import java.sql.*;
 

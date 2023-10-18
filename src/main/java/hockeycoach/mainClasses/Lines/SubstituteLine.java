@@ -1,4 +1,6 @@
-package hockeycoach.mainClasses;
+package hockeycoach.mainClasses.Lines;
+
+import hockeycoach.mainClasses.Player;
 
 public class SubstituteLine extends Line {
     Player goalkeeper1, goalkeeper2, goalkeeper3;

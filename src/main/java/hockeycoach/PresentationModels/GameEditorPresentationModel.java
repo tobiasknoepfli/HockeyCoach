@@ -3,10 +3,9 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.*;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
-import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
@@ -45,9 +44,10 @@ public class GameEditorPresentationModel extends PresentationModel {
     List<Player> lineupList = new ArrayList<>();
     List<Player> powerplayList = new ArrayList<>();
     List<Player> boxplayList = new ArrayList<>();
+    List<Player> nuclearList = new ArrayList<>();
 
     TabPane lineupTabPane;
-    Tab lineupTab, powerplayTab, boxplayTab;
+    Tab lineupTab, powerplayTab, boxplayTab, nuclearTab;
     Tab activeTab;
 
     Line firstLine = new Line();
@@ -63,16 +63,19 @@ public class GameEditorPresentationModel extends PresentationModel {
     BoxplayLine bpSecondLine = new BoxplayLine();
     BoxplayLine bpFillerLine = new BoxplayLine();
 
+    NuclearLine nFirstLine = new NuclearLine();
+    NuclearLine nSecondLine = new NuclearLine();
+
     SubstituteLine subsLine = new SubstituteLine();
 
     TableView<Player> teamPlayers, availablePlayers;
 
-    ImageView boardImage, ppBoardImage, bpBoardImage;
+    ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
 
-    List<TextField> textFields, ppTextFields, bpTextFields, captainTeamList;
+    List<TextField> textFields, ppTextFields, bpTextFields,nTextFields, captainTeamList;
     Button refreshPlayerList, saveButton, backButton;
-    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
-    GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
+    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane,nAnchorPane;
+    GridPane lineupGrid, ppLineupGrid, bpLineupGrid,nLineupGrid;
 
     TextField gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
             captain, assistant1, assistant2,
@@ -85,7 +88,8 @@ public class GameEditorPresentationModel extends PresentationModel {
             ppc1, ppc2, ppcfiller, ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
             bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
-            bpsd1, bpsd2, bpsf1, bpsf2;
+            bpsd1, bpsd2, bpsf1, bpsf2,
+            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
     Label lbfl1, lbfl2, lbfl3, lbfl4, lbfr1, lbfr2, lbfr3, lbfr4,
             lbc1, lbc2, lbc3, lbc4, lbgk1, lbgk2, lbgk3, lbgk4,
             lbdl1, lbdl2, lbdl3, lbdl4, lbdr1, lbdr2, lbdr3, lbdr4,
@@ -117,6 +121,11 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpBoardImage.fitWidthProperty().bind(bpLineupGrid.widthProperty());
         bpBoardImage.setPreserveRatio(false);
 
+        nBoardImage.setImage(image);
+        nBoardImage.fitWidthProperty().bind(nAnchorPane.widthProperty());
+        nBoardImage.fitWidthProperty().bind(nLineupGrid.widthProperty());
+        nBoardImage.setPreserveRatio(false);
+
         TextField[] fields = {gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
                 captain, assistant1, assistant2};
 
@@ -144,6 +153,8 @@ public class GameEditorPresentationModel extends PresentationModel {
                 bpfr1, bpfr2, bpfrfiller,
                 bpsd1, bpsd2, bpsf1, bpsf2};
 
+        TextField[] ntf = {ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2};
+
         TextField[] allTextFields = Stream.concat(Arrays.stream(fields), (Arrays.stream(captainTeam)))
                 .toArray(TextField[]::new);
 
@@ -152,11 +163,13 @@ public class GameEditorPresentationModel extends PresentationModel {
         textFields = new ArrayList<>(Arrays.asList(tf));
         ppTextFields = new ArrayList<>(Arrays.asList(pptf));
         bpTextFields = new ArrayList<>(Arrays.asList(bptf));
+        nTextFields = new ArrayList<>(Arrays.asList(ntf));
         captainTeamList = new ArrayList<>(Arrays.asList(captainTeam));
 
         textFields.stream().forEach(this::dragEvent);
         ppTextFields.stream().forEach(this::dragEvent);
         bpTextFields.stream().forEach(this::dragEvent);
+        nTextFields.stream().forEach(this::dragEvent);
         captainTeamList.stream().forEach(this::dragCopyEvent);
 
         dragDetect(teamPlayers);
@@ -164,6 +177,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         doubleClick(textFields);
         doubleClick(ppTextFields);
         doubleClick(bpTextFields);
+        doubleClick(nTextFields);
         doubleClickRemove(captainTeamList);
 
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
@@ -302,6 +316,8 @@ public class GameEditorPresentationModel extends PresentationModel {
                 powerplayList.add(selectedPlayer);
             } else if (boxplayTab == activeTab) {
                 boxplayList.add(selectedPlayer);
+            } else if(nuclearTab == activeTab) {
+                nuclearList.add(selectedPlayer);
             }
 
             event.setDropCompleted(success);
@@ -348,6 +364,8 @@ public class GameEditorPresentationModel extends PresentationModel {
                         powerplayList.remove(retrievedPlayer);
                     } else if (boxplayTab == activeTab) {
                         boxplayList.remove(retrievedPlayer);
+                    } else if (nuclearTab == activeTab) {
+                        nuclearList.remove(retrievedPlayer);
                     }
                 }
             });
@@ -379,6 +397,8 @@ public class GameEditorPresentationModel extends PresentationModel {
             inactivePlayers.removeAll(powerplayList);
         } else if (boxplayTab == activeTab) {
             inactivePlayers.removeAll(boxplayList);
+        } else if (nuclearTab == activeTab) {
+            inactivePlayers.removeAll(nuclearList);
         }
 
         teamPlayers.getItems().addAll(inactivePlayers);
@@ -656,6 +676,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         boardImage = (ImageView) root.lookup("#boardImage");
         ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
         bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
+        nBoardImage = (ImageView) root.lookup("#nBoardImage");
 
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
         saveButton = (Button) root.lookup("#saveButton");
@@ -666,14 +687,17 @@ public class GameEditorPresentationModel extends PresentationModel {
         lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
         ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
         bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
+        nAnchorPane = (AnchorPane) root.lookup("#nAnchorPane");
 
         lineupGrid = (GridPane) root.lookup("#lineupGrid");
         ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
         bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
+        nLineupGrid = (GridPane) root.lookup("#nLineupGrid");
 
         lineupTab = lineupTabPane.getTabs().get(0);
         powerplayTab = lineupTabPane.getTabs().get(1);
         boxplayTab = lineupTabPane.getTabs().get(2);
+        nuclearTab = lineupTabPane.getTabs().get(3);
 
         gameDate = (TextField) root.lookup("#gameDate");
         gameTime = (TextField) root.lookup("#gameTime");
@@ -752,6 +776,18 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpsd1 = (TextField) root.lookup("#bpsd1");
         bpsd2 = (TextField) root.lookup("#bpsd2");
 
+        ndl1 = (TextField) root.lookup("#ndl1");
+        ndl2 = (TextField) root.lookup("#ndl2");
+        ndr1 = (TextField) root.lookup("#ndr1");
+        ndr2 = (TextField) root.lookup("#ndr2");
+        nc1 = (TextField) root.lookup("#nc1");
+        nc2 = (TextField) root.lookup("#nc2");
+        nfl1 = (TextField) root.lookup("#nfl1");
+        nfl2 = (TextField) root.lookup("#nfl2");
+        nfr1 = (TextField) root.lookup("#nfr1");
+        nfr2 = (TextField) root.lookup("#nfr2");
+
+
         lbfl1 = (Label) root.lookup("#lbfl1");
         lbfl2 = (Label) root.lookup("#lbfl2");
         lbfl3 = (Label) root.lookup("#lbfl3");
@@ -825,5 +861,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         ngLF2 = (Label) root.lookup("#ngLF2");
         ngLF3 = (Label) root.lookup("#ngLF3");
         ngLF4 = (Label) root.lookup("#ngLF4");
+
+
     }
 }

@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
@@ -37,14 +38,15 @@ public class GamePresentationModel extends PresentationModel {
             ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
             bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
-            bpsd1, bpsd2, bpsf1, bpsf2;
+            bpsd1, bpsd2, bpsf1, bpsf2,
+            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
 
     TableView<Game> allGames;
     TableView<Player> teamPlayers;
     TabPane lineupTabPane;
-    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
-    ImageView boardImage, ppBoardImage, bpBoardImage;
-    GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
+    AnchorPane  lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
+    ImageView  boardImage, ppBoardImage, bpBoardImage, nBoardImage;
+    GridPane  lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
@@ -76,7 +78,8 @@ public class GamePresentationModel extends PresentationModel {
                 ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
                 bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
                 bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
-                bpsd1, bpsd2, bpsf1, bpsf2};
+                bpsd1, bpsd2, bpsf1, bpsf2,
+                ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2};
 
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
@@ -243,6 +246,30 @@ public class GamePresentationModel extends PresentationModel {
                 bpsf1.setText(getPlayerName(substituteLine.getBoxplayForward1()));
                 bpsf2.setText(getPlayerName(substituteLine.getBoxplayForward2()));
             }
+
+            List <NuclearLine> nuclearLines = dbLineLoader.getNuclearLine("SELECT * FROM nuclearLine WHERE gameID =" + newValue.getGameID());
+
+            NuclearLine firstNLine = nuclearLines.stream()
+                    .filter(nuclearLine -> nuclearLine.getLineNr() == 1)
+                    .findAny().orElse(null);
+            if (firstNLine != null) {
+                ndl1.setText(getPlayerName(firstNLine.getDefenderLeft()));
+                ndr1.setText(getPlayerName(firstNLine.getDefenderRight()));
+                nc1.setText(getPlayerName(firstNLine.getCenter()));
+                nfl1.setText(getPlayerName(firstNLine.getForwardLeft()));
+                nfr1.setText(getPlayerName(firstNLine.getForwardRight()));
+            }
+
+            NuclearLine secondNLine = nuclearLines.stream()
+                    .filter(nuclearLine -> nuclearLine.getLineNr() == 2)
+                    .findAny().orElse(null);
+            if (secondNLine != null) {
+                ndl2.setText(getPlayerName(secondNLine.getDefenderLeft()));
+                ndr2.setText(getPlayerName(secondNLine.getDefenderRight()));
+                nc2.setText(getPlayerName(secondNLine.getCenter()));
+                nfl2.setText(getPlayerName(secondNLine.getForwardLeft()));
+                nfr2.setText(getPlayerName(secondNLine.getForwardRight()));
+            }
         });
 
 
@@ -273,14 +300,17 @@ public class GamePresentationModel extends PresentationModel {
         lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
         ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
         bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
+        nAnchorPane = (AnchorPane ) root.lookup("#nAnchorPane");
 
         boardImage = (ImageView) root.lookup("#boardImage");
         ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
         bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
+        nBoardImage = (ImageView ) root.lookup("#nBoardImage");
 
         lineupGrid = (GridPane) root.lookup("#lineupGrid");
         ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
         bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
+        nLineupGrid = (GridPane ) root.lookup("#nLineupGrid");
 
         gameTeam = (TextField) root.lookup("#gameTeam");
         gameOpponent = (TextField) root.lookup("#gameOpponent");
@@ -354,5 +384,17 @@ public class GamePresentationModel extends PresentationModel {
         bpsd2 = (TextField) root.lookup("#bpsd2");
         bpsf1 = (TextField) root.lookup("#bpsf1");
         bpsf2 = (TextField) root.lookup("#bpsf2");
+
+        ndl1 = (TextField ) root.lookup("#ndl1");
+        ndl2 = (TextField ) root.lookup("#ndl2");
+        ndr1 = (TextField ) root.lookup("#ndr1");
+        ndr2 = (TextField ) root.lookup("#ndr2");
+        nc1 = (TextField ) root.lookup("#nc1");
+        nc2 = (TextField ) root.lookup("#nc2");
+        nfl1 = (TextField ) root.lookup("#nfl1");
+        nfl2 = (TextField ) root.lookup("#nfl2");
+        nfr1 = (TextField ) root.lookup("#nfr1");
+        nfr2 = (TextField ) root.lookup("#nfr2");
+
     }
 }

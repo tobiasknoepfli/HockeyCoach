@@ -1,11 +1,13 @@
 package hockeycoach.DB;
 
 import hockeycoach.mainClasses.*;
-import javafx.scene.shape.Box;
+import hockeycoach.mainClasses.Lines.BoxplayLine;
+import hockeycoach.mainClasses.Lines.Line;
+import hockeycoach.mainClasses.Lines.PowerplayLine;
+import hockeycoach.mainClasses.Lines.SubstituteLine;
 
 import java.sql.*;
 import java.sql.Date;
-import java.util.*;
 
 import static hockeycoach.AppStarter.DB_URL;
 

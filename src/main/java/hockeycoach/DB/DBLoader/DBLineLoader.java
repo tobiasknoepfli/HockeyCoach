@@ -1,9 +1,6 @@
 package hockeycoach.DB.DBLoader;
 
-import hockeycoach.mainClasses.BoxplayLine;
-import hockeycoach.mainClasses.Line;
-import hockeycoach.mainClasses.PowerplayLine;
-import hockeycoach.mainClasses.SubstituteLine;
+import hockeycoach.mainClasses.Lines.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -83,6 +80,22 @@ public class DBLineLoader extends DBLoader {
             e.printStackTrace();
         }
         return substituteLine;
+    }
+
+    public NuclearLine setNuclearLine(ResultSet resultSet) {
+        NuclearLine nuclearLine = new NuclearLine();
+        try {
+            nuclearLine.setGameID(resultSet.getInt("gameID"));
+            nuclearLine.setLineNr(resultSet.getInt("lineNr"));
+            nuclearLine.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
+            nuclearLine.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
+            nuclearLine.setCenter(getPlayerByID(resultSet.getInt("center")));
+            nuclearLine.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
+            nuclearLine.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nuclearLine;
     }
 
 
@@ -165,5 +178,26 @@ public class DBLineLoader extends DBLoader {
             e.printStackTrace();
         }
         return substituteLine;
+    }
+
+    public List<NuclearLine> getNuclearLine(String query) {
+        List<NuclearLine> nuclearLines = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                NuclearLine nLine = new NuclearLine();
+                 nLine= setNuclearLine(resultSet);
+
+                nuclearLines.add(nLine);
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return nuclearLines;
     }
 }

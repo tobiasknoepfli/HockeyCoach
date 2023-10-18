@@ -11,23 +11,23 @@ import javafx.scene.layout.HBox;
 
 public class GameController extends Controller {
     @FXML
-    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane;
+    private AnchorPane  lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
 
     @FXML
     private Button saveButton, cancelButton,
             refreshPlayerList, backButton, newGameButton;
 
     @FXML
-    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid;
+    private GridPane  lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
     @FXML
     private HBox controlBox;
 
     @FXML
-    private ImageView boardImage, ppBoardImage, bpBoardImage;
+    private ImageView  boardImage, ppBoardImage, bpBoardImage, nBoardImage;
 
     @FXML
-    private Tab lineupTab, powerplayTab, boxplayTab;
+    private Tab  lineupTab, powerplayTab, boxplayTab, nuclearTab;
 
     @FXML
     private TableColumn playerLastName, playerFirstName, playerPositions, stick;
@@ -53,5 +53,6 @@ public class GameController extends Controller {
             ppc1, ppc2, ppcfiller, ppfl1, ppfl2, ppflfiller, ppfr1, ppfr2, ppfrfiller,
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
             bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
-            bpsd1, bpsd2, bpsf1, bpsf2;
+            bpsd1, bpsd2, bpsf1, bpsf2,
+            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
 }

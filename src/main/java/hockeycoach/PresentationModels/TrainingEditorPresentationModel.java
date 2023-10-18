@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Lines.Line;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
