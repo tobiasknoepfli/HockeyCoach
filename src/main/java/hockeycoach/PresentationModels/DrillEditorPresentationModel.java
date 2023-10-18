@@ -87,12 +87,12 @@ public class DrillEditorPresentationModel extends PresentationModel {
             });
             drillTags.getItems().clear();
             drillTags.getItems().addAll(newDrill.getTags());
-
-            try {
-                drillImage.setImage(new Image(newDrill.getImageLink()));
-            } catch (Exception e) {
-                drillImage.setImage(null);
-            }
+//
+//            try {
+//                drillImage.setImage(new Image(newDrill.getImageID()));
+//            } catch (Exception e) {
+//                drillImage.setImage(null);
+//            }
         });
         comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
         comboBoxPopulator.setParticipation(allDrillList, drillParticipationFilter);

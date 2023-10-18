@@ -48,7 +48,7 @@ public class DBWriter {
             preparedStatement.setString(11, player.getStrengths());
             preparedStatement.setString(12, player.getWeaknesses());
             preparedStatement.setString(13, player.getStick());
-            preparedStatement.setString(14, player.getPhotoPath());
+//            preparedStatement.setString(14, player.getPhotoID());
             preparedStatement.setString(15, player.getNotes());
 
             preparedStatement.executeUpdate();
@@ -81,7 +81,7 @@ public class DBWriter {
             preparedStatement.setString(15, team.getLeague());
             preparedStatement.setString(16, team.getHeadCoachFirstName());
             preparedStatement.setString(17, team.getHeadCoachLastName());
-            preparedStatement.setString(18, team.getLogo());
+//            preparedStatement.setString(18, team.getLogo());
             preparedStatement.setString(19, team.getNotes());
 
             preparedStatement.executeUpdate();

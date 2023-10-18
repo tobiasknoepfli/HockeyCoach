@@ -1,5 +1,6 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBImageWriter;
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.DB.DBWriter;
@@ -22,12 +23,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.w3c.dom.events.MouseEvent;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -213,7 +216,7 @@ public class NewTeamPresentationModel extends PresentationModel {
         newTeam.setHeadCoachLastName(headCoachLastName.getText());
         newTeam.setNotes(notes.getText());
 
-        newTeam.setLogo(newImage);
+//        newTeam.setLogo(newImage);
         return newTeam;
     }
 

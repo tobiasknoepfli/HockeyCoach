@@ -22,7 +22,7 @@ public class DBDrillLoader extends DBLoader{
             drill.setDescription(resultSet.getString("description"));
             drill.setStation(resultSet.getBoolean("station"));
             drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN tag ON drillID =" + drill.getDrillID()));
-            drill.setImageLink(resultSet.getString("imageLink"));
+            drill.setImageID(resultSet.getInt("imageID"));
             drill.setPuckPosition(resultSet.getString("puckPosition"));
         }catch(SQLException e){
             e.printStackTrace();

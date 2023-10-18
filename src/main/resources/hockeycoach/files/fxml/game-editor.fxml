@@ -257,7 +257,7 @@
                                                       <TextField fx:id="fr4" alignment="CENTER" />
                                                    </children>
                                                 </VBox>
-                                                <VBox spacing="2.0" GridPane.rowIndex="5">
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.rowIndex="5">
                                                    <children>
                                                       <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Goalkeepers" />
                                                       <TextField fx:id="sgk1" alignment="CENTER" />
@@ -265,15 +265,15 @@
                                                       <TextField fx:id="sgk3" alignment="CENTER" />
                                                    </children>
                                                 </VBox>
-                                                <VBox spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                                    <children>
-                                                      <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
+                                                      <Label alignment="CENTER" prefHeight="25.0" text="Defenders" VBox.vgrow="ALWAYS" />
                                                       <TextField fx:id="sd1" alignment="CENTER" />
                                                       <TextField fx:id="sd2" alignment="CENTER" />
                                                       <TextField fx:id="sd3" alignment="CENTER" />
                                                    </children>
                                                 </VBox>
-                                                <VBox spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                                    <children>
                                                       <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
                                                       <TextField fx:id="sf1" alignment="CENTER" />
@@ -414,7 +414,7 @@
                                                       <TextField fx:id="bpfrfiller" alignment="CENTER" prefHeight="25.0" prefWidth="149.0" />
                                                    </children>
                                                 </VBox>
-                                                <VBox alignment="CENTER" spacing="2.0" GridPane.rowIndex="5">
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.rowIndex="5">
                                                    <children>
                                                       <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Defenders" />
                                                       <TextField fx:id="bpsd1" alignment="CENTER" />
@@ -422,7 +422,7 @@
                                                       <Label alignment="CENTER" prefHeight="25.0" />
                                                    </children>
                                                 </VBox>
-                                                <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                                                    <children>
                                                       <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
                                                       <TextField fx:id="bpsf1" alignment="CENTER" />

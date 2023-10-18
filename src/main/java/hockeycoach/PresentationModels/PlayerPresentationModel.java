@@ -3,7 +3,6 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBEditor;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
@@ -94,7 +93,7 @@ public class PlayerPresentationModel extends PresentationModel {
 
         saveButton.setOnAction(event -> {
             Player player = getPlayerData();
-            player.setPhotoPath(savePlayerPhoto());
+//            player.setPhotoID(savePlayerPhoto());
             DBEditor dbEditor = new DBEditor();
             dbEditor.editPlayer(player);
             dbEditor.editJerseyAndRole(player, selectedTeam);
@@ -113,17 +112,17 @@ public class PlayerPresentationModel extends PresentationModel {
     public void setupEventListeners(Pane root) {
         teamPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedPlayer, newSelectedPlayer) -> {
             if (newSelectedPlayer != null) {
-                try {
-                    File imageFile = new File(newSelectedPlayer.getPhotoPath());
-
-                    if (imageFile.exists()) {
-                        playerPhoto.setImage(new Image(imageFile.toURI().toString()));
-                    } else {
-                        playerPhoto.setImage(null);
-                    }
-                } catch (NullPointerException e) {
-                    playerPhoto.setImage(null);
-                }
+//                try {
+//                    File imageFile = new File(newSelectedPlayer.getPhotoID());
+//
+//                    if (imageFile.exists()) {
+//                        playerPhoto.setImage(new Image(imageFile.toURI().toString()));
+//                    } else {
+//                        playerPhoto.setImage(null);
+//                    }
+//                } catch (NullPointerException e) {
+//                    playerPhoto.setImage(null);
+//                }
                 selectedPlayer = newSelectedPlayer;
                 playerName.setText(newSelectedPlayer.getFirstName() + " " + newSelectedPlayer.getLastName());
                 street.setText(newSelectedPlayer.getStreet());

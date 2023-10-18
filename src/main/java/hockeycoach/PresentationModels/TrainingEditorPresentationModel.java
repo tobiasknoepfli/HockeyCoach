@@ -236,11 +236,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     public void eventListenersFromTable(TableView<Drill> tableView) {
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
             if (newDrill != null) {
-                try {
-                    drillImage.setImage(new Image(newDrill.getImageLink()));
-                } catch (Exception e) {
-                    drillImage.setImage(null);
-                }
+//                try {
+//                    drillImage.setImage(new Image(newDrill.getImageID()));
+//                } catch (Exception e) {
+//                    drillImage.setImage(null);
+//                }
 
                 drillName.setText(newDrill.getName());
                 drillCategory.setText(newDrill.getCategory());

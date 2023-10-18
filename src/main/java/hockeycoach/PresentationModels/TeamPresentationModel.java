@@ -67,19 +67,19 @@ public class TeamPresentationModel extends PresentationModel {
 
         disableControls(true);
 
-        try {
-            if (team != null) {
-                File imageFile = new File(team.getLogo());
-
-                if (imageFile.exists()) {
-                    teamLogo.setImage(new Image(imageFile.toURI().toString()));
-                } else {
-                    teamLogo.setImage(null);
-                }
-            }
-        } catch (NullPointerException e) {
-            teamLogo.setImage(null);
-        }
+//        try {
+//            if (team != null) {
+//                File imageFile = new File(team.getLogo());
+//
+//                if (imageFile.exists()) {
+//                    teamLogo.setImage(new Image(imageFile.toURI().toString()));
+//                } else {
+//                    teamLogo.setImage(null);
+//                }
+//            }
+//        } catch (NullPointerException e) {
+//            teamLogo.setImage(null);
+//        }
 
         teamName.setText(team.getName());
 //        stadiumName.setText(team.getStadium());
@@ -138,7 +138,7 @@ public class TeamPresentationModel extends PresentationModel {
 
         saveButton.setOnAction(event -> {
             Team team = getTeamData();
-            team.setLogo(saveTeamLogo());
+//            team.setLogo(saveTeamLogo());
             DBEditor dbEditor = new DBEditor();
             dbEditor.editTeam(team);
         });

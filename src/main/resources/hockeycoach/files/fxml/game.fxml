@@ -466,7 +466,7 @@
                                               </AnchorPane>
                                           </content>
                                       </Tab>
-                              <Tab fx:id="nuclearTab" text="Powerplay">
+                              <Tab fx:id="nuclearTab" text="Nuclear">
                                  <content>
                                     <AnchorPane fx:id="nAnchorPane">
                                        <children>

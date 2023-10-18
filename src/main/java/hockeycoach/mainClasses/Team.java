@@ -19,7 +19,7 @@ public class Team {
     private String league;
     private String headCoachFirstName;
     private String headCoachLastName;
-    private String logo;
+    private int logo;
     private String notes;
 
     public Team(){
@@ -38,15 +38,15 @@ public class Team {
         this.country = country;
     }
 
-    public String getLogo() {
+    public int getLogo() {
         return logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(int logo) {
         this.logo = logo;
     }
 
-    public Team(int teamID, String name, int stadium,String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, String logo, String notes) {
+    public Team(int teamID, String name, int stadium,String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, int logo, String notes) {
         this.teamID = teamID;
         this.name = name;
         this.stadium = stadium;

@@ -42,10 +42,10 @@ public class AppStarter extends Application {
     public static final String NEW_DRILL_FXML = "/hockeycoach/files/fxml/drill-editor.fxml";
     public static final String STADIUM_FXML = "/hockeycoach/files/fxml/stadium.fxml";
 
-    public static final String LOGOS = "/src/main/resources/hockeycoach/files/logos/";
-    public static final String PHOTOS = "/src/main/resources/hockeycoach/files/photos";
+    public static final String LOGOS = "src/main/resources/hockeycoach/files/logos/";
+    public static final String PHOTOS = "src/main/resources/hockeycoach/files/photos";
 
-    public static final String BOARD = "/src/main/resources/hockeycoach/files/background/Board.jpg";
+    public static final String BOARD = "src/main/resources/hockeycoach/files/background/Board.jpg";
 
     public static double WIDTH = Screen.getPrimary().getVisualBounds().getWidth();
     public static double HEIGHT = Screen.getPrimary().getVisualBounds().getHeight();

@@ -26,7 +26,7 @@ public class DBPlayerLoader extends DBLoader {
             player.setStrengths(resultSet.getString("strengths"));
             player.setWeaknesses(resultSet.getString("weaknesses"));
             player.setStick(resultSet.getString("stick"));
-            player.setPhotoPath(resultSet.getString("photoPath"));
+//            player.setPhotoID(resultSet.getString("photoPath"));
             player.setNotes(resultSet.getString("notes"));
         } catch (SQLException e) {
             e.printStackTrace();

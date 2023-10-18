@@ -1,8 +1,5 @@
 package hockeycoach.mainClasses;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
-
 public class Player {
     private int playerID;
     private String firstName;
@@ -22,7 +19,7 @@ public class Player {
     private String weaknesses;
     private String role;
     private String stick;
-    private String photoPath;
+    private int photoID;
     private String notes;
 
     public Player() {
@@ -34,7 +31,7 @@ public class Player {
         this.team = team;
     }
 
-    public Player(int playerID, String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, String photoPath, String notes) {
+    public Player(int playerID, String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, int photoID, String notes) {
         this.playerID = playerID;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -53,7 +50,7 @@ public class Player {
         this.weaknesses = weaknesses;
         this.role = role;
         this.stick = stick;
-        this.photoPath = photoPath;
+        this.photoID = photoID;
         this.notes = notes;
     }
 
@@ -201,12 +198,12 @@ public class Player {
         this.stick = stick;
     }
 
-    public String getPhotoPath() {
-        return photoPath;
+    public int getPhotoID() {
+        return photoID;
     }
 
-    public void setPhotoPath(String photoPath) {
-        this.photoPath = photoPath;
+    public void setPhotoID(int photoID) {
+        this.photoID = photoID;
     }
 
     public String getNotes() {

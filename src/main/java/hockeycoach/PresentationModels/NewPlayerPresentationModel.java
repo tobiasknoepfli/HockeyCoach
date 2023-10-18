@@ -223,7 +223,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         newPlayer.setStrengths(strengths.getText());
         newPlayer.setWeaknesses(weaknesses.getText());
         newPlayer.setNotes(notes.getText());
-        newPlayer.setPhotoPath(newImage);
+//        newPlayer.setPhotoID(newImage);
         return newPlayer;
     }
 

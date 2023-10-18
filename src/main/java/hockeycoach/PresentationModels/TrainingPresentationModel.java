@@ -150,11 +150,11 @@ public class TrainingPresentationModel extends PresentationModel {
     public void displayDrill(TableView<Drill> inputTable) {
         inputTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedDrill, newSelectedDrill) -> {
             if (newSelectedDrill != null) {
-                try {
-                    drillImage.setImage(new Image(newSelectedDrill.getImageLink()));
-                } catch (Exception e) {
-                    drillImage.setImage(null);
-                }
+//                try {
+//                    drillImage.setImage(new Image(newSelectedDrill.getImageID()));
+//                } catch (Exception e) {
+//                    drillImage.setImage(null);
+//                }
                 drillName.setText(newSelectedDrill.getName());
             }
         });

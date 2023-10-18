@@ -11,7 +11,7 @@ public class Drill {
     private String description;
     private Boolean station;
     private ArrayList<String> tags;
-    private String imageLink;
+    private int imageID;
     private String table;
     private int sortingIndex;
     private String puckPosition;
@@ -19,7 +19,7 @@ public class Drill {
     public Drill() {
     }
 
-    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, String imageLink) {
+    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, int imageID) {
         this.drillID = drillID;
         this.name = name;
         this.category = category;
@@ -28,10 +28,10 @@ public class Drill {
         this.description = description;
         this.station = station;
         this.tags = tags;
-        this.imageLink = imageLink;
+        this.imageID = imageID;
     }
 
-    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, String imageLink,  String table,  int sortingIndex, String puckPosition) {
+    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, int imageID, String table, int sortingIndex, String puckPosition) {
         this.drillID = drillID;
         this.name = name;
         this.category = category;
@@ -40,7 +40,7 @@ public class Drill {
         this.description = description;
         this.station = station;
         this.tags = tags;
-        this.imageLink = imageLink;
+        this.imageID = imageID;
         this.table  = table;
         this.sortingIndex= sortingIndex;
         this.puckPosition = puckPosition;
@@ -110,12 +110,12 @@ public class Drill {
         this.tags = tags;
     }
 
-    public String getImageLink() {
-        return imageLink;
+    public int getImageID() {
+        return imageID;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
+    public void setImageID(int imageID) {
+        this.imageID = imageID;
     }
 
     public String getTable() {
