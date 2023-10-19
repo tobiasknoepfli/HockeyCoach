@@ -1,5 +1,6 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.mainClasses.Stadium;
 import javafx.scene.control.Control;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.Pane;
@@ -20,4 +21,6 @@ public abstract class PresentationModel {
         Tooltip tooltip = new Tooltip(string);
         control.setTooltip(tooltip);
     }
+
+    public void fillStadium(Stadium stadium){}
 }

@@ -3,6 +3,7 @@ package hockeycoach.supportClasses;
 import hockeycoach.PresentationModels.*;
 import hockeycoach.controllers.HeaderController;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import static hockeycoach.AppStarter.*;
@@ -17,6 +18,16 @@ public class ButtonControls {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
         openStages.remove(nodeName);
+    }
+
+    public static void hideWindow(Node node, String nodeName){
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.hide();
+    }
+
+    public void openPresentationModel(PresentationModel pm, String openingNodeName, String openingNodeFXML, Node closingNode, String closingNodeName){
+        headerController.loadStages(openingNodeName,openingNodeFXML,pm);
+        closeWindow(closingNode,closingNodeName);
     }
 
     public void openGameEditor(Node closingNode,String closingNodeName){
@@ -46,7 +57,8 @@ public class ButtonControls {
     public void openNewTeam(Node closingNode,String closingNodeName) {
         NewTeamPresentationModel pm = new NewTeamPresentationModel();
         headerController.loadStages(NEW_TEAM,NEW_TEAM_FXML,pm);
-        closeWindow(closingNode,closingNodeName);
+//        closeWindow(closingNode,closingNodeName);
+        hideWindow(closingNode,closingNodeName);
     }
 
     public void openPlayer(Node closingNode,String closingNodeName) {
@@ -85,9 +97,9 @@ public class ButtonControls {
         closeWindow(closingNode,closingNodeName);
     }
 
-    public void openStadium(Node closingNode, String closingNodeName){
+    public void openStadium(){
         StadiumPresentationModel pm = new StadiumPresentationModel();
         headerController.loadStages(STADIUM,STADIUM_FXML,pm);
-        closeWindow(closingNode,closingNodeName);
     }
+
 }

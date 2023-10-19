@@ -11,6 +11,7 @@ import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
@@ -119,7 +120,10 @@ public class NewTeamPresentationModel extends PresentationModel {
         });
 
         fillStadium.setOnAction(event -> {
-            buttonControls.openStadium(root,NEW_TEAM);
+            lastVisitedPM = new NewTeamPresentationModel();
+            lastVisitedFXML = NEW_TEAM_FXML;
+            lastVisitedNodeName = NEW_TEAM;
+            buttonControls.openStadium();
         });
     }
 
@@ -247,6 +251,14 @@ public class NewTeamPresentationModel extends PresentationModel {
         headerController.loadStages(HOME, HOME_FXML, pm);
     }
 
+    public void fillStadium(Stadium stadium) {
+        stadiumName.setText(stadium.getStadiumName());
+        stadiumStreet.setText(stadium.getStadiumAddress());
+        stadiumZip.setText(Integer.toString(stadium.getStadiumZip()));
+        stadiumCity.setText(stadium.getStadiumPlace());
+        stadiumCountry.setText(stadium.getStadiumCountry());
+    }
+
     @Override
     public void importFields(Pane root) {
         teamLogo = (ImageView) root.lookup("#teamLogo");
@@ -279,4 +291,5 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         controlLabel = (Label) root.lookup("#controlLabel");
     }
+
 }

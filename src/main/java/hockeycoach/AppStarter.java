@@ -1,6 +1,8 @@
 package hockeycoach;
 
+import hockeycoach.PresentationModels.PresentationModel;
 import hockeycoach.PresentationModels.StartPresentationModel;
+import hockeycoach.mainClasses.Stadium;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -52,6 +54,10 @@ public class AppStarter extends Application {
     public static double BAR_HEIGHT = 80;
 
     public static Map<String, Stage> openStages = new HashMap<>();
+    public static PresentationModel lastVisitedPM;
+    public static String lastVisitedFXML= new String();
+    public static String lastVisitedNodeName = new String();
+    public static Stadium globalStadium = new Stadium();
 
     @Override
     public void start(Stage stage) throws IOException {

@@ -84,12 +84,12 @@ public class HeaderController extends Controller {
         loadStages(GAME, GAME_FXML, pm);
     }
 
-    public void loadStages(String buttonAction, String fxml, PresentationModel presentationModel) {
-        if (openStages.containsKey(buttonAction)) {
-            Stage existingStage = openStages.get(buttonAction);
+    public void loadStages(String buttonName, String fxml, PresentationModel presentationModel) {
+        if (openStages.containsKey(buttonName)) {
+            Stage existingStage = openStages.get(buttonName);
             existingStage.close();
-            openStages.remove(buttonAction);
-            loadStages(buttonAction,fxml,presentationModel);
+            openStages.remove(buttonName);
+            loadStages(buttonName,fxml,presentationModel);
         } else {
             try {
                 Stage newStage = new Stage();
@@ -104,7 +104,7 @@ public class HeaderController extends Controller {
                 Scene contentScene = new Scene(newPane, WIDTH, HEIGHT - BAR_HEIGHT);
                 newStage.setScene(contentScene);
 
-                openStages.put(buttonAction,newStage);
+                openStages.put(buttonName,newStage);
                 newStage.show();
 
                 presentationModel.initializeControls(newPane);
@@ -114,5 +114,6 @@ public class HeaderController extends Controller {
             }
         }
     }
+
 }
 

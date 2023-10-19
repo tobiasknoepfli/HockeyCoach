@@ -1,7 +1,9 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Stadium;
+import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SearchBox;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import hockeycoach.supportClasses.filters.ComboBoxStadiumFilter;
@@ -14,7 +16,10 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hockeycoach.AppStarter.*;
+
 public class StadiumPresentationModel extends PresentationModel {
+    ButtonControls buttonControls = new ButtonControls();
     SearchBox searchBox = new SearchBox();
     DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
@@ -73,6 +78,24 @@ public class StadiumPresentationModel extends PresentationModel {
 
         cityFilter.valueProperty().addListener((obs,oldValue, newValue) ->{
             comboBoxStadiumFilter.setFilter(allStadiumList,allStadiums,cityFilter);
+        });
+
+        allStadiums.setOnMousePressed(event ->{
+            if(event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+                Stadium selectedStadium = allStadiums.getSelectionModel().getSelectedItem();
+                if(selectedStadium !=null){
+                    globalStadium.setStadiumID(selectedStadium.getStadiumID());
+                    globalStadium.setStadiumName(selectedStadium.getStadiumName());
+                    globalStadium.setStadiumAddress(selectedStadium.getStadiumAddress());
+                    globalStadium.setStadiumZip(selectedStadium.getStadiumZip());
+                    globalStadium.setStadiumPlace(selectedStadium.getStadiumPlace());
+                    globalStadium.setStadiumCountry(selectedStadium.getStadiumCountry());
+                    buttonControls.openPresentationModel(lastVisitedPM,lastVisitedNodeName,lastVisitedFXML,root,STADIUM);
+
+                    lastVisitedPM.fillStadium(globalStadium);
+                }
+
+            }
         });
     }
 
