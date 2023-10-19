@@ -144,7 +144,7 @@ public class TeamPresentationModel extends PresentationModel {
         });
 
         newTeamButton.setOnAction(event -> {
-            buttonControls.openNewTeam(root, TEAM);
+            buttonControls.openNewTeamHide(root, TEAM);
         });
     }
 

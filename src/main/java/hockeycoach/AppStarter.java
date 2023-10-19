@@ -57,6 +57,7 @@ public class AppStarter extends Application {
     public static PresentationModel lastVisitedPM;
     public static String lastVisitedFXML= new String();
     public static String lastVisitedNodeName = new String();
+
     public static Stadium globalStadium = new Stadium();
 
     @Override

@@ -1,7 +1,6 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SearchBox;
@@ -90,7 +89,7 @@ public class StadiumPresentationModel extends PresentationModel {
                     globalStadium.setStadiumZip(selectedStadium.getStadiumZip());
                     globalStadium.setStadiumPlace(selectedStadium.getStadiumPlace());
                     globalStadium.setStadiumCountry(selectedStadium.getStadiumCountry());
-                    buttonControls.openPresentationModel(lastVisitedPM,lastVisitedNodeName,lastVisitedFXML,root,STADIUM);
+                    buttonControls.openPresentationModelClose(lastVisitedPM,lastVisitedNodeName,lastVisitedFXML,root,STADIUM);
 
                     lastVisitedPM.fillStadium(globalStadium);
                 }

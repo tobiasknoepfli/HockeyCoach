@@ -89,10 +89,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         });
 
         newTeamButton.setOnAction(event -> {
-            NewTeamPresentationModel pm = new NewTeamPresentationModel();
-            HeaderController headerController = new HeaderController();
-            headerController.loadStages(NEW_TEAM, NEW_TEAM_FXML, pm);
-
+            buttonControls.openNewTeamClose(root,HOME);
         });
 
         gamesTable.setOnMouseClicked(event -> {

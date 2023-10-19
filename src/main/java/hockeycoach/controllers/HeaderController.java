@@ -18,7 +18,6 @@ import java.io.IOException;
 import static hockeycoach.AppStarter.*;
 
 public class HeaderController extends Controller {
-
     @FXML
     private AnchorPane mainPane, headerPane;
 
@@ -87,9 +86,11 @@ public class HeaderController extends Controller {
     public void loadStages(String buttonName, String fxml, PresentationModel presentationModel) {
         if (openStages.containsKey(buttonName)) {
             Stage existingStage = openStages.get(buttonName);
-            existingStage.close();
-            openStages.remove(buttonName);
-            loadStages(buttonName,fxml,presentationModel);
+            existingStage.show();
+            existingStage.toFront();
+//            existingStage.close();
+//            openStages.remove(buttonName);
+//            loadStages(buttonName,fxml,presentationModel);
         } else {
             try {
                 Stage newStage = new Stage();

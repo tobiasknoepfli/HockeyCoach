@@ -95,11 +95,11 @@ public class TrainingPresentationModel extends PresentationModel {
     @Override
     public void setupEventListeners(Pane root) {
         newDrillButton.setOnAction(event -> {
-            buttonControls.openNewDrill(root, TRAINING);
+            buttonControls.openNewDrillHide(root, TRAINING);
         });
 
         newTrainingButton.setOnAction(event -> {
-            buttonControls.openTrainingEditor(root, TRAINING);
+            buttonControls.openTrainingEditorHide(root, TRAINING);
         });
 
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {

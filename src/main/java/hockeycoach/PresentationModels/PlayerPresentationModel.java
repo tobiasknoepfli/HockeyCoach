@@ -100,7 +100,7 @@ public class PlayerPresentationModel extends PresentationModel {
         });
 
         newPlayerButton.setOnAction(event -> {
-            buttonControls.openNewPlayer(root, PLAYER);
+            buttonControls.openNewPlayerHide(root, PLAYER);
         });
 
         backButton.setOnAction(event->{

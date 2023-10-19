@@ -96,7 +96,7 @@ public class GamePresentationModel extends PresentationModel {
     @Override
     public void setupButtons(Pane root) {
         newGameButton.setOnAction(event -> {
-            buttonControls.openGameEditor(root, GAME);
+            buttonControls.openGameEditorHide(root, GAME);
         });
 
         backButton.setOnAction(event -> {

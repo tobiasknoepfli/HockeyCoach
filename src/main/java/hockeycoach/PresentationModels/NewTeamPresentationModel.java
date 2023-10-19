@@ -120,10 +120,10 @@ public class NewTeamPresentationModel extends PresentationModel {
         });
 
         fillStadium.setOnAction(event -> {
-            lastVisitedPM = new NewTeamPresentationModel();
+            lastVisitedPM =NewTeamPresentationModel.this;
             lastVisitedFXML = NEW_TEAM_FXML;
             lastVisitedNodeName = NEW_TEAM;
-            buttonControls.openStadium();
+            buttonControls.openStadiumHide(root,NEW_TEAM);
         });
     }
 
