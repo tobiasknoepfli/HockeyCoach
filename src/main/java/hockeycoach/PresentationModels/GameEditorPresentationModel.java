@@ -72,13 +72,14 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
 
-    List<TextField> textFields, ppTextFields, bpTextFields,nTextFields, captainTeamList;
+    List<TextField> textFields, ppTextFields, bpTextFields, nTextFields, captainTeamList;
     Button refreshPlayerList, saveButton, backButton;
-    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane,nAnchorPane;
-    GridPane lineupGrid, ppLineupGrid, bpLineupGrid,nLineupGrid;
+    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
+    GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
     TextField gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
             captain, assistant1, assistant2,
+            penalty1, penalty2, emptyNet1, emptyNet2,
             gk1,
             dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
             c1, c2, c3, c4,
@@ -127,7 +128,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         nBoardImage.setPreserveRatio(false);
 
         TextField[] fields = {gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
-                captain, assistant1, assistant2};
+                captain, assistant1, assistant2,penalty1, penalty2, emptyNet1, emptyNet2};
 
         TextField[] tf = {gk1,
                 dl1, dl2, dl3, dl4,
@@ -139,7 +140,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                 sd1, sd2, sd3,
                 sf1, sf2, sf3};
 
-        TextField[] captainTeam = {captain, assistant1, assistant2};
+        TextField[] captainTeam = {captain, assistant1, assistant2,penalty1, penalty2, emptyNet1, emptyNet2};
 
         TextField[] pptf = {ppdl1, ppdl2, ppdlfiller,
                 ppdr1, ppdr2, ppdrfiller,
@@ -316,7 +317,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                 powerplayList.add(selectedPlayer);
             } else if (boxplayTab == activeTab) {
                 boxplayList.add(selectedPlayer);
-            } else if(nuclearTab == activeTab) {
+            } else if (nuclearTab == activeTab) {
                 nuclearList.add(selectedPlayer);
             }
 
@@ -707,6 +708,10 @@ public class GameEditorPresentationModel extends PresentationModel {
         captain = (TextField) root.lookup("#captain ");
         assistant1 = (TextField) root.lookup("#assistant1");
         assistant2 = (TextField) root.lookup("#assistant2");
+        penalty1 = (TextField) root.lookup("#penalty1");
+        penalty2 = (TextField) root.lookup("#penalty2");
+        emptyNet1 = (TextField) root.lookup("#emptyNet1");
+        emptyNet2 = (TextField) root.lookup("#emptyNet2");
 
         gk1 = (TextField) root.lookup("#gk1");
         dl1 = (TextField) root.lookup("#dl1");

@@ -20,6 +20,10 @@ public class DBGameLoader extends DBLoader{
             game.setCaptain(getPlayerByID(resultSet.getInt("captain")));
             game.setAssistant1(getPlayerByID(resultSet.getInt("assistant1")));
             game.setAssistant2(getPlayerByID(resultSet.getInt("assistant2")));
+            game.setPenalty1(getPlayerByID(resultSet.getInt("penalty1")));
+            game.setPenalty2(getPlayerByID(resultSet.getInt("penalty2")));
+            game.setEmptyNet1(getPlayerByID(resultSet.getInt("emptyNet1")));
+            game.setEmptyNet2(getPlayerByID(resultSet.getInt("emptyNet2")));
         }catch(SQLException e){
             e.printStackTrace();
         }

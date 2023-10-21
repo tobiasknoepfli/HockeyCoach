@@ -177,7 +177,7 @@
                                     </VBox>
                                     <VBox spacing="2.0">
                                        <children>
-                                          <Button fx:id="fillStadium" mnemonicParsing="false" text="Fill from Database" />
+                                          <Button fx:id="fillStadium" mnemonicParsing="false" text="Select Stadium" />
                                        </children>
                                     </VBox>
                                  </children>

@@ -44,6 +44,7 @@ public class GameController extends Controller {
     @FXML
     private TextField gameTeam, gameOpponent, gameDate, gameTime,
             gameStadium, captain, assistant1, assistant2,
+            penalty1,penalty2,emptyNet1,emptyNet2,
             gk1, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
             c1, c2, c3, c4,
             fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4,

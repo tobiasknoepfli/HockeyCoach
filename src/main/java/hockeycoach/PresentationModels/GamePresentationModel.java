@@ -27,6 +27,7 @@ public class GamePresentationModel extends PresentationModel {
     Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
     TextField gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
             captain, assistant1, assistant2,
+            penalty1,penalty2,emptyNet1,emptyNet2,
             gk1,
             dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
             c1, c2, c3, c4,
@@ -67,6 +68,7 @@ public class GamePresentationModel extends PresentationModel {
 
         TextField[] textFields = {gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
                 captain, assistant1, assistant2,
+                penalty1,penalty2,emptyNet1,emptyNet2,
                 gk1,
                 dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
                 c1, c2, c3, c4,
@@ -114,6 +116,10 @@ public class GamePresentationModel extends PresentationModel {
             captain.setText(newValue.getCaptain().getLastName() + " " + newValue.getCaptain().getFirstName());
             assistant1.setText(newValue.getAssistant1().getLastName() + " " + newValue.getAssistant1().getFirstName());
             assistant2.setText(newValue.getAssistant2().getLastName() + " " + newValue.getAssistant2().getFirstName());
+            penalty1.setText(newValue.getPenalty1().getLastName() + " " + newValue.getPenalty1().getFirstName());
+            penalty2.setText(newValue.getPenalty2().getLastName() + " " + newValue.getPenalty2().getFirstName());
+            emptyNet1.setText(newValue.getEmptyNet1().getLastName() + " " + newValue.getEmptyNet1().getFirstName());
+            emptyNet2.setText(newValue.getEmptyNet2().getLastName() + " " + newValue.getEmptyNet2().getFirstName());
 
             List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getGameID());
 
@@ -320,6 +326,10 @@ public class GamePresentationModel extends PresentationModel {
         captain = (TextField) root.lookup("#captain");
         assistant1 = (TextField) root.lookup("#assistant1");
         assistant2 = (TextField) root.lookup("#assistant2");
+        penalty1 = (TextField) root.lookup("#penalty1");
+        penalty2 = (TextField) root.lookup("#penalty2");
+        emptyNet1 = (TextField) root.lookup("#emptyNet1");
+        emptyNet2 = (TextField) root.lookup("#emptyNet2");
 
         gk1 = (TextField) root.lookup("#gk1");
         dl1 = (TextField) root.lookup("#dl1");
