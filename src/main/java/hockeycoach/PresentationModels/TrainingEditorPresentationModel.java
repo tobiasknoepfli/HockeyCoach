@@ -7,10 +7,13 @@ import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -42,6 +45,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     DBGameLoader dbGameLoader = new DBGameLoader();
 
     ImageView drillImage;
+
+    TableColumn<String, String> tagCol;
 
     TextField drillName, drillCategory, drillDifficulty, drillParticipation, searchBox,
             trainingDate, trainingTime, trainingStadium, trainingTeam, trainingMainFocus,
@@ -166,7 +171,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-        backButton.setOnAction(event->{
+        backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
     }
@@ -250,17 +255,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 drillDescription.setText(newDrill.getDescription());
                 puckPosition.setText(newDrill.getPuckPosition());
 
-                TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
 
-                tagColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
-                    @Override
-                    public ObservableValue<String> call(TableColumn.CellDataFeatures<String, String> param) {
-                        return new ReadOnlyObjectWrapper<>(param.getValue());
-                    }
-                });
+                tagCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
 
-                drillTags.getItems().clear();
-                drillTags.getItems().addAll(newDrill.getTags());
+                ObservableList<String> tagList = FXCollections.observableArrayList(newDrill.getTags());
+                drillTags.setItems(tagList);
             }
         });
     }
@@ -626,6 +625,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         searchButton = (Button) root.lookup("#searchButton");
 
         tablePane = (TabPane) root.lookup("#tablePane");
+
+        tagCol = (TableColumn<String, String>) drillTags.getColumns().get(0);
 
         warmupTab = tablePane.getTabs().get(0);
         togetherTab = tablePane.getTabs().get(1);

@@ -53,6 +53,9 @@ public class TrainingEditorController extends Controller {
     private TabPane tablePane;
 
     @FXML
+    private TableColumn<String,String> tagCol;
+
+    @FXML
     private TextArea drillDescription,
             trainingPointers;
 

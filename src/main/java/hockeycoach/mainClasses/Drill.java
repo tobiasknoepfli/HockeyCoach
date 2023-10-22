@@ -1,5 +1,10 @@
 package hockeycoach.mainClasses;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+
 import java.util.ArrayList;
 
 public class Drill {
@@ -141,5 +146,4 @@ public class Drill {
     public void setPuckPosition(String puckPosition) {
         this.puckPosition = puckPosition;
     }
-
 }
