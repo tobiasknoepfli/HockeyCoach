@@ -1,6 +1,8 @@
-package hockeycoach.DB;
+package hockeycoach.DB.DBWriter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 
 import static hockeycoach.AppStarter.DB_URL;

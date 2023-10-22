@@ -1,9 +1,9 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.*;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;

@@ -1,37 +1,26 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBImageWriter;
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
-import hockeycoach.DB.DBWriter;
+import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
-import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
-import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import org.w3c.dom.events.MouseEvent;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 

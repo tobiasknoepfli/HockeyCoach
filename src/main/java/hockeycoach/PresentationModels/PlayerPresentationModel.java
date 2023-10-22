@@ -11,13 +11,11 @@ import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.w3c.dom.Text;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
@@ -27,6 +25,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -44,7 +44,8 @@ public class PlayerPresentationModel extends PresentationModel {
     TableView<Player> teamPlayers;
     TableView<Team> playerTeams;
     ImageView playerPhoto;
-    TextField playerName, team, street, zipCity, country,
+    DatePicker playerBirthday;
+    TextField playerName,playerAge, team, street, zipCity, country,
             phone, email, jersey, positions, role,
             aLicence, bLicence, stick;
     TextArea strengths, weaknesses, notes;
@@ -125,6 +126,8 @@ public class PlayerPresentationModel extends PresentationModel {
 //                }
                 selectedPlayer = newSelectedPlayer;
                 playerName.setText(newSelectedPlayer.getFirstName() + " " + newSelectedPlayer.getLastName());
+                playerBirthday.setValue(newSelectedPlayer.getBirthday());
+                playerAge.setText(calculatePlayerAge(newSelectedPlayer.getBirthday()));
                 street.setText(newSelectedPlayer.getStreet());
                 zipCity.setText(String.valueOf(newSelectedPlayer.getZip()) + " " + newSelectedPlayer.getCity());
                 country.setText(newSelectedPlayer.getCountry());
@@ -139,6 +142,10 @@ public class PlayerPresentationModel extends PresentationModel {
                 aLicence.setText(newSelectedPlayer.getaLicence());
                 bLicence.setText(newSelectedPlayer.getbLicence());
                 stick.setText(newSelectedPlayer.getStick());
+
+                playerBirthday.valueProperty().addListener((observable,oldValue,newValue) ->{
+                    playerAge.setText(calculatePlayerAge(newValue));
+                });
 
                 DBLoader dbLoader = new DBLoader();
                 List<Team> teamsForPlayer = dbLoader.getTeamsForPlayer("SELECT t.* FROM team t INNER JOIN playerXteam tx ON t.teamID = tx.teamID WHERE tx.playerID = '" + newSelectedPlayer.getPlayerID() + "'");
@@ -255,7 +262,10 @@ public class PlayerPresentationModel extends PresentationModel {
 
         playerPhoto = (ImageView) root.lookup("#playerPhoto");
 
+        playerBirthday = (DatePicker) root.lookup("#playerBirthday");
+
         playerName = (TextField) root.lookup("#playerName");
+        playerAge = (TextField) root.lookup("#playerAge");
         team = (TextField) root.lookup("#team");
         street = (TextField) root.lookup("#street");
         zipCity = (TextField) root.lookup("#zipCity");
@@ -279,5 +289,14 @@ public class PlayerPresentationModel extends PresentationModel {
         deleteButton = (Button) root.lookup("#deleteButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         backButton = (Button) root.lookup("#backButton");
+    }
+
+    public String calculatePlayerAge(LocalDate localDate){
+        if(localDate != null){
+            LocalDate today = LocalDate.now();
+            int age = Period.between(playerBirthday.getValue(),today).getYears();
+            return String.valueOf(age);
+        }
+        return null;
     }
 }

@@ -1,9 +1,13 @@
 package hockeycoach.mainClasses;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+
 public class Player {
     private int playerID;
     private String firstName;
     private String lastName;
+    private LocalDate birthday;
     private String team;
     private String street;
     private int zip;
@@ -31,10 +35,11 @@ public class Player {
         this.team = team;
     }
 
-    public Player(int playerID, String firstName, String lastName, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, int photoID, String notes) {
+    public Player(int playerID, String firstName, String lastName, LocalDate birthday, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, int photoID, String notes) {
         this.playerID = playerID;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.birthday = birthday;
         this.team = team;
         this.street = street;
         this.zip = zip;
@@ -76,6 +81,14 @@ public class Player {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public String getTeam() {

@@ -4,6 +4,7 @@ import hockeycoach.DB.*;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
+import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.PlayerXTeam;

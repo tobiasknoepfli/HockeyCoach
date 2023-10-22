@@ -3,17 +3,22 @@ package hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.Player;
 
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBPlayerLoader extends DBLoader {
+
     public Player setPlayer(ResultSet resultSet) {
         Player player = new Player();
         try {
             player.setPlayerID(resultSet.getInt("playerID"));
             player.setFirstName(resultSet.getString("firstName"));
             player.setLastName(resultSet.getString("lastName"));
+            player.setBirthday(parseDate(resultSet.getDate("birthday")));
             player.setStreet(resultSet.getString("street"));
             player.setZip(resultSet.getInt("zip"));
             player.setCity(resultSet.getString("city"));
@@ -108,6 +113,15 @@ public class DBPlayerLoader extends DBLoader {
             e.printStackTrace();
         }
         return role;
+    }
+
+    private LocalDate parseDate(Date date) {
+        if(date != null) {
+            return date.toLocalDate();
+        } else {
+            Date standardDate = new Date(0);
+            return standardDate.toLocalDate();
+        }
     }
 
 }

@@ -3,10 +3,7 @@ package hockeycoach.controllers;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 public class PlayerController extends Controller {
@@ -26,6 +23,9 @@ public class PlayerController extends Controller {
     private TextArea strengths, weaknesses, notes;
 
     @FXML
-    private TextField playerName, team, street, zipCity, country, phone, email,
+    private TextField playerName,playerAge, team, street, zipCity, country, phone, email,
             jersey, positions;
+
+    @FXML
+    private DatePicker playerBirthday;
 }

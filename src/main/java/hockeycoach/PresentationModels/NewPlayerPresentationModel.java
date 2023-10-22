@@ -2,16 +2,14 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
-import hockeycoach.DB.DBWriter;
+import hockeycoach.DB.DBWriter.DBPlayerWriter;
+import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.ListChangeListener;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -24,6 +22,8 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -33,6 +33,7 @@ import static hockeycoach.AppStarter.PHOTOS;
 
 public class NewPlayerPresentationModel extends PresentationModel {
     MouseEvent event;
+    DBPlayerWriter dbPlayerWriter = new DBPlayerWriter();
     List<Player> allPlayersList, fnFiltered, lnFiltered, streetFiltered;
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
@@ -40,7 +41,8 @@ public class NewPlayerPresentationModel extends PresentationModel {
 
     TableView<Player> allPlayers;
     ImageView playerPhoto;
-    TextField playerFirstName, playerLastName,
+    DatePicker playerBirthday;
+    TextField playerFirstName, playerLastName, playerAge,
             street, zip, city, country, phone, email,
             positions, aLicence, bLicence, stick;
     TextArea strengths, weaknesses, notes;
@@ -54,7 +56,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
 
-        TextField[] textFields = {playerFirstName, playerLastName,
+        TextField[] textFields = {playerFirstName, playerLastName, playerAge,
                 street, zip, city, country, phone, email,
                 positions, aLicence, bLicence, stick};
 
@@ -85,7 +87,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
             String photoPath = savePlayerPhoto();
             Player newPlayer = readData(photoPath);
             DBWriter dbWriter = new DBWriter();
-            dbWriter.writeNewPlayer(newPlayer);
+            dbPlayerWriter.writeNewPlayer(newPlayer);
             clearAllFields();
 
             DBLoader dbLoader = new DBLoader();
@@ -136,6 +138,10 @@ public class NewPlayerPresentationModel extends PresentationModel {
         });
 
         playerPhoto.setOnMouseClicked(event -> handleImageClick());
+
+        playerBirthday.valueProperty().addListener((observable,oldValue,newValue) ->{
+            playerAge.setText(calculatePlayerAge(newValue));
+        });
 
 
     }
@@ -250,10 +256,13 @@ public class NewPlayerPresentationModel extends PresentationModel {
     public void importFields(Pane root) {
         allPlayers = (TableView) root.lookup("#allPlayers");
 
+        playerBirthday = (DatePicker) root.lookup("#playerBirthday");
+
         playerPhoto = (ImageView) root.lookup("#playerPhoto");
 
         playerFirstName = (TextField) root.lookup("#playerFirstName");
         playerLastName = (TextField) root.lookup("#playerLastName");
+        playerAge = (TextField) root.lookup("#playerAge");
         street = (TextField) root.lookup("#street");
         zip = (TextField) root.lookup("#zip");
         city = (TextField) root.lookup("#city");
@@ -271,5 +280,14 @@ public class NewPlayerPresentationModel extends PresentationModel {
 
         saveButton = (Button) root.lookup("#saveButton");
         backButton = (Button) root.lookup("#backButton");
+    }
+
+    public String calculatePlayerAge(LocalDate localDate){
+        if(localDate != null){
+            LocalDate today = LocalDate.now();
+            int age = Period.between(playerBirthday.getValue(),today).getYears();
+            return String.valueOf(age);
+        }
+        return null;
     }
 }
