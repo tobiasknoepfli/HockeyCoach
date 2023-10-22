@@ -3,10 +3,7 @@ package hockeycoach.mainClasses;
 public class Team {
     private int teamID;
     private String name;
-    private int stadium;
-//    private String street;
-//    private int zip;
-//    private String city;
+    private Stadium stadium;
     private String country;
     private String contactFirstName;
     private String contactLastName;
@@ -46,7 +43,7 @@ public class Team {
         this.logo = logo;
     }
 
-    public Team(int teamID, String name, int stadium,String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, int logo, String notes) {
+    public Team(int teamID, String name, Stadium stadium,String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, int logo, String notes) {
         this.teamID = teamID;
         this.name = name;
         this.stadium = stadium;
@@ -82,11 +79,11 @@ public class Team {
         this.name = name;
     }
 
-    public int getStadium() {
+    public Stadium getStadium() {
         return stadium;
     }
 
-    public void setStadium(int stadium) {
+    public void setStadium(Stadium stadium) {
         this.stadium = stadium;
     }
 

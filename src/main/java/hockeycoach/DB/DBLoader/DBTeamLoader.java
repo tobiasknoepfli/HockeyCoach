@@ -1,5 +1,6 @@
 package hockeycoach.DB.DBLoader;
 
+import hockeycoach.mainClasses.Stadium;
 import hockeycoach.mainClasses.Team;
 
 import java.sql.*;
@@ -8,12 +9,15 @@ import java.util.ArrayList;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBTeamLoader extends DBLoader {
+    DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
+    Stadium stadium =new Stadium();
+
     public Team setTeam(ResultSet resultSet) {
         Team team = new Team();
         try {
             team.setTeamID(resultSet.getInt("teamID"));
             team.setName(resultSet.getString("name"));
-            team.setStadium(resultSet.getInt("stadium"));
+            team.setStadium(dbStadiumLoader.getStadium(resultSet.getInt("stadium")));
             team.setContactFirstName(resultSet.getString("contactFirstName"));
             team.setContactLastName(resultSet.getString("contactLastName"));
             team.setContactPhone(resultSet.getString("contactPhoneNr"));

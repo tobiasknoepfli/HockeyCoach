@@ -82,11 +82,11 @@ public class TeamPresentationModel extends PresentationModel {
 //        }
 
         teamName.setText(team.getName());
-//        stadiumName.setText(team.getStadium());
-//        stadiumStreet.setText(team.getStreet());
-//        stadiumZip.setText(String.valueOf(team.getZip()));
-//        stadiumCity.setText(team.getCity());
-        stadiumCountry.setText(team.getCountry());
+        stadiumName.setText(team.getStadium().getStadiumName());
+        stadiumStreet.setText(team.getStadium().getStadiumAddress());
+        stadiumZip.setText(String.valueOf(team.getStadium().getStadiumZip()));
+        stadiumCity.setText(team.getStadium().getStadiumPlace());
+        stadiumCountry.setText(team.getStadium().getStadiumCountry());
         contactFirstName.setText(team.getContactFirstName());
         contactLastName.setText(team.getContactLastName());
         contactPhone.setText(team.getContactPhone());

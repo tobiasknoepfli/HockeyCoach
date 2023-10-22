@@ -190,7 +190,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     private Team readData(String newImage) {
         Team newTeam = new Team();
         newTeam.setName(teamName.getText());
-        newTeam.setStadium(Integer.parseInt(stadiumName.getText()));
+//        newTeam.setStadium(Integer.parseInt(stadiumName.getText()));
 //        newTeam.setStreet(stadiumStreet.getText());
 //        newTeam.setZip(Integer.parseInt(stadiumZip.getText()));
 //        newTeam.setCity(stadiumCity.getText());

@@ -9,23 +9,23 @@ import java.util.List;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBStadiumLoader {
-    public Stadium setStadium(ResultSet resultSet){
+    public Stadium setStadium(ResultSet resultSet) {
         Stadium stadium = new Stadium();
 
-        try{
+        try {
             stadium.setStadiumID(resultSet.getInt("ID"));
             stadium.setStadiumName(resultSet.getString("stadiumName"));
             stadium.setStadiumAddress(resultSet.getString("stadiumAddress"));
             stadium.setStadiumZip(resultSet.getInt("stadiumZip"));
             stadium.setStadiumPlace(resultSet.getString("stadiumPlace"));
             stadium.setStadiumCountry(resultSet.getString("stadiumCountry"));
-        } catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return stadium;
     }
 
-    public List<Stadium> getAllStadiums(String query){
+    public List<Stadium> getAllStadiums(String query) {
         List<Stadium> allStadiums = new ArrayList<>();
 
         try {
@@ -38,9 +38,26 @@ public class DBStadiumLoader {
                 stadium = setStadium(resultSet);
                 allStadiums.add(stadium);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return  allStadiums;
+        return allStadiums;
+    }
+
+    public Stadium getStadium(int stadiumID) {
+        Stadium stadium = new Stadium();
+        String query = "SELECT * FROM stadium WHERE ID =" + stadiumID;
+
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            resultSet.next();
+            stadium = setStadium(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return stadium;
     }
 }
