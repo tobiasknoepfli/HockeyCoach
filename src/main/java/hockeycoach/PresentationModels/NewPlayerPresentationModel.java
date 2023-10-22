@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 import static hockeycoach.AppStarter.PHOTOS;
 
 public class NewPlayerPresentationModel extends PresentationModel {
+    ImageChooser imageChooser = new ImageChooser();
     MouseEvent event;
     DBPlayerWriter dbPlayerWriter = new DBPlayerWriter();
     List<Player> allPlayersList, fnFiltered, lnFiltered, streetFiltered;
@@ -65,12 +66,6 @@ public class NewPlayerPresentationModel extends PresentationModel {
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(allPlayersList);
 
-        if (allPlayersList.size() == 0) {
-            setControlsDisabled(false);
-        } else {
-            setControlsDisabled(true);
-        }
-
         getDBEntries(root);
         setupButtons(root);
         setupEventListeners(root);
@@ -86,11 +81,9 @@ public class NewPlayerPresentationModel extends PresentationModel {
         saveButton.setOnAction(event -> {
             String photoPath = savePlayerPhoto();
             Player newPlayer = readData(photoPath);
-            DBWriter dbWriter = new DBWriter();
             dbPlayerWriter.writeNewPlayer(newPlayer);
             clearAllFields();
 
-            DBLoader dbLoader = new DBLoader();
             DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
             allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
             allPlayers.getItems().clear();
@@ -100,6 +93,10 @@ public class NewPlayerPresentationModel extends PresentationModel {
 
         backButton.setOnAction(event ->{
             textFieldAction.undoLastAction(textFieldActions);
+        });
+
+        playerPhoto.setOnMouseClicked(mouseEvent -> {
+            playerPhoto.setImage(imageChooser.chooseImage(event));
         });
     }
 
@@ -129,44 +126,11 @@ public class NewPlayerPresentationModel extends PresentationModel {
             allPlayers.getItems().addAll(streetFiltered);
         });
 
-        allPlayers.getItems().addListener((ListChangeListener<Player>) change -> {
-            if (allPlayers.getItems().isEmpty()) {
-                setControlsDisabled(false);
-            } else {
-                setControlsDisabled(true);
-            }
-        });
-
-        playerPhoto.setOnMouseClicked(event -> handleImageClick());
-
         playerBirthday.valueProperty().addListener((observable,oldValue,newValue) ->{
             playerAge.setText(calculatePlayerAge(newValue));
         });
 
 
-    }
-
-    private void setControlsDisabled(boolean disabled) {
-        zip.setDisable(disabled);
-        city.setDisable(disabled);
-        country.setDisable(disabled);
-        phone.setDisable(disabled);
-        email.setDisable(disabled);
-        positions.setDisable(disabled);
-        aLicence.setDisable(disabled);
-        bLicence.setDisable(disabled);
-        stick.setDisable(disabled);
-        strengths.setDisable(disabled);
-        weaknesses.setDisable(disabled);
-        notes.setDisable(disabled);
-        playerPhoto.setDisable(disabled);
-        saveButton.setDisable(disabled);
-    }
-
-    private void handleImageClick() {
-        ImageChooser imageChooser = new ImageChooser();
-        Image image = imageChooser.chooseImage(event);
-        playerPhoto.setImage(image);
     }
 
     private String savePlayerPhoto() {

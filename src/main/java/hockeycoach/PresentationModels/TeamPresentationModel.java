@@ -35,6 +35,7 @@ public class TeamPresentationModel extends PresentationModel {
     Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     Team selectedTeam;
+    ImageChooser imageChooser =new ImageChooser();
     MouseEvent event;
 
     ImageView teamLogo;
@@ -64,22 +65,6 @@ public class TeamPresentationModel extends PresentationModel {
                 website, founded, currentLeague,
                 presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName};
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
-
-        disableControls(true);
-
-//        try {
-//            if (team != null) {
-//                File imageFile = new File(team.getLogo());
-//
-//                if (imageFile.exists()) {
-//                    teamLogo.setImage(new Image(imageFile.toURI().toString()));
-//                } else {
-//                    teamLogo.setImage(null);
-//                }
-//            }
-//        } catch (NullPointerException e) {
-//            teamLogo.setImage(null);
-//        }
 
         teamName.setText(team.getName());
         stadiumName.setText(team.getStadium().getStadiumName());
@@ -121,6 +106,10 @@ public class TeamPresentationModel extends PresentationModel {
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
+
+        teamLogo.setOnMouseClicked(mouseEvent -> {
+            teamLogo.setImage(imageChooser.chooseImage(event));
+        });
     }
 
     @Override
@@ -129,11 +118,6 @@ public class TeamPresentationModel extends PresentationModel {
             HeaderController headerController = new HeaderController();
             PlayerToTeamPresentationModel pm = new PlayerToTeamPresentationModel();
             headerController.loadStages(PLAYER_TO_TEAM, PLAYER_TO_TEAM_FXML, pm);
-        });
-
-        editButton.setOnAction(event -> {
-            disableControls(false);
-            editButton.setDisable(true);
         });
 
         saveButton.setOnAction(event -> {
@@ -148,31 +132,6 @@ public class TeamPresentationModel extends PresentationModel {
         });
     }
 
-    private void disableControls(boolean disabled) {
-        teamName.setDisable(disabled);
-        teamLogo.setDisable(disabled);
-        stadiumName.setDisable(disabled);
-        stadiumStreet.setDisable(disabled);
-        stadiumZip.setDisable(disabled);
-        stadiumCity.setDisable(disabled);
-        stadiumCountry.setDisable(disabled);
-        contactFirstName.setDisable(disabled);
-        contactLastName.setDisable(disabled);
-        contactEmail.setDisable(disabled);
-        contactPhone.setDisable(disabled);
-        website.setDisable(disabled);
-        founded.setDisable(disabled);
-        presidentFirstName.setDisable(disabled);
-        presidentLastName.setDisable(disabled);
-        currentLeague.setDisable(disabled);
-        headCoachFirstName.setDisable(disabled);
-        headCoachLastName.setDisable(disabled);
-        notes.setDisable(disabled);
-        saveButton.setDisable(disabled);
-        cancelButton.setDisable(disabled);
-        deleteButton.setDisable(disabled);
-        teamPlayers.setDisable(disabled);
-    }
 
     private Team getTeamData() {
         Team team = new Team();

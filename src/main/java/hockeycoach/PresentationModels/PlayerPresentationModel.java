@@ -35,6 +35,7 @@ import static hockeycoach.AppStarter.*;
 
 public class PlayerPresentationModel extends PresentationModel {
     MouseEvent event;
+    ImageChooser imageChooser = new ImageChooser();
     Player selectedPlayer;
     Team selectedTeam;
     ButtonControls buttonControls = new ButtonControls();
@@ -45,12 +46,12 @@ public class PlayerPresentationModel extends PresentationModel {
     TableView<Team> playerTeams;
     ImageView playerPhoto;
     DatePicker playerBirthday;
-    TextField playerName,playerAge, team, street, zipCity, country,
+    TextField playerFirstName, playerLastName, playerAge, team, street, zip, city, country,
             phone, email, jersey, positions, role,
             aLicence, bLicence, stick;
     TextArea strengths, weaknesses, notes;
 
-    Button saveButton, editButton, cancelButton, deleteButton, newPlayerButton,backButton;
+    Button saveButton, editButton, cancelButton, deleteButton, newPlayerButton, backButton;
 
     @Override
     public void initializeControls(Pane root) {
@@ -61,10 +62,10 @@ public class PlayerPresentationModel extends PresentationModel {
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
-        TextField[] textFields = {playerName, team, street, zipCity, country,
+        TextField[] textFields = {playerFirstName,playerLastName, team, street, zip, city, country,
                 phone, email, jersey, positions, role,
                 aLicence, bLicence, stick};
-        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField,textFieldActions));
+        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
         if (!playerList.isEmpty()) {
             teamPlayers.getItems().clear();
@@ -75,8 +76,6 @@ public class PlayerPresentationModel extends PresentationModel {
         getDBEntries(root);
         setupButtons(root);
         setupEventListeners(root);
-
-        disableControls(true);
     }
 
     @Override
@@ -86,15 +85,9 @@ public class PlayerPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-        editButton.setOnAction(event -> {
-            if (teamPlayers.getSelectionModel().getSelectedItem() != null) {
-                disableControls(false);
-            }
-        });
 
         saveButton.setOnAction(event -> {
             Player player = getPlayerData();
-//            player.setPhotoID(savePlayerPhoto());
             DBEditor dbEditor = new DBEditor();
             dbEditor.editPlayer(player);
             dbEditor.editJerseyAndRole(player, selectedTeam);
@@ -104,8 +97,12 @@ public class PlayerPresentationModel extends PresentationModel {
             buttonControls.openNewPlayerHide(root, PLAYER);
         });
 
-        backButton.setOnAction(event->{
+        backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
+        });
+
+        playerPhoto.setOnMouseClicked(mouseEvent -> {
+            playerPhoto.setImage(imageChooser.chooseImage(event));
         });
     }
 
@@ -113,23 +110,14 @@ public class PlayerPresentationModel extends PresentationModel {
     public void setupEventListeners(Pane root) {
         teamPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedPlayer, newSelectedPlayer) -> {
             if (newSelectedPlayer != null) {
-//                try {
-//                    File imageFile = new File(newSelectedPlayer.getPhotoID());
-//
-//                    if (imageFile.exists()) {
-//                        playerPhoto.setImage(new Image(imageFile.toURI().toString()));
-//                    } else {
-//                        playerPhoto.setImage(null);
-//                    }
-//                } catch (NullPointerException e) {
-//                    playerPhoto.setImage(null);
-//                }
                 selectedPlayer = newSelectedPlayer;
-                playerName.setText(newSelectedPlayer.getFirstName() + " " + newSelectedPlayer.getLastName());
+                playerFirstName.setText(newSelectedPlayer.getFirstName());
+                playerLastName.setText(newSelectedPlayer.getLastName());
                 playerBirthday.setValue(newSelectedPlayer.getBirthday());
                 playerAge.setText(calculatePlayerAge(newSelectedPlayer.getBirthday()));
                 street.setText(newSelectedPlayer.getStreet());
-                zipCity.setText(String.valueOf(newSelectedPlayer.getZip()) + " " + newSelectedPlayer.getCity());
+                zip.setText(String.valueOf(newSelectedPlayer.getZip()));
+                city.setText(newSelectedPlayer.getCity());
                 country.setText(newSelectedPlayer.getCountry());
                 phone.setText(newSelectedPlayer.getPhone());
                 email.setText(newSelectedPlayer.geteMail());
@@ -143,7 +131,7 @@ public class PlayerPresentationModel extends PresentationModel {
                 bLicence.setText(newSelectedPlayer.getbLicence());
                 stick.setText(newSelectedPlayer.getStick());
 
-                playerBirthday.valueProperty().addListener((observable,oldValue,newValue) ->{
+                playerBirthday.valueProperty().addListener((observable, oldValue, newValue) -> {
                     playerAge.setText(calculatePlayerAge(newValue));
                 });
 
@@ -157,45 +145,16 @@ public class PlayerPresentationModel extends PresentationModel {
         });
     }
 
-    private void disableControls(boolean disabled) {
-        playerTeams.setDisable(disabled);
-        playerPhoto.setDisable(disabled);
-        playerName.setDisable(disabled);
-        team.setDisable(disabled);
-        street.setDisable(disabled);
-        zipCity.setDisable(disabled);
-        country.setDisable(disabled);
-        phone.setDisable(disabled);
-        email.setDisable(disabled);
-        jersey.setDisable(disabled);
-        positions.setDisable(disabled);
-        strengths.setDisable(disabled);
-        weaknesses.setDisable(disabled);
-        notes.setDisable(disabled);
-        role.setDisable(disabled);
-        aLicence.setDisable(disabled);
-        bLicence.setDisable(disabled);
-        stick.setDisable(disabled);
-        saveButton.setDisable(disabled);
-        cancelButton.setDisable(disabled);
-        deleteButton.setDisable(disabled);
-    }
-
     private Player getPlayerData() {
         Player player = new Player();
 
         player.setPlayerID(selectedPlayer.getPlayerID());
 
-        String[] pn = playerName.getText().split("\\s+");
-        player.setFirstName(pn[0]);
-        player.setLastName(pn[1]);
-
+        player.setFirstName(playerFirstName.getText());
+        player.setLastName(playerLastName.getText());
         player.setStreet(street.getText());
-
-        String[] zc = zipCity.getText().split("\\s+");
-        player.setZip(Integer.parseInt(zc[0]));
-        player.setCity(zc[1]);
-
+        player.setZip(Integer.parseInt(zip.getText()));
+        player.setCity(city.getText());
         player.setCountry(country.getText());
         player.setPhone(phone.getText());
         player.seteMail(email.getText());
@@ -212,16 +171,10 @@ public class PlayerPresentationModel extends PresentationModel {
         return player;
     }
 
-    private void handleImageClick() {
-        ImageChooser imageChooser = new ImageChooser();
-        Image image = imageChooser.chooseImage(event);
-        playerPhoto.setImage(image);
-    }
-
     private String savePlayerPhoto() {
         Image selectedImage = playerPhoto.getImage();
         if (selectedImage != null) {
-            String playerPhotoText = playerName.getText() + "_Photo";
+            String playerPhotoText = playerLastName.getText()+playerFirstName.getText() + "_Photo";
 
             String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
             if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
@@ -255,6 +208,15 @@ public class PlayerPresentationModel extends PresentationModel {
         }
     }
 
+    public String calculatePlayerAge(LocalDate localDate) {
+        if (localDate != null) {
+            LocalDate today = LocalDate.now();
+            int age = Period.between(playerBirthday.getValue(), today).getYears();
+            return String.valueOf(age);
+        }
+        return null;
+    }
+
     @Override
     public void importFields(Pane root) {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
@@ -264,11 +226,13 @@ public class PlayerPresentationModel extends PresentationModel {
 
         playerBirthday = (DatePicker) root.lookup("#playerBirthday");
 
-        playerName = (TextField) root.lookup("#playerName");
+        playerFirstName = (TextField) root.lookup("#playerFirstName");
+        playerLastName = (TextField) root.lookup("#playerLastName");
         playerAge = (TextField) root.lookup("#playerAge");
         team = (TextField) root.lookup("#team");
         street = (TextField) root.lookup("#street");
-        zipCity = (TextField) root.lookup("#zipCity");
+        zip = (TextField) root.lookup("#zip");
+        city = (TextField) root.lookup("#city");
         country = (TextField) root.lookup("#country");
         phone = (TextField) root.lookup("#phone");
         email = (TextField) root.lookup("#email");
@@ -289,14 +253,5 @@ public class PlayerPresentationModel extends PresentationModel {
         deleteButton = (Button) root.lookup("#deleteButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         backButton = (Button) root.lookup("#backButton");
-    }
-
-    public String calculatePlayerAge(LocalDate localDate){
-        if(localDate != null){
-            LocalDate today = LocalDate.now();
-            int age = Period.between(playerBirthday.getValue(),today).getYears();
-            return String.valueOf(age);
-        }
-        return null;
     }
 }

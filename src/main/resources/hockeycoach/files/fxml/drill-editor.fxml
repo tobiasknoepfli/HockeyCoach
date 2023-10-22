@@ -39,7 +39,7 @@
                      <children>
                         <Button fx:id="newDrillButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
-                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView cache="true" cacheHint="QUALITY" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/icons_newDrill.png" />
                                  </image>

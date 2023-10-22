@@ -135,12 +135,12 @@
                                           <Label alignment="CENTER" prefHeight="25.0" text="Players" />
                                             <TableView fx:id="teamPlayers" VBox.vgrow="ALWAYS">
                                                 <columns>
-                                                    <TableColumn fx:id="playerLastName" minWidth="150.0" prefWidth="150.0" text="Last Name">
+                                                    <TableColumn fx:id="playerLN" minWidth="150.0" prefWidth="150.0" text="Last Name">
                                                         <cellValueFactory>
                                                             <PropertyValueFactory property="lastName" />
                                                         </cellValueFactory>
                                                     </TableColumn>
-                                                    <TableColumn fx:id="playerFirstName" minWidth="150.0" prefWidth="150.0" text="First Name">
+                                                    <TableColumn fx:id="playerFN" minWidth="150.0" prefWidth="150.0" text="First Name">
                                                         <cellValueFactory>
                                                             <PropertyValueFactory property="firstName" />
                                                         </cellValueFactory>
@@ -174,13 +174,15 @@
                                  <children>
                                     <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                            <Label prefHeight="25.0" prefWidth="150.0" text="Name" />
+                                            <Label prefHeight="25.0" prefWidth="150.0" text="First Name" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="Last Name" />
                                           <Label prefHeight="25.0" prefWidth="150.0" text="Team" />
                                        </children>
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                            <TextField fx:id="playerName" />
+                                            <TextField fx:id="playerFirstName" />
+                                          <TextField fx:id="playerLastName" />
                                             <TextField fx:id="team" />
                                        </children>
                                     </VBox>
@@ -211,14 +213,20 @@
                                     <VBox spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
                                           <Label prefHeight="25.0" prefWidth="150.0" text="Street" />
-                                          <Label prefHeight="25.0" prefWidth="150.0" text="ZIP City" />
+                                          <Label prefHeight="25.0" prefWidth="150.0" text="ZIP" />
                                           <Label prefHeight="25.0" prefWidth="150.0" text="Country" />
                                        </children>
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
                                               <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0" />
-                                              <TextField fx:id="zipCity" prefHeight="20.0" prefWidth="400.0" />
+                                          <HBox spacing="5.0">
+                                             <children>
+                                                    <TextField fx:id="zip" prefHeight="25.0" prefWidth="130.0" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="City" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="city" prefHeight="25.0" prefWidth="123.0" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
                                               <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0" />
                                        </children>
                                     </VBox>

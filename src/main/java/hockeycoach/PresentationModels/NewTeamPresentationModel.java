@@ -28,6 +28,7 @@ import static hockeycoach.AppStarter.*;
 
 
 public class NewTeamPresentationModel extends PresentationModel {
+    ImageChooser imageChooser = new ImageChooser();
     MouseEvent event;
     int counter;
     List<Team> teamList = new ArrayList();
@@ -71,8 +72,6 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         counter = 0;
 
-        setControlsDisabled(true);
-
         getDBEntries(root);
         setupButtons(root);
         setupEventListeners(root);
@@ -114,6 +113,10 @@ public class NewTeamPresentationModel extends PresentationModel {
             lastVisitedNodeName = NEW_TEAM;
             buttonControls.openStadiumHide(root,NEW_TEAM);
         });
+
+        teamLogo.setOnMouseClicked(mouseEvent -> {
+            teamLogo.setImage(imageChooser.chooseImage(event));
+        });
     }
 
     @Override
@@ -123,42 +126,10 @@ public class NewTeamPresentationModel extends PresentationModel {
                     .filter(team -> team.getName().toLowerCase().contains(newValue.toLowerCase()))
                     .collect(Collectors.toList());
             controlLabel.setText("found: " + newList.size());
-            boolean disableControls = newValue.isEmpty() || newList.size() > 0;
-            setControlsDisabled(disableControls);
         });
 
-        teamLogo.setOnMouseClicked(event -> handleImageClick());
 
     }
-
-    public void setControlsDisabled(boolean disabled) {
-        teamLogo.setDisable(disabled);
-        stadiumName.setDisable(disabled);
-        stadiumStreet.setDisable(disabled);
-        stadiumZip.setDisable(disabled);
-        stadiumCity.setDisable(disabled);
-        stadiumCountry.setDisable(disabled);
-        contactFirstName.setDisable(disabled);
-        contactLastName.setDisable(disabled);
-        contactPhone.setDisable(disabled);
-        contactEmail.setDisable(disabled);
-        website.setDisable(disabled);
-        founded.setDisable(disabled);
-        presidentFirstName.setDisable(disabled);
-        presidentLastName.setDisable(disabled);
-        currentLeague.setDisable(disabled);
-        headCoachFirstName.setDisable(disabled);
-        headCoachLastName.setDisable(disabled);
-        notes.setDisable(disabled);
-        saveButton.setDisable(disabled);
-    }
-
-    private void handleImageClick() {
-        ImageChooser imageChooser = new ImageChooser();
-        Image image = imageChooser.chooseImage(event);
-        teamLogo.setImage(image);
-    }
-
 
     private String saveTeamLogo() {
         Image selectedImage = teamLogo.getImage();

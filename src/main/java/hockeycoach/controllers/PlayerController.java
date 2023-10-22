@@ -23,7 +23,7 @@ public class PlayerController extends Controller {
     private TextArea strengths, weaknesses, notes;
 
     @FXML
-    private TextField playerName,playerAge, team, street, zipCity, country, phone, email,
+    private TextField playerFirstName, playerLastName, playerAge, team, street, zip, city, country, phone, email,
             jersey, positions;
 
     @FXML

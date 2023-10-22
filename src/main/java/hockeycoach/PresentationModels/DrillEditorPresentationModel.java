@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import org.w3c.dom.events.MouseEvent;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +20,8 @@ import java.util.Stack;
 
 public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
+    ImageChooser imageChooser = new ImageChooser();
+    MouseEvent event;
     List<Drill> allDrillList, filteredDrills;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxDrillFilter comboBoxDrillFilter = new ComboBoxDrillFilter();
@@ -66,6 +69,10 @@ public class DrillEditorPresentationModel extends PresentationModel {
         backButton.setOnAction(event ->{
             textFieldAction.undoLastAction(textFieldActions);
         });
+
+        drillImage.setOnMouseClicked(mouseEvent -> {
+            drillImage.setImage(imageChooser.chooseImage(event));
+        });
     }
 
     @Override
@@ -87,12 +94,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
             });
             drillTags.getItems().clear();
             drillTags.getItems().addAll(newDrill.getTags());
-//
-//            try {
-//                drillImage.setImage(new Image(newDrill.getImageID()));
-//            } catch (Exception e) {
-//                drillImage.setImage(null);
-//            }
+
         });
         comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
         comboBoxPopulator.setParticipation(allDrillList, drillParticipationFilter);
