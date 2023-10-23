@@ -1,9 +1,9 @@
+-set Stadium correctly for Game, Training, GameEditor, TrainingEditor
+-set Date/Time correctly for Game, Training, GameEditor, TrainingEditor
 -archive
 -settings with batch import
 -calendar export
 -nuclear team
--empty net
--too many men
 -stadiums
 -import stadium data in newTeam, Team etc
 -image saver

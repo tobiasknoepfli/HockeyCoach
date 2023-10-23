@@ -89,9 +89,9 @@ public class StadiumPresentationModel extends PresentationModel {
                     globalStadium.setStadiumZip(selectedStadium.getStadiumZip());
                     globalStadium.setStadiumPlace(selectedStadium.getStadiumPlace());
                     globalStadium.setStadiumCountry(selectedStadium.getStadiumCountry());
-                    buttonControls.openPresentationModelClose(lastVisitedPM,lastVisitedNodeName,lastVisitedFXML,root,STADIUM);
 
                     lastVisitedPM.fillStadium(globalStadium);
+                    buttonControls.openPresentationModelClose(lastVisitedPM,lastVisitedNodeName,lastVisitedFXML,root,STADIUM);
                 }
 
             }

@@ -5,6 +5,8 @@ module com.example.hockeycoach {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires java.sql;
+    requires tornadofx.controls;
+    requires jfxtras.controls;
 
     opens hockeycoach to javafx.fxml;
     exports hockeycoach;

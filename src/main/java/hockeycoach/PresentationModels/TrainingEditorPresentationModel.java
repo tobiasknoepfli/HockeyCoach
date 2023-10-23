@@ -20,11 +20,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import jfxtras.scene.control.LocalTimeTextField;
+import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static hockeycoach.AppStarter.*;
 
 
 public class TrainingEditorPresentationModel extends PresentationModel {
@@ -46,10 +52,14 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     ImageView drillImage;
 
+    LocalTimeTextField trainingTime;
+
+    DatePicker trainingDate;
+
     TableColumn<String, String> tagCol;
 
     TextField drillName, drillCategory, drillDifficulty, drillParticipation, searchBox,
-            trainingDate, trainingTime, trainingStadium, trainingTeam, trainingMainFocus,
+            trainingStadium, trainingTeam, trainingMainFocus,
             puckPosition,
             jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
             gk1, gk2, gk3, gk4, gk5, gk6,
@@ -60,6 +70,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
             fr1, fr2, fr3, fr4, fr5, fr6;
 
     CheckBox drillStation;
+
+    DateTimePicker trainingDateTime;
 
     TextArea drillDescription, trainingPointers;
 
@@ -115,7 +127,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 fr1, fr2, fr3, fr4, fr5, fr6,};
 
         TextField[] textFields = {drillName, drillCategory, drillDifficulty, drillParticipation, searchBox,
-                trainingDate, trainingTime, trainingStadium, trainingTeam, trainingMainFocus,
+                trainingStadium, trainingTeam, trainingMainFocus,
                 puckPosition,
                 jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
                 gk1, gk2, gk3, gk4, gk5, gk6,
@@ -591,6 +603,10 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         return new ArrayList<>();
     }
 
+    public void fillStadium(Stadium stadium) {
+        trainingStadium.setText(stadium.getStadiumName());
+    }
+
     @Override
     public void importFields(Pane root) {
         drillImage = (ImageView) root.lookup("#drillImage");
@@ -626,6 +642,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         tablePane = (TabPane) root.lookup("#tablePane");
 
+        trainingDateTime = (DateTimePicker) root.lookup("#trainingDateTime");
+
         tagCol = (TableColumn<String, String>) drillTags.getColumns().get(0);
 
         warmupTab = tablePane.getTabs().get(0);
@@ -633,8 +651,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         stationsTab = tablePane.getTabs().get(2);
         backupTab = tablePane.getTabs().get(3);
 
-        trainingDate = (TextField) root.lookup("#trainingDate");
-        trainingTime = (TextField) root.lookup("#trainingTime");
+        trainingDate = (DatePicker) root.lookup("#trainingDate");
+        trainingTime = (LocalTimeTextField) root.lookup("#trainingTime");
         trainingStadium = (TextField) root.lookup("#trainingStadium");
         trainingTeam = (TextField) root.lookup("#trainingTeam");
         trainingMainFocus = (TextField) root.lookup("#trainingMainFocus");

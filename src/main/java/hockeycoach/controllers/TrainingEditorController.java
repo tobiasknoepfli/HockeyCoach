@@ -6,6 +6,7 @@ import hockeycoach.supportClasses.Difficulty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import jfxtras.scene.control.LocalTimeTextField;
 
 public class TrainingEditorController extends Controller {
     @FXML
@@ -60,9 +61,15 @@ public class TrainingEditorController extends Controller {
             trainingPointers;
 
     @FXML
+    private DatePicker trainingDate;
+
+    @FXML
+    private LocalTimeTextField trainingTime;
+
+    @FXML
     private TextField drillName, drillCategory, drillDifficulty, drillParticipation,
             searchBox,
-            trainingDate, trainingTime, trainingStadium, trainingTeam, trainingMainFocus,
+            trainingStadium, trainingTeam, trainingMainFocus,
             puckPosition,
             jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
             gk1, gk2, gk3, gk4, gk5, gk6,
