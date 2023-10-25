@@ -471,7 +471,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         game.setGameDate(date);
         game.setGameTime(time);
         game.setOpponent(gameOpponent.getText());
-        game.setStadium(gameStadium.getText());
+//        game.setStadium(globalStadium);
         game.setTeam(selectedTeam.getTeamID());
         game.setCaptain(getPlayerFromTextField(captain.getText()));
         game.setAssistant1(getPlayerFromTextField(assistant1.getText()));
