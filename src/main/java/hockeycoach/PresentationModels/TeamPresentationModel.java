@@ -5,6 +5,7 @@ import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.controllers.HeaderController;
+import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
@@ -35,7 +36,7 @@ public class TeamPresentationModel extends PresentationModel {
     Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     Team selectedTeam;
-    ImageChooser imageChooser =new ImageChooser();
+    ImageChooser imageChooser = new ImageChooser();
     MouseEvent event;
 
     ImageView teamLogo;
@@ -130,6 +131,21 @@ public class TeamPresentationModel extends PresentationModel {
         newTeamButton.setOnAction(event -> {
             buttonControls.openNewTeamHide(root, TEAM);
         });
+
+        stadiumName.setOnMousePressed(event -> {
+            lastVisitedPM = TeamPresentationModel.this;
+            lastVisitedFXML = TEAM_FXML;
+            lastVisitedNodeName = TEAM;
+            buttonControls.openStadiumHide(root, TEAM);
+        });
+    }
+
+    public void fillStadium(Stadium stadium) {
+        stadiumName.setText(stadium.getStadiumName());
+        stadiumStreet.setText(stadium.getStadiumAddress());
+        stadiumZip.setText(String.valueOf(stadium.getStadiumZip()));
+        stadiumCity.setText(stadium.getStadiumPlace());
+        stadiumCountry.setText(stadium.getStadiumCountry());
     }
 
 
