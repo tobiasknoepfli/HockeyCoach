@@ -3,10 +3,7 @@ package hockeycoach.controllers;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.mainClasses.Training;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 
 public class TrainingController extends Controller {
@@ -24,6 +21,9 @@ public class TrainingController extends Controller {
 
     @FXML
     private Button newDrillButton,newTrainingButton,backButton;
+
+    @FXML
+    private TableColumn stadiumColumn;
 
     @FXML
     private TextField trainingDate, trainingTime,

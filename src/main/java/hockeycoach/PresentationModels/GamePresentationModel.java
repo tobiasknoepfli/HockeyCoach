@@ -7,11 +7,14 @@ import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +46,7 @@ public class GamePresentationModel extends PresentationModel {
             ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
 
     TableView<Game> allGames;
+    TableColumn dateColumn, stadiumColumn, opponentColumn;
     TableView<Player> teamPlayers;
     TabPane lineupTabPane;
     AnchorPane  lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
@@ -61,6 +65,12 @@ public class GamePresentationModel extends PresentationModel {
         selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
 
         allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getTeamID());
+        stadiumColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Game, String> param) {
+                return new SimpleStringProperty(param.getValue().getStadiumName());
+            }
+        });
         allGames.getItems().clear();
         allGames.getItems().addAll(allGameList);
 
@@ -317,6 +327,10 @@ public class GamePresentationModel extends PresentationModel {
         ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
         bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
         nLineupGrid = (GridPane ) root.lookup("#nLineupGrid");
+
+        dateColumn = (TableColumn) allGames.getVisibleLeafColumn(0);
+        stadiumColumn = (TableColumn) allGames.getVisibleLeafColumn(1);
+        opponentColumn = (TableColumn) allGames.getVisibleLeafColumn(2);
 
         gameTeam = (TextField) root.lookup("#gameTeam");
         gameOpponent = (TextField) root.lookup("#gameOpponent");

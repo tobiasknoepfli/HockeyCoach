@@ -8,13 +8,15 @@ import java.util.ArrayList;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBTrainingLoader extends DBLoader{
+    DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
+
     public Training setTraining(ResultSet resultSet){
         Training training = new Training();
         try{
             training.setTrainingID(resultSet.getInt("trainingID"));
             training.setTrainingDate(resultSet.getDate("trainingDate"));
             training.setTrainingTime(resultSet.getTime("trainingTime"));
-            training.setStadium(resultSet.getString("stadium"));
+            training.setStadium(dbStadiumLoader.getStadium(resultSet.getInt("stadium")));
             training.setTeam(resultSet.getInt("team"));
             training.setMainFocus(resultSet.getString("mainFocus"));
             training.setPointers(resultSet.getString("pointers"));

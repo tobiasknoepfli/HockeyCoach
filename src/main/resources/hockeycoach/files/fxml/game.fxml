@@ -135,17 +135,17 @@
                                       <Label text="Games" />
                                       <TableView fx:id="allGames" VBox.vgrow="ALWAYS">
                                           <columns>
-                                              <TableColumn prefWidth="75.0" text="Date">
+                                              <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date">
                                                   <cellValueFactory>
                                                       <PropertyValueFactory property="gameDate" />
                                                   </cellValueFactory>
                                               </TableColumn>
-                                              <TableColumn prefWidth="75.0" text="Stadium">
+                                              <TableColumn fx:id="stadiumColumn" prefWidth="75.0" text="Stadium">
                                                   <cellValueFactory>
                                                       <PropertyValueFactory property="stadium" />
                                                   </cellValueFactory>
                                               </TableColumn>
-                                              <TableColumn prefWidth="75.0" text="Opponent">
+                                              <TableColumn fx:id="opponentColumn" prefWidth="75.0" text="Opponent">
                                                   <cellValueFactory>
                                                       <PropertyValueFactory property="opponent" />
                                                   </cellValueFactory>

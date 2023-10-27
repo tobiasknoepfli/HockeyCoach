@@ -9,10 +9,13 @@ import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
@@ -39,6 +42,8 @@ public class TrainingPresentationModel extends PresentationModel {
     TrainingLines trainingLines = new TrainingLines();
     Button newDrillButton, newTrainingButton, backButton;
 
+    TableColumn trainingColumn;
+
     TextField drillName, trainingDate, trainingTime, team, stadium, mainFocus,
             jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
             gk1, gk2, gk3, gk4, gk5, gk6,
@@ -53,7 +58,6 @@ public class TrainingPresentationModel extends PresentationModel {
         importFields(root);
 
         Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
-        DBLoader dbLoader = new DBLoader();
         DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
 
         TextField[] textFields = {drillName, trainingDate, trainingTime, team, stadium, mainFocus,
@@ -66,6 +70,12 @@ public class TrainingPresentationModel extends PresentationModel {
                 fr1, fr2, fr3, fr4, fr5, fr6};
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
+        trainingColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Training, String>, ObservableValue<String>>() {
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<Training, String> param) {
+                return new SimpleStringProperty(param.getValue().getStadiumName());
+            }
+        });
         trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getTeamID());
 
         if (!trainingList.isEmpty()) {
@@ -106,7 +116,7 @@ public class TrainingPresentationModel extends PresentationModel {
             if (newSelectedTraining != null) {
                 trainingDate.setText(dateFormat.format(newSelectedTraining.getTrainingDate()));
                 trainingTime.setText(newSelectedTraining.getTrainingTime().toLocalTime().format(timeFormatter));
-                stadium.setText(newSelectedTraining.getStadium());
+                stadium.setText(newSelectedTraining.getStadium().getStadiumName());
                 mainFocus.setText(newSelectedTraining.getMainFocus());
                 pointers.setText(newSelectedTraining.getPointers());
 
@@ -228,6 +238,8 @@ public class TrainingPresentationModel extends PresentationModel {
         together = (TableView) root.lookup("#together");
         stations = (TableView) root.lookup("#stations");
         backup = (TableView) root.lookup("#backup");
+
+        trainingColumn = (TableColumn) trainingTable.getVisibleLeafColumn(1);
 
         drillImage = (ImageView) root.lookup("#drillImage");
 

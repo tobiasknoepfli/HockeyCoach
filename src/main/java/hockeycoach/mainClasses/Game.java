@@ -134,4 +134,12 @@ public class Game {
     public void setEmptyNet2(Player emptyNet2) {
         this.emptyNet2 = emptyNet2;
     }
+
+    public String getStadiumName(){
+        if(stadium != null){
+            return  stadium.getStadiumName();
+        } else {
+            return "";
+        }
+    }
 }

@@ -10,7 +10,7 @@ public class Training {
     private int trainingID;
     private Date trainingDate;
     private Time trainingTime;
-    private String stadium;
+    private Stadium stadium;
     private int team;
     private String mainFocus;
     private String pointers;
@@ -22,7 +22,7 @@ public class Training {
     public Training() {
     }
 
-    public Training(int trainingID, Date trainingDate, Time trainingTime, String stadium, int team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
+    public Training(int trainingID, Date trainingDate, Time trainingTime, Stadium stadium, int team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
         this.trainingID = trainingID;
         this.trainingDate = trainingDate;
         this.trainingTime = trainingTime;
@@ -68,11 +68,11 @@ public class Training {
         this.team = team;
     }
 
-    public String getStadium() {
+    public Stadium getStadium() {
         return stadium;
     }
 
-    public void setStadium(String stadium) {
+    public void setStadium(Stadium stadium) {
         this.stadium = stadium;
     }
 
@@ -122,5 +122,13 @@ public class Training {
 
     public void setBackup(ArrayList<Drill> backup) {
         this.backup = backup;
+    }
+
+    public String getStadiumName(){
+        if(stadium != null){
+            return  stadium.getStadiumName();
+        } else {
+            return "";
+        }
     }
 }

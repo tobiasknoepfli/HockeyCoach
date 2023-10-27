@@ -11,10 +11,15 @@ import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
 
 import java.util.List;
 
@@ -28,6 +33,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
     Button newTeamButton, closeWindowButton;
+    TableColumn teamsColumn, gamesColumn1, gamesColumn2, gamesColumn3, trainingsColumn1, trainingsColumn2;
 
     public StartPresentationModel() {
     }
@@ -76,6 +82,12 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             if (newSelectedTeam != null) {
                 DBGameLoader dbGameLoader = new DBGameLoader();
                 List<Game> games = dbGameLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
+                gamesColumn3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Game, String> param) {
+                        return new SimpleStringProperty(param.getValue().getStadiumName());
+                    }
+                });
                 populateGamesTable(games);
             }
         });
@@ -84,6 +96,13 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             if (newSelectedTeam != null) {
                 DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
                 List<Training> trainings = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
+                trainingsColumn2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Training, String>, ObservableValue<String>>() {
+                    @Override
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<Training, String> param) {
+                        return new SimpleStringProperty(param.getValue().getStadiumName());
+                    }
+                });
+
                 populateTrainingsTable(trainings);
             }
         });
@@ -161,5 +180,12 @@ public class StartPresentationModel extends PresentationModel implements pmInter
 
         closeWindowButton = (Button) root.lookup("#closeWindowButton");
         newTeamButton = (Button) root.lookup("#newTeamButton");
+
+        teamsColumn = (TableColumn) teamsTable.getVisibleLeafColumn(0);
+        gamesColumn1 = (TableColumn) gamesTable.getVisibleLeafColumn(0);
+        gamesColumn2 = (TableColumn) gamesTable.getVisibleLeafColumn(1);
+        gamesColumn3 = (TableColumn) gamesTable.getVisibleLeafColumn(2);
+        trainingsColumn1 = (TableColumn) trainingsTable.getVisibleLeafColumn(0);
+        trainingsColumn2 = (TableColumn) trainingsTable.getVisibleLeafColumn(1);
     }
 }
