@@ -8,7 +8,7 @@ public class Game {
     private int gameID;
     private LocalDate gameDate;
     private LocalTime gameTime;
-    private String stadium;
+    private Stadium stadium;
     private String opponent;
     private int team;
     private Player captain, assistant1, assistant2, penalty1, penalty2, emptyNet1, emptyNet2;
@@ -16,7 +16,7 @@ public class Game {
     public Game() {
     }
 
-    public Game(LocalDate gameDate, LocalTime gameTime, String stadium, String opponent, int team, Player captain, Player assistant1, Player assistant2, Player penalty1, Player penalty2, Player emptyNet1, Player emptyNet2) {
+    public Game(LocalDate gameDate, LocalTime gameTime, Stadium stadium, String opponent, int team, Player captain, Player assistant1, Player assistant2, Player penalty1, Player penalty2, Player emptyNet1, Player emptyNet2) {
         this.gameDate = gameDate;
         this.gameTime = gameTime;
         this.stadium = stadium;
@@ -55,11 +55,11 @@ public class Game {
         this.gameTime = gameTime;
     }
 
-    public String getStadium() {
+    public Stadium getStadium() {
         return stadium;
     }
 
-    public void setStadium(String stadium) {
+    public void setStadium(Stadium stadium) {
         this.stadium = stadium;
     }
 

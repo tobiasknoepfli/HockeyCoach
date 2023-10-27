@@ -128,7 +128,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         nBoardImage.setPreserveRatio(false);
 
         TextField[] fields = {gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
-                captain, assistant1, assistant2,penalty1, penalty2, emptyNet1, emptyNet2};
+                captain, assistant1, assistant2, penalty1, penalty2, emptyNet1, emptyNet2};
 
         TextField[] tf = {gk1,
                 dl1, dl2, dl3, dl4,
@@ -140,7 +140,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                 sd1, sd2, sd3,
                 sf1, sf2, sf3};
 
-        TextField[] captainTeam = {captain, assistant1, assistant2,penalty1, penalty2, emptyNet1, emptyNet2};
+        TextField[] captainTeam = {captain, assistant1, assistant2, penalty1, penalty2, emptyNet1, emptyNet2};
 
         TextField[] pptf = {ppdl1, ppdl2, ppdlfiller,
                 ppdr1, ppdr2, ppdrfiller,
@@ -259,6 +259,13 @@ public class GameEditorPresentationModel extends PresentationModel {
         });
 
         textFields.stream().forEach(this::addLineupText);
+
+        gameStadium.setOnMousePressed(event -> {
+            lastVisitedPM = GameEditorPresentationModel.this;
+            lastVisitedFXML = GAME_EDITOR_FXML;
+            lastVisitedNodeName = GAME_EDITOR;
+            buttonControls.openStadiumHide(root, GAME_EDITOR);
+        });
     }
 
     public void dragCopyEvent(TextField textField) {
@@ -464,7 +471,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         game.setGameDate(date);
         game.setGameTime(time);
         game.setOpponent(gameOpponent.getText());
-        game.setStadium(gameStadium.getText());
+//        game.setStadium(globalStadium);
         game.setTeam(selectedTeam.getTeamID());
         game.setCaptain(getPlayerFromTextField(captain.getText()));
         game.setAssistant1(getPlayerFromTextField(assistant1.getText()));
@@ -667,6 +674,10 @@ public class GameEditorPresentationModel extends PresentationModel {
         List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
 
         return lines;
+    }
+
+    public void fillStadium(Stadium stadium){
+        gameStadium.setText(stadium.getStadiumName());
     }
 
     @Override

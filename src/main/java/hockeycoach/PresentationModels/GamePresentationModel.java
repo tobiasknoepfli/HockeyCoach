@@ -112,7 +112,7 @@ public class GamePresentationModel extends PresentationModel {
             gameOpponent.setText(newValue.getOpponent());
             gameDate.setText(String.valueOf(newValue.getGameDate()));
             gameTime.setText(String.valueOf(newValue.getGameTime()));
-            gameStadium.setText(newValue.getStadium());
+            gameStadium.setText(newValue.getStadium().getStadiumName());
             captain.setText(newValue.getCaptain().getLastName() + " " + newValue.getCaptain().getFirstName());
             assistant1.setText(newValue.getAssistant1().getLastName() + " " + newValue.getAssistant1().getFirstName());
             assistant2.setText(newValue.getAssistant2().getLastName() + " " + newValue.getAssistant2().getFirstName());

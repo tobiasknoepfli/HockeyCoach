@@ -248,6 +248,13 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                     cbPuckPosition, cbStation, cbTags);
         });
 
+        trainingStadium.setOnMousePressed(event->{
+                lastVisitedPM =TrainingEditorPresentationModel.this;
+                lastVisitedFXML = TRAINING_EDITOR_FXML;
+                lastVisitedNodeName = TRAINING_EDITOR;
+                buttonControls.openStadiumHide(root,TRAINING_EDITOR);
+        });
+
     }
 
     public void eventListenersFromTable(TableView<Drill> tableView) {

@@ -126,7 +126,7 @@ public class DBWriter {
             preparedStatement.setDate(1, Date.valueOf(game.getGameDate()));
             preparedStatement.setTime(2, game.getGameTime());
             preparedStatement.setString(3, game.getOpponent());
-            preparedStatement.setString(4, game.getStadium());
+            preparedStatement.setInt(4, game.getStadium().getStadiumID());
             preparedStatement.setInt(5, game.getTeam());
             preparedStatement.setInt(6, game.getCaptain().getPlayerID());
             preparedStatement.setInt(7, game.getAssistant1().getPlayerID());
