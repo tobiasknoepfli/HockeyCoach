@@ -372,7 +372,7 @@
                         </VBox>
                         <TabPane layoutY="365.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="365.0">
                            <tabs>
-                              <Tab closable="false" text="Lines 1 + 2">
+                              <Tab closable="false" text="Line 1">
                                  <content>
                                     <AnchorPane>
                                        <children>
@@ -408,6 +408,21 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab closable="false" text="Line 2">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox layoutX="116.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
                                                 <Label text="Line 2" />
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
@@ -439,12 +454,15 @@
                                                    </children>
                                                 </HBox>
                                              </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
                                           </VBox>
                                        </children>
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab closable="false" text="Lines 3 + 4">
+                              <Tab closable="false" text="Line 3">
                                  <content>
                                     <AnchorPane>
                                        <children>
@@ -480,6 +498,21 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab closable="false" text="Line 4">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox layoutX="116.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
                                                 <Label text="Line 4" />
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
@@ -511,12 +544,15 @@
                                                    </children>
                                                 </HBox>
                                              </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
                                           </VBox>
                                        </children>
                                     </AnchorPane>
                                  </content>
                               </Tab>
-                              <Tab closable="false" text="Lines 5 + 6">
+                              <Tab closable="false" text="Line 5">
                                  <content>
                                     <AnchorPane>
                                        <children>
@@ -552,6 +588,21 @@
                                                       </VBox>
                                                    </children>
                                                 </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab closable="false" text="Line 6">
+                                 <content>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox layoutX="116.0" layoutY="14.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
                                                 <Label text="Line 6" />
                                                 <HBox prefHeight="100.0" prefWidth="200.0">
                                                    <children>
@@ -583,6 +634,9 @@
                                                    </children>
                                                 </HBox>
                                              </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                             </padding>
                                           </VBox>
                                        </children>
                                     </AnchorPane>
