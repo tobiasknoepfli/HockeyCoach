@@ -12,7 +12,7 @@ public class DBImageWriter {
         int imageID = -1;
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
-            String query = "INSERT INTO test (image, imageName) VALUES (?, ?)";
+            String query = "INSERT INTO image (image, imageName) VALUES (?, ?)";
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 FileInputStream fileInputStream = new FileInputStream(imagePath);

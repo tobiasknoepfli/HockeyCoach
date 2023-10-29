@@ -2,6 +2,8 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
+import hockeycoach.DB.DBWriter.DBImageWriter;
+import hockeycoach.DB.DBWriter.DBTeamWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Stadium;
@@ -29,6 +31,9 @@ import static hockeycoach.AppStarter.*;
 
 public class NewTeamPresentationModel extends PresentationModel {
     ImageChooser imageChooser = new ImageChooser();
+    DBTeamWriter dbTeamWriter = new DBTeamWriter();
+    DBImageWriter dbImageWriter = new DBImageWriter();
+
     MouseEvent event;
     int counter;
     List<Team> teamList = new ArrayList();
@@ -88,20 +93,19 @@ public class NewTeamPresentationModel extends PresentationModel {
         saveButton.setOnAction(event -> {
             String logoPath = saveTeamLogo();
             Team newTeam = readData(logoPath);
-            DBWriter dbWriter = new DBWriter();
-            dbWriter.writeNewTeam(newTeam);
-            clearAllFields();
-            callStartPage();
+            dbTeamWriter.writeNewTeam(newTeam);
+//            clearAllFields();
+//            callStartPage();
         });
 
         cancelButton.setOnAction(event -> {
-            clearAllFields();
-            callStartPage();
+//            clearAllFields();
+//            callStartPage();
         });
 
-        closeWindowButton.setOnAction(event -> {
-            buttonControls.closeWindow(root, NEW_TEAM);
-        });
+//        closeWindowButton.setOnAction(event -> {
+//            buttonControls.closeWindow(root, NEW_TEAM);
+//        });
 
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
@@ -161,12 +165,8 @@ public class NewTeamPresentationModel extends PresentationModel {
     private Team readData(String newImage) {
         Team newTeam = new Team();
         newTeam.setName(teamName.getText());
-//        newTeam.setStadium(Integer.parseInt(stadiumName.getText()));
-//        newTeam.setStreet(stadiumStreet.getText());
-//        newTeam.setZip(Integer.parseInt(stadiumZip.getText()));
-//        newTeam.setCity(stadiumCity.getText());
-        newTeam.setCountry(stadiumCountry.getText());
-
+        Optional<Stadium> optionalStadium =  stadiumList.stream().filter(stadium -> stadium.getStadiumName().equals(stadiumName)).findFirst();
+        newTeam.setStadium(optionalStadium.get());
         newTeam.setContactFirstName(contactFirstName.getText());
         newTeam.setContactLastName(contactLastName.getText());
         newTeam.setContactPhone(contactPhone.getText());
@@ -184,32 +184,32 @@ public class NewTeamPresentationModel extends PresentationModel {
         return newTeam;
     }
 
-    private void clearAllFields() {
-        teamName.clear();
-        teamLogo.setImage(null);
-        stadiumName.clear();
-        stadiumStreet.clear();
-        stadiumZip.clear();
-        stadiumCity.clear();
-        stadiumCountry.clear();
-        contactFirstName.clear();
-        contactLastName.clear();
-        contactPhone.clear();
-        contactEmail.clear();
-        website.clear();
-        founded.clear();
-        presidentFirstName.clear();
-        presidentLastName.clear();
-        currentLeague.clear();
-        headCoachFirstName.clear();
-        headCoachLastName.clear();
-    }
+//    private void clearAllFields() {
+//        teamName.clear();
+//        teamLogo.setImage(null);
+//        stadiumName.clear();
+//        stadiumStreet.clear();
+//        stadiumZip.clear();
+//        stadiumCity.clear();
+//        stadiumCountry.clear();
+//        contactFirstName.clear();
+//        contactLastName.clear();
+//        contactPhone.clear();
+//        contactEmail.clear();
+//        website.clear();
+//        founded.clear();
+//        presidentFirstName.clear();
+//        presidentLastName.clear();
+//        currentLeague.clear();
+//        headCoachFirstName.clear();
+//        headCoachLastName.clear();
+//    }
 
-    private void callStartPage() {
-        StartPresentationModel pm = new StartPresentationModel();
-        HeaderController headerController = new HeaderController();
-        headerController.loadStages(HOME, HOME_FXML, pm);
-    }
+//    private void callStartPage() {
+//        StartPresentationModel pm = new StartPresentationModel();
+//        HeaderController headerController = new HeaderController();
+//        headerController.loadStages(HOME, HOME_FXML, pm);
+//    }
 
     public void fillStadium(Stadium stadium) {
         stadiumName.setText(stadium.getStadiumName());
