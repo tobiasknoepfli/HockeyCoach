@@ -34,6 +34,8 @@ public class NewTeamPresentationModel extends PresentationModel {
     DBTeamWriter dbTeamWriter = new DBTeamWriter();
     DBImageWriter dbImageWriter = new DBImageWriter();
 
+    Stadium stadium = new Stadium();
+
     MouseEvent event;
     int counter;
     List<Team> teamList = new ArrayList();
@@ -165,8 +167,7 @@ public class NewTeamPresentationModel extends PresentationModel {
     private Team readData(String newImage) {
         Team newTeam = new Team();
         newTeam.setName(teamName.getText());
-        Optional<Stadium> optionalStadium =  stadiumList.stream().filter(stadium -> stadium.getStadiumName().equals(stadiumName)).findFirst();
-        newTeam.setStadium(optionalStadium.get());
+        newTeam.setStadium(stadium.findStadium(stadiumName.getText(),stadiumList));
         newTeam.setContactFirstName(contactFirstName.getText());
         newTeam.setContactLastName(contactLastName.getText());
         newTeam.setContactPhone(contactPhone.getText());
@@ -251,7 +252,4 @@ public class NewTeamPresentationModel extends PresentationModel {
 
         controlLabel = (Label) root.lookup("#controlLabel");
     }
-
-
-
 }

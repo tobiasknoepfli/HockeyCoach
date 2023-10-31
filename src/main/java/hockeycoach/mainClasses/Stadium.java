@@ -1,14 +1,15 @@
 package hockeycoach.mainClasses;
 
+import java.util.List;
+
 public class Stadium {
-    private String stadiumName,stadiumAddress,stadiumPlace,stadiumCountry;
-    private int stadiumID, stadiumZip;
+    public String stadiumName,stadiumAddress,stadiumPlace,stadiumCountry;
+    public int stadiumID, stadiumZip;
 
     public Stadium(){
     }
 
-    public int getStadiumID() {
-        return stadiumID;
+    public int getStadiumID() {   return stadiumID;
     }
 
     public void setStadiumID(int stadiumID) {
@@ -53,5 +54,12 @@ public class Stadium {
 
     public void setStadiumZip(int stadiumZip) {
         this.stadiumZip = stadiumZip;
+    }
+
+    public Stadium findStadium(String stadiumName, List<Stadium> stadiumList){
+        Stadium stadium = stadiumList.stream()
+                .filter(std -> stadiumName.equals(std.getStadiumName()))
+                .findFirst().orElse(null);
+        return stadium;
     }
 }

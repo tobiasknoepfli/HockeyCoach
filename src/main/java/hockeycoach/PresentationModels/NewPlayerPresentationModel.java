@@ -30,6 +30,7 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.PHOTOS;
+import static hockeycoach.AppStarter.PLAYER;
 
 public class NewPlayerPresentationModel extends PresentationModel {
     ImageChooser imageChooser = new ImageChooser();
@@ -79,8 +80,8 @@ public class NewPlayerPresentationModel extends PresentationModel {
     @Override
     public void setupButtons(Pane root) {
         saveButton.setOnAction(event -> {
-            String photoPath = savePlayerPhoto();
-            Player newPlayer = readData(photoPath);
+//            String photoPath = savePlayerPhoto();
+            Player newPlayer = readData();
             dbPlayerWriter.writeNewPlayer(newPlayer);
             clearAllFields();
 
@@ -171,10 +172,11 @@ public class NewPlayerPresentationModel extends PresentationModel {
         }
     }
 
-    private Player readData(String newImage) {
+    private Player readData() {
         Player newPlayer = new Player();
         newPlayer.setFirstName(playerFirstName.getText());
         newPlayer.setLastName(playerLastName.getText());
+        newPlayer.setBirthday(playerBirthday.getValue());
         newPlayer.setStreet(street.getText());
         try {
             newPlayer.setZip(Integer.parseInt(zip.getText()));
@@ -193,7 +195,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         newPlayer.setStrengths(strengths.getText());
         newPlayer.setWeaknesses(weaknesses.getText());
         newPlayer.setNotes(notes.getText());
-//        newPlayer.setPhotoID(newImage);
+        newPlayer.setPhotoID(1); //watch out, just a statement
         return newPlayer;
     }
 

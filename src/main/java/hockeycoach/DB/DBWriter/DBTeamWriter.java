@@ -12,11 +12,10 @@ import static hockeycoach.AppStarter.DB_URL;
 public class DBTeamWriter {
     DBImageWriter dbImageWriter = new DBImageWriter();
 
-    public Team setTeam(PreparedStatement preparedStatement) throws  SQLException{
-        Team team = new Team();
+    public PreparedStatement setTeam(PreparedStatement preparedStatement,Team team) throws  SQLException{
 
         preparedStatement.setString(1,team.getName());
-        preparedStatement.setInt(2,team.getStadium().getStadiumID());
+        preparedStatement.setInt(2,team.getStadiumID());
         preparedStatement.setString(3,team.getContactFirstName());
         preparedStatement.setString(4,team.getContactLastName());
         preparedStatement.setString(5,team.getContactPhone());
@@ -31,7 +30,7 @@ public class DBTeamWriter {
         preparedStatement.setInt(14,team.getLogo());
         preparedStatement.setString(15,team.getNotes());
 
-        return team;
+        return preparedStatement;
     }
 
     public void writeNewTeam(Team team){
@@ -42,7 +41,7 @@ public class DBTeamWriter {
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
 
-            setTeam(preparedStatement);
+            setTeam(preparedStatement,team);
 
             preparedStatement.executeUpdate();
         }catch (SQLException e){

@@ -34,6 +34,7 @@ public class TeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
+    Stadium stadium = new Stadium();
 
     Team selectedTeam;
     ImageChooser imageChooser = new ImageChooser();
@@ -153,11 +154,7 @@ public class TeamPresentationModel extends PresentationModel {
         Team team = new Team();
         team.setTeamID(selectedTeam.getTeamID());
         team.setName(teamName.getText());
-//        team.setStadium(stadiumName.getText());
-//        team.setStreet(stadiumStreet.getText());
-//        team.setZip(Integer.parseInt(stadiumZip.getText()));
-//        team.setCity(stadiumCity.getText());
-        team.setCountry(stadiumCountry.getText());
+
         team.setContactFirstName(contactFirstName.getText());
         team.setContactLastName(contactLastName.getText());
         team.setContactPhone(contactPhone.getText());

@@ -4,6 +4,7 @@ public class Team {
     private int teamID;
     private String name;
     private Stadium stadium;
+    private int stadiumID;
     private String country;
     private String contactFirstName;
     private String contactLastName;
@@ -19,10 +20,10 @@ public class Team {
     private int logo;
     private String notes;
 
-    public Team(){
+    public Team() {
     }
 
-    public Team(String name, int teamID){
+    public Team(String name, int teamID) {
         this.name = name;
         this.teamID = teamID;
     }
@@ -43,7 +44,7 @@ public class Team {
         this.logo = logo;
     }
 
-    public Team(int teamID, String name, Stadium stadium,String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, int logo, String notes) {
+    public Team(int teamID, String name, Stadium stadium, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, int logo, String notes) {
         this.teamID = teamID;
         this.name = name;
         this.stadium = stadium;
@@ -61,6 +62,14 @@ public class Team {
         this.headCoachLastName = headCoachLastName;
         this.logo = logo;
         this.notes = notes;
+    }
+
+    public int getStadiumID() {
+        return stadium.getStadiumID();
+    }
+
+    public void setStadiumID(int stadiumID) {
+        this.stadiumID = stadium.getStadiumID();
     }
 
     public int getTeamID() {
