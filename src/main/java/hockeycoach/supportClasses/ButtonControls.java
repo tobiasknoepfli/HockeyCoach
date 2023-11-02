@@ -19,6 +19,15 @@ public class ButtonControls {
         openStages.remove(nodeName);
     }
 
+    public static void closeAllWindows(Node node){
+        Stage stage;
+        for (String s:openStages.keySet()){
+             stage = (Stage) node.getScene().getWindow();
+             stage.close();
+             openStages.remove(s);
+        };
+    }
+
     public static void hideWindow(Node node, String nodeName){
         Stage stage = (Stage) node.getScene().getWindow();
         stage.hide();

@@ -4,6 +4,7 @@ import hockeycoach.DB.*;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
+import hockeycoach.DB.DBWriter.DBPlayerWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.ButtonControls;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 
 public class PlayerToTeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
+    DBPlayerWriter dbPlayerWriter = new DBPlayerWriter();
 
     Team selectedTeam = new Team();
     Player draggedPlayer;
@@ -123,7 +125,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
                 .collect(Collectors.toList());
 
         additionalPlayers.stream()
-                .forEach(player -> dbWriter.addPlayerToTeam(selectedTeam, player));
+                .forEach(player -> dbPlayerWriter.addPlayerToTeam(selectedTeam, player));
 
         deletePlayers.stream()
                 .forEach(playerXTeam -> dbDeleter.removeFromPlayerXList(playerXTeam));

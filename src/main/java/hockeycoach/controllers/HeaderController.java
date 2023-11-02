@@ -18,6 +18,8 @@ import java.io.IOException;
 import static hockeycoach.AppStarter.*;
 
 public class HeaderController extends Controller {
+    ButtonControls buttonControls = new ButtonControls();
+
     @FXML
     private AnchorPane mainPane, headerPane;
 

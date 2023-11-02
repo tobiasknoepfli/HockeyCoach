@@ -1,6 +1,7 @@
 package hockeycoach.DB.DBWriter;
 
 import hockeycoach.mainClasses.Player;
+import hockeycoach.mainClasses.Team;
 
 import java.sql.*;
 
@@ -37,6 +38,22 @@ public class DBPlayerWriter {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             setPlayer(preparedStatement, player);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addPlayerToTeam(Team team, Player player) {
+        String query = "INSERT INTO playerXteam" + "(playerID, teamID, jersey, role) VALUES (?,?,?,?)";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, player.getPlayerID());
+            preparedStatement.setInt(2, team.getTeamID());
+            preparedStatement.setInt(3, 0);
+            preparedStatement.setString(4, "none");
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
