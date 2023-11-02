@@ -8,6 +8,7 @@ import hockeycoach.mainClasses.Game;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
+import hockeycoach.supportClasses.GlobalSelector;
 import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,12 +30,13 @@ import static hockeycoach.AppStarter.*;
 
 public class StartPresentationModel extends PresentationModel implements pmInterface {
     ButtonControls buttonControls = new ButtonControls();
+    GlobalSelector globalSelector = new GlobalSelector();
 
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
     List<Team> allTeams;
-    Button newTeamButton, closeWindowButton;
+    Button newTeamButton, closeWindowButton, newPlayerButton, newDrillButton;
     TableColumn teamsColumn, gamesColumn1, gamesColumn2, gamesColumn3, trainingsColumn1, trainingsColumn2;
 
     public StartPresentationModel() {
@@ -48,13 +50,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
         teamsTable.getItems().addAll(FXCollections.observableArrayList(allTeams));
 
-        if (globalTeam != null) {
-                teamsTable.requestFocus();
-                teamsTable.getSelectionModel().select(globalTeam);
-                int index = globalTeam.getIndex();
-                teamsTable.scrollTo(index);
-                teamsTable.getFocusModel().focus(index);
-        }
+        globalSelector.selectTeam(teamsTable);
 
         setupEventListeners(root);
         useTooltips();
@@ -75,6 +71,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         closeWindowButton.setOnAction(event -> {
             buttonControls.closeWindow(root, HOME);
         });
+
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue!=null) {
                 globalTeam = newValue;
@@ -115,6 +112,14 @@ public class StartPresentationModel extends PresentationModel implements pmInter
 
         newTeamButton.setOnAction(event -> {
             buttonControls.openNewTeamClose(root, HOME);
+        });
+
+        newPlayerButton.setOnAction(event -> {
+            buttonControls.openNewPlayerClose(root,HOME);
+        });
+
+        newDrillButton.setOnAction(event -> {
+            buttonControls.openNewDrillClose(root,HOME);
         });
 
         gamesTable.setOnMouseClicked(event -> {
@@ -186,6 +191,8 @@ public class StartPresentationModel extends PresentationModel implements pmInter
 
         closeWindowButton = (Button) root.lookup("#closeWindowButton");
         newTeamButton = (Button) root.lookup("#newTeamButton");
+        newPlayerButton = (Button) root.lookup("#newPlayerButton");
+        newDrillButton = (Button) root.lookup("#newDrillButton");
 
         teamsColumn = (TableColumn) teamsTable.getVisibleLeafColumn(0);
         gamesColumn1 = (TableColumn) gamesTable.getVisibleLeafColumn(0);

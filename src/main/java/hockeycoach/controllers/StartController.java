@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 public class StartController extends  Controller{
     @FXML
-    private Button  newTeamButton, closeWindowButton;
+    private Button  newTeamButton, closeWindowButton, newPlayerButton, newDrillButton;
 
     @FXML
     private HBox controlBoxLeft, controlBoxRight;
@@ -27,12 +27,5 @@ public class StartController extends  Controller{
 
     @FXML
     private TableView<Training> trainingsTable;
-
-//    @FXML
-//    public void setSelectedTeam() {
-//        Team selectedTeam = teamsTable.getSelectionModel().getSelectedItem();
-//        SingletonTeam.getInstance().setSelectedTeam(selectedTeam);
-//        SingletonTeam.getInstance().setIndex(teamsTable.getSelectionModel().getSelectedIndex());
-//    }
 
 }
