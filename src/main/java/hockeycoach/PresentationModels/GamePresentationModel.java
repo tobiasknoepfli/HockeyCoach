@@ -5,7 +5,6 @@ import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -62,7 +61,7 @@ public class GamePresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = globalTeam;
 
         allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getTeamID());
         stadiumColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>() {

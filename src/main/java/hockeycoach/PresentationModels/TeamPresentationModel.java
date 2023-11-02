@@ -9,7 +9,6 @@ import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
@@ -54,7 +53,7 @@ public class TeamPresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = globalTeam;
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         DBTeamLoader dbTeamLoader = new DBTeamLoader();

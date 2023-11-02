@@ -111,7 +111,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         together.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         backup.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = globalTeam;
         dbLoader = new DBLoader();
         DBDrillLoader dbDrillLoader = new DBDrillLoader();
         drillList = dbDrillLoader.getDrills("SELECT * FROM drill");

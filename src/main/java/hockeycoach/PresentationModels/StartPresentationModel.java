@@ -6,32 +6,34 @@ import hockeycoach.DB.DBLoader.DBTrainingLoader;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Game;
 import hockeycoach.supportClasses.ButtonControls;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
 import hockeycoach.supportClasses.pmInterface;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static hockeycoach.AppStarter.*;
 
 public class StartPresentationModel extends PresentationModel implements pmInterface {
     ButtonControls buttonControls = new ButtonControls();
-    Team selectedTeam;
 
     TableView<Team> teamsTable;
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
+    List<Team> allTeams;
     Button newTeamButton, closeWindowButton;
     TableColumn teamsColumn, gamesColumn1, gamesColumn2, gamesColumn3, trainingsColumn1, trainingsColumn2;
 
@@ -43,19 +45,15 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         importFields(root);
 
         DBTeamLoader dbTeamLoader = new DBTeamLoader();
-        List<Team> allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
-        teamsTable.getItems().clear();
-        teamsTable.getItems().addAll(allTeams);
+        allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        teamsTable.getItems().addAll(FXCollections.observableArrayList(allTeams));
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
-        if (selectedTeam != null) {
-            Platform.runLater(() -> {
+        if (globalTeam != null) {
                 teamsTable.requestFocus();
-                teamsTable.getSelectionModel().select(selectedTeam);
-                int index = SingletonTeam.getInstance().getIndex();
+                teamsTable.getSelectionModel().select(globalTeam);
+                int index = globalTeam.getIndex();
                 teamsTable.scrollTo(index);
                 teamsTable.getFocusModel().focus(index);
-            });
         }
 
         setupEventListeners(root);
@@ -76,6 +74,14 @@ public class StartPresentationModel extends PresentationModel implements pmInter
     public void setupEventListeners(Pane root) {
         closeWindowButton.setOnAction(event -> {
             buttonControls.closeWindow(root, HOME);
+        });
+        teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue!=null) {
+                globalTeam = newValue;
+                globalTeam.setIndex(allTeams.indexOf(newValue));
+            } else {
+                globalTeam.setIndex(-1);
+            }
         });
 
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
@@ -108,7 +114,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         });
 
         newTeamButton.setOnAction(event -> {
-            buttonControls.openNewTeamClose(root,HOME);
+            buttonControls.openNewTeamClose(root, HOME);
         });
 
         gamesTable.setOnMouseClicked(event -> {

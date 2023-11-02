@@ -7,12 +7,10 @@ import hockeycoach.DB.DBLoader.DBTrainingLoader;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.ButtonControls;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
@@ -57,7 +55,7 @@ public class TrainingPresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        Team selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        Team selectedTeam =globalTeam;
         DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
 
         TextField[] textFields = {drillName, trainingDate, trainingTime, team, stadium, mainFocus,

@@ -6,7 +6,6 @@ import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.FXCollections;
@@ -15,7 +14,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import org.w3c.dom.Text;
 import org.w3c.dom.events.MouseEvent;
 
 import java.io.File;
@@ -57,7 +55,7 @@ public class PlayerPresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = globalTeam;
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());

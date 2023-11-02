@@ -3,6 +3,7 @@ package hockeycoach;
 import hockeycoach.PresentationModels.PresentationModel;
 import hockeycoach.PresentationModels.StartPresentationModel;
 import hockeycoach.mainClasses.Stadium;
+import hockeycoach.mainClasses.Team;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -59,6 +60,8 @@ public class AppStarter extends Application {
     public static String lastVisitedNodeName = new String();
 
     public static Stadium globalStadium = new Stadium();
+
+    public static Team globalTeam = new Team();
 
     @Override
     public void start(Stage stage) throws IOException {

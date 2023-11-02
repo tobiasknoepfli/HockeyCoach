@@ -2,6 +2,7 @@ package hockeycoach.supportClasses;
 
 import hockeycoach.PresentationModels.*;
 import hockeycoach.controllers.HeaderController;
+import hockeycoach.mainClasses.Game;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 
@@ -17,15 +18,6 @@ public class ButtonControls {
         Stage stage = (Stage) node.getScene().getWindow();
         stage.close();
         openStages.remove(nodeName);
-    }
-
-    public static void closeAllWindows(Node node){
-        Stage stage;
-        for (String s:openStages.keySet()){
-             stage = (Stage) node.getScene().getWindow();
-             stage.close();
-             openStages.remove(s);
-        };
     }
 
     public static void hideWindow(Node node, String nodeName){
@@ -140,13 +132,13 @@ public class ButtonControls {
     }
 
     public void openTeamHide(Node closingNode,String closingNodeName) {
-        PresentationModel pm = new TeamPresentationModel();
+        TeamPresentationModel pm = new TeamPresentationModel();
         headerController.loadStages(TEAM,TEAM_FXML,pm);
         hideWindow(closingNode,closingNodeName);
     }
 
     public void openTeamClose(Node closingNode,String closingNodeName) {
-        PresentationModel pm = new TeamPresentationModel();
+        TeamPresentationModel pm = new TeamPresentationModel();
         headerController.loadStages(TEAM,TEAM_FXML,pm);
         closeWindow(closingNode,closingNodeName);
     }

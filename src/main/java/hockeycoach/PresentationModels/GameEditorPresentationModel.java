@@ -7,7 +7,6 @@ import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -181,7 +180,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         doubleClick(nTextFields);
         doubleClickRemove(captainTeamList);
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = globalTeam;
 
         playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 

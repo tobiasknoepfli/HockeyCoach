@@ -19,6 +19,7 @@ public class Team {
     private String headCoachLastName;
     private int logo;
     private String notes;
+    private int index;
 
     public Team() {
     }
@@ -62,6 +63,14 @@ public class Team {
         this.headCoachLastName = headCoachLastName;
         this.logo = logo;
         this.notes = notes;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public int getStadiumID() {

@@ -9,7 +9,6 @@ import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.PlayerXTeam;
-import hockeycoach.supportClasses.SingletonTeam;
 import hockeycoach.mainClasses.Team;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -19,6 +18,8 @@ import javafx.scene.layout.Pane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static hockeycoach.AppStarter.globalTeam;
 
 public class PlayerToTeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
@@ -44,7 +45,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        selectedTeam = SingletonTeam.getInstance().getSelectedTeam();
+        selectedTeam = globalTeam;
 
         allPlayerList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
         teamPlayerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.playerID = tx.playerID WHERE teamID = '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
