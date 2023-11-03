@@ -1,6 +1,9 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.*;
+import hockeycoach.DB.DBWriter.DBStadiumWriter;
+import hockeycoach.DB.DBWriter.DBTeamWriter;
+import hockeycoach.DB.DBWriter.DBTrainingWriter;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.Line;
 import hockeycoach.supportClasses.*;
@@ -25,6 +28,7 @@ import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Predicate;
@@ -39,6 +43,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
+    DBTrainingWriter dbTrainingWriter = new DBTrainingWriter();
+    DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
+    DBTeamWriter dbTeamWriter = new DBTeamWriter();
 
     FilteredList<Drill> filteredDrills;
 
@@ -49,6 +56,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     DBLineLoader dbLineLoader = new DBLineLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBGameLoader dbGameLoader = new DBGameLoader();
+    DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
 
     ImageView drillImage;
 
@@ -71,8 +79,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     CheckBox drillStation;
 
-    DateTimePicker trainingDateTime;
-
     TextArea drillDescription, trainingPointers;
 
     TableView<String> drillTags;
@@ -84,7 +90,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     ComboBox<Boolean> cbStation;
 
-    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton;
+    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton,saveButton;
 
     TableView<Player> playerList;
 
@@ -173,18 +179,23 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         showGameLines(lastGameLines(), nextGameLines());
 
+        getDBEntries(root);
+        setupButtons(root);
         setupEventListeners(root);
     }
 
     @Override
     public void getDBEntries(Pane root) {
-
     }
 
     @Override
     public void setupButtons(Pane root) {
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
+        });
+
+        saveButton.setOnAction(event -> {
+            dbTrainingWriter.writeNewTraining(saveTraining());
         });
     }
 
@@ -581,7 +592,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         }
     }
 
-
     public List<Line> lastGameLines() {
         LocalDate today = LocalDate.now();
         List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
@@ -608,6 +618,17 @@ public class TrainingEditorPresentationModel extends PresentationModel {
             return lines;
         }
         return new ArrayList<>();
+    }
+
+    public Training saveTraining(){
+        Training training =new Training();
+        training.setTrainingDate(trainingDate.getValue());
+        training.setTrainingTime(LocalTime.from(trainingTime.getLocalTime()));
+        training.setStadium(dbStadiumWriter.getStadiumFromName(trainingStadium.getText()));
+        training.setTeam(globalTeam.getTeamID());
+        training.setMainFocus(trainingMainFocus.getText());
+        training.setPointers(trainingPointers.getText());
+        return training;
     }
 
     public void fillStadium(Stadium stadium) {
@@ -646,10 +667,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         stationsButton = (Button) root.lookup("#stationsButton");
         backupButton = (Button) root.lookup("#backupButton");
         searchButton = (Button) root.lookup("#searchButton");
+        saveButton = (Button) root.lookup("#saveButton");
 
         tablePane = (TabPane) root.lookup("#tablePane");
-
-        trainingDateTime = (DateTimePicker) root.lookup("#trainingDateTime");
 
         tagCol = (TableColumn<String, String>) drillTags.getColumns().get(0);
 

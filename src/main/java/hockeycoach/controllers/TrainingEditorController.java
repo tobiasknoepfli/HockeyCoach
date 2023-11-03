@@ -11,7 +11,7 @@ import jfxtras.scene.control.LocalTimeTextField;
 public class TrainingEditorController extends Controller {
     @FXML
     private Button searchButton, resetFilters,
-            warmupButton, togetherButton, stationsButton, backupButton;
+            warmupButton, togetherButton, stationsButton, backupButton,saveButton;
 
     @FXML
     private CheckBox drillStation;

@@ -14,8 +14,8 @@ public class DBTrainingLoader extends DBLoader{
         Training training = new Training();
         try{
             training.setTrainingID(resultSet.getInt("trainingID"));
-            training.setTrainingDate(resultSet.getDate("trainingDate"));
-            training.setTrainingTime(resultSet.getTime("trainingTime"));
+            training.setTrainingDate(resultSet.getDate("trainingDate").toLocalDate());
+            training.setTrainingTime(resultSet.getTime("trainingTime").toLocalTime());
             training.setStadium(dbStadiumLoader.getStadium(resultSet.getInt("stadium")));
             training.setTeam(resultSet.getInt("team"));
             training.setMainFocus(resultSet.getString("mainFocus"));

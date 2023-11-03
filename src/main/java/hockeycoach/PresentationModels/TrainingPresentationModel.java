@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -112,8 +113,8 @@ public class TrainingPresentationModel extends PresentationModel {
 
         trainingTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTraining, newSelectedTraining) -> {
             if (newSelectedTraining != null) {
-                trainingDate.setText(dateFormat.format(newSelectedTraining.getTrainingDate()));
-                trainingTime.setText(newSelectedTraining.getTrainingTime().toLocalTime().format(timeFormatter));
+                trainingDate.setText(dateFormat.format(Date.valueOf(newSelectedTraining.getTrainingDate())));
+                trainingTime.setText(newSelectedTraining.getTrainingTime().format(timeFormatter));
                 stadium.setText(newSelectedTraining.getStadium().getStadiumName());
                 mainFocus.setText(newSelectedTraining.getMainFocus());
                 pointers.setText(newSelectedTraining.getPointers());

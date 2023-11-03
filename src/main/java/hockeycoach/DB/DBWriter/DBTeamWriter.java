@@ -1,16 +1,20 @@
 package hockeycoach.DB.DBWriter;
 
+import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.mainClasses.Team;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBTeamWriter {
     DBImageWriter dbImageWriter = new DBImageWriter();
+    DBTeamLoader dbTeamLoader = new DBTeamLoader();
 
     public PreparedStatement setTeam(PreparedStatement preparedStatement,Team team) throws  SQLException{
 
@@ -47,5 +51,13 @@ public class DBTeamWriter {
         }catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public Team getTeamFromName(String teamName){
+        List<Team> allTeams = new ArrayList<>();
+        Team team =new Team();
+        allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        team = allTeams.stream().filter(t ->t.getName().equals(teamName)).findFirst().orElse(null);
+        return team;
     }
 }

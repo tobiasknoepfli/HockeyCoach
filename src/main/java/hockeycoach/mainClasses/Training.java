@@ -3,13 +3,15 @@ package hockeycoach.mainClasses;
 import javafx.scene.control.Button;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Training {
     private int trainingID;
-    private Date trainingDate;
-    private Time trainingTime;
+    private LocalDate trainingDate;
+    private LocalTime trainingTime;
     private Stadium stadium;
     private int team;
     private String mainFocus;
@@ -22,7 +24,7 @@ public class Training {
     public Training() {
     }
 
-    public Training(int trainingID, Date trainingDate, Time trainingTime, Stadium stadium, int team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
+    public Training(int trainingID, LocalDate trainingDate, LocalTime trainingTime, Stadium stadium, int team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
         this.trainingID = trainingID;
         this.trainingDate = trainingDate;
         this.trainingTime = trainingTime;
@@ -44,19 +46,19 @@ public class Training {
         this.trainingID = trainingID;
     }
 
-    public Date getTrainingDate() {
+    public LocalDate getTrainingDate() {
         return trainingDate;
     }
 
-    public void setTrainingDate(Date trainingDate) {
+    public void setTrainingDate(LocalDate trainingDate) {
         this.trainingDate = trainingDate;
     }
 
-    public Time getTrainingTime() {
+    public LocalTime getTrainingTime() {
         return trainingTime;
     }
 
-    public void setTrainingTime(Time trainingTime) {
+    public void setTrainingTime(LocalTime trainingTime) {
         this.trainingTime = trainingTime;
     }
 
