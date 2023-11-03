@@ -1,13 +1,18 @@
 package hockeycoach.DB.DBWriter;
 
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBPlayerWriter {
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+
     public PreparedStatement setPlayer(PreparedStatement preparedStatement, Player player) throws SQLException {
 
         preparedStatement.setString(1, player.getFirstName());
@@ -15,7 +20,7 @@ public class DBPlayerWriter {
         preparedStatement.setDate(3, Date.valueOf(player.getBirthday()));
         preparedStatement.setString(4, player.getStreet());
         preparedStatement.setInt(5, player.getZip());
-        preparedStatement.setString(6,player.getCity());
+        preparedStatement.setString(6, player.getCity());
         preparedStatement.setString(7, player.getCountry());
         preparedStatement.setString(8, player.getaLicence());
         preparedStatement.setString(9, player.getbLicence());

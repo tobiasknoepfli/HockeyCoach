@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import static hockeycoach.AppStarter.DB_URL;
 
@@ -122,6 +123,20 @@ public class DBPlayerLoader extends DBLoader {
             Date standardDate = new Date(0);
             return standardDate.toLocalDate();
         }
+    }
+
+    public int getPlayerIDFromName(String playerName) {
+        List<Player> allPlayers = getAllPlayers("SELECT * FROM player");
+        String[] name = playerName.split("\\s+");
+        Player player = allPlayers.stream().filter(p -> p.getLastName().equals(name[0]) && p.getFirstName().equals(name[1])).findFirst().orElse(null);
+        return player.getPlayerID();
+    }
+
+    public Player getPlayerFromName(String playerName) {
+        List<Player> allPlayers = getAllPlayers("SELECT * FROM player");
+        String[] name = playerName.split("\\s+");
+        Player player = allPlayers.stream().filter(p -> p.getLastName().equals(name[0]) && p.getFirstName().equals(name[1])).findFirst().orElse(null);
+        return player;
     }
 
 }

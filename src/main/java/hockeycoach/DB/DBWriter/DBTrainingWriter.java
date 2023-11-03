@@ -23,7 +23,8 @@ public class DBTrainingWriter {
         return preparedStatement;
     }
 
-    public void writeNewTraining(Training training){
+    public int writeNewTraining(Training training){
+        int generatedTrainingID = -1;
         String query = "INSERT INTO training" +  "(trainingDate,trainingTime,stadium,team,mainFocus,pointers)" +
                 " VALUES ?,?,?,?,?,?";
 
@@ -33,8 +34,14 @@ public class DBTrainingWriter {
             setTraining(preparedStatement,training);
 
             preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                generatedTrainingID = generatedKeys.getInt(1);
+            }
         }catch (SQLException e){
             e.printStackTrace();
         }
+        return generatedTrainingID;
     }
 }

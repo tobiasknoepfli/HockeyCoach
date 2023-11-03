@@ -1,9 +1,7 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBLoader.DBDrillLoader;
-import hockeycoach.DB.DBLoader.DBLoader;
-import hockeycoach.DB.DBLoader.DBTrainingLinesLoader;
-import hockeycoach.DB.DBLoader.DBTrainingLoader;
+import hockeycoach.DB.DBLoader.*;
+import hockeycoach.DB.DBWriter.DBTrainingLineWriter;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.ButtonControls;
@@ -32,6 +30,10 @@ public class TrainingPresentationModel extends PresentationModel {
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
 
+    DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
+    DBTrainingLineWriter dbTrainingLineWriter = new DBTrainingLineWriter();
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+
     TableView<Training> trainingTable;
 
     TextArea pointers;
@@ -56,8 +58,7 @@ public class TrainingPresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        Team selectedTeam =globalTeam;
-        DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
+        Team selectedTeam = globalTeam;
 
         TextField[] textFields = {drillName, trainingDate, trainingTime, team, stadium, mainFocus,
                 jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
@@ -146,7 +147,7 @@ public class TrainingPresentationModel extends PresentationModel {
                     backup.getItems().addAll(backupList);
                 }
 
-                setTrainingLines(trainingLines);
+                getTrainingLines(trainingLines);
 
             }
         });
@@ -169,7 +170,7 @@ public class TrainingPresentationModel extends PresentationModel {
         });
     }
 
-    public void setTrainingLines(TrainingLines trainingLines) {
+    public void getTrainingLines(TrainingLines trainingLines) {
         jersey1.setText(trainingLines.getJersey1());
         jersey2.setText(trainingLines.getJersey2());
         jersey3.setText(trainingLines.getJersey3());
@@ -218,6 +219,61 @@ public class TrainingPresentationModel extends PresentationModel {
         fr4.setText(getPlayerName(trainingLines.getFr4()));
         fr5.setText(getPlayerName(trainingLines.getFr5()));
         fr6.setText(getPlayerName(trainingLines.getFr6()));
+    }
+
+    public TrainingLines setTrainingLines(int trainingID) {
+        trainingLines.setTrainingID(trainingID);
+
+        trainingLines.setJersey1(jersey1.getText());
+        trainingLines.setJersey2(jersey2.getText());
+        trainingLines.setJersey3(jersey3.getText());
+        trainingLines.setJersey4(jersey4.getText());
+        trainingLines.setJersey5(jersey5.getText());
+        trainingLines.setJersey6(jersey6.getText());
+
+        trainingLines.setGk1(dbPlayerLoader.getPlayerFromName(gk1.getText()));
+        trainingLines.setGk2(dbPlayerLoader.getPlayerFromName(gk2.getText()));
+        trainingLines.setGk3(dbPlayerLoader.getPlayerFromName(gk3.getText()));
+        trainingLines.setGk4(dbPlayerLoader.getPlayerFromName(gk4.getText()));
+        trainingLines.setGk5(dbPlayerLoader.getPlayerFromName(gk5.getText()));
+        trainingLines.setGk6(dbPlayerLoader.getPlayerFromName(gk6.getText()));
+
+        trainingLines.setDl1(dbPlayerLoader.getPlayerFromName(dl1.getText()));
+        trainingLines.setDl2(dbPlayerLoader.getPlayerFromName(dl2.getText()));
+        trainingLines.setDl3(dbPlayerLoader.getPlayerFromName(dl3.getText()));
+        trainingLines.setDl4(dbPlayerLoader.getPlayerFromName(dl4.getText()));
+        trainingLines.setDl5(dbPlayerLoader.getPlayerFromName(dl5.getText()));
+        trainingLines.setDl6(dbPlayerLoader.getPlayerFromName(dl6.getText()));
+
+        trainingLines.setDr1(dbPlayerLoader.getPlayerFromName(dr1.getText()));
+        trainingLines.setDr2(dbPlayerLoader.getPlayerFromName(dr2.getText()));
+        trainingLines.setDr3(dbPlayerLoader.getPlayerFromName(dr3.getText()));
+        trainingLines.setDr4(dbPlayerLoader.getPlayerFromName(dr4.getText()));
+        trainingLines.setDr5(dbPlayerLoader.getPlayerFromName(dr5.getText()));
+        trainingLines.setDr6(dbPlayerLoader.getPlayerFromName(dr6.getText()));
+
+        trainingLines.setC1(dbPlayerLoader.getPlayerFromName(c1.getText()));
+        trainingLines.setC2(dbPlayerLoader.getPlayerFromName(c2.getText()));
+        trainingLines.setC3(dbPlayerLoader.getPlayerFromName(c3.getText()));
+        trainingLines.setC4(dbPlayerLoader.getPlayerFromName(c4.getText()));
+        trainingLines.setC5(dbPlayerLoader.getPlayerFromName(c5.getText()));
+        trainingLines.setC6(dbPlayerLoader.getPlayerFromName(c6.getText()));
+
+        trainingLines.setFl1(dbPlayerLoader.getPlayerFromName(fl1.getText()));
+        trainingLines.setFl2(dbPlayerLoader.getPlayerFromName(fl2.getText()));
+        trainingLines.setFl3(dbPlayerLoader.getPlayerFromName(fl3.getText()));
+        trainingLines.setFl4(dbPlayerLoader.getPlayerFromName(fl4.getText()));
+        trainingLines.setFl5(dbPlayerLoader.getPlayerFromName(fl5.getText()));
+        trainingLines.setFl6(dbPlayerLoader.getPlayerFromName(fl6.getText()));
+
+        trainingLines.setFr1(dbPlayerLoader.getPlayerFromName(fr1.getText()));
+        trainingLines.setFr2(dbPlayerLoader.getPlayerFromName(fr2.getText()));
+        trainingLines.setFr3(dbPlayerLoader.getPlayerFromName(fr3.getText()));
+        trainingLines.setFr4(dbPlayerLoader.getPlayerFromName(fr4.getText()));
+        trainingLines.setFr5(dbPlayerLoader.getPlayerFromName(fr5.getText()));
+        trainingLines.setFr6(dbPlayerLoader.getPlayerFromName(fr6.getText()));
+
+        return trainingLines;
     }
 
     private String getPlayerName(Player player) {
