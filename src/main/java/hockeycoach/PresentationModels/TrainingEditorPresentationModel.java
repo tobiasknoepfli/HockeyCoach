@@ -201,6 +201,10 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         saveButton.setOnAction(event -> {
             int trainingID =  dbTrainingWriter.writeNewTraining(saveTraining());
             dbTrainingLineWriter.writeTrainingLines(setTrainingLines(trainingID));
+            warmup.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"warmup",drill.getSortingIndex()));
+            together.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"together",drill.getSortingIndex()));
+            stations.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"stations",drill.getSortingIndex()));
+            backup.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"backup",drill.getSortingIndex()));
         });
     }
 
@@ -740,6 +744,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         trainingDate = (DatePicker) root.lookup("#trainingDate");
         trainingTime = (LocalTimeTextField) root.lookup("#trainingTime");
+
         trainingStadium = (TextField) root.lookup("#trainingStadium");
         trainingTeam = (TextField) root.lookup("#trainingTeam");
         trainingMainFocus = (TextField) root.lookup("#trainingMainFocus");

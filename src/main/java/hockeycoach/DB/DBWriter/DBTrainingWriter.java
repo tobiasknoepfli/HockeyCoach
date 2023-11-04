@@ -1,6 +1,7 @@
 package hockeycoach.DB.DBWriter;
 
 import hockeycoach.controllers.StadiumController;
+import hockeycoach.mainClasses.Drill;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.mainClasses.Training;
@@ -43,5 +44,24 @@ public class DBTrainingWriter {
             e.printStackTrace();
         }
         return generatedTrainingID;
+    }
+
+    public void addDrillToTraining(int trainingID, Drill drill, String tableName, int sortingIndex){
+        String query = "INSERT INTO trainingXdrills" + "(trainingID,drillID,tableName,sortingIndex)" + "VALUES ?,?,?,?";
+
+        try(Connection connection = DriverManager.getConnection(DB_URL);
+            PreparedStatement preparedStatement = connection.prepareStatement(query)){
+
+            preparedStatement.setInt(1,trainingID);
+            preparedStatement.setInt(2,drill.getDrillID());
+            preparedStatement.setString(3,tableName);
+            preparedStatement.setInt(4,sortingIndex);
+
+            preparedStatement.executeUpdate();
+
+            ResultSet generatedKeys = preparedStatement.getGeneratedKeys();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
 }

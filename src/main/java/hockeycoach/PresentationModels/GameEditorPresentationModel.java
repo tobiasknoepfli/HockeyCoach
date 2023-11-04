@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
@@ -15,6 +16,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import jfxtras.scene.control.LocalTimeTextField;
 
 import java.io.File;
 import java.time.LocalDate;
@@ -30,9 +32,9 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-
+    DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
+    TextFieldAction textFieldAction = new TextFieldAction();
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
-    private TextFieldAction textFieldAction = new TextFieldAction();
 
     ButtonControls buttonControls = new ButtonControls();
 
@@ -76,7 +78,11 @@ public class GameEditorPresentationModel extends PresentationModel {
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
-    TextField gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
+    DatePicker gameDate;
+
+    LocalTimeTextField gameTime;
+
+    TextField gameStadium, gameTeam, gameOpponent,
             captain, assistant1, assistant2,
             penalty1, penalty2, emptyNet1, emptyNet2,
             gk1,
@@ -126,7 +132,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         nBoardImage.fitWidthProperty().bind(nLineupGrid.widthProperty());
         nBoardImage.setPreserveRatio(false);
 
-        TextField[] fields = {gameDate, gameTime, gameStadium, gameTeam, gameOpponent,
+        TextField[] fields = {gameStadium, gameTeam, gameOpponent,
                 captain, assistant1, assistant2, penalty1, penalty2, emptyNet1, emptyNet2};
 
         TextField[] tf = {gk1,
@@ -213,7 +219,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         });
 
         saveButton.setOnAction(event -> {
-            Game game = saveGameToDB();
+            Game game = saveGame();
 
             savePPLines();
             saveBPLines();
@@ -454,27 +460,21 @@ public class GameEditorPresentationModel extends PresentationModel {
         });
     }
 
-    private Game saveGameToDB() {
+    private Game saveGame() {
         Game game = new Game();
 
-        String s = gameDate.getText();
-        String t = gameTime.getText();
-        int day = Integer.parseInt(s.substring(0, 2));
-        int month = Integer.parseInt(s.substring(3, 5));
-        int year = Integer.parseInt(s.substring(6, 10));
-        int hours = Integer.parseInt(t.substring(0, 2));
-        int minutes = Integer.parseInt(t.substring(3, 5));
-        LocalDate date = LocalDate.of(year, month, day);
-        LocalTime time = LocalTime.of(hours, minutes);
-
-        game.setGameDate(date);
-        game.setGameTime(time);
+        game.setGameDate(gameDate.getValue());
+        game.setGameTime(LocalTime.from(gameTime.getLocalTime()));
         game.setOpponent(gameOpponent.getText());
-//        game.setStadium(globalStadium);
+        game.setStadium(dbStadiumWriter.getStadiumFromName(gameStadium.getText()));
         game.setTeam(selectedTeam.getTeamID());
         game.setCaptain(getPlayerFromTextField(captain.getText()));
         game.setAssistant1(getPlayerFromTextField(assistant1.getText()));
         game.setAssistant2(getPlayerFromTextField(assistant2.getText()));
+        game.setPenalty1(getPlayerFromTextField(penalty1.getText()));
+        game.setPenalty2(getPlayerFromTextField(penalty2.getText()));
+        game.setEmptyNet1(getPlayerFromTextField(emptyNet1.getText()));
+        game.setEmptyNet2(getPlayerFromTextField(emptyNet2.getText()));
 
         game.setGameID(dbWriter.writeGame(game));
         return game;
@@ -710,8 +710,8 @@ public class GameEditorPresentationModel extends PresentationModel {
         boxplayTab = lineupTabPane.getTabs().get(2);
         nuclearTab = lineupTabPane.getTabs().get(3);
 
-        gameDate = (TextField) root.lookup("#gameDate");
-        gameTime = (TextField) root.lookup("#gameTime");
+        gameDate = (DatePicker) root.lookup("#gameDate");
+        gameTime = (LocalTimeTextField) root.lookup("#gameTime");
         gameStadium = (TextField) root.lookup("#gameStadium");
         gameTeam = (TextField) root.lookup("#gameTeam");
         gameOpponent = (TextField) root.lookup("#gameOpponent");

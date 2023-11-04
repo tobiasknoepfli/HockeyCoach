@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import jfxtras.scene.control.LocalTimeTextField;
 
 public class GameEditorController extends Controller {
     @FXML
@@ -14,6 +15,12 @@ public class GameEditorController extends Controller {
     @FXML
     private Button refreshPlayerList,
             saveButton, backButton;
+
+    @FXML
+    DatePicker gameDate;
+
+    @FXML
+    LocalTimeTextField gameTime;
 
     @FXML
     private GridPane lineupGrid, ppLineupGrid, bpLineupGrid,nLineupGrid;
@@ -39,8 +46,7 @@ public class GameEditorController extends Controller {
     private TableView<Player> teamPlayers, availablePlayers;
 
     @FXML
-    private TextField gameDate, gameTime,
-            gameStadium, gameTeam, gameOpponent,
+    private TextField gameStadium, gameTeam, gameOpponent,
             captain, assistant1, assistant2,
             penalty1,penalty2,emptyNet1,emptyNet2,
             gk1, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
