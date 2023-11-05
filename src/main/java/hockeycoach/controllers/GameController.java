@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import jfxtras.scene.control.LocalTimeTextField;
 
 public class GameController extends Controller {
     @FXML
@@ -43,7 +44,13 @@ public class GameController extends Controller {
     private TabPane lineupTabPane;
 
     @FXML
-    private TextField gameTeam, gameOpponent, gameDate, gameTime,
+    private DatePicker gameDate;
+
+    @FXML
+    private LocalTimeTextField gameTime;
+
+    @FXML
+    private TextField gameTeam, gameOpponent,
             gameStadium, captain, assistant1, assistant2,
             penalty1, penalty2, emptyNet1, emptyNet2,
             gk1, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,

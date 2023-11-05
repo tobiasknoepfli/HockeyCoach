@@ -10,23 +10,26 @@ import jfxtras.scene.control.LocalTimeTextField;
 
 public class GameEditorController extends Controller {
     @FXML
-    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane,nAnchorPane;
+    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
 
     @FXML
     private Button refreshPlayerList,
             saveButton, backButton;
 
     @FXML
-    DatePicker gameDate;
+    private DatePicker gameDate;
 
     @FXML
-    LocalTimeTextField gameTime;
+    private LocalTimeTextField gameTime;
 
     @FXML
-    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid,nLineupGrid;
+    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
     @FXML
-    private ImageView boardImage, ppBoardImage, bpBoardImage,nBoardImage;
+    private ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
+
+    @FXML
+    private CheckBox showAllPlayers;
 
     @FXML
     private Label lbfl1, lbfl2, lbfl3, lbfl4, lbfr1, lbfr2, lbfr3, lbfr4,
@@ -40,7 +43,7 @@ public class GameEditorController extends Controller {
             ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
 
     @FXML
-    private Tab lineupTab, powerplayTab, boxplayTab,nuclearTab;
+    private Tab lineupTab, powerplayTab, boxplayTab, nuclearTab;
 
     @FXML
     private TableView<Player> teamPlayers, availablePlayers;
@@ -48,7 +51,7 @@ public class GameEditorController extends Controller {
     @FXML
     private TextField gameStadium, gameTeam, gameOpponent,
             captain, assistant1, assistant2,
-            penalty1,penalty2,emptyNet1,emptyNet2,
+            penalty1, penalty2, emptyNet1, emptyNet2,
             gk1, dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
             c1, c2, c3, c4, fl1, fl2, fl3, fl4, fr1, fr2, fr3, fr4,
             sgk1, sgk2, sgk3, sd1, sd2, sd3, sf1, sf2, sf3,

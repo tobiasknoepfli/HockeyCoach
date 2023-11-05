@@ -14,7 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import jfxtras.scene.control.LocalTimeTextField;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -26,8 +30,11 @@ public class GamePresentationModel extends PresentationModel {
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
 
+    DatePicker gameDate;
+    LocalTimeTextField gameTime;
+
     Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
-    TextField gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
+    TextField gameTeam, gameOpponent, gameStadium,
             captain, assistant1, assistant2,
             penalty1,penalty2,emptyNet1,emptyNet2,
             gk1,
@@ -75,7 +82,7 @@ public class GamePresentationModel extends PresentationModel {
 
         gameTeam.setText(selectedTeam.getName());
 
-        TextField[] textFields = {gameTeam, gameOpponent, gameDate, gameTime, gameStadium,
+        TextField[] textFields = {gameTeam, gameOpponent, gameStadium,
                 captain, assistant1, assistant2,
                 penalty1,penalty2,emptyNet1,emptyNet2,
                 gk1,
@@ -119,8 +126,8 @@ public class GamePresentationModel extends PresentationModel {
     public void setupEventListeners(Pane root) {
         allGames.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
             gameOpponent.setText(newValue.getOpponent());
-            gameDate.setText(String.valueOf(newValue.getGameDate()));
-            gameTime.setText(String.valueOf(newValue.getGameTime()));
+            gameDate.setValue(LocalDate.from(newValue.getGameDate()));
+            gameTime.setLocalTime(newValue.getGameTime().toLocalTime());
             gameStadium.setText(newValue.getStadium().getStadiumName());
             captain.setText(newValue.getCaptain().getLastName() + " " + newValue.getCaptain().getFirstName());
             assistant1.setText(newValue.getAssistant1().getLastName() + " " + newValue.getAssistant1().getFirstName());
@@ -331,10 +338,12 @@ public class GamePresentationModel extends PresentationModel {
         stadiumColumn = (TableColumn) allGames.getVisibleLeafColumn(1);
         opponentColumn = (TableColumn) allGames.getVisibleLeafColumn(2);
 
+        gameDate = (DatePicker) root.lookup("#gameDate");
+
+        gameTime = (LocalTimeTextField) root.lookup("#gameTime");
+
         gameTeam = (TextField) root.lookup("#gameTeam");
         gameOpponent = (TextField) root.lookup("#gameOpponent");
-        gameDate = (TextField) root.lookup("#gameDate");
-        gameTime = (TextField) root.lookup("#gameTime");
         gameStadium = (TextField) root.lookup("#gameStadium");
         captain = (TextField) root.lookup("#captain");
         assistant1 = (TextField) root.lookup("#assistant1");

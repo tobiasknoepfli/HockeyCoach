@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.DB.DBWriter.DBGameWriter;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.*;
@@ -33,6 +34,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBLineLoader dbLineLoader = new DBLineLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
+    DBGameWriter dbGameWriter =new DBGameWriter();
     TextFieldAction textFieldAction = new TextFieldAction();
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
 
@@ -105,6 +107,8 @@ public class GameEditorPresentationModel extends PresentationModel {
             ngGK1, ngGK2, ngGK3, ngGK4,
             ngRD1, ngRD2, ngRD3, ngRD4, ngLD1, ngLD2, ngLD3, ngLD4,
             ngRF1, ngRF2, ngRF3, ngRF4, ngC1, ngC2, ngC3, ngC4, ngLF1, ngLF2, ngLF3, ngLF4;
+
+    CheckBox showAllPlayers;
 
     @Override
     public void initializeControls(Pane root) {
@@ -190,6 +194,8 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
 
+        showAllPlayers.setSelected(false);
+
         teamPlayers.getItems().clear();
         teamPlayers.getItems().setAll(playerList);
 
@@ -225,6 +231,8 @@ public class GameEditorPresentationModel extends PresentationModel {
             saveBPLines();
             saveSubstitutes();
 
+            dbGameWriter.writeGame(game);
+
             firstLine.setGameID(game.getGameID());
             secondLine.setGameID(game.getGameID());
             thirdLine.setGameID(game.getGameID());
@@ -240,20 +248,20 @@ public class GameEditorPresentationModel extends PresentationModel {
 
             subsLine.setGameID(game.getGameID());
 
-            dbWriter.writeLine(game, firstLine);
-            dbWriter.writeLine(game, secondLine);
-            dbWriter.writeLine(game, thirdLine);
-            dbWriter.writeLine(game, fourthLine);
-
-            dbWriter.writePPLine(game, ppFirstLine);
-            dbWriter.writePPLine(game, ppSecondLine);
-            dbWriter.writePPLine(game, ppFillerLine);
-
-            dbWriter.writeBPLine(game, bpFirstLine);
-            dbWriter.writeBPLine(game, bpSecondLine);
-            dbWriter.writeBPLine(game, bpFillerLine);
-
-            dbWriter.writeSubstituteLine(game, subsLine);
+//            dbWriter.writeLine(game, firstLine);
+//            dbWriter.writeLine(game, secondLine);
+//            dbWriter.writeLine(game, thirdLine);
+//            dbWriter.writeLine(game, fourthLine);
+//
+//            dbWriter.writePPLine(game, ppFirstLine);
+//            dbWriter.writePPLine(game, ppSecondLine);
+//            dbWriter.writePPLine(game, ppFillerLine);
+//
+//            dbWriter.writeBPLine(game, bpFirstLine);
+//            dbWriter.writeBPLine(game, bpSecondLine);
+//            dbWriter.writeBPLine(game, bpFillerLine);
+//
+//            dbWriter.writeSubstituteLine(game, subsLine);
         });
     }
 
@@ -270,6 +278,10 @@ public class GameEditorPresentationModel extends PresentationModel {
             lastVisitedFXML = GAME_EDITOR_FXML;
             lastVisitedNodeName = GAME_EDITOR;
             buttonControls.openStadiumHide(root, GAME_EDITOR);
+        });
+
+        showAllPlayers.selectedProperty().addListener((obs,oldValue,newValue)->{
+            refreshPlayers();
         });
     }
 
@@ -323,15 +335,18 @@ public class GameEditorPresentationModel extends PresentationModel {
                     .orElse(null);
 
             activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
-            if (lineupTab == activeTab) {
-                lineupList.add(selectedPlayer);
-            } else if (powerplayTab == activeTab) {
-                powerplayList.add(selectedPlayer);
-            } else if (boxplayTab == activeTab) {
-                boxplayList.add(selectedPlayer);
-            } else if (nuclearTab == activeTab) {
-                nuclearList.add(selectedPlayer);
+            if (!(showAllPlayers.isSelected())){
+                if (lineupTab == activeTab) {
+                    lineupList.add(selectedPlayer);
+                } else if (powerplayTab == activeTab) {
+                    powerplayList.add(selectedPlayer);
+                } else if (boxplayTab == activeTab) {
+                    boxplayList.add(selectedPlayer);
+                } else if (nuclearTab == activeTab) {
+                    nuclearList.add(selectedPlayer);
+                }
             }
+
 
             event.setDropCompleted(success);
 
@@ -365,7 +380,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
                 if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                     String playerName = textField.getText();
-                    Player retrievedPlayer = getPlayerFromTextField(playerName);
+                    Player retrievedPlayer = dbPlayerLoader.getPlayerFromName(playerName);
                     teamPlayers.getItems().add(retrievedPlayer);
                     textField.clear();
 
@@ -404,31 +419,21 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
 
-        if (lineupTab == activeTab) {
-            inactivePlayers.removeAll(lineupList);
-        } else if (powerplayTab == activeTab) {
-            inactivePlayers.removeAll(powerplayList);
-        } else if (boxplayTab == activeTab) {
-            inactivePlayers.removeAll(boxplayList);
-        } else if (nuclearTab == activeTab) {
-            inactivePlayers.removeAll(nuclearList);
-        }
+        if (showAllPlayers.isSelected()){
+            teamPlayers.getItems().addAll(inactivePlayers);
+        } else{
+            if (lineupTab == activeTab) {
+                inactivePlayers.removeAll(lineupList);
+            } else if (powerplayTab == activeTab) {
+                inactivePlayers.removeAll(powerplayList);
+            } else if (boxplayTab == activeTab) {
+                inactivePlayers.removeAll(boxplayList);
 
-        teamPlayers.getItems().addAll(inactivePlayers);
-    }
-
-    public Player getPlayerFromTextField(String playerName) {
-        if (!playerName.isEmpty()) {
-            String[] nameParts = playerName.split(" ");
-            if (nameParts.length >= 2) {
-                List<Player> retrievedPlayers = playerList.stream()
-                        .filter(player -> player.getFirstName().equals(nameParts[1]) &&
-                                player.getLastName().equals(nameParts[0]))
-                        .collect(Collectors.toList());
-                return retrievedPlayers.get(0);
+            } else if (nuclearTab == activeTab) {
+                inactivePlayers.removeAll(nuclearList);
             }
+            teamPlayers.getItems().addAll(inactivePlayers);
         }
-        return new Player("", "", selectedTeam.getName());
     }
 
     private void addLineupText(TextField textField) {
@@ -468,75 +473,74 @@ public class GameEditorPresentationModel extends PresentationModel {
         game.setOpponent(gameOpponent.getText());
         game.setStadium(dbStadiumWriter.getStadiumFromName(gameStadium.getText()));
         game.setTeam(selectedTeam.getTeamID());
-        game.setCaptain(getPlayerFromTextField(captain.getText()));
-        game.setAssistant1(getPlayerFromTextField(assistant1.getText()));
-        game.setAssistant2(getPlayerFromTextField(assistant2.getText()));
-        game.setPenalty1(getPlayerFromTextField(penalty1.getText()));
-        game.setPenalty2(getPlayerFromTextField(penalty2.getText()));
-        game.setEmptyNet1(getPlayerFromTextField(emptyNet1.getText()));
-        game.setEmptyNet2(getPlayerFromTextField(emptyNet2.getText()));
+        game.setCaptain(dbPlayerLoader.getPlayerFromName(captain.getText()));
+        game.setAssistant1(dbPlayerLoader.getPlayerFromName(assistant1.getText()));
+        game.setAssistant2(dbPlayerLoader.getPlayerFromName(assistant2.getText()));
+        game.setPenalty1(dbPlayerLoader.getPlayerFromName(penalty1.getText()));
+        game.setPenalty2(dbPlayerLoader.getPlayerFromName(penalty2.getText()));
+        game.setEmptyNet1(dbPlayerLoader.getPlayerFromName(emptyNet1.getText()));
+        game.setEmptyNet2(dbPlayerLoader.getPlayerFromName(emptyNet2.getText()));
 
-        game.setGameID(dbWriter.writeGame(game));
         return game;
     }
 
     private void savePPLines() {
         ppFirstLine = new PowerplayLine(1);
-        ppFirstLine.setDefenderLeft(getPlayerFromTextField(ppdl1.getText()));
-        ppFirstLine.setDefenderRight(getPlayerFromTextField(ppdr1.getText()));
-        ppFirstLine.setCenter(getPlayerFromTextField(ppc1.getText()));
-        ppFirstLine.setForwardLeft(getPlayerFromTextField(ppfl1.getText()));
-        ppFirstLine.setForwardRight(getPlayerFromTextField(ppfr1.getText()));
+        ppFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdl1.getText()));
+        ppFirstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ppdr1.getText()));
+        ppFirstLine.setCenter(dbPlayerLoader.getPlayerFromName(ppc1.getText()));
+        ppFirstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(ppfl1.getText()));
+        ppFirstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(ppfr1.getText()));
 
         ppSecondLine = new PowerplayLine(2);
-        ppSecondLine.setDefenderLeft(getPlayerFromTextField(ppdl2.getText()));
-        ppSecondLine.setDefenderRight(getPlayerFromTextField(ppdr2.getText()));
-        ppSecondLine.setCenter(getPlayerFromTextField(ppc2.getText()));
-        ppSecondLine.setForwardLeft(getPlayerFromTextField(ppfl2.getText()));
-        ppSecondLine.setForwardRight(getPlayerFromTextField(ppfr2.getText()));
+        ppSecondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdl2.getText()));
+        ppSecondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ppdr2.getText()));
+        ppSecondLine.setCenter(dbPlayerLoader.getPlayerFromName(ppc2.getText()));
+        ppSecondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(ppfl2.getText()));
+        ppSecondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(ppfr2.getText()));
 
         ppFillerLine = new PowerplayLine(3);
-        ppFillerLine.setDefenderLeft(getPlayerFromTextField(ppdlfiller.getText()));
-        ppFillerLine.setDefenderRight(getPlayerFromTextField(ppfrfiller.getText()));
-        ppFillerLine.setCenter(getPlayerFromTextField(ppcfiller.getText()));
-        ppFillerLine.setForwardLeft(getPlayerFromTextField(ppflfiller.getText()));
-        ppFillerLine.setForwardRight(getPlayerFromTextField(ppfrfiller.getText()));
+        ppFillerLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdlfiller.getText()));
+        ppFillerLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ppfrfiller.getText()));
+        ppFillerLine.setCenter(dbPlayerLoader.getPlayerFromName(ppcfiller.getText()));
+        ppFillerLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(ppflfiller.getText()));
+        ppFillerLine.setForwardRight(dbPlayerLoader.getPlayerFromName(ppfrfiller.getText()));
     }
 
     private void saveBPLines() {
         bpFirstLine = new BoxplayLine(1);
-        bpFirstLine.setDefenderLeft(getPlayerFromTextField(bpdl1.getText()));
-        bpFirstLine.setDefenderRight(getPlayerFromTextField(bpdr1.getText()));
-        bpFirstLine.setForwardLeft(getPlayerFromTextField(bpfl1.getText()));
-        bpFirstLine.setForwardRight(getPlayerFromTextField(bpfr1.getText()));
+        bpFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(bpdl1.getText()));
+        bpFirstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(bpdr1.getText()));
+        bpFirstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(bpfl1.getText()));
+        bpFirstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(bpfr1.getText()));
 
         bpSecondLine = new BoxplayLine(2);
-        bpSecondLine.setDefenderLeft(getPlayerFromTextField(bpdl2.getText()));
-        bpSecondLine.setDefenderRight(getPlayerFromTextField(bpdr2.getText()));
-        bpSecondLine.setForwardLeft(getPlayerFromTextField(bpfl2.getText()));
-        bpSecondLine.setForwardRight(getPlayerFromTextField(bpfr2.getText()));
+        bpSecondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(bpdl2.getText()));
+        bpSecondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(bpdr2.getText()));
+        bpSecondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(bpfl2.getText()));
+        bpSecondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(bpfr2.getText()));
 
         bpFillerLine = new BoxplayLine(3);
-        bpFillerLine.setDefenderLeft(getPlayerFromTextField(bpdlfiller.getText()));
-        bpFillerLine.setDefenderRight(getPlayerFromTextField(bpfrfiller.getText()));
-        bpFillerLine.setForwardLeft(getPlayerFromTextField(bpflfiller.getText()));
-        bpFillerLine.setForwardRight(getPlayerFromTextField(bpfrfiller.getText()));
+        bpFillerLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(bpdlfiller.getText()));
+        bpFillerLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(bpfrfiller.getText()));
+        bpFillerLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(bpflfiller.getText()));
+        bpFillerLine.setForwardRight(dbPlayerLoader.getPlayerFromName(bpfrfiller.getText()));
     }
 
     private void saveSubstitutes() {
         subsLine = new SubstituteLine();
-        subsLine.setGoalkeeper1(getPlayerFromTextField(sgk1.getText()));
-        subsLine.setGoalkeeper2(getPlayerFromTextField(sgk2.getText()));
-        subsLine.setDefender1(getPlayerFromTextField(sd1.getText()));
-        subsLine.setDefender2(getPlayerFromTextField(sd2.getText()));
-        subsLine.setDefender3(getPlayerFromTextField(sd3.getText()));
-        subsLine.setForward1(getPlayerFromTextField(sf1.getText()));
-        subsLine.setForward2(getPlayerFromTextField(sf2.getText()));
-        subsLine.setForward3(getPlayerFromTextField(sf3.getText()));
-        subsLine.setBoxplayDefender1(getPlayerFromTextField(bpsd1.getText()));
-        subsLine.setBoxplayDefender2(getPlayerFromTextField(bpsd2.getText()));
-        subsLine.setBoxplayForward1(getPlayerFromTextField(bpsf1.getText()));
-        subsLine.setBoxplayForward2(getPlayerFromTextField(bpsf2.getText()));
+        subsLine.setGoalkeeper1(dbPlayerLoader.getPlayerFromName(sgk1.getText()));
+        subsLine.setGoalkeeper2(dbPlayerLoader.getPlayerFromName(sgk2.getText()));
+        subsLine.setDefender1(dbPlayerLoader.getPlayerFromName(sd1.getText()));
+        subsLine.setDefender2(dbPlayerLoader.getPlayerFromName(sd2.getText()));
+        subsLine.setDefender3(dbPlayerLoader.getPlayerFromName(sd3.getText()));
+        subsLine.setForward1(dbPlayerLoader.getPlayerFromName(sf1.getText()));
+        subsLine.setForward2(dbPlayerLoader.getPlayerFromName(sf2.getText()));
+        subsLine.setForward3(dbPlayerLoader.getPlayerFromName(sf3.getText()));
+        subsLine.setBoxplayDefender1(dbPlayerLoader.getPlayerFromName(bpsd1.getText()));
+        subsLine.setBoxplayDefender2(dbPlayerLoader.getPlayerFromName(bpsd2.getText()));
+        subsLine.setBoxplayForward1(dbPlayerLoader.getPlayerFromName(bpsf1.getText()));
+        subsLine.setBoxplayForward2(dbPlayerLoader.getPlayerFromName(bpsf2.getText()));
     }
 
     public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {
@@ -712,6 +716,9 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         gameDate = (DatePicker) root.lookup("#gameDate");
         gameTime = (LocalTimeTextField) root.lookup("#gameTime");
+
+        showAllPlayers = (CheckBox) root.lookup("#showAllPlayers");
+
         gameStadium = (TextField) root.lookup("#gameStadium");
         gameTeam = (TextField) root.lookup("#gameTeam");
         gameOpponent = (TextField) root.lookup("#gameOpponent");
