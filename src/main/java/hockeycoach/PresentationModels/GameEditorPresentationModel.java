@@ -228,12 +228,13 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         saveButton.setOnAction(event -> {
             Game game = saveGame();
-
+            saveLines();
             savePPLines();
             saveBPLines();
             saveSubstitutes();
+            saveNuclearLines();
 
-            dbGameWriter.writeGame(game);
+            game.setGameID(dbGameWriter.writeGame(game));
 
             firstLine.setGameID(game.getGameID());
             secondLine.setGameID(game.getGameID());
@@ -247,6 +248,9 @@ public class GameEditorPresentationModel extends PresentationModel {
             bpFirstLine.setGameID(game.getGameID());
             bpSecondLine.setGameID(game.getGameID());
             bpFillerLine.setGameID(game.getGameID());
+
+            nFirstLine.setGameID(game.getGameID());
+            nSecondLine.setGameID(game.getGameID());
 
             subsLine.setGameID(game.getGameID());
 
@@ -262,6 +266,9 @@ public class GameEditorPresentationModel extends PresentationModel {
             dbLineWriter.writeBPLine(bpFirstLine);
             dbLineWriter.writeBPLine(bpSecondLine);
             dbLineWriter.writeBPLine(bpFillerLine);
+
+            dbLineWriter.writeNuclearLine(nFirstLine);
+            dbLineWriter.writeNuclearLine(nSecondLine);
 
             dbLineWriter.writeSubstituteLine(subsLine);
         });
@@ -486,6 +493,38 @@ public class GameEditorPresentationModel extends PresentationModel {
         return game;
     }
 
+    private void saveLines() {
+        firstLine = new Line(1);
+        firstLine.setGoalkeeper(dbPlayerLoader.getPlayerFromName(gk1.getText()));
+        firstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl1.getText()));
+        firstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr1.getText()));
+        firstLine.setCenter(dbPlayerLoader.getPlayerFromName(c1.getText()));
+        firstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl1.getText()));
+        firstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr1.getText()));
+
+        secondLine = new Line(2);
+        secondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl2.getText()));
+        secondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr2.getText()));
+        secondLine.setCenter(dbPlayerLoader.getPlayerFromName(c2.getText()));
+        secondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl2.getText()));
+        secondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr2.getText()));
+
+        thirdLine = new Line(3);
+        thirdLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl3.getText()));
+        thirdLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr3.getText()));
+        thirdLine.setCenter(dbPlayerLoader.getPlayerFromName(c3.getText()));
+        thirdLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl3.getText()));
+        thirdLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr3.getText()));
+
+        fourthLine = new Line(4);
+        fourthLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl4.getText()));
+        fourthLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr4.getText()));
+        fourthLine.setCenter(dbPlayerLoader.getPlayerFromName(c4.getText()));
+        fourthLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl4.getText()));
+        fourthLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr4.getText()));
+    }
+
+
     private void savePPLines() {
         ppFirstLine = new PowerplayLine(1);
         ppFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdl1.getText()));
@@ -543,6 +582,22 @@ public class GameEditorPresentationModel extends PresentationModel {
         subsLine.setBoxplayDefender2(dbPlayerLoader.getPlayerFromName(bpsd2.getText()));
         subsLine.setBoxplayForward1(dbPlayerLoader.getPlayerFromName(bpsf1.getText()));
         subsLine.setBoxplayForward2(dbPlayerLoader.getPlayerFromName(bpsf2.getText()));
+    }
+
+    private void saveNuclearLines() {
+        nFirstLine = new NuclearLine(1);
+        nFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ndl1.getText()));
+        nFirstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ndr1.getText()));
+        nFirstLine.setCenter(dbPlayerLoader.getPlayerFromName(nc1.getText()));
+        nFirstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(nfl1.getText()));
+        nFirstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(nfr1.getText()));
+
+        nSecondLine = new NuclearLine(2);
+        nSecondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ndl2.getText()));
+        nSecondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ndr2.getText()));
+        nSecondLine.setCenter(dbPlayerLoader.getPlayerFromName(nc2.getText()));
+        nSecondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(nfl2.getText()));
+        nSecondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(nfr2.getText()));
     }
 
     public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {

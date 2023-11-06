@@ -10,7 +10,7 @@ public class PowerplayLine extends Line {
     }
 
     public PowerplayLine(int lineNr){
-        super(lineNr);
+        this.lineNr = lineNr;
     }
 
     public PowerplayLine(int gameID,int lineNr, Player defenderLeft, Player defenderRight, Player center, Player forwardLeft, Player forwardRight) {

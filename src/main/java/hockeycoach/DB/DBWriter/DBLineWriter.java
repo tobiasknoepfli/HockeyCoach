@@ -1,10 +1,7 @@
 package hockeycoach.DB.DBWriter;
 
 import hockeycoach.mainClasses.Game;
-import hockeycoach.mainClasses.Lines.BoxplayLine;
-import hockeycoach.mainClasses.Lines.Line;
-import hockeycoach.mainClasses.Lines.PowerplayLine;
-import hockeycoach.mainClasses.Lines.SubstituteLine;
+import hockeycoach.mainClasses.Lines.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,8 +12,8 @@ import static hockeycoach.AppStarter.DB_URL;
 
 public class DBLineWriter {
     public PreparedStatement setLine(PreparedStatement preparedStatement, Line line) throws SQLException {
-        preparedStatement.setInt(1, line.getGameID());
-        preparedStatement.setInt(2, line.getLineNr());
+        preparedStatement.setInt(1, (line.getGameID() != 0) ? line.getGameID() : 0);
+        preparedStatement.setInt(2, (line.getLineNr() != 0) ? line.getLineNr() : 0);
         preparedStatement.setInt(3, (line.getGoalkeeper() != null) ? line.getGoalkeeper().getPlayerID() : 0);
         preparedStatement.setInt(4, (line.getDefenderLeft() != null) ? line.getDefenderLeft().getPlayerID() : 0);
         preparedStatement.setInt(5, (line.getDefenderRight() != null) ? line.getDefenderRight().getPlayerID() : 0);
@@ -28,8 +25,8 @@ public class DBLineWriter {
     }
 
     public PreparedStatement setPPLine(PreparedStatement preparedStatement, PowerplayLine powerplayLine) throws SQLException {
-        preparedStatement.setInt(1, powerplayLine.getGameID());
-        preparedStatement.setInt(2, powerplayLine.getLineNr());
+        preparedStatement.setInt(1, (powerplayLine.getGameID() != 0) ? powerplayLine.getGameID() : 0);
+        preparedStatement.setInt(2, (powerplayLine.getLineNr() != 0) ? powerplayLine.getLineNr() : 0);
         preparedStatement.setInt(3, (powerplayLine.getDefenderLeft() != null) ? powerplayLine.getDefenderLeft().getPlayerID() : 0);
         preparedStatement.setInt(4, (powerplayLine.getDefenderRight() != null) ? powerplayLine.getDefenderRight().getPlayerID() : 0);
         preparedStatement.setInt(5, (powerplayLine.getCenter() != null) ? powerplayLine.getCenter().getPlayerID() : 0);
@@ -40,8 +37,8 @@ public class DBLineWriter {
     }
 
     public PreparedStatement setBPLine(PreparedStatement preparedStatement, BoxplayLine boxplayLine) throws SQLException {
-        preparedStatement.setInt(1, boxplayLine.getGameID());
-        preparedStatement.setInt(2, boxplayLine.getLineNr());
+        preparedStatement.setInt(1, (boxplayLine.getGameID() != 0) ? boxplayLine.getGameID() : 0);
+        preparedStatement.setInt(2, (boxplayLine.getLineNr() != 0) ? boxplayLine.getLineNr() : 0);
         preparedStatement.setInt(3, (boxplayLine.getDefenderLeft() != null) ? boxplayLine.getDefenderLeft().getPlayerID() : 0);
         preparedStatement.setInt(4, (boxplayLine.getDefenderRight() != null) ? boxplayLine.getDefenderRight().getPlayerID() : 0);
         preparedStatement.setInt(5, (boxplayLine.getForwardLeft() != null) ? boxplayLine.getForwardLeft().getPlayerID() : 0);
@@ -51,8 +48,8 @@ public class DBLineWriter {
     }
 
     public PreparedStatement setSubstituteLine(PreparedStatement preparedStatement, SubstituteLine substituteLine) throws SQLException {
-        preparedStatement.setInt(1, (substituteLine.getGameID() != 0) ? substituteLine.getGameID():0);
-        preparedStatement.setInt(2, (substituteLine.getLineNr() != 0) ? substituteLine.getLineNr():0);
+        preparedStatement.setInt(1, (substituteLine.getGameID() != 0) ? substituteLine.getGameID() : 0);
+        preparedStatement.setInt(2, (substituteLine.getLineNr() != 0) ? substituteLine.getLineNr() : 0);
         preparedStatement.setInt(3, (substituteLine.getGoalkeeper1() != null) ? substituteLine.getGoalkeeper1().getPlayerID() : 0);
         preparedStatement.setInt(4, (substituteLine.getGoalkeeper2() != null) ? substituteLine.getGoalkeeper2().getPlayerID() : 0);
         preparedStatement.setInt(5, (substituteLine.getGoalkeeper3() != null) ? substituteLine.getGoalkeeper3().getPlayerID() : 0);
@@ -66,6 +63,18 @@ public class DBLineWriter {
         preparedStatement.setInt(13, (substituteLine.getBoxplayDefender2() != null) ? substituteLine.getBoxplayDefender2().getPlayerID() : 0);
         preparedStatement.setInt(14, (substituteLine.getBoxplayForward1() != null) ? substituteLine.getBoxplayForward1().getPlayerID() : 0);
         preparedStatement.setInt(15, (substituteLine.getBoxplayForward2() != null) ? substituteLine.getBoxplayForward2().getPlayerID() : 0);
+
+        return preparedStatement;
+    }
+
+    public PreparedStatement setNLine(PreparedStatement preparedStatement, NuclearLine nuclearLine) throws SQLException {
+        preparedStatement.setInt(1, (nuclearLine.getGameID() != 0) ? nuclearLine.getGameID() : 0);
+        preparedStatement.setInt(2, (nuclearLine.getLineNr() != 0) ? nuclearLine.getLineNr() : 0);
+        preparedStatement.setInt(3, (nuclearLine.getDefenderLeft() != null) ? nuclearLine.getDefenderLeft().getPlayerID() : 0);
+        preparedStatement.setInt(4, (nuclearLine.getDefenderRight() != null) ? nuclearLine.getDefenderRight().getPlayerID() : 0);
+        preparedStatement.setInt(5, (nuclearLine.getCenter() != null) ? nuclearLine.getCenter().getPlayerID() : 0);
+        preparedStatement.setInt(6, (nuclearLine.getForwardLeft() != null) ? nuclearLine.getForwardLeft().getPlayerID() : 0);
+        preparedStatement.setInt(7, (nuclearLine.getForwardRight() != null) ? nuclearLine.getForwardRight().getPlayerID() : 0);
 
         return preparedStatement;
     }
@@ -134,6 +143,22 @@ public class DBLineWriter {
             preparedStatement.executeUpdate();
         } catch (
                 SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeNuclearLine(NuclearLine nuclearLine) {
+        String query = "INSERT INTO nuclearLine " +
+                "(gameID,lineNr,defenderLeft,defenderRight,center,forwardLeft,forwardRight)" +
+                "VALUES ?,?,?,?,?,?,?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            setNLine(preparedStatement, nuclearLine);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

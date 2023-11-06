@@ -46,15 +46,18 @@ public class DBStadiumLoader {
 
     public Stadium getStadiumFromID(int stadiumID) {
         Stadium stadium = new Stadium();
-        String query = "SELECT * FROM stadium WHERE ID =" + stadiumID;
+        String query = "SELECT * FROM stadium WHERE ID = " + stadiumID;
 
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            resultSet.next();
-            stadium = setStadium(resultSet);
+            if(resultSet.next()){
+                stadium = setStadium(resultSet);
+            }
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

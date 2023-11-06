@@ -21,6 +21,10 @@ public class NuclearLine extends Line {
         this.forwardRight = forwardRight;
     }
 
+    public NuclearLine(int lineNr){
+        this.lineNr= lineNr;
+    }
+
     @Override
     public int getGameID() {
         return gameID;
