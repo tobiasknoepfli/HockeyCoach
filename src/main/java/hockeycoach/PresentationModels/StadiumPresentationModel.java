@@ -64,7 +64,7 @@ public class StadiumPresentationModel extends PresentationModel {
         searchStadiumButton.setOnAction(event -> {
             searchBox.searchStadium(searchStadium.getText(), allStadiumList, allStadiums);
         });
-        saveButton.setOnAction(event->{
+        saveButton.setOnAction(event -> {
             writeNewStadium();
             dbStadiumWriter.writeStadium(stadium);
         });
@@ -105,7 +105,7 @@ public class StadiumPresentationModel extends PresentationModel {
         });
     }
 
-    public void writeNewStadium(){
+    public void writeNewStadium() {
         stadium.setStadiumName(stadiumName.getText());
         stadium.setStadiumAddress(stadiumAddress.getText());
         stadium.setStadiumZip(Integer.parseInt(stadiumZip.getText()));
