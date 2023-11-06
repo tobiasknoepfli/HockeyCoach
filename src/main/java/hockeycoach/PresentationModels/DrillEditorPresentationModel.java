@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBDrillLoader;
+import hockeycoach.DB.DBWriter.DBDrillWriter;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
@@ -21,6 +22,7 @@ import java.util.Stack;
 public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
     ImageChooser imageChooser = new ImageChooser();
+    DBDrillWriter dbDrillWriter = new DBDrillWriter();
     MouseEvent event;
     List<Drill> allDrillList, filteredDrills;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
@@ -72,6 +74,10 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
         drillImage.setOnMouseClicked(mouseEvent -> {
             drillImage.setImage(imageChooser.chooseImage(event));
+        });
+
+        saveButton.setOnAction(event -> {
+            dbDrillWriter.writeNewDrill(writeDrill());
         });
     }
 
@@ -139,8 +145,19 @@ public class DrillEditorPresentationModel extends PresentationModel {
                     drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,
                     drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
         });
+    }
 
+    public Drill writeDrill(){
+        Drill drill = new Drill();
+        drill.setName(drillName.getText());
+        drill.setCategory(drillCategory.getValue().toString());
+        drill.setDifficulty(Integer.parseInt(drillDifficulty.getValue().toString()));
+        drill.setParticipation(drillParticipation.getValue().toString());
+        drill.setDescription(drill.getDescription());
+        drill.setStation(drill.getStation());
+        drill.setImageID(drill.getImageID());
 
+        return  drill;
     }
 
     @Override
