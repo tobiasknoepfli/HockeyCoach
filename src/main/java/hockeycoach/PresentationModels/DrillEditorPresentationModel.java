@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBDrillLoader;
+import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
 import hockeycoach.mainClasses.Drill;
 import hockeycoach.supportClasses.*;
@@ -26,6 +27,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
     MouseEvent event;
     List<Drill> allDrillList, filteredDrills;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
+    DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
     ComboBoxDrillFilter comboBoxDrillFilter = new ComboBoxDrillFilter();
     ButtonControls buttonControls = new ButtonControls();
 
@@ -102,12 +104,18 @@ public class DrillEditorPresentationModel extends PresentationModel {
             drillTags.getItems().addAll(newDrill.getTags());
 
         });
-        comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
-        comboBoxPopulator.setParticipation(allDrillList, drillParticipationFilter);
-        comboBoxPopulator.setDifficulty(allDrillList, drillDifficultyFilter);
-        comboBoxPopulator.setPuckPosition(allDrillList, drillPuckPositionFilter);
-        comboBoxPopulator.setStation(allDrillList, drillStationFilter);
-        comboBoxPopulator.setTags(allDrillList, drillTagsFilter);
+
+        comboBoxPopulator.setAllCategories(dbDrillValuesLoader.getCategories(),drillCategory);
+        comboBoxPopulator.setAllParticipations(dbDrillValuesLoader.getParticipation(),drillParticipation);
+        comboBoxPopulator.setAllPuckPositions(dbDrillValuesLoader.getPuckPosition(),drillPuckPosition);
+        comboBoxPopulator.setAllDifficulties(drillDifficulty);
+        comboBoxPopulator.setAllStations(drillStation);
+//        comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
+//        comboBoxPopulator.setParticipation(allDrillList, drillParticipationFilter);
+//        comboBoxPopulator.setDifficulty(allDrillList, drillDifficultyFilter);
+//        comboBoxPopulator.setPuckPosition(allDrillList, drillPuckPositionFilter);
+//        comboBoxPopulator.setStation(allDrillList, drillStationFilter);
+//        comboBoxPopulator.setTags(allDrillList, drillTagsFilter);
 
 
         drillCategoryFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
@@ -151,7 +159,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         Drill drill = new Drill();
         drill.setName(drillName.getText());
         drill.setCategory(drillCategory.getValue().toString());
-        drill.setDifficulty(Integer.parseInt(drillDifficulty.getValue().toString()));
+        drill.setDifficulty(Difficulty.valueFromString(drillDifficulty.getValue().toString()));
         drill.setParticipation(drillParticipation.getValue().toString());
         drill.setDescription(drill.getDescription());
         drill.setStation(drill.getStation());

@@ -21,7 +21,7 @@ public class DBDrillLoader extends DBLoader{
             drill.setParticipation(resultSet.getString("participation"));
             drill.setDescription(resultSet.getString("description"));
             drill.setStation(resultSet.getBoolean("station"));
-            drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN tag ON drillID =" + drill.getDrillID()));
+            drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN drillTag ON drillID =" + drill.getDrillID()));
             drill.setImageID(resultSet.getInt("imageID"));
             drill.setPuckPosition(resultSet.getString("puckPosition"));
         }catch(SQLException e){
