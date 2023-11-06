@@ -11,13 +11,13 @@ import static hockeycoach.AppStarter.DB_URL;
 
 public class DBTrainingLineWriter {
     public PreparedStatement setTrainingLines(PreparedStatement preparedStatement, TrainingLines trainingLines) throws SQLException {
-        preparedStatement.setInt(1, trainingLines.getTrainingID());
-        preparedStatement.setString(2, trainingLines.getJersey1());
-        preparedStatement.setString(3, trainingLines.getJersey2());
-        preparedStatement.setString(4, trainingLines.getJersey3());
-        preparedStatement.setString(5, trainingLines.getJersey4());
-        preparedStatement.setString(6, trainingLines.getJersey5());
-        preparedStatement.setString(7, trainingLines.getJersey6());
+        preparedStatement.setInt(1, (trainingLines.getTrainingID() !=0) ? trainingLines.getTrainingID():0);
+        preparedStatement.setString(2, (trainingLines.getJersey1()!=null) ? trainingLines.getJersey1():"");
+        preparedStatement.setString(3, (trainingLines.getJersey2()!=null) ? trainingLines.getJersey2():"");
+        preparedStatement.setString(4, (trainingLines.getJersey3()!=null) ? trainingLines.getJersey3():"");
+        preparedStatement.setString(5, (trainingLines.getJersey4()!=null) ? trainingLines.getJersey4():"");
+        preparedStatement.setString(6, (trainingLines.getJersey5()!=null) ? trainingLines.getJersey5():"");
+        preparedStatement.setString(7, (trainingLines.getJersey6()!=null) ? trainingLines.getJersey6():"");
         preparedStatement.setInt(8, (trainingLines.getGk1() != null) ? trainingLines.getGk1().getPlayerID() : 0);
         preparedStatement.setInt(9, (trainingLines.getGk2() != null) ? trainingLines.getGk2().getPlayerID() : 0);
         preparedStatement.setInt(10, (trainingLines.getGk3() != null) ? trainingLines.getGk3().getPlayerID() : 0);

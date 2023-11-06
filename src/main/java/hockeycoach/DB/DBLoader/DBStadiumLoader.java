@@ -44,7 +44,7 @@ public class DBStadiumLoader {
         return allStadiums;
     }
 
-    public Stadium getStadium(int stadiumID) {
+    public Stadium getStadiumFromID(int stadiumID) {
         Stadium stadium = new Stadium();
         String query = "SELECT * FROM stadium WHERE ID =" + stadiumID;
 

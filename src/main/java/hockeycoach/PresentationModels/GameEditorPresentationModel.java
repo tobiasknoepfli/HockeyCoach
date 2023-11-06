@@ -4,6 +4,7 @@ import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBWriter.DBGameWriter;
+import hockeycoach.DB.DBWriter.DBLineWriter;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.*;
@@ -34,7 +35,8 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBLineLoader dbLineLoader = new DBLineLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
-    DBGameWriter dbGameWriter =new DBGameWriter();
+    DBGameWriter dbGameWriter = new DBGameWriter();
+    DBLineWriter dbLineWriter = new DBLineWriter();
     TextFieldAction textFieldAction = new TextFieldAction();
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
 
@@ -248,20 +250,20 @@ public class GameEditorPresentationModel extends PresentationModel {
 
             subsLine.setGameID(game.getGameID());
 
-//            dbWriter.writeLine(game, firstLine);
-//            dbWriter.writeLine(game, secondLine);
-//            dbWriter.writeLine(game, thirdLine);
-//            dbWriter.writeLine(game, fourthLine);
-//
-//            dbWriter.writePPLine(game, ppFirstLine);
-//            dbWriter.writePPLine(game, ppSecondLine);
-//            dbWriter.writePPLine(game, ppFillerLine);
-//
-//            dbWriter.writeBPLine(game, bpFirstLine);
-//            dbWriter.writeBPLine(game, bpSecondLine);
-//            dbWriter.writeBPLine(game, bpFillerLine);
-//
-//            dbWriter.writeSubstituteLine(game, subsLine);
+            dbLineWriter.writeNewLine(firstLine);
+            dbLineWriter.writeNewLine(secondLine);
+            dbLineWriter.writeNewLine(thirdLine);
+            dbLineWriter.writeNewLine(fourthLine);
+
+            dbLineWriter.writePPLine(ppFirstLine);
+            dbLineWriter.writePPLine(ppSecondLine);
+            dbLineWriter.writePPLine(ppFillerLine);
+
+            dbLineWriter.writeBPLine(bpFirstLine);
+            dbLineWriter.writeBPLine(bpSecondLine);
+            dbLineWriter.writeBPLine(bpFillerLine);
+
+            dbLineWriter.writeSubstituteLine(subsLine);
         });
     }
 
@@ -280,7 +282,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             buttonControls.openStadiumHide(root, GAME_EDITOR);
         });
 
-        showAllPlayers.selectedProperty().addListener((obs,oldValue,newValue)->{
+        showAllPlayers.selectedProperty().addListener((obs, oldValue, newValue) -> {
             refreshPlayers();
         });
     }
@@ -335,7 +337,7 @@ public class GameEditorPresentationModel extends PresentationModel {
                     .orElse(null);
 
             activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
-            if (!(showAllPlayers.isSelected())){
+            if (!(showAllPlayers.isSelected())) {
                 if (lineupTab == activeTab) {
                     lineupList.add(selectedPlayer);
                 } else if (powerplayTab == activeTab) {
@@ -419,9 +421,9 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
 
-        if (showAllPlayers.isSelected()){
+        if (showAllPlayers.isSelected()) {
             teamPlayers.getItems().addAll(inactivePlayers);
-        } else{
+        } else {
             if (lineupTab == activeTab) {
                 inactivePlayers.removeAll(lineupList);
             } else if (powerplayTab == activeTab) {
@@ -679,7 +681,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         return lines;
     }
 
-    public void fillStadium(Stadium stadium){
+    public void fillStadium(Stadium stadium) {
         gameStadium.setText(stadium.getStadiumName());
     }
 

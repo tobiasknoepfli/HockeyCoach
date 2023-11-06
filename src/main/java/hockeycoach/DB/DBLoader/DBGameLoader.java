@@ -17,7 +17,7 @@ public class DBGameLoader extends DBLoader{
             game.setGameDate(resultSet.getDate("gameDate").toLocalDate());
             game.setGameTime(resultSet.getTime("gameTime").toLocalTime());
             game.setOpponent(resultSet.getString("opponent"));
-            game.setStadium(dbStadiumLoader.getStadium(resultSet.getInt("stadium")));
+            game.setStadium(dbStadiumLoader.getStadiumFromID(resultSet.getInt("stadium")));
             game.setTeam(resultSet.getInt("team"));
             game.setCaptain(getPlayerByID(resultSet.getInt("captain")));
             game.setAssistant1(getPlayerByID(resultSet.getInt("assistant1")));
