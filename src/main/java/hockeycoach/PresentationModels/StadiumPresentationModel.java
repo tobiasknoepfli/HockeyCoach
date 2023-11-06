@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
+import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.SearchBox;
@@ -21,12 +22,14 @@ public class StadiumPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     SearchBox searchBox = new SearchBox();
     DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
+    DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxStadiumFilter comboBoxStadiumFilter = new ComboBoxStadiumFilter();
+    Stadium stadium = new Stadium();
 
     List<Stadium> allStadiumList = new ArrayList<>();
 
-    Button newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton,clearFilters;
+    Button newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton, clearFilters;
 
     TableView<Stadium> allStadiums;
 
@@ -40,7 +43,7 @@ public class StadiumPresentationModel extends PresentationModel {
         getDBEntries(root);
 
         allStadiums.getItems().addAll(allStadiumList);
-        comboBoxPopulator.setStadiumCities(allStadiumList,cityFilter);
+        comboBoxPopulator.setStadiumCities(allStadiumList, cityFilter);
 
         setupButtons(root);
         setupEventListeners(root);
@@ -53,20 +56,24 @@ public class StadiumPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-        clearFilters.setOnAction(event ->{
-            comboBoxStadiumFilter.resetFilter(allStadiumList,allStadiums,cityFilter);
-            searchBox.clearStadium(searchStadium,allStadiumList,allStadiums);
+        clearFilters.setOnAction(event -> {
+            comboBoxStadiumFilter.resetFilter(allStadiumList, allStadiums, cityFilter);
+            searchBox.clearStadium(searchStadium, allStadiumList, allStadiums);
         });
 
-        searchStadiumButton.setOnAction(event ->{
-            searchBox.searchStadium(searchStadium.getText(),allStadiumList,allStadiums);
+        searchStadiumButton.setOnAction(event -> {
+            searchBox.searchStadium(searchStadium.getText(), allStadiumList, allStadiums);
+        });
+        saveButton.setOnAction(event->{
+            writeNewStadium();
+            dbStadiumWriter.writeStadium(stadium);
         });
     }
 
     @Override
     public void setupEventListeners(Pane root) {
         allStadiums.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            if(newValue!=null) {
+            if (newValue != null) {
                 stadiumName.setText(newValue.getStadiumName());
                 stadiumAddress.setText(newValue.getStadiumAddress());
                 stadiumZip.setText(Integer.toString(newValue.getStadiumZip()));
@@ -75,14 +82,14 @@ public class StadiumPresentationModel extends PresentationModel {
             }
         });
 
-        cityFilter.valueProperty().addListener((obs,oldValue, newValue) ->{
-            comboBoxStadiumFilter.setFilter(allStadiumList,allStadiums,cityFilter);
+        cityFilter.valueProperty().addListener((obs, oldValue, newValue) -> {
+            comboBoxStadiumFilter.setFilter(allStadiumList, allStadiums, cityFilter);
         });
 
-        allStadiums.setOnMousePressed(event ->{
-            if(event.isPrimaryButtonDown() && event.getClickCount() == 2) {
+        allStadiums.setOnMousePressed(event -> {
+            if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 Stadium selectedStadium = allStadiums.getSelectionModel().getSelectedItem();
-                if(selectedStadium !=null){
+                if (selectedStadium != null) {
                     globalStadium.setStadiumID(selectedStadium.getStadiumID());
                     globalStadium.setStadiumName(selectedStadium.getStadiumName());
                     globalStadium.setStadiumAddress(selectedStadium.getStadiumAddress());
@@ -91,11 +98,19 @@ public class StadiumPresentationModel extends PresentationModel {
                     globalStadium.setStadiumCountry(selectedStadium.getStadiumCountry());
 
                     lastVisitedPM.fillStadium(globalStadium);
-                    buttonControls.openPresentationModelClose(lastVisitedPM,lastVisitedNodeName,lastVisitedFXML,root,STADIUM);
+                    buttonControls.openPresentationModelClose(lastVisitedPM, lastVisitedNodeName, lastVisitedFXML, root, STADIUM);
                 }
 
             }
         });
+    }
+
+    public void writeNewStadium(){
+        stadium.setStadiumName(stadiumName.getText());
+        stadium.setStadiumAddress(stadiumAddress.getText());
+        stadium.setStadiumZip(Integer.parseInt(stadiumZip.getText()));
+        stadium.setStadiumPlace(stadiumCity.getText());
+        stadium.setStadiumCountry(stadiumCountry.getText());
     }
 
     @Override
