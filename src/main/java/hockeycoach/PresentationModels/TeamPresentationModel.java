@@ -71,7 +71,7 @@ public class TeamPresentationModel extends PresentationModel {
         stadiumName.setText(team.getStadium().getStadiumName());
         stadiumStreet.setText(team.getStadium().getStadiumAddress());
         stadiumZip.setText(String.valueOf(team.getStadium().getStadiumZip()));
-        stadiumCity.setText(team.getStadium().getStadiumPlace());
+        stadiumCity.setText(team.getStadium().getStadiumCity());
         stadiumCountry.setText(team.getStadium().getStadiumCountry());
         contactFirstName.setText(team.getContactFirstName());
         contactLastName.setText(team.getContactLastName());
@@ -144,7 +144,7 @@ public class TeamPresentationModel extends PresentationModel {
         stadiumName.setText(stadium.getStadiumName());
         stadiumStreet.setText(stadium.getStadiumAddress());
         stadiumZip.setText(String.valueOf(stadium.getStadiumZip()));
-        stadiumCity.setText(stadium.getStadiumPlace());
+        stadiumCity.setText(stadium.getStadiumCity());
         stadiumCountry.setText(stadium.getStadiumCountry());
     }
 

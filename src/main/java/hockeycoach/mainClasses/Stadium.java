@@ -3,7 +3,7 @@ package hockeycoach.mainClasses;
 import java.util.List;
 
 public class Stadium {
-    public String stadiumName,stadiumAddress,stadiumPlace,stadiumCountry;
+    public String stadiumName,stadiumAddress, stadiumCity,stadiumCountry;
     public int stadiumID, stadiumZip;
 
     public Stadium(){
@@ -32,12 +32,12 @@ public class Stadium {
         this.stadiumAddress = stadiumAddress;
     }
 
-    public String getStadiumPlace() {
-        return stadiumPlace;
+    public String getStadiumCity() {
+        return stadiumCity;
     }
 
-    public void setStadiumPlace(String stadiumPlace) {
-        this.stadiumPlace = stadiumPlace;
+    public void setStadiumCity(String stadiumCity) {
+        this.stadiumCity = stadiumCity;
     }
 
     public String getStadiumCountry() {

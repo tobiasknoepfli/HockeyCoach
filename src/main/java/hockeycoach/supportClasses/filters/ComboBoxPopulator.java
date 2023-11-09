@@ -5,12 +5,8 @@ import hockeycoach.supportClasses.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TableView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -161,7 +157,7 @@ public class ComboBoxPopulator {
         List<String> cityList = new ArrayList<>();
         allStadiumList.stream()
                 .forEach(stadium -> {
-                    String city = stadium.getStadiumPlace();
+                    String city = stadium.getStadiumCity();
                     cityList.add(city);
                 });
         observableList = cityList.stream()

@@ -17,7 +17,7 @@ public class ComboBoxStadiumFilter extends ComboBoxFilter{
         if (cityBox.getValue() != null) {
             String selectedCity = (String) cityBox.getValue();
             filteredStadiums = allStadiumList.stream()
-                    .filter(stadium -> stadium.getStadiumPlace().equals(selectedCity))
+                    .filter(stadium -> stadium.getStadiumCity().equals(selectedCity))
                     .collect(Collectors.toList());
         }
         allStadiums.setItems(FXCollections.observableArrayList(filteredStadiums));

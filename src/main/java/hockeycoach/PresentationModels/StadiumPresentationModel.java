@@ -77,7 +77,7 @@ public class StadiumPresentationModel extends PresentationModel {
                 stadiumName.setText(newValue.getStadiumName());
                 stadiumAddress.setText(newValue.getStadiumAddress());
                 stadiumZip.setText(Integer.toString(newValue.getStadiumZip()));
-                stadiumCity.setText(newValue.getStadiumPlace());
+                stadiumCity.setText(newValue.getStadiumCity());
                 stadiumCountry.setText(newValue.getStadiumCountry());
             }
         });
@@ -94,7 +94,7 @@ public class StadiumPresentationModel extends PresentationModel {
                     globalStadium.setStadiumName(selectedStadium.getStadiumName());
                     globalStadium.setStadiumAddress(selectedStadium.getStadiumAddress());
                     globalStadium.setStadiumZip(selectedStadium.getStadiumZip());
-                    globalStadium.setStadiumPlace(selectedStadium.getStadiumPlace());
+                    globalStadium.setStadiumCity(selectedStadium.getStadiumCity());
                     globalStadium.setStadiumCountry(selectedStadium.getStadiumCountry());
 
                     lastVisitedPM.fillStadium(globalStadium);
@@ -109,7 +109,7 @@ public class StadiumPresentationModel extends PresentationModel {
         stadium.setStadiumName(stadiumName.getText());
         stadium.setStadiumAddress(stadiumAddress.getText());
         stadium.setStadiumZip(Integer.parseInt(stadiumZip.getText()));
-        stadium.setStadiumPlace(stadiumCity.getText());
+        stadium.setStadiumCity(stadiumCity.getText());
         stadium.setStadiumCountry(stadiumCountry.getText());
     }
 

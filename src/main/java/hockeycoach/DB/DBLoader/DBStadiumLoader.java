@@ -17,7 +17,7 @@ public class DBStadiumLoader {
             stadium.setStadiumName(resultSet.getString("stadiumName"));
             stadium.setStadiumAddress(resultSet.getString("stadiumAddress"));
             stadium.setStadiumZip(resultSet.getInt("stadiumZip"));
-            stadium.setStadiumPlace(resultSet.getString("stadiumPlace"));
+            stadium.setStadiumCity(resultSet.getString("stadiumPlace"));
             stadium.setStadiumCountry(resultSet.getString("stadiumCountry"));
         } catch (SQLException e) {
             e.printStackTrace();

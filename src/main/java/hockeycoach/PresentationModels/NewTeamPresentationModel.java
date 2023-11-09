@@ -4,8 +4,6 @@ import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.DB.DBWriter.DBImageWriter;
 import hockeycoach.DB.DBWriter.DBTeamWriter;
-import hockeycoach.DB.DBWriter.DBWriter;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
@@ -216,7 +214,7 @@ public class NewTeamPresentationModel extends PresentationModel {
         stadiumName.setText(stadium.getStadiumName());
         stadiumStreet.setText(stadium.getStadiumAddress());
         stadiumZip.setText(Integer.toString(stadium.getStadiumZip()));
-        stadiumCity.setText(stadium.getStadiumPlace());
+        stadiumCity.setText(stadium.getStadiumCity());
         stadiumCountry.setText(stadium.getStadiumCountry());
     }
 

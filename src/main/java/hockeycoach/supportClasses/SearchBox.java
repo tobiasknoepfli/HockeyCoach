@@ -1,6 +1,5 @@
 package hockeycoach.supportClasses;
 
-import hockeycoach.mainClasses.Drill;
 import hockeycoach.mainClasses.Stadium;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -8,11 +7,8 @@ import javafx.collections.transformation.FilteredList;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class SearchBox {
     public void searchStadium(String searchString, List<Stadium> list, TableView<Stadium> tableView){
@@ -32,7 +28,7 @@ public class SearchBox {
                 if(stadium.getStadiumName().toLowerCase().contains(word.toLowerCase()) ||
                 stadium.getStadiumAddress().toLowerCase().contains(word.toLowerCase()) ||
                         String.valueOf(stadium.getStadiumZip()).equals(word) ||
-                        stadium.getStadiumPlace().toLowerCase().contains(word.toLowerCase()) ||
+                        stadium.getStadiumCity().toLowerCase().contains(word.toLowerCase()) ||
                         stadium.getStadiumCountry().toLowerCase().contains(word.toLowerCase())){
                     return true;
                 }

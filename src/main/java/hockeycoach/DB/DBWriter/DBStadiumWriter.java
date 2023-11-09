@@ -18,7 +18,7 @@ public class DBStadiumWriter {
         preparedStatement.setString(1,(stadium.getStadiumName() != null) ? stadium.getStadiumName():"");
         preparedStatement.setString(2,(stadium.getStadiumAddress() !=null) ? stadium.getStadiumAddress():"");
         preparedStatement.setInt(3,(stadium.getStadiumZip() != 0) ? stadium.getStadiumZip() : 0);
-        preparedStatement.setString(4,(stadium.getStadiumPlace() != null) ? stadium.getStadiumPlace() : "");
+        preparedStatement.setString(4,(stadium.getStadiumCity() != null) ? stadium.getStadiumCity() : "");
         preparedStatement.setString(5,(stadium.getStadiumCountry() != null) ? stadium.getStadiumCountry() : "");
 
         return preparedStatement;
