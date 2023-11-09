@@ -5,6 +5,7 @@ import hockeycoach.mainClasses.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static hockeycoach.AppStarter.DB_URL;
 
@@ -137,5 +138,50 @@ public class DBDrillValuesLoader extends DBLoader {
             e.printStackTrace();
         }
         return tagList;
+    }
+
+    public DrillCategory getCategoryFromID(int categoryID){
+        List<DrillCategory> drillCategoryList = new ArrayList<>();
+        drillCategoryList = getCategories();
+
+        DrillCategory drillCategory = drillCategoryList.stream().filter(d->categoryID == d.getCategoryID()).findFirst().orElse(null);
+        return drillCategory;
+    }
+
+    public DrillParticipation getParticipationFromID(int participationID){
+        List<DrillParticipation> drillParticipationList = new ArrayList<>();
+        drillParticipationList = getParticipation();
+
+        DrillParticipation drillParticipation = drillParticipationList.stream().filter(d->participationID == d.getDrillParticipationID()).findFirst().orElse(null);
+        return drillParticipation;
+    }
+
+    public DrillPuckPosition getPuckPositionFromID(int puckPositionID){
+        List<DrillPuckPosition> drillPuckPositionList = new ArrayList<>();
+        drillPuckPositionList = getPuckPosition();
+
+        DrillPuckPosition drillPuckPosition = drillPuckPositionList.stream().filter(d->puckPositionID == d.getPuckPositionsID()).findFirst().orElse(null);
+        return  drillPuckPosition;
+    }
+
+    public DrillCategory getCategoryFromString(List<DrillCategory> drillCategoryList, String categoryName){
+        DrillCategory drillCategory =new DrillCategory();
+        drillCategory= drillCategoryList.stream()
+                .filter(d->categoryName.equals(d.getDrillCategory()))
+                .findFirst()
+                .orElse(null);
+        return drillCategory;
+    }
+    public DrillParticipation getParticipationFromString(String participationName){
+        List<DrillParticipation> drillParticipationList = new ArrayList<>();
+
+        drillParticipationList = getParticipation();
+
+        DrillParticipation drillParticipation =new DrillParticipation();
+        drillParticipation= drillParticipationList.stream()
+                .filter(d->participationName.equals(d.getDrillParticipation()))
+                .findFirst()
+                .orElse(null);
+        return drillParticipation;
     }
 }

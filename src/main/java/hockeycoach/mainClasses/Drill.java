@@ -10,21 +10,21 @@ import java.util.ArrayList;
 public class Drill {
     private int drillID;
     private String name;
-    private String category;
+    private DrillCategory category;
     private int difficulty;
-    private String participation;
+    private DrillParticipation participation;
     private String description;
     private Boolean station;
     private ArrayList<String> tags;
     private int imageID;
     private String table;
     private int sortingIndex;
-    private String puckPosition;
+    private DrillPuckPosition puckPosition;
 
     public Drill() {
     }
 
-    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, int imageID) {
+    public Drill(int drillID, String name, DrillCategory category, int difficulty, DrillParticipation participation, String description, Boolean station, ArrayList<String> tags, int imageID) {
         this.drillID = drillID;
         this.name = name;
         this.category = category;
@@ -36,7 +36,7 @@ public class Drill {
         this.imageID = imageID;
     }
 
-    public Drill(int drillID, String name, String category, int difficulty, String participation, String description, Boolean station, ArrayList<String> tags, int imageID, String table, int sortingIndex, String puckPosition) {
+    public Drill(int drillID, String name, DrillCategory category, int difficulty, DrillParticipation participation, String description, Boolean station, ArrayList<String> tags, int imageID, String table, int sortingIndex, DrillPuckPosition puckPosition) {
         this.drillID = drillID;
         this.name = name;
         this.category = category;
@@ -67,11 +67,11 @@ public class Drill {
         this.name = name;
     }
 
-    public String getCategory() {
+    public DrillCategory getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(DrillCategory category) {
         this.category = category;
     }
 
@@ -83,11 +83,11 @@ public class Drill {
         this.difficulty = difficulty;
     }
 
-    public String getParticipation() {
+    public DrillParticipation getParticipation() {
         return participation;
     }
 
-    public void setParticipation(String participation) {
+    public void setParticipation(DrillParticipation participation) {
         this.participation = participation;
     }
 
@@ -139,11 +139,11 @@ public class Drill {
         this.sortingIndex = sortingIndex;
     }
 
-    public String getPuckPosition() {
+    public DrillPuckPosition getPuckPosition() {
         return puckPosition;
     }
 
-    public void setPuckPosition(String puckPosition) {
+    public void setPuckPosition(DrillPuckPosition puckPosition) {
         this.puckPosition = puckPosition;
     }
 }

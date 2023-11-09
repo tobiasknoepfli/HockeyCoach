@@ -13,9 +13,9 @@ public class DBDrillWriter {
     public PreparedStatement setDrill(PreparedStatement preparedStatement, Drill drill) throws SQLException {
 
         preparedStatement.setString(1, (drill.getName() != null) ? drill.getName() : "");
-        preparedStatement.setString(2, (drill.getCategory() != null) ? drill.getCategory() : "");
+        preparedStatement.setInt(2, (drill.getCategory().getCategoryID() != 0) ? drill.getCategory().getCategoryID() : 0);
         preparedStatement.setInt(3, (drill.getDifficulty() != 0) ? drill.getDifficulty() : 0);
-        preparedStatement.setString(4, (drill.getParticipation() != null) ? drill.getParticipation() : "");
+        preparedStatement.setInt(4, (drill.getParticipation().getDrillParticipationID() != 0) ? drill.getParticipation().getDrillParticipationID() : 0);
         preparedStatement.setString(5, (drill.getDescription() != null) ? drill.getDescription() : "");
         preparedStatement.setBoolean(6, (drill.getStation() != null) ? drill.getStation() : false);
         preparedStatement.setInt(7, (drill.getImageID() != 0) ? drill.getImageID() : 0);

@@ -11,19 +11,21 @@ import java.util.stream.Collectors;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBDrillLoader extends DBLoader{
+    DBDrillValuesLoader dbDrillValuesLoader= new DBDrillValuesLoader();
+
     public Drill setDrill(ResultSet resultSet){
         Drill drill = new Drill();
         try{
             drill.setDrillID(resultSet.getInt("drillID"));
             drill.setName(resultSet.getString("name"));
-            drill.setCategory(resultSet.getString("category"));
+            drill.setCategory(dbDrillValuesLoader.getCategoryFromID(resultSet.getInt("category")));
             drill.setDifficulty(resultSet.getInt("difficulty"));
-            drill.setParticipation(resultSet.getString("participation"));
+            drill.setParticipation(dbDrillValuesLoader.getParticipationFromID(resultSet.getInt("participation")));
             drill.setDescription(resultSet.getString("description"));
             drill.setStation(resultSet.getBoolean("station"));
             drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN drillTag ON drillID =" + drill.getDrillID()));
             drill.setImageID(resultSet.getInt("imageID"));
-            drill.setPuckPosition(resultSet.getString("puckPosition"));
+            drill.setPuckPosition(dbDrillValuesLoader.getPuckPositionFromID(resultSet.getInt("puckPosition")));
         }catch(SQLException e){
             e.printStackTrace();
         }

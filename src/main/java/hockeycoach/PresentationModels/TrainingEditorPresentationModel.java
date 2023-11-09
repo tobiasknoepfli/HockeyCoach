@@ -50,6 +50,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     DBTeamWriter dbTeamWriter = new DBTeamWriter();
     TrainingLines trainingLines = new TrainingLines();
     DBTrainingLineWriter dbTrainingLineWriter = new DBTrainingLineWriter();
+    DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+
+    List<DrillCategory> drillCategoryList = new ArrayList<>();
 
     FilteredList<Drill> filteredDrills;
 
@@ -190,6 +193,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     @Override
     public void getDBEntries(Pane root) {
+        drillCategoryList = dbDrillValuesLoader.getCategories();
     }
 
     @Override
@@ -287,12 +291,12 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 //                }
 
                 drillName.setText(newDrill.getName());
-                drillCategory.setText(newDrill.getCategory());
+                drillCategory.setText(newDrill.getCategory().getDrillCategory());
                 drillDifficulty.setText(String.valueOf(newDrill.getDifficulty()));
-                drillParticipation.setText(newDrill.getParticipation());
+                drillParticipation.setText(newDrill.getParticipation().getDrillParticipation());
                 drillStation.setSelected(newDrill.getStation());
                 drillDescription.setText(newDrill.getDescription());
-                puckPosition.setText(newDrill.getPuckPosition());
+                puckPosition.setText(newDrill.getPuckPosition().getPuckPosition());
 
 
                 tagCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
@@ -318,9 +322,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                     continue;
                 }
                 if (drill.getName().toLowerCase().contains(word.toLowerCase()) ||
-                        drill.getCategory().toLowerCase().contains(word.toLowerCase()) ||
+                        drill.getCategory().getDrillCategory().toLowerCase().contains(word.toLowerCase()) ||
                         String.valueOf(drill.getDifficulty()).equals(word) ||
-                        drill.getParticipation().toLowerCase().contains(word.toLowerCase()) ||
+                        drill.getParticipation().getDrillParticipation().toLowerCase().contains(word.toLowerCase()) ||
                         String.valueOf(drill.getStation()).equals(word) ||
                         drill.getTags().stream().anyMatch(tag -> tag.toLowerCase().contains(word.toLowerCase()))) {
                     return true;

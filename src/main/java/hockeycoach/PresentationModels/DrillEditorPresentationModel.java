@@ -4,6 +4,8 @@ import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
 import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.DrillCategory;
+import hockeycoach.mainClasses.DrillParticipation;
 import hockeycoach.mainClasses.DrillPuckPosition;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
@@ -28,6 +30,8 @@ public class DrillEditorPresentationModel extends PresentationModel {
     MouseEvent event;
     List<Drill> allDrillList, filteredDrills;
     List<DrillPuckPosition> drillPuckPositionsList;
+    List<DrillCategory> drillCategoryList;
+    List<DrillParticipation> drillParticipationList;
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
     ComboBoxDrillFilter comboBoxDrillFilter = new ComboBoxDrillFilter();
@@ -68,6 +72,8 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
     @Override
     public void getDBEntries(Pane root) {
+        drillCategoryList = dbDrillValuesLoader.getCategories();
+        drillParticipationList = dbDrillValuesLoader.getParticipation();
         drillPuckPositionsList = dbDrillValuesLoader.getPuckPosition();
     }
 
@@ -166,9 +172,9 @@ public class DrillEditorPresentationModel extends PresentationModel {
     public Drill writeDrill() {
         Drill drill = new Drill();
         drill.setName(drillName.getText());
-        drill.setCategory(drillCategory.getValue().toString());
+        drill.setCategory(dbDrillValuesLoader.getCategoryFromString(drillCategoryList, drillCategory.getValue().toString()));
         drill.setDifficulty(Difficulty.valueFromString(drillDifficulty.getValue().toString()));
-        drill.setParticipation(drillParticipation.getValue().toString());
+        drill.setParticipation(dbDrillValuesLoader.getParticipationFromString(drillParticipation.getValue().toString()));
         drill.setDescription(drill.getDescription());
         drill.setStation(drill.getStation());
         drill.setImageID(drill.getImageID());

@@ -75,7 +75,7 @@ public class ComboBoxPopulator {
         List<String> categoryList = new ArrayList<>();
         allDrillList.stream()
                 .forEach(drill -> {
-                    String category = drill.getCategory();
+                    String category = drill.getCategory().getDrillCategory();
                     categoryList.add(category);
                 });
         observableList = categoryList.stream()
@@ -90,7 +90,7 @@ public class ComboBoxPopulator {
         List<String> participationList = new ArrayList<>();
         allDrillList.stream()
                 .forEach(drill -> {
-                    String participation = drill.getParticipation();
+                    String participation = drill.getParticipation().getDrillParticipation();
                     participationList.add(participation);
                 });
         observableList = participationList.stream()
@@ -116,7 +116,7 @@ public class ComboBoxPopulator {
         List<String> puckPositionList = new ArrayList<>();
         allDrillList.stream()
                 .forEach(drill -> {
-                    String puckPosition = drill.getPuckPosition();
+                    String puckPosition = drill.getPuckPosition().getPuckPosition();
                     puckPositionList.add(puckPosition);
                 });
         observableList = puckPositionList.stream()
