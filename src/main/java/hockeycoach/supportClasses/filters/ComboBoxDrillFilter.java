@@ -1,6 +1,6 @@
 package hockeycoach.supportClasses.filters;
 
-import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.Drills.Drill;
 import hockeycoach.supportClasses.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;

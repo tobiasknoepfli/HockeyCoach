@@ -28,7 +28,7 @@ public class DBEditor {
                 "stick = ?, " +
                 "photoPath = ?, " +
                 "notes = ? " +
-                "WHERE playerID = " + player.getPlayerID();
+                "WHERE playerID = " + player.getID();
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -67,21 +67,21 @@ public class DBEditor {
              PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
              PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
 
-            checkStatement.setInt(1, player.getPlayerID());
-            checkStatement.setInt(2, team.getTeamID());
+            checkStatement.setInt(1, player.getID());
+            checkStatement.setInt(2, team.getID());
             ResultSet resultSet = checkStatement.executeQuery();
 
             if (resultSet.next() && resultSet.getInt(1) > 0) {
                 combinationExists = true;
                 updateStatement.setInt(1, player.getJersey());
                 updateStatement.setString(2, player.getRole());
-                updateStatement.setInt(3, player.getPlayerID());
-                updateStatement.setInt(4, team.getTeamID());
+                updateStatement.setInt(3, player.getID());
+                updateStatement.setInt(4, team.getID());
                 updateStatement.executeUpdate();
             }
             else {
-                insertStatement.setInt(1, player.getPlayerID());
-                insertStatement.setInt(2, team.getTeamID());
+                insertStatement.setInt(1, player.getID());
+                insertStatement.setInt(2, team.getID());
                 insertStatement.setInt(3, player.getJersey());
                 insertStatement.setString(4, player.getRole());
                 insertStatement.executeUpdate();
@@ -114,7 +114,7 @@ public class DBEditor {
                 "captainLastName = ?, " +
                 "logo = ?, " +
                 "notes = ? " +
-                "WHERE teamID = " + team.getTeamID();
+                "WHERE teamID = " + team.getID();
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {

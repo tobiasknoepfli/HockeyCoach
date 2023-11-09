@@ -58,7 +58,7 @@ public class PlayerPresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         TextField[] textFields = {playerFirstName,playerLastName, team, street, zip, city, country,
                 phone, email, jersey, positions, role,
@@ -134,7 +134,7 @@ public class PlayerPresentationModel extends PresentationModel {
                 });
 
                 DBLoader dbLoader = new DBLoader();
-                List<Team> teamsForPlayer = dbLoader.getTeamsForPlayer("SELECT t.* FROM team t INNER JOIN playerXteam tx ON t.teamID = tx.teamID WHERE tx.playerID = '" + newSelectedPlayer.getPlayerID() + "'");
+                List<Team> teamsForPlayer = dbLoader.getTeamsForPlayer("SELECT t.* FROM team t INNER JOIN playerXteam tx ON t.teamID = tx.teamID WHERE tx.playerID = '" + newSelectedPlayer.getID() + "'");
                 if (!teamsForPlayer.isEmpty()) {
                     ObservableList<Team> teamList = FXCollections.observableArrayList(teamsForPlayer);
                     playerTeams.setItems(teamList);
@@ -146,7 +146,7 @@ public class PlayerPresentationModel extends PresentationModel {
     private Player getPlayerData() {
         Player player = new Player();
 
-        player.setPlayerID(selectedPlayer.getPlayerID());
+        player.setID(selectedPlayer.getID());
 
         player.setFirstName(playerFirstName.getText());
         player.setLastName(playerLastName.getText());

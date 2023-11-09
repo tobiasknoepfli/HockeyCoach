@@ -47,8 +47,8 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
 
         selectedTeam = globalTeam;
 
-        allPlayerList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
-        teamPlayerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.playerID = tx.playerID WHERE teamID = '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        allPlayerList = dbPlayerLoader.getAllPlayers();
+        teamPlayerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.playerID = tx.playerID WHERE teamID = '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(filterPlayerIDs(teamPlayerList, allPlayerList));
@@ -87,10 +87,10 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
     private List<Player> filterPlayerIDs(List<Player> teamPlayerList, List<Player> allPlayerList) {
         List<Integer> teamPlayerIds = new ArrayList<>();
         for (Player player : teamPlayerList) {
-            teamPlayerIds.add(player.getPlayerID());
+            teamPlayerIds.add(player.getID());
         }
         List<Player> filteredAllPlayers = allPlayerList.stream()
-                .filter(player -> !teamPlayerIds.contains(player.getPlayerID()))
+                .filter(player -> !teamPlayerIds.contains(player.getID()))
                 .collect(Collectors.toList());
         return filteredAllPlayers;
     }
@@ -112,17 +112,17 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
         List<PlayerXTeam> playerXteam = dbPlayerXTeamLoader.getPlayerXTeam("SELECT * FROM playerXteam");
 
         List<PlayerXTeam> filteredTeamList = playerXteam.stream()
-                .filter(entry -> entry.getTeamID() == selectedTeam.getTeamID())
+                .filter(entry -> entry.getTeamID() == selectedTeam.getID())
                 .collect(Collectors.toList());
 
         List<Player> additionalPlayers = teamPlayerList.stream()
                 .filter(player -> filteredTeamList.stream()
-                        .noneMatch(entry -> entry.getPlayerID() == player.getPlayerID()))
+                        .noneMatch(entry -> entry.getPlayerID() == player.getID()))
                 .collect(Collectors.toList());
 
         List<PlayerXTeam> deletePlayers = filteredTeamList.stream()
                 .filter(entry -> teamPlayerList.stream()
-                        .noneMatch(player -> player.getPlayerID() == entry.getPlayerID()))
+                        .noneMatch(player -> player.getID() == entry.getPlayerID()))
                 .collect(Collectors.toList());
 
         additionalPlayers.stream()

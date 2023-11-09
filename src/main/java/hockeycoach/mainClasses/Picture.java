@@ -5,25 +5,25 @@ import javafx.scene.image.Image;
 import java.io.ByteArrayInputStream;
 
 public class Picture {
-    int pictureID;
+    int ID;
     Image image;
     String pictureName;
 
     public Picture(){
     }
 
-    public Picture(int pictureID,Image image, String pictureName){
-        this.pictureID = pictureID;
+    public Picture(int ID, Image image, String pictureName){
+        this.ID = ID;
         this.image = image;
         this.pictureName = pictureName;
     }
 
-    public int getPictureID() {
-        return pictureID;
+    public int getID() {
+        return ID;
     }
 
-    public void setPictureID(int pictureID) {
-        this.pictureID = pictureID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public Image getImage() {

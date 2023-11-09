@@ -25,6 +25,7 @@ public class NuclearLine extends Line {
         this.lineNr= lineNr;
     }
 
+
     @Override
     public int getGameID() {
         return gameID;

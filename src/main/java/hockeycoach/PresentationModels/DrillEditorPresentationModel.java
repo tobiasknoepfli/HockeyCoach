@@ -3,17 +3,16 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
-import hockeycoach.mainClasses.Drill;
-import hockeycoach.mainClasses.DrillCategory;
-import hockeycoach.mainClasses.DrillParticipation;
-import hockeycoach.mainClasses.DrillPuckPosition;
+import hockeycoach.mainClasses.Drills.Drill;
+import hockeycoach.mainClasses.Drills.DrillCategory;
+import hockeycoach.mainClasses.Drills.DrillParticipation;
+import hockeycoach.mainClasses.Drills.DrillPuckPosition;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
@@ -56,7 +55,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
     public void initializeControls(Pane root) {
         importFields(root);
 
-        allDrillList = dbDrillLoader.getDrills("SELECT * FROM drill");
+        allDrillList = dbDrillLoader.getAllDrills();
 
         allDrills.getItems().clear();
         allDrills.getItems().setAll(allDrillList);
@@ -72,9 +71,9 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
     @Override
     public void getDBEntries(Pane root) {
-        drillCategoryList = dbDrillValuesLoader.getCategories();
-        drillParticipationList = dbDrillValuesLoader.getParticipation();
-        drillPuckPositionsList = dbDrillValuesLoader.getPuckPosition();
+        drillCategoryList = dbDrillValuesLoader.getAllCategories();
+        drillParticipationList = dbDrillValuesLoader.getAllParticipations();
+        drillPuckPositionsList = dbDrillValuesLoader.getAllPuckPositions();
     }
 
     @Override
@@ -114,9 +113,9 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
         });
 
-        comboBoxPopulator.setAllCategories(dbDrillValuesLoader.getCategories(), drillCategory);
-        comboBoxPopulator.setAllParticipations(dbDrillValuesLoader.getParticipation(), drillParticipation);
-        comboBoxPopulator.setAllPuckPositions(dbDrillValuesLoader.getPuckPosition(), drillPuckPosition);
+        comboBoxPopulator.setAllCategories(dbDrillValuesLoader.getAllCategories(), drillCategory);
+        comboBoxPopulator.setAllParticipations(dbDrillValuesLoader.getAllParticipations(), drillParticipation);
+        comboBoxPopulator.setAllPuckPositions(dbDrillValuesLoader.getAllPuckPositions(), drillPuckPosition);
         comboBoxPopulator.setAllDifficulties(drillDifficulty);
         comboBoxPopulator.setAllStations(drillStation);
 //        comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
@@ -177,7 +176,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drill.setParticipation(dbDrillValuesLoader.getParticipationFromString(drillParticipation.getValue().toString()));
         drill.setDescription(drill.getDescription());
         drill.setStation(drill.getStation());
-        drill.setImageID(drill.getImageID());
+        drill.setPicture(drill.getPicture());
 
         return drill;
     }

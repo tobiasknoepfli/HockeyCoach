@@ -6,32 +6,25 @@ import hockeycoach.DB.DBWriter.DBTeamWriter;
 import hockeycoach.DB.DBWriter.DBTrainingLineWriter;
 import hockeycoach.DB.DBWriter.DBTrainingWriter;
 import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Drills.Drill;
+import hockeycoach.mainClasses.Drills.DrillCategory;
 import hockeycoach.mainClasses.Lines.Line;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
-import tornadofx.control.DateTimePicker;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -127,9 +120,9 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
         dbLoader = new DBLoader();
         DBDrillLoader dbDrillLoader = new DBDrillLoader();
-        drillList = dbDrillLoader.getDrills("SELECT * FROM drill");
+        drillList = dbDrillLoader.getAllDrills();
 
-        allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         TextField[] jerseys = {jersey1, jersey2, jersey3, jersey4, jersey5, jersey6};
         TextField[] players = {gk1, gk2, gk3, gk4, gk5, gk6,
@@ -193,7 +186,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     @Override
     public void getDBEntries(Pane root) {
-        drillCategoryList = dbDrillValuesLoader.getCategories();
+        drillCategoryList = dbDrillValuesLoader.getAllCategories();
     }
 
     @Override
@@ -225,7 +218,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         backupButton.setOnAction(event -> moveSelectedDrills(backup, backupTab));
         stationsButton.setOnAction(event -> moveDrillsIfStationsTrue());
 
-        availablePlayersList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        availablePlayersList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
         playerList.getItems().clear();
         playerList.getItems().addAll(availablePlayersList);
 
@@ -291,7 +284,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 //                }
 
                 drillName.setText(newDrill.getName());
-                drillCategory.setText(newDrill.getCategory().getDrillCategory());
+                drillCategory.setText(newDrill.getCategory().getCategory());
                 drillDifficulty.setText(String.valueOf(newDrill.getDifficulty()));
                 drillParticipation.setText(newDrill.getParticipation().getDrillParticipation());
                 drillStation.setSelected(newDrill.getStation());
@@ -322,7 +315,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                     continue;
                 }
                 if (drill.getName().toLowerCase().contains(word.toLowerCase()) ||
-                        drill.getCategory().getDrillCategory().toLowerCase().contains(word.toLowerCase()) ||
+                        drill.getCategory().getCategory().toLowerCase().contains(word.toLowerCase()) ||
                         String.valueOf(drill.getDifficulty()).equals(word) ||
                         drill.getParticipation().getDrillParticipation().toLowerCase().contains(word.toLowerCase()) ||
                         String.valueOf(drill.getStation()).equals(word) ||
@@ -598,7 +591,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getPlayerID() > 0) {
+        if (player.getID() > 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";
@@ -607,13 +600,13 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     public List<Line> lastGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getID());
         Game closestPastGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
         if (closestPastGame != null) {
-            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getID());
             return lines;
         }
         return new ArrayList<>();
@@ -621,13 +614,13 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     public List<Line> nextGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getID());
         Game closestNextGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
                 .orElse(null);
         if (closestNextGame != null) {
-            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getID());
             return lines;
         }
         return new ArrayList<>();
@@ -638,7 +631,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         training.setTrainingDate(trainingDate.getValue());
         training.setTrainingTime(LocalTime.from(trainingTime.getLocalTime()));
         training.setStadium(dbStadiumWriter.getStadiumFromName(trainingStadium.getText()));
-        training.setTeam(globalTeam.getTeamID());
+        training.setTeam(globalTeam);
         training.setMainFocus(trainingMainFocus.getText());
         training.setPointers(trainingPointers.getText());
         return training;

@@ -5,12 +5,12 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class Game {
-    private int gameID;
+    private int ID;
     private LocalDate gameDate;
     private LocalTime gameTime;
     private Stadium stadium;
     private String opponent;
-    private int team;
+    private Team team;
     private Player captain, assistant1, assistant2, penalty1, penalty2, emptyNet1, emptyNet2;
 
     public Game() {
@@ -31,12 +31,12 @@ public class Game {
         this.emptyNet2 = emptyNet2;
     }
 
-    public int getGameID() {
-        return gameID;
+    public int getID() {
+        return ID;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public LocalDate getGameDate() {

@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.DB.DBWriter.DBTrainingLineWriter;
 import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Drills.Drill;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.TextFieldAction;
@@ -76,7 +77,7 @@ public class TrainingPresentationModel extends PresentationModel {
                 return new SimpleStringProperty(param.getValue().getStadiumName());
             }
         });
-        trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getTeamID());
+        trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getID());
 
         if (!trainingList.isEmpty()) {
             trainingTable.getItems().clear();
@@ -123,7 +124,7 @@ public class TrainingPresentationModel extends PresentationModel {
                 DBLoader dbLoader = new DBLoader();
                 DBDrillLoader dbDrillLoader = new DBDrillLoader();
                 DBTrainingLinesLoader dbTrainingLinesLoader = new DBTrainingLinesLoader();
-                List<Drill> drillList = dbDrillLoader.getDrills("SELECT * FROM drill");
+                List<Drill> drillList = dbDrillLoader.getAllDrills();
                 List<Drill> warmupList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'warmup' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "warmup", newSelectedTraining.getTrainingID());
                 List<Drill> togetherList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'together' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "together", newSelectedTraining.getTrainingID());
                 List<Drill> stationsList = dbDrillLoader.getTrainingDrills("SELECT drillID FROM trainingXdrills WHERE tableName LIKE 'stations' AND trainingID = " + newSelectedTraining.getTrainingID(), drillList, "stations", newSelectedTraining.getTrainingID());
@@ -277,7 +278,7 @@ public class TrainingPresentationModel extends PresentationModel {
     }
 
     private String getPlayerName(Player player) {
-        if (player != null && player.getPlayerID() != 0) {
+        if (player != null && player.getID() != 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";

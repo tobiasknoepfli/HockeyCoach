@@ -56,7 +56,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
 
         DBLoader dbLoader = new DBLoader();
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-        allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
+        allPlayersList = dbPlayerLoader.getAllPlayers();
 
         TextField[] textFields = {playerFirstName, playerLastName, playerAge,
                 street, zip, city, country, phone, email,
@@ -86,7 +86,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
             clearAllFields();
 
             DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-            allPlayersList = dbPlayerLoader.getAllPlayers("SELECT * FROM player");
+            allPlayersList = dbPlayerLoader.getAllPlayers();
             allPlayers.getItems().clear();
             allPlayers.getItems().addAll(allPlayersList);
             allPlayers.refresh();

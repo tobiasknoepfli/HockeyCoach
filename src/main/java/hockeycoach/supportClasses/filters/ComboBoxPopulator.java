@@ -1,6 +1,7 @@
 package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Drills.*;
 import hockeycoach.supportClasses.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +17,7 @@ public class ComboBoxPopulator {
 
     public void setAllCategories(List<DrillCategory> allCategories, ComboBox<String> comboBox) {
         List<String> stringList = allCategories.stream()
-                .map(DrillCategory::getDrillCategory)
+                .map(DrillCategory::getCategory)
                 .distinct()
                 .sorted()
                 .toList();
@@ -71,7 +72,7 @@ public class ComboBoxPopulator {
         List<String> categoryList = new ArrayList<>();
         allDrillList.stream()
                 .forEach(drill -> {
-                    String category = drill.getCategory().getDrillCategory();
+                    String category = drill.getCategory().getCategory();
                     categoryList.add(category);
                 });
         observableList = categoryList.stream()

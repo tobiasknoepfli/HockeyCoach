@@ -84,8 +84,8 @@ public class NewTeamPresentationModel extends PresentationModel {
 
     @Override
     public void getDBEntries(Pane root) {
-        teamList = dbTeamLoader.getAllTeams("SELECT * FROM team");
-        stadiumList = dbStadiumLoader.getAllStadiums("SELECT * FROM stadium");
+        teamList = dbTeamLoader.getAllTeams();
+        stadiumList = dbStadiumLoader.getAllStadiums();
     }
 
     @Override

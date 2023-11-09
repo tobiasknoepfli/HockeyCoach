@@ -1,6 +1,7 @@
 package hockeycoach.DB.DBLoader;
 
-import hockeycoach.mainClasses.Drill;
+import hockeycoach.DB.DBConverter.DBIDConverter;
+import hockeycoach.mainClasses.Drills.Drill;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,28 +12,29 @@ import java.util.stream.Collectors;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBDrillLoader extends DBLoader{
-    DBDrillValuesLoader dbDrillValuesLoader= new DBDrillValuesLoader();
+    DBIDConverter dbidConverter =new DBIDConverter();
 
     public Drill setDrill(ResultSet resultSet){
         Drill drill = new Drill();
         try{
-            drill.setDrillID(resultSet.getInt("drillID"));
+            drill.setID(resultSet.getInt("drillID"));
             drill.setName(resultSet.getString("name"));
-            drill.setCategory(dbDrillValuesLoader.getCategoryFromID(resultSet.getInt("category")));
-            drill.setDifficulty(resultSet.getInt("difficulty"));
-            drill.setParticipation(dbDrillValuesLoader.getParticipationFromID(resultSet.getInt("participation")));
+            drill.setCategory(dbidConverter.getDrillCategoryFromID(resultSet.getInt("category")));
+            drill.setDifficulty(dbidConverter.getDrillDifficultyFromID(resultSet.getInt("difficulty")));
+            drill.setParticipation(dbidConverter.getDrillParticipationFromID(resultSet.getInt("participation")));
             drill.setDescription(resultSet.getString("description"));
             drill.setStation(resultSet.getBoolean("station"));
-            drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN drillTag ON drillID =" + drill.getDrillID()));
-            drill.setImageID(resultSet.getInt("imageID"));
-            drill.setPuckPosition(dbDrillValuesLoader.getPuckPositionFromID(resultSet.getInt("puckPosition")));
+            drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN drillTag ON drillID =" + drill.getID()));
+//            drill.setPicture(resultSet.getInt("imageID"));
+            drill.setPuckPosition(dbidConverter.getDrillPuckPositionFromID(resultSet.getInt("puckPosition")));
         }catch(SQLException e){
             e.printStackTrace();
         }
         return drill;
     }
 
-    public List<Drill> getDrills(String query) {
+    public List<Drill> getAllDrills() {
+        String query = "SELECT * FROM drill";
         List<Drill> drillList = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
@@ -62,7 +64,7 @@ public class DBDrillLoader extends DBLoader{
             while (resultSet.next()) {
                 int drillID = resultSet.getInt("drillID");
                 Drill drill = drillList.stream()
-                        .filter(d -> d.getDrillID() == drillID)
+                        .filter(d -> d.getID() == drillID)
                         .findFirst()
                         .orElse(null);
 

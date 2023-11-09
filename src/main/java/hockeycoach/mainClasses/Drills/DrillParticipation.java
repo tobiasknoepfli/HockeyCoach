@@ -1,17 +1,17 @@
-package hockeycoach.mainClasses;
+package hockeycoach.mainClasses.Drills;
 
 public class DrillParticipation {
-    public int drillParticipationID;
+    public int ID;
     public String drillParticipation;
 
     public DrillParticipation(){}
 
-    public int getDrillParticipationID() {
-        return drillParticipationID;
+    public int getID() {
+        return ID;
     }
 
-    public void setDrillParticipationID(int drillParticipationID) {
-        this.drillParticipationID = drillParticipationID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getDrillParticipation() {

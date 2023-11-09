@@ -3,8 +3,6 @@ package hockeycoach.DB.DBLoader;
 import hockeycoach.mainClasses.Player;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +14,7 @@ public class DBPlayerLoader extends DBLoader {
     public Player setPlayer(ResultSet resultSet) {
         Player player = new Player();
         try {
-            player.setPlayerID(resultSet.getInt("playerID"));
+            player.setID(resultSet.getInt("playerID"));
             player.setFirstName(resultSet.getString("firstName"));
             player.setLastName(resultSet.getString("lastName"));
             player.setBirthday(parseDate(resultSet.getDate("birthday")));
@@ -40,7 +38,8 @@ public class DBPlayerLoader extends DBLoader {
         return player;
     }
 
-    public ArrayList<Player> getAllPlayers(String query) {
+    public ArrayList<Player> getAllPlayers() {
+        String query = "SELECT * FROM player";
         ArrayList<Player> allPlayers = new ArrayList<>();
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
@@ -71,8 +70,8 @@ public class DBPlayerLoader extends DBLoader {
                 Player player = new Player();
                 player = setPlayer(resultSet);
                 playerList.add(player);
-                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE playerID = "+player.getPlayerID()+" AND teamID = "+selectedTeamID));
-                player.setRole(getRole("SELECT role FROM playerXteam WHERE playerID = "+player.getPlayerID()+" AND teamID = "+selectedTeamID));
+                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE playerID = "+player.getID()+" AND teamID = "+selectedTeamID));
+                player.setRole(getRole("SELECT role FROM playerXteam WHERE playerID = "+player.getID()+" AND teamID = "+selectedTeamID));
                 connection.close();
             }
 
@@ -126,14 +125,14 @@ public class DBPlayerLoader extends DBLoader {
     }
 
     public int getPlayerIDFromName(String playerName) {
-        List<Player> allPlayers = getAllPlayers("SELECT * FROM player");
+        List<Player> allPlayers = getAllPlayers();
         String[] name = playerName.split("\\s+");
         Player player = allPlayers.stream().filter(p -> p.getLastName().equals(name[0]) && p.getFirstName().equals(name[1])).findFirst().orElse(null);
-        return player.getPlayerID();
+        return player.getID();
     }
 
     public Player getPlayerFromName(String playerName) {
-        List<Player> allPlayers = getAllPlayers("SELECT * FROM player");
+        List<Player> allPlayers = getAllPlayers();
         String[] name = playerName.split("\\s+");
         Player player = allPlayers.stream().filter(p -> p.getLastName().equals(name[0]) && p.getFirstName().equals(name[1])).findFirst().orElse(null);
         return player;

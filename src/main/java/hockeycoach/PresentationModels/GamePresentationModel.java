@@ -16,9 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
 
-import java.sql.Date;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -70,7 +68,7 @@ public class GamePresentationModel extends PresentationModel {
 
         selectedTeam = globalTeam;
 
-        allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getTeamID());
+        allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getID());
         stadiumColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<Game, String> param) {
@@ -137,7 +135,7 @@ public class GamePresentationModel extends PresentationModel {
             emptyNet1.setText(newValue.getEmptyNet1().getLastName() + " " + newValue.getEmptyNet1().getFirstName());
             emptyNet2.setText(newValue.getEmptyNet2().getLastName() + " " + newValue.getEmptyNet2().getFirstName());
 
-            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getGameID());
+            List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getID());
 
             Line firstLine = lines.stream()
                     .filter(line -> line.getLineNr() == 1)
@@ -184,7 +182,7 @@ public class GamePresentationModel extends PresentationModel {
                 fl4.setText(getPlayerName(fourthLine.getForwardLeft()));
             }
 
-            List<PowerplayLine> ppLine = dbLineLoader.getPPLines("SELECT * FROM powerplayLine WHERE gameID = " + newValue.getGameID());
+            List<PowerplayLine> ppLine = dbLineLoader.getPPLines("SELECT * FROM powerplayLine WHERE gameID = " + newValue.getID());
 
             PowerplayLine firstPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 1)
@@ -219,7 +217,7 @@ public class GamePresentationModel extends PresentationModel {
                 ppfrfiller.setText(getPlayerName(fillerPPLine.getForwardRight()));
             }
 
-            List<BoxplayLine> bpLine = dbLineLoader.getBPLines("SELECT * FROM boxplayLine WHERE gameID = " + newValue.getGameID());
+            List<BoxplayLine> bpLine = dbLineLoader.getBPLines("SELECT * FROM boxplayLine WHERE gameID = " + newValue.getID());
 
             BoxplayLine firstBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 1)
@@ -251,7 +249,7 @@ public class GamePresentationModel extends PresentationModel {
                 bpfrfiller.setText(getPlayerName(thirdBPLine.getForwardRight()));
             }
 
-            SubstituteLine substituteLine = dbLineLoader.getSubLine("SELECT * FROM substituteLine WHERE gameID =" + newValue.getGameID());
+            SubstituteLine substituteLine = dbLineLoader.getSubLine("SELECT * FROM substituteLine WHERE gameID =" + newValue.getID());
 
             if (substituteLine != null) {
                 sgk1.setText(getPlayerName(substituteLine.getGoalkeeper1()));
@@ -269,7 +267,7 @@ public class GamePresentationModel extends PresentationModel {
                 bpsf2.setText(getPlayerName(substituteLine.getBoxplayForward2()));
             }
 
-            List <NuclearLine> nuclearLines = dbLineLoader.getNuclearLine("SELECT * FROM nuclearLine WHERE gameID =" + newValue.getGameID());
+            List <NuclearLine> nuclearLines = dbLineLoader.getNuclearLine("SELECT * FROM nuclearLine WHERE gameID =" + newValue.getID());
 
             NuclearLine firstNLine = nuclearLines.stream()
                     .filter(nuclearLine -> nuclearLine.getLineNr() == 1)
@@ -299,7 +297,7 @@ public class GamePresentationModel extends PresentationModel {
 
     public String getPlayerName(Player player) {
         if (player != null) {
-            if (player.getPlayerID() > 0) {
+            if (player.getID() > 0) {
                 return player.getLastName() + " " + player.getFirstName();
             }
         }

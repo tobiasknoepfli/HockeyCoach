@@ -1,19 +1,17 @@
 package hockeycoach.mainClasses;
 
-import javafx.scene.control.Button;
+import hockeycoach.mainClasses.Drills.Drill;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Training {
-    private int trainingID;
+    private int ID;
     private LocalDate trainingDate;
     private LocalTime trainingTime;
     private Stadium stadium;
-    private int team;
+    private Team team;
     private String mainFocus;
     private String pointers;
     private ArrayList<Drill> warmup;
@@ -24,8 +22,8 @@ public class Training {
     public Training() {
     }
 
-    public Training(int trainingID, LocalDate trainingDate, LocalTime trainingTime, Stadium stadium, int team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
-        this.trainingID = trainingID;
+    public Training(int trainingID, LocalDate trainingDate, LocalTime trainingTime, Stadium stadium, Team team, String mainFocus, String pointers, ArrayList<Drill> warmup, ArrayList<Drill> together, ArrayList<Drill> stations, ArrayList<Drill> backup) {
+        this.ID = trainingID;
         this.trainingDate = trainingDate;
         this.trainingTime = trainingTime;
         this.stadium = stadium;
@@ -39,11 +37,11 @@ public class Training {
     }
 
     public int getTrainingID() {
-        return trainingID;
+        return ID;
     }
 
     public void setTrainingID(int trainingID) {
-        this.trainingID = trainingID;
+        this.ID = trainingID;
     }
 
     public LocalDate getTrainingDate() {
@@ -62,11 +60,11 @@ public class Training {
         this.trainingTime = trainingTime;
     }
 
-    public int getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(int team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 

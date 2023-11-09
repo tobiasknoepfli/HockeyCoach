@@ -1,8 +1,7 @@
 package hockeycoach.controllers;
 
-import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.Drills.Drill;
 import hockeycoach.mainClasses.Player;
-import hockeycoach.supportClasses.Difficulty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -21,10 +20,7 @@ public class TrainingEditorController extends Controller {
 
     @FXML
     private ComboBox<String> cbCategory, cbParticipation,
-            cbTags, cbPuckPosition;
-
-    @FXML
-    private ComboBox<Difficulty> cbDifficulty;
+            cbTags, cbPuckPosition, cbDifficulty;
 
     @FXML
     private ImageView drillImage;

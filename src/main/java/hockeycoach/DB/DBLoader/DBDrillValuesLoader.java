@@ -1,11 +1,10 @@
 package hockeycoach.DB.DBLoader;
 
-import hockeycoach.mainClasses.*;
+import hockeycoach.mainClasses.Drills.*;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static hockeycoach.AppStarter.DB_URL;
 
@@ -13,12 +12,24 @@ public class DBDrillValuesLoader extends DBLoader {
     public DrillCategory setDrillCategory(ResultSet resultSet) {
         DrillCategory drillCategory = new DrillCategory();
         try {
-            drillCategory.setCategoryID(resultSet.getInt("ID"));
-            drillCategory.setDrillCategory(resultSet.getString("drillCategory"));
+            drillCategory.setID(resultSet.getInt("ID"));
+            drillCategory.setCategory(resultSet.getString("drillCategory"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return drillCategory;
+    }
+
+    public DrillDifficulty setDrillDifficulty(ResultSet resultSet) {
+        DrillDifficulty drillDifficulty = new DrillDifficulty();
+        try {
+            drillDifficulty.setID(resultSet.getInt("ID"));
+            drillDifficulty.setDifficulty(resultSet.getInt("difficulty"));
+            drillDifficulty.setDifficultyName(resultSet.getString("difficultyName"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return drillDifficulty;
     }
 
     public DrillParticipation setDrillParticipation(ResultSet resultSet) {
@@ -42,17 +53,17 @@ public class DBDrillValuesLoader extends DBLoader {
         return drillPuckPosition;
     }
 
-    public DrillTag setDrillTag(ResultSet resultSet){
+    public DrillTag setDrillTag(ResultSet resultSet) {
         DrillTag drillTag = new DrillTag();
         try {
             drillTag.setDrillTag(resultSet.getString("drillTag"));
-        }catch(SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return drillTag;
     }
 
-    public List<DrillCategory> getCategories() {
+    public List<DrillCategory> getAllCategories() {
         String query = "SELECT * FROM drillCategory";
         List<DrillCategory> categoryList = new ArrayList<>();
         try {
@@ -63,7 +74,7 @@ public class DBDrillValuesLoader extends DBLoader {
             while (resultSet.next()) {
                 DrillCategory drillCategory = new DrillCategory();
 
-                drillCategory=setDrillCategory(resultSet);
+                drillCategory = setDrillCategory(resultSet);
 
                 categoryList.add(drillCategory);
             }
@@ -74,7 +85,29 @@ public class DBDrillValuesLoader extends DBLoader {
         return categoryList;
     }
 
-    public List<DrillParticipation> getParticipation() {
+    public List<DrillDifficulty> getallDifficulties() {
+        String query = "SELECT * FROM drillDifficulty";
+        List<DrillDifficulty> drillDifficultyList = new ArrayList<>();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            while (resultSet.next()) {
+                DrillDifficulty drillDifficulty = new DrillDifficulty();
+
+                drillDifficulty = setDrillDifficulty(resultSet);
+
+                drillDifficultyList.add(drillDifficulty);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return drillDifficultyList;
+    }
+
+    public List<DrillParticipation> getAllParticipations() {
         String query = "SELECT * FROM drillParticipation";
         List<DrillParticipation> participationList = new ArrayList<>();
         try {
@@ -85,7 +118,7 @@ public class DBDrillValuesLoader extends DBLoader {
             while (resultSet.next()) {
                 DrillParticipation drillParticipation = new DrillParticipation();
 
-                drillParticipation=setDrillParticipation(resultSet);
+                drillParticipation = setDrillParticipation(resultSet);
 
                 participationList.add(drillParticipation);
             }
@@ -96,7 +129,7 @@ public class DBDrillValuesLoader extends DBLoader {
         return participationList;
     }
 
-    public List<DrillPuckPosition> getPuckPosition() {
+    public List<DrillPuckPosition> getAllPuckPositions() {
         String query = "SELECT * FROM drillPuckPosition";
         List<DrillPuckPosition> puckPositionList = new ArrayList<>();
         try {
@@ -107,7 +140,7 @@ public class DBDrillValuesLoader extends DBLoader {
             while (resultSet.next()) {
                 DrillPuckPosition puckPosition = new DrillPuckPosition();
 
-                puckPosition=setDrillPuckPositions(resultSet);
+                puckPosition = setDrillPuckPositions(resultSet);
 
                 puckPositionList.add(puckPosition);
             }
@@ -118,7 +151,7 @@ public class DBDrillValuesLoader extends DBLoader {
         return puckPositionList;
     }
 
-    public List<DrillTag> getDrillTag() {
+    public List<DrillTag> getAllDrillTags() {
         String query = "SELECT * FROM drillTag";
         List<DrillTag> tagList = new ArrayList<>();
         try {
@@ -129,7 +162,7 @@ public class DBDrillValuesLoader extends DBLoader {
             while (resultSet.next()) {
                 DrillTag drillTag = new DrillTag();
 
-                drillTag=setDrillTag(resultSet);
+                drillTag = setDrillTag(resultSet);
 
                 tagList.add(drillTag);
             }
@@ -140,46 +173,47 @@ public class DBDrillValuesLoader extends DBLoader {
         return tagList;
     }
 
-    public DrillCategory getCategoryFromID(int categoryID){
+    public DrillCategory getCategoryFromID(int categoryID) {
         List<DrillCategory> drillCategoryList = new ArrayList<>();
-        drillCategoryList = getCategories();
+        drillCategoryList = getAllCategories();
 
-        DrillCategory drillCategory = drillCategoryList.stream().filter(d->categoryID == d.getCategoryID()).findFirst().orElse(null);
+        DrillCategory drillCategory = drillCategoryList.stream().filter(d -> categoryID == d.getID()).findFirst().orElse(null);
         return drillCategory;
     }
 
-    public DrillParticipation getParticipationFromID(int participationID){
+    public DrillParticipation getParticipationFromID(int participationID) {
         List<DrillParticipation> drillParticipationList = new ArrayList<>();
-        drillParticipationList = getParticipation();
+        drillParticipationList = getAllParticipations();
 
-        DrillParticipation drillParticipation = drillParticipationList.stream().filter(d->participationID == d.getDrillParticipationID()).findFirst().orElse(null);
+        DrillParticipation drillParticipation = drillParticipationList.stream().filter(d -> participationID == d.getID()).findFirst().orElse(null);
         return drillParticipation;
     }
 
-    public DrillPuckPosition getPuckPositionFromID(int puckPositionID){
+    public DrillPuckPosition getPuckPositionFromID(int puckPositionID) {
         List<DrillPuckPosition> drillPuckPositionList = new ArrayList<>();
-        drillPuckPositionList = getPuckPosition();
+        drillPuckPositionList = getAllPuckPositions();
 
-        DrillPuckPosition drillPuckPosition = drillPuckPositionList.stream().filter(d->puckPositionID == d.getPuckPositionsID()).findFirst().orElse(null);
-        return  drillPuckPosition;
+        DrillPuckPosition drillPuckPosition = drillPuckPositionList.stream().filter(d -> puckPositionID == d.getID()).findFirst().orElse(null);
+        return drillPuckPosition;
     }
 
-    public DrillCategory getCategoryFromString(List<DrillCategory> drillCategoryList, String categoryName){
-        DrillCategory drillCategory =new DrillCategory();
-        drillCategory= drillCategoryList.stream()
-                .filter(d->categoryName.equals(d.getDrillCategory()))
+    public DrillCategory getCategoryFromString(List<DrillCategory> drillCategoryList, String categoryName) {
+        DrillCategory drillCategory = new DrillCategory();
+        drillCategory = drillCategoryList.stream()
+                .filter(d -> categoryName.equals(d.getCategory()))
                 .findFirst()
                 .orElse(null);
         return drillCategory;
     }
-    public DrillParticipation getParticipationFromString(String participationName){
+
+    public DrillParticipation getParticipationFromString(String participationName) {
         List<DrillParticipation> drillParticipationList = new ArrayList<>();
 
-        drillParticipationList = getParticipation();
+        drillParticipationList = getAllParticipations();
 
-        DrillParticipation drillParticipation =new DrillParticipation();
-        drillParticipation= drillParticipationList.stream()
-                .filter(d->participationName.equals(d.getDrillParticipation()))
+        DrillParticipation drillParticipation = new DrillParticipation();
+        drillParticipation = drillParticipationList.stream()
+                .filter(d -> participationName.equals(d.getDrillParticipation()))
                 .findFirst()
                 .orElse(null);
         return drillParticipation;

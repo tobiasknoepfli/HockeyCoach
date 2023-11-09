@@ -25,7 +25,8 @@ public class DBStadiumLoader {
         return stadium;
     }
 
-    public List<Stadium> getAllStadiums(String query) {
+    public List<Stadium> getAllStadiums() {
+        String query = "SELECT * FROM stadium";
         List<Stadium> allStadiums = new ArrayList<>();
 
         try {

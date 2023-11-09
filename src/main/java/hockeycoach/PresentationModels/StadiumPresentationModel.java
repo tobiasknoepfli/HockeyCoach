@@ -51,7 +51,7 @@ public class StadiumPresentationModel extends PresentationModel {
 
     @Override
     public void getDBEntries(Pane root) {
-        allStadiumList = dbStadiumLoader.getAllStadiums("SELECT * FROM stadium");
+        allStadiumList = dbStadiumLoader.getAllStadiums();
     }
 
     @Override

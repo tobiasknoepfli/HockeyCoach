@@ -1,7 +1,7 @@
 package hockeycoach.mainClasses;
 
 public class Team {
-    private int teamID;
+    private int ID;
     private String name;
     private Stadium stadium;
     private int stadiumID;
@@ -17,36 +17,20 @@ public class Team {
     private String league;
     private String headCoachFirstName;
     private String headCoachLastName;
-    private int logo;
+    private Picture logo;
     private String notes;
     private int index;
 
     public Team() {
     }
 
-    public Team(String name, int teamID) {
+    public Team(String name, int ID) {
         this.name = name;
-        this.teamID = teamID;
+        this.ID = ID;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public int getLogo() {
-        return logo;
-    }
-
-    public void setLogo(int logo) {
-        this.logo = logo;
-    }
-
-    public Team(int teamID, String name, Stadium stadium, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, int logo, String notes) {
-        this.teamID = teamID;
+    public Team(int ID, String name, Stadium stadium, String contactFirstName, String contactLastName, String contactPhone, String contactEmail, String website, int founded, String presidentFirstName, String presidentLastName, String league, String headCoachFirstName, String headCoachLastName, Picture logo, String notes) {
+        this.ID = ID;
         this.name = name;
         this.stadium = stadium;
         this.country = country;
@@ -74,19 +58,19 @@ public class Team {
     }
 
     public int getStadiumID() {
-        return stadium.getStadiumID();
+        return stadium.getID();
     }
 
     public void setStadiumID(int stadiumID) {
-        this.stadiumID = stadium.getStadiumID();
+        this.stadiumID = stadium.getID();
     }
 
-    public int getTeamID() {
-        return teamID;
+    public int getID() {
+        return ID;
     }
 
-    public void setTeamID(int teamID) {
-        this.teamID = teamID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getName() {
@@ -199,6 +183,22 @@ public class Team {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Picture getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Picture logo) {
+        this.logo = logo;
     }
 
 }

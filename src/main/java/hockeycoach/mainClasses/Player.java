@@ -1,14 +1,13 @@
 package hockeycoach.mainClasses;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class Player {
-    private int playerID;
+    private int ID;
     private String firstName;
     private String lastName;
     private LocalDate birthday;
-    private String team;
+    private Team team;
     private String street;
     private int zip;
     private String city;
@@ -23,48 +22,24 @@ public class Player {
     private String weaknesses;
     private String role;
     private String stick;
-    private int photoID;
+    private Picture photoID;
     private String notes;
 
     public Player() {
     }
 
-    public Player(String firstName, String lastName, String team) {
+    public Player(String firstName, String lastName, Team team) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.team = team;
     }
 
-    public Player(int playerID, String firstName, String lastName, LocalDate birthday, String team, String street, int zip, String city, String country, String aLicence, String bLicence, String phone, String eMail, int jersey, String positions, String strengths, String weaknesses, String role, String stick, int photoID, String notes) {
-        this.playerID = playerID;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthday = birthday;
-        this.team = team;
-        this.street = street;
-        this.zip = zip;
-        this.city = city;
-        this.country = country;
-        this.aLicence = aLicence;
-        this.bLicence = bLicence;
-        this.phone = phone;
-        this.eMail = eMail;
-        this.jersey = jersey;
-        this.positions = positions;
-        this.strengths = strengths;
-        this.weaknesses = weaknesses;
-        this.role = role;
-        this.stick = stick;
-        this.photoID = photoID;
-        this.notes = notes;
+    public int getID() {
+        return ID;
     }
 
-    public int getPlayerID() {
-        return playerID;
-    }
-
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getFirstName() {
@@ -91,11 +66,11 @@ public class Player {
         this.birthday = birthday;
     }
 
-    public String getTeam() {
+    public Team getTeam() {
         return team;
     }
 
-    public void setTeam(String team) {
+    public void setTeam(Team team) {
         this.team = team;
     }
 

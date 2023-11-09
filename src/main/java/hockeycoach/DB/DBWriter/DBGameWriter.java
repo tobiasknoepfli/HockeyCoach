@@ -13,13 +13,13 @@ public class DBGameWriter {
         preparedStatement.setString(3, (game.getOpponent() != null) ? game.getOpponent() : "");
         preparedStatement.setInt(4, (game.getStadium() != null) ? game.getStadium().getStadiumID() : 0);
         preparedStatement.setInt(5, (game.getTeam() != 0) ? game.getTeam() : 0);
-        preparedStatement.setInt(6, (game.getCaptain() != null) ? game.getCaptain().getPlayerID() : 0);
-        preparedStatement.setInt(7, (game.getAssistant1() != null) ? game.getAssistant1().getPlayerID() : 0);
-        preparedStatement.setInt(8, (game.getAssistant2() != null) ? game.getAssistant2().getPlayerID() : 0);
-        preparedStatement.setInt(9, (game.getPenalty1() != null) ? game.getPenalty1().getPlayerID() : 0);
-        preparedStatement.setInt(10, (game.getPenalty2() != null) ? game.getPenalty2().getPlayerID() : 0);
-        preparedStatement.setInt(11, (game.getEmptyNet1() != null) ? game.getEmptyNet1().getPlayerID() : 0);
-        preparedStatement.setInt(12, (game.getEmptyNet2() != null) ? game.getEmptyNet2().getPlayerID() : 0);
+        preparedStatement.setInt(6, (game.getCaptain() != null) ? game.getCaptain().getID() : 0);
+        preparedStatement.setInt(7, (game.getAssistant1() != null) ? game.getAssistant1().getID() : 0);
+        preparedStatement.setInt(8, (game.getAssistant2() != null) ? game.getAssistant2().getID() : 0);
+        preparedStatement.setInt(9, (game.getPenalty1() != null) ? game.getPenalty1().getID() : 0);
+        preparedStatement.setInt(10, (game.getPenalty2() != null) ? game.getPenalty2().getID() : 0);
+        preparedStatement.setInt(11, (game.getEmptyNet1() != null) ? game.getEmptyNet1().getID() : 0);
+        preparedStatement.setInt(12, (game.getEmptyNet2() != null) ? game.getEmptyNet2().getID() : 0);
 
         return preparedStatement;
     }

@@ -1,9 +1,6 @@
 package hockeycoach.DB.DBWriter;
 
-import hockeycoach.controllers.StadiumController;
-import hockeycoach.mainClasses.Drill;
-import hockeycoach.mainClasses.Stadium;
-import hockeycoach.mainClasses.Team;
+import hockeycoach.mainClasses.Drills.Drill;
 import hockeycoach.mainClasses.Training;
 
 import java.sql.*;
@@ -17,7 +14,7 @@ public class DBTrainingWriter {
         preparedStatement.setDate(1, (training.getTrainingDate() != null) ? Date.valueOf(training.getTrainingDate()) : Date.valueOf("01.01.1900"));
         preparedStatement.setTime(2, (training.getTrainingTime() != null) ? Time.valueOf(training.getTrainingTime()) : Time.valueOf("00:00"));
         preparedStatement.setInt(3, (training.getStadium() != null) ? training.getStadium().getStadiumID() : 0);
-        preparedStatement.setInt(4, (training.getTeam() != 0) ? training.getTeam() : 0);
+        preparedStatement.setInt(4, (training.getTeam().getID() != 0) ? training.getTeam().getID() : 0);
         preparedStatement.setString(5, (training.getMainFocus() != null) ? training.getMainFocus() : "");
         preparedStatement.setString(6, (training.getPointers() != null) ? training.getPointers() : "");
 
@@ -53,7 +50,7 @@ public class DBTrainingWriter {
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             preparedStatement.setInt(1, (trainingID != 0) ? trainingID : 0);
-            preparedStatement.setInt(2, (drill != null) ? drill.getDrillID() : 0);
+            preparedStatement.setInt(2, (drill != null) ? drill.getID() : 0);
             preparedStatement.setString(3, (tableName != null) ? tableName : "");
             preparedStatement.setInt(4, (sortingIndex != 0) ? sortingIndex : -1);
 

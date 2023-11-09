@@ -5,6 +5,7 @@ import hockeycoach.mainClasses.Player;
 import java.util.List;
 
 public class Line {
+    private int ID;
     private int gameID;
     private int lineNr;
     private Player goalkeeper;
@@ -47,6 +48,14 @@ public class Line {
         this.defenderRight = defenderRight;
         this.forwardLeft = forwardLeft;
         this.forwardRight = forwardRight;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public int getGameID() {

@@ -31,7 +31,7 @@ public class DBTeamWriter {
         preparedStatement.setString(11, (team.getLeague() != null) ? team.getLeague() : "");
         preparedStatement.setString(12, (team.getHeadCoachFirstName() != null) ? team.getHeadCoachFirstName() : "");
         preparedStatement.setString(13, (team.getHeadCoachLastName() != null) ? team.getHeadCoachLastName() : "");
-        preparedStatement.setInt(14, (team.getLogo() != 0) ? team.getLogo() : 0);
+        preparedStatement.setInt(14, (team.getLogo().getID() != 0) ? team.getLogo().getID() : 0);
         preparedStatement.setString(15, (team.getNotes() != null) ? team.getNotes() : "");
 
         return preparedStatement;
@@ -56,7 +56,7 @@ public class DBTeamWriter {
     public Team getTeamFromName(String teamName) {
         List<Team> allTeams = new ArrayList<>();
         Team team = new Team();
-        allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        allTeams = dbTeamLoader.getAllTeams();
         team = allTeams.stream().filter(t -> t.getName().equals(teamName)).findFirst().orElse(null);
         return team;
     }

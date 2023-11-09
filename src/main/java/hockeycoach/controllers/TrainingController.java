@@ -1,6 +1,6 @@
 package hockeycoach.controllers;
 
-import hockeycoach.mainClasses.Drill;
+import hockeycoach.mainClasses.Drills.Drill;
 import hockeycoach.mainClasses.Training;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

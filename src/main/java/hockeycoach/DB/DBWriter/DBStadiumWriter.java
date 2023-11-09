@@ -40,7 +40,7 @@ public class DBStadiumWriter {
 
 
     public Stadium getStadiumFromName(String stadiumName){
-        List<Stadium> allStadiums = dbStadiumLoader.getAllStadiums("SELECT * FROM stadium");
+        List<Stadium> allStadiums = dbStadiumLoader.getAllStadiums();
         Stadium stadium = new Stadium();
         stadium = allStadiums.stream().filter(std -> std.getStadiumName().equals(stadiumName)).findFirst().orElse(null);
         return  stadium;

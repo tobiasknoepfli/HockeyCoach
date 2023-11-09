@@ -13,7 +13,7 @@ public class DBGameLoader extends DBLoader{
     public Game setGame(ResultSet resultSet){
         Game game = new Game();
         try{
-            game.setGameID(resultSet.getInt("ID"));
+            game.setID(resultSet.getInt("ID"));
             game.setGameDate(resultSet.getDate("gameDate").toLocalDate());
             game.setGameTime(resultSet.getTime("gameTime").toLocalTime());
             game.setOpponent(resultSet.getString("opponent"));

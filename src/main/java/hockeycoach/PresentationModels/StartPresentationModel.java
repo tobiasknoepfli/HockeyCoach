@@ -14,7 +14,6 @@ import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -22,9 +21,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static hockeycoach.AppStarter.*;
 
@@ -47,7 +44,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         importFields(root);
 
         DBTeamLoader dbTeamLoader = new DBTeamLoader();
-        allTeams = dbTeamLoader.getAllTeams("SELECT * FROM team");
+        allTeams = dbTeamLoader.getAllTeams();
         teamsTable.getItems().addAll(FXCollections.observableArrayList(allTeams));
 
         globalSelector.selectTeam(teamsTable);
@@ -84,7 +81,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
                 DBGameLoader dbGameLoader = new DBGameLoader();
-                List<Game> games = dbGameLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
+                List<Game> games = dbGameLoader.getGames("SELECT * FROM game WHERE team LIKE '%" + newSelectedTeam.getID() + "%'");
                 gamesColumn3.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>() {
                     @Override
                     public ObservableValue<String> call(TableColumn.CellDataFeatures<Game, String> param) {
@@ -98,7 +95,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedTeam, newSelectedTeam) -> {
             if (newSelectedTeam != null) {
                 DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
-                List<Training> trainings = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getTeamID() + "%'");
+                List<Training> trainings = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team LIKE '%" + newSelectedTeam.getID() + "%'");
                 trainingsColumn2.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Training, String>, ObservableValue<String>>() {
                     @Override
                     public ObservableValue<String> call(TableColumn.CellDataFeatures<Training, String> param) {
@@ -133,7 +130,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
                 Platform.runLater(() -> {
                     pm.allGames.getSelectionModel().select(selectedGame);
                     for (Game g : pm.allGameList) {
-                        if (g.getGameID() == selectedGame.getGameID()) {
+                        if (g.getID() == selectedGame.getID()) {
                             int index = pm.allGameList.indexOf(g);
                             pm.allGames.requestFocus();
                             pm.allGames.scrollTo(index);

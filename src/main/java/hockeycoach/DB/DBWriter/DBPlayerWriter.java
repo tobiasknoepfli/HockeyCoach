@@ -5,8 +5,6 @@ import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static hockeycoach.AppStarter.DB_URL;
 
@@ -55,8 +53,8 @@ public class DBPlayerWriter {
 
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, (player != null) ? player.getPlayerID() : 0);
-            preparedStatement.setInt(2, (team != null) ? team.getTeamID() : 0);
+            preparedStatement.setInt(1, (player != null) ? player.getID() : 0);
+            preparedStatement.setInt(2, (team != null) ? team.getID() : 0);
             preparedStatement.setInt(3, 0);
             preparedStatement.setString(4, "none");
 

@@ -1,17 +1,17 @@
-package hockeycoach.mainClasses;
+package hockeycoach.mainClasses.Drills;
 
 public class DrillTag {
-    int tagID;
+    int ID;
     String drillTag;
 
     public DrillTag(){}
 
-    public int getTagID() {
-        return tagID;
+    public int getID() {
+        return ID;
     }
 
-    public void setTagID(int tagID) {
-        this.tagID = tagID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getDrillTag() {

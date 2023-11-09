@@ -24,7 +24,6 @@ import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static hockeycoach.AppStarter.*;
@@ -194,7 +193,7 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         selectedTeam = globalTeam;
 
-        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getTeamID() + "'", selectedTeam.getTeamID());
+        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         showAllPlayers.setSelected(false);
 
@@ -234,25 +233,25 @@ public class GameEditorPresentationModel extends PresentationModel {
             saveSubstitutes();
             saveNuclearLines();
 
-            game.setGameID(dbGameWriter.writeGame(game));
+            game.setID(dbGameWriter.writeGame(game));
 
-            firstLine.setGameID(game.getGameID());
-            secondLine.setGameID(game.getGameID());
-            thirdLine.setGameID(game.getGameID());
-            fourthLine.setGameID(game.getGameID());
+            firstLine.setGameID(game.getID());
+            secondLine.setGameID(game.getID());
+            thirdLine.setGameID(game.getID());
+            fourthLine.setGameID(game.getID());
 
-            ppFirstLine.setGameID(game.getGameID());
-            ppSecondLine.setGameID(game.getGameID());
-            ppFillerLine.setGameID(game.getGameID());
+            ppFirstLine.setGameID(game.getID());
+            ppSecondLine.setGameID(game.getID());
+            ppFillerLine.setGameID(game.getID());
 
-            bpFirstLine.setGameID(game.getGameID());
-            bpSecondLine.setGameID(game.getGameID());
-            bpFillerLine.setGameID(game.getGameID());
+            bpFirstLine.setGameID(game.getID());
+            bpSecondLine.setGameID(game.getID());
+            bpFillerLine.setGameID(game.getID());
 
-            nFirstLine.setGameID(game.getGameID());
-            nSecondLine.setGameID(game.getGameID());
+            nFirstLine.setGameID(game.getID());
+            nSecondLine.setGameID(game.getID());
 
-            subsLine.setGameID(game.getGameID());
+            subsLine.setGameID(game.getID());
 
             dbLineWriter.writeNewLine(firstLine);
             dbLineWriter.writeNewLine(secondLine);
@@ -481,7 +480,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         game.setGameTime(LocalTime.from(gameTime.getLocalTime()));
         game.setOpponent(gameOpponent.getText());
         game.setStadium(dbStadiumWriter.getStadiumFromName(gameStadium.getText()));
-        game.setTeam(selectedTeam.getTeamID());
+        game.setTeam(selectedTeam.getID());
         game.setCaptain(dbPlayerLoader.getPlayerFromName(captain.getText()));
         game.setAssistant1(dbPlayerLoader.getPlayerFromName(assistant1.getText()));
         game.setAssistant2(dbPlayerLoader.getPlayerFromName(assistant2.getText()));
@@ -699,7 +698,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getPlayerID() > 0) {
+        if (player.getID() > 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";
@@ -708,7 +707,7 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     public List<Line> lastGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getID());
         Game closestPastGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isBefore(today))
                 .max(Comparator.comparing(Game::getGameDate))
@@ -716,14 +715,14 @@ public class GameEditorPresentationModel extends PresentationModel {
         if (closestPastGame == null) {
             closestPastGame = new Game();
         }
-        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getGameID());
+        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestPastGame.getID());
 
         return lines;
     }
 
     public List<Line> nextGameLines() {
         LocalDate today = LocalDate.now();
-        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getTeamID());
+        List<Game> teamGames = dbGameLoader.getGames("SELECT * FROM game WHERE team = " + selectedTeam.getID());
         Game closestNextGame = teamGames.stream()
                 .filter(game -> game.getGameDate().isAfter(today))
                 .min(Comparator.comparing(Game::getGameDate))
@@ -731,7 +730,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         if (closestNextGame == null) {
             closestNextGame = new Game();
         }
-        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getGameID());
+        List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + closestNextGame.getID());
 
         return lines;
     }

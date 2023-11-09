@@ -15,7 +15,7 @@ public class DBTeamLoader extends DBLoader {
     public Team setTeam(ResultSet resultSet) {
         Team team = new Team();
         try {
-            team.setTeamID(resultSet.getInt("teamID"));
+            team.setID(resultSet.getInt("teamID"));
             team.setName(resultSet.getString("name"));
             team.setStadium(dbStadiumLoader.getStadiumFromID(resultSet.getInt("stadium")));
             team.setContactFirstName(resultSet.getString("contactFirstName"));
@@ -58,7 +58,8 @@ public class DBTeamLoader extends DBLoader {
     }
 
 
-    public ArrayList<Team> getAllTeams(String query) {
+    public ArrayList<Team> getAllTeams() {
+        String query = "SELECT * FROM team";
         ArrayList<Team> allTeams = new ArrayList<>();
 
         try {

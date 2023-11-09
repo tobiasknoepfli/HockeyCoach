@@ -1,18 +1,18 @@
-package hockeycoach.mainClasses;
+package hockeycoach.mainClasses.Drills;
 
 public class DrillPuckPosition {
-    int puckPositionsID;
+    int ID;
     String puckPosition;
     String puckPositionName;
 
     public DrillPuckPosition(){}
 
-    public int getPuckPositionsID() {
-        return puckPositionsID;
+    public int getID() {
+        return ID;
     }
 
-    public void setPuckPositionsID(int puckPositionsID) {
-        this.puckPositionsID = puckPositionsID;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getPuckPosition() {

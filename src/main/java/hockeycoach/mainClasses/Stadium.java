@@ -4,16 +4,16 @@ import java.util.List;
 
 public class Stadium {
     public String stadiumName,stadiumAddress, stadiumCity,stadiumCountry;
-    public int stadiumID, stadiumZip;
+    public int ID, stadiumZip;
 
     public Stadium(){
     }
 
-    public int getStadiumID() {   return stadiumID;
+    public int getID() {   return ID;
     }
 
-    public void setStadiumID(int stadiumID) {
-        this.stadiumID = stadiumID;
+    public void setID(int stadiumID) {
+        this.ID = stadiumID;
     }
 
     public String getStadiumName() {
