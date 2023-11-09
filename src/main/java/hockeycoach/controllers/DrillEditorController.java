@@ -22,4 +22,7 @@ public class DrillEditorController {
     @FXML
     private TableColumn tagCol;
 
+    @FXML
+    private Label puckPositionName;
+
 }

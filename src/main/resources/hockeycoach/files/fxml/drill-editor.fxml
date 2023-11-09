@@ -208,6 +208,8 @@
                                        <children>
                                           <TextField fx:id="newCategory" prefHeight="25.0" prefWidth="180.0" />
                                           <TextField fx:id="addNewTag" prefHeight="25.0" prefWidth="180.0" />
+                                          <Label prefHeight="25.0" />
+                                          <Label fx:id="puckPositionName" prefHeight="25.0" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="2.0">

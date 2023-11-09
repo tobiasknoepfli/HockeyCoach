@@ -34,6 +34,7 @@ public class DBDrillValuesLoader extends DBLoader {
         DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
         try {
             drillPuckPosition.setPuckPosition(resultSet.getString("puckPosition"));
+            drillPuckPosition.setPuckPositionName(resultSet.getString("puckPositionName"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
