@@ -1,5 +1,7 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBConverter.DBIDConverter;
+import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
@@ -30,6 +32,8 @@ import static hockeycoach.AppStarter.*;
 
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
+    DBStringConverter dbStringConverter = new DBStringConverter();
+    DBIDConverter dbidConverter = new DBIDConverter();
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
@@ -479,124 +483,124 @@ public class GameEditorPresentationModel extends PresentationModel {
         game.setGameDate(gameDate.getValue());
         game.setGameTime(LocalTime.from(gameTime.getLocalTime()));
         game.setOpponent(gameOpponent.getText());
-        game.setStadium(dbStadiumWriter.getStadiumFromName(gameStadium.getText()));
-        game.setTeam(selectedTeam.getID());
-        game.setCaptain(dbPlayerLoader.getPlayerFromName(captain.getText()));
-        game.setAssistant1(dbPlayerLoader.getPlayerFromName(assistant1.getText()));
-        game.setAssistant2(dbPlayerLoader.getPlayerFromName(assistant2.getText()));
-        game.setPenalty1(dbPlayerLoader.getPlayerFromName(penalty1.getText()));
-        game.setPenalty2(dbPlayerLoader.getPlayerFromName(penalty2.getText()));
-        game.setEmptyNet1(dbPlayerLoader.getPlayerFromName(emptyNet1.getText()));
-        game.setEmptyNet2(dbPlayerLoader.getPlayerFromName(emptyNet2.getText()));
+        game.setStadium(dbStringConverter.getStadiumFromString(gameStadium.getText()));
+        game.setTeam(dbidConverter.getTeamFromID(selectedTeam.getID()));
+        game.setCaptain(dbStringConverter.getPlayerFromString(captain.getText()));
+        game.setAssistant1(dbStringConverter.getPlayerFromString(assistant1.getText()));
+        game.setAssistant2(dbStringConverter.getPlayerFromString(assistant2.getText()));
+        game.setPenalty1(dbStringConverter.getPlayerFromString(penalty1.getText()));
+        game.setPenalty2(dbStringConverter.getPlayerFromString(penalty2.getText()));
+        game.setEmptyNet1(dbStringConverter.getPlayerFromString(emptyNet1.getText()));
+        game.setEmptyNet2(dbStringConverter.getPlayerFromString(emptyNet2.getText()));
 
         return game;
     }
 
     private void saveLines() {
         firstLine = new Line(1);
-        firstLine.setGoalkeeper(dbPlayerLoader.getPlayerFromName(gk1.getText()));
-        firstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl1.getText()));
-        firstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr1.getText()));
-        firstLine.setCenter(dbPlayerLoader.getPlayerFromName(c1.getText()));
-        firstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl1.getText()));
-        firstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr1.getText()));
+        firstLine.setGoalkeeper(dbStringConverter.getPlayerFromString(gk1.getText()));
+        firstLine.setDefenderLeft(dbStringConverter.getPlayerFromString(dl1.getText()));
+        firstLine.setDefenderRight(dbStringConverter.getPlayerFromString(dr1.getText()));
+        firstLine.setCenter(dbStringConverter.getPlayerFromString(c1.getText()));
+        firstLine.setForwardLeft(dbStringConverter.getPlayerFromString(fl1.getText()));
+        firstLine.setForwardRight(dbStringConverter.getPlayerFromString(fr1.getText()));
 
         secondLine = new Line(2);
-        secondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl2.getText()));
-        secondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr2.getText()));
-        secondLine.setCenter(dbPlayerLoader.getPlayerFromName(c2.getText()));
-        secondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl2.getText()));
-        secondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr2.getText()));
+        secondLine.setDefenderLeft(dbStringConverter.getPlayerFromString(dl2.getText()));
+        secondLine.setDefenderRight(dbStringConverter.getPlayerFromString(dr2.getText()));
+        secondLine.setCenter(dbStringConverter.getPlayerFromString(c2.getText()));
+        secondLine.setForwardLeft(dbStringConverter.getPlayerFromString(fl2.getText()));
+        secondLine.setForwardRight(dbStringConverter.getPlayerFromString(fr2.getText()));
 
         thirdLine = new Line(3);
-        thirdLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl3.getText()));
-        thirdLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr3.getText()));
-        thirdLine.setCenter(dbPlayerLoader.getPlayerFromName(c3.getText()));
-        thirdLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl3.getText()));
-        thirdLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr3.getText()));
+        thirdLine.setDefenderLeft(dbStringConverter.getPlayerFromString(dl3.getText()));
+        thirdLine.setDefenderRight(dbStringConverter.getPlayerFromString(dr3.getText()));
+        thirdLine.setCenter(dbStringConverter.getPlayerFromString(c3.getText()));
+        thirdLine.setForwardLeft(dbStringConverter.getPlayerFromString(fl3.getText()));
+        thirdLine.setForwardRight(dbStringConverter.getPlayerFromString(fr3.getText()));
 
         fourthLine = new Line(4);
-        fourthLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(dl4.getText()));
-        fourthLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(dr4.getText()));
-        fourthLine.setCenter(dbPlayerLoader.getPlayerFromName(c4.getText()));
-        fourthLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(fl4.getText()));
-        fourthLine.setForwardRight(dbPlayerLoader.getPlayerFromName(fr4.getText()));
+        fourthLine.setDefenderLeft(dbStringConverter.getPlayerFromString(dl4.getText()));
+        fourthLine.setDefenderRight(dbStringConverter.getPlayerFromString(dr4.getText()));
+        fourthLine.setCenter(dbStringConverter.getPlayerFromString(c4.getText()));
+        fourthLine.setForwardLeft(dbStringConverter.getPlayerFromString(fl4.getText()));
+        fourthLine.setForwardRight(dbStringConverter.getPlayerFromString(fr4.getText()));
     }
 
 
     private void savePPLines() {
         ppFirstLine = new PowerplayLine(1);
-        ppFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdl1.getText()));
-        ppFirstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ppdr1.getText()));
-        ppFirstLine.setCenter(dbPlayerLoader.getPlayerFromName(ppc1.getText()));
-        ppFirstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(ppfl1.getText()));
-        ppFirstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(ppfr1.getText()));
+        ppFirstLine.setDefenderLeft(dbStringConverter.getPlayerFromString(ppdl1.getText()));
+        ppFirstLine.setDefenderRight(dbStringConverter.getPlayerFromString(ppdr1.getText()));
+        ppFirstLine.setCenter(dbStringConverter.getPlayerFromString(ppc1.getText()));
+        ppFirstLine.setForwardLeft(dbStringConverter.getPlayerFromString(ppfl1.getText()));
+        ppFirstLine.setForwardRight(dbStringConverter.getPlayerFromString(ppfr1.getText()));
 
         ppSecondLine = new PowerplayLine(2);
-        ppSecondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdl2.getText()));
-        ppSecondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ppdr2.getText()));
-        ppSecondLine.setCenter(dbPlayerLoader.getPlayerFromName(ppc2.getText()));
-        ppSecondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(ppfl2.getText()));
-        ppSecondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(ppfr2.getText()));
+        ppSecondLine.setDefenderLeft(dbStringConverter.getPlayerFromString(ppdl2.getText()));
+        ppSecondLine.setDefenderRight(dbStringConverter.getPlayerFromString(ppdr2.getText()));
+        ppSecondLine.setCenter(dbStringConverter.getPlayerFromString(ppc2.getText()));
+        ppSecondLine.setForwardLeft(dbStringConverter.getPlayerFromString(ppfl2.getText()));
+        ppSecondLine.setForwardRight(dbStringConverter.getPlayerFromString(ppfr2.getText()));
 
         ppFillerLine = new PowerplayLine(3);
-        ppFillerLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ppdlfiller.getText()));
-        ppFillerLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ppfrfiller.getText()));
-        ppFillerLine.setCenter(dbPlayerLoader.getPlayerFromName(ppcfiller.getText()));
-        ppFillerLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(ppflfiller.getText()));
-        ppFillerLine.setForwardRight(dbPlayerLoader.getPlayerFromName(ppfrfiller.getText()));
+        ppFillerLine.setDefenderLeft(dbStringConverter.getPlayerFromString(ppdlfiller.getText()));
+        ppFillerLine.setDefenderRight(dbStringConverter.getPlayerFromString(ppfrfiller.getText()));
+        ppFillerLine.setCenter(dbStringConverter.getPlayerFromString(ppcfiller.getText()));
+        ppFillerLine.setForwardLeft(dbStringConverter.getPlayerFromString(ppflfiller.getText()));
+        ppFillerLine.setForwardRight(dbStringConverter.getPlayerFromString(ppfrfiller.getText()));
     }
 
     private void saveBPLines() {
         bpFirstLine = new BoxplayLine(1);
-        bpFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(bpdl1.getText()));
-        bpFirstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(bpdr1.getText()));
-        bpFirstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(bpfl1.getText()));
-        bpFirstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(bpfr1.getText()));
+        bpFirstLine.setDefenderLeft(dbStringConverter.getPlayerFromString(bpdl1.getText()));
+        bpFirstLine.setDefenderRight(dbStringConverter.getPlayerFromString(bpdr1.getText()));
+        bpFirstLine.setForwardLeft(dbStringConverter.getPlayerFromString(bpfl1.getText()));
+        bpFirstLine.setForwardRight(dbStringConverter.getPlayerFromString(bpfr1.getText()));
 
         bpSecondLine = new BoxplayLine(2);
-        bpSecondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(bpdl2.getText()));
-        bpSecondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(bpdr2.getText()));
-        bpSecondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(bpfl2.getText()));
-        bpSecondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(bpfr2.getText()));
+        bpSecondLine.setDefenderLeft(dbStringConverter.getPlayerFromString(bpdl2.getText()));
+        bpSecondLine.setDefenderRight(dbStringConverter.getPlayerFromString(bpdr2.getText()));
+        bpSecondLine.setForwardLeft(dbStringConverter.getPlayerFromString(bpfl2.getText()));
+        bpSecondLine.setForwardRight(dbStringConverter.getPlayerFromString(bpfr2.getText()));
 
         bpFillerLine = new BoxplayLine(3);
-        bpFillerLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(bpdlfiller.getText()));
-        bpFillerLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(bpfrfiller.getText()));
-        bpFillerLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(bpflfiller.getText()));
-        bpFillerLine.setForwardRight(dbPlayerLoader.getPlayerFromName(bpfrfiller.getText()));
+        bpFillerLine.setDefenderLeft(dbStringConverter.getPlayerFromString(bpdlfiller.getText()));
+        bpFillerLine.setDefenderRight(dbStringConverter.getPlayerFromString(bpfrfiller.getText()));
+        bpFillerLine.setForwardLeft(dbStringConverter.getPlayerFromString(bpflfiller.getText()));
+        bpFillerLine.setForwardRight(dbStringConverter.getPlayerFromString(bpfrfiller.getText()));
     }
 
     private void saveSubstitutes() {
         subsLine = new SubstituteLine();
-        subsLine.setGoalkeeper1(dbPlayerLoader.getPlayerFromName(sgk1.getText()));
-        subsLine.setGoalkeeper2(dbPlayerLoader.getPlayerFromName(sgk2.getText()));
-        subsLine.setDefender1(dbPlayerLoader.getPlayerFromName(sd1.getText()));
-        subsLine.setDefender2(dbPlayerLoader.getPlayerFromName(sd2.getText()));
-        subsLine.setDefender3(dbPlayerLoader.getPlayerFromName(sd3.getText()));
-        subsLine.setForward1(dbPlayerLoader.getPlayerFromName(sf1.getText()));
-        subsLine.setForward2(dbPlayerLoader.getPlayerFromName(sf2.getText()));
-        subsLine.setForward3(dbPlayerLoader.getPlayerFromName(sf3.getText()));
-        subsLine.setBoxplayDefender1(dbPlayerLoader.getPlayerFromName(bpsd1.getText()));
-        subsLine.setBoxplayDefender2(dbPlayerLoader.getPlayerFromName(bpsd2.getText()));
-        subsLine.setBoxplayForward1(dbPlayerLoader.getPlayerFromName(bpsf1.getText()));
-        subsLine.setBoxplayForward2(dbPlayerLoader.getPlayerFromName(bpsf2.getText()));
+        subsLine.setGoalkeeper1(dbStringConverter.getPlayerFromString(sgk1.getText()));
+        subsLine.setGoalkeeper2(dbStringConverter.getPlayerFromString(sgk2.getText()));
+        subsLine.setDefender1(dbStringConverter.getPlayerFromString(sd1.getText()));
+        subsLine.setDefender2(dbStringConverter.getPlayerFromString(sd2.getText()));
+        subsLine.setDefender3(dbStringConverter.getPlayerFromString(sd3.getText()));
+        subsLine.setForward1(dbStringConverter.getPlayerFromString(sf1.getText()));
+        subsLine.setForward2(dbStringConverter.getPlayerFromString(sf2.getText()));
+        subsLine.setForward3(dbStringConverter.getPlayerFromString(sf3.getText()));
+        subsLine.setBoxplayDefender1(dbStringConverter.getPlayerFromString(bpsd1.getText()));
+        subsLine.setBoxplayDefender2(dbStringConverter.getPlayerFromString(bpsd2.getText()));
+        subsLine.setBoxplayForward1(dbStringConverter.getPlayerFromString(bpsf1.getText()));
+        subsLine.setBoxplayForward2(dbStringConverter.getPlayerFromString(bpsf2.getText()));
     }
 
     private void saveNuclearLines() {
         nFirstLine = new NuclearLine(1);
-        nFirstLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ndl1.getText()));
-        nFirstLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ndr1.getText()));
-        nFirstLine.setCenter(dbPlayerLoader.getPlayerFromName(nc1.getText()));
-        nFirstLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(nfl1.getText()));
-        nFirstLine.setForwardRight(dbPlayerLoader.getPlayerFromName(nfr1.getText()));
+        nFirstLine.setDefenderLeft(dbStringConverter.getPlayerFromString(ndl1.getText()));
+        nFirstLine.setDefenderRight(dbStringConverter.getPlayerFromString(ndr1.getText()));
+        nFirstLine.setCenter(dbStringConverter.getPlayerFromString(nc1.getText()));
+        nFirstLine.setForwardLeft(dbStringConverter.getPlayerFromString(nfl1.getText()));
+        nFirstLine.setForwardRight(dbStringConverter.getPlayerFromString(nfr1.getText()));
 
         nSecondLine = new NuclearLine(2);
-        nSecondLine.setDefenderLeft(dbPlayerLoader.getPlayerFromName(ndl2.getText()));
-        nSecondLine.setDefenderRight(dbPlayerLoader.getPlayerFromName(ndr2.getText()));
-        nSecondLine.setCenter(dbPlayerLoader.getPlayerFromName(nc2.getText()));
-        nSecondLine.setForwardLeft(dbPlayerLoader.getPlayerFromName(nfl2.getText()));
-        nSecondLine.setForwardRight(dbPlayerLoader.getPlayerFromName(nfr2.getText()));
+        nSecondLine.setDefenderLeft(dbStringConverter.getPlayerFromString(ndl2.getText()));
+        nSecondLine.setDefenderRight(dbStringConverter.getPlayerFromString(ndr2.getText()));
+        nSecondLine.setCenter(dbStringConverter.getPlayerFromString(nc2.getText()));
+        nSecondLine.setForwardLeft(dbStringConverter.getPlayerFromString(nfl2.getText()));
+        nSecondLine.setForwardRight(dbStringConverter.getPlayerFromString(nfr2.getText()));
     }
 
     public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {

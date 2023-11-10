@@ -1,5 +1,6 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.DB.DBWriter.DBTeamWriter;
@@ -44,6 +45,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     TrainingLines trainingLines = new TrainingLines();
     DBTrainingLineWriter dbTrainingLineWriter = new DBTrainingLineWriter();
     DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+    DBStringConverter dbStringConverter = new DBStringConverter();
 
     List<DrillCategory> drillCategoryList = new ArrayList<>();
 
@@ -84,9 +86,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     TableView<String> drillTags;
     TableView<Drill> drillTable, warmup, together, stations, backup;
 
-    ComboBox<String> cbCategory, cbParticipation, cbTags, cbPuckPosition;
-
-    ComboBox<Difficulty> cbDifficulty;
+    ComboBox<String> cbCategory, cbParticipation, cbTags, cbPuckPosition,cbDifficulty;
 
     ComboBox<Boolean> cbStation;
 
@@ -479,17 +479,18 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     }
 
     public Player getPlayerFromTextField(String playerName) {
-        if (!playerName.isEmpty()) {
-            String[] nameParts = playerName.split(" ");
-            if (nameParts.length >= 2) {
-                List<Player> retrievedPlayers = allPlayers.stream()
-                        .filter(player -> player.getFirstName().equals(nameParts[1]) &&
-                                player.getLastName().equals(nameParts[0]))
-                        .collect(Collectors.toList());
-                return retrievedPlayers.get(0);
-            }
-        }
-        return new Player("", "", selectedTeam.getName());
+        return dbStringConverter.getPlayerFromString(playerName);
+//        if (!playerName.isEmpty()) {
+//            String[] nameParts = playerName.split(" ");
+//            if (nameParts.length >= 2) {
+//                List<Player> retrievedPlayers = allPlayers.stream()
+//                        .filter(player -> player.getFirstName().equals(nameParts[1]) &&
+//                                player.getLastName().equals(nameParts[0]))
+//                        .collect(Collectors.toList());
+//                return retrievedPlayers.get(0);
+//            }
+//        }
+//        return new Player("", "", selectedTeam.getName());
     }
 
     public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {

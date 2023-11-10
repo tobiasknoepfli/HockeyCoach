@@ -17,14 +17,14 @@ public class DBDrillLoader extends DBLoader{
     public Drill setDrill(ResultSet resultSet){
         Drill drill = new Drill();
         try{
-            drill.setID(resultSet.getInt("drillID"));
+            drill.setID(resultSet.getInt("ID"));
             drill.setName(resultSet.getString("name"));
             drill.setCategory(dbidConverter.getDrillCategoryFromID(resultSet.getInt("category")));
             drill.setDifficulty(dbidConverter.getDrillDifficultyFromID(resultSet.getInt("difficulty")));
             drill.setParticipation(dbidConverter.getDrillParticipationFromID(resultSet.getInt("participation")));
             drill.setDescription(resultSet.getString("description"));
             drill.setStation(resultSet.getBoolean("station"));
-            drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN drillTag ON drillID =" + drill.getID()));
+            drill.setTags(getDrillTags("SELECT drillTag FROM drillXtag RIGHT JOIN drillTag ON ID =" + drill.getID()));
 //            drill.setPicture(resultSet.getInt("imageID"));
             drill.setPuckPosition(dbidConverter.getDrillPuckPositionFromID(resultSet.getInt("puckPosition")));
         }catch(SQLException e){

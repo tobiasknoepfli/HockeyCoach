@@ -15,7 +15,7 @@ public class DBTeamLoader extends DBLoader {
     public Team setTeam(ResultSet resultSet) {
         Team team = new Team();
         try {
-            team.setID(resultSet.getInt("teamID"));
+            team.setID(resultSet.getInt("ID"));
             team.setName(resultSet.getString("name"));
             team.setStadium(dbStadiumLoader.getStadiumFromID(resultSet.getInt("stadium")));
             team.setContactFirstName(resultSet.getString("contactFirstName"));

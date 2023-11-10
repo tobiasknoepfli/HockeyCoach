@@ -3,12 +3,11 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBWriter.DBPlayerWriter;
-import hockeycoach.DB.DBWriter.DBWriter;
+import hockeycoach.mainClasses.Picture;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.supportClasses.TextFieldAction;
-import javafx.collections.ListChangeListener;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -30,7 +29,6 @@ import java.util.Stack;
 import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.PHOTOS;
-import static hockeycoach.AppStarter.PLAYER;
 
 public class NewPlayerPresentationModel extends PresentationModel {
     ImageChooser imageChooser = new ImageChooser();
@@ -195,7 +193,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         newPlayer.setStrengths(strengths.getText());
         newPlayer.setWeaknesses(weaknesses.getText());
         newPlayer.setNotes(notes.getText());
-        newPlayer.setPhotoID(1); //watch out, just a statement
+        newPlayer.setPicture(new Picture()); //watch out, just a statement
         return newPlayer;
     }
 

@@ -10,38 +10,13 @@ import hockeycoach.mainClasses.Team;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hockeycoach.AppStarter.*;
+
 public class DBIDConverter {
-    DBDrillLoader dbDrillLoader = new DBDrillLoader();
-    DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
-    DBImageLoader dbImageLoader = new DBImageLoader();
-    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-    DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
-    DBTeamLoader dbTeamLoader = new DBTeamLoader();
-
-    List<Drill> allDrills = new ArrayList<>();
-    List<DrillCategory> allCategories = new ArrayList<>();
-    List<DrillDifficulty> allDifficulties = new ArrayList<>();
-    List<DrillParticipation> allParticipations = new ArrayList<>();
-    List<DrillPuckPosition> allPuckPositions = new ArrayList<>();
-    List<DrillTag> allDrillTags = new ArrayList<>();
-    List<Picture> allPictures = new ArrayList<>();
-    List<Player> allPlayers = new ArrayList<>();
-    List<Stadium> allStadiums = new ArrayList<>();
-    List<Team> allTeams = new ArrayList<>();
-
-    Drill drill = new Drill();
-    DrillCategory drillCategory = new DrillCategory();
-    DrillDifficulty drillDifficulty = new DrillDifficulty();
-    DrillParticipation drillParticipation = new DrillParticipation();
-    DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
-    DrillTag drillTag = new DrillTag();
-    Picture picture = new Picture();
-    Player player = new Player();
-    Stadium stadium = new Stadium();
-    Team team = new Team();
-
     public Drill getDrillFromID(int drillID){
-        allDrills = dbDrillLoader.getAllDrills();
+        DBDrillLoader dbDrillLoader =new DBDrillLoader();
+        Drill drill = new Drill();
+        List<Drill> allDrills =dbDrillLoader.getAllDrills();
         return drill = allDrills.stream()
                 .filter(d->drillID == d.getID())
                 .findFirst()
@@ -49,7 +24,9 @@ public class DBIDConverter {
     }
 
     public DrillCategory getDrillCategoryFromID(int categoryID){
-        allCategories = dbDrillValuesLoader.getAllCategories();
+        DBDrillValuesLoader dbDrillValuesLoader =new DBDrillValuesLoader();
+        DrillCategory drillCategory = new DrillCategory();
+        List<DrillCategory> allCategories =dbDrillValuesLoader.getAllCategories();
         return drillCategory = allCategories.stream()
                 .filter(c->categoryID == c.getID())
                 .findFirst()
@@ -57,7 +34,9 @@ public class DBIDConverter {
     }
 
     public DrillDifficulty getDrillDifficultyFromID(int difficultyID){
-        allDifficulties = dbDrillValuesLoader.getallDifficulties();
+        DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+        DrillDifficulty drillDifficulty = new DrillDifficulty();
+        List<DrillDifficulty> allDifficulties  =dbDrillValuesLoader.getAllDifficulties();
         return drillDifficulty = allDifficulties.stream()
                 .filter(d->difficultyID == d.getID())
                 .findFirst()
@@ -65,7 +44,9 @@ public class DBIDConverter {
     }
 
     public DrillParticipation getDrillParticipationFromID(int participationID){
-        allParticipations = dbDrillValuesLoader.getAllParticipations();
+        DBDrillValuesLoader dbDrillValuesLoader =new DBDrillValuesLoader();
+        DrillParticipation drillParticipation = new DrillParticipation();
+        List<DrillParticipation> allParticipations = dbDrillValuesLoader.getAllParticipations();
         return drillParticipation = allParticipations.stream()
                 .filter(p->participationID == p.getID())
                 .findFirst()
@@ -73,7 +54,9 @@ public class DBIDConverter {
     }
 
     public DrillPuckPosition getDrillPuckPositionFromID(int puckPositionID){
-        allPuckPositions = dbDrillValuesLoader.getAllPuckPositions();
+        DBDrillValuesLoader dbDrillValuesLoader =new DBDrillValuesLoader();
+        DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
+        List<DrillPuckPosition> allPuckPositions = dbDrillValuesLoader.getAllPuckPositions();
         return drillPuckPosition = allPuckPositions.stream()
                 .filter(pp->puckPositionID == pp.getID())
                 .findFirst()
@@ -81,7 +64,9 @@ public class DBIDConverter {
     }
 
     public DrillTag getDrillTagFromID(int drillTagID){
-        allDrillTags = dbDrillValuesLoader.getAllDrillTags();
+        DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+        DrillTag drillTag = new DrillTag();
+        List<DrillTag> allDrillTags =  dbDrillValuesLoader.getAllDrillTags();
         return drillTag= allDrillTags.stream()
                 .filter(dt->drillTagID == dt.getID())
                 .findFirst()
@@ -89,7 +74,9 @@ public class DBIDConverter {
     }
 
     public Picture getPictureFromID(int pictureID){
-        allPictures = dbImageLoader.getAllPictures();
+        DBImageLoader dbImageLoader = new DBImageLoader();
+        Picture picture = new Picture();
+        List<Picture> allPictures =dbImageLoader.getAllPictures();
         return picture = allPictures.stream()
                 .filter(p ->pictureID == p.getID())
                 .findFirst()
@@ -97,7 +84,9 @@ public class DBIDConverter {
     }
 
     public Player getPlayerFromID(int playerID){
-        allPlayers = dbPlayerLoader.getAllPlayers();
+        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+        Player player = new Player();
+        List<Player> allPlayers =dbPlayerLoader.getAllPlayers();
         return player = allPlayers.stream()
                 .filter(p->playerID == p.getID())
                 .findFirst()
@@ -105,7 +94,9 @@ public class DBIDConverter {
     }
 
     public Stadium getStadiumFromID(int stadiumID){
-        allStadiums = dbStadiumLoader.getAllStadiums();
+        DBStadiumLoader dbStadiumLoader =new DBStadiumLoader();
+        Stadium stadium = new Stadium();
+        List<Stadium> allStadiums =  dbStadiumLoader.getAllStadiums();
         return stadium = allStadiums.stream()
                 .filter(s->stadiumID ==s.getID())
                 .findFirst()
@@ -113,7 +104,9 @@ public class DBIDConverter {
     }
 
     public Team getTeamFromID(int teamID){
-        allTeams = dbTeamLoader.getAllTeams();
+        DBTeamLoader dbTeamLoader =new DBTeamLoader();
+        Team team = new Team();
+        List<Team> allTeams = dbTeamLoader.getAllTeams();
         return team = allTeams.stream()
                 .filter(t->teamID == t.getID())
                 .findFirst()

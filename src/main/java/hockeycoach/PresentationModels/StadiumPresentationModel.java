@@ -90,7 +90,7 @@ public class StadiumPresentationModel extends PresentationModel {
             if (event.isPrimaryButtonDown() && event.getClickCount() == 2) {
                 Stadium selectedStadium = allStadiums.getSelectionModel().getSelectedItem();
                 if (selectedStadium != null) {
-                    globalStadium.setStadiumID(selectedStadium.getStadiumID());
+                    globalStadium.setID(selectedStadium.getID());
                     globalStadium.setStadiumName(selectedStadium.getStadiumName());
                     globalStadium.setStadiumAddress(selectedStadium.getStadiumAddress());
                     globalStadium.setStadiumZip(selectedStadium.getStadiumZip());

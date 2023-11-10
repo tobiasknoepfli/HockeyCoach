@@ -14,11 +14,11 @@ public class DBDrillWriter {
 
         preparedStatement.setString(1, (drill.getName() != null) ? drill.getName() : "");
         preparedStatement.setInt(2, (drill.getCategory().getID() != 0) ? drill.getCategory().getID() : 0);
-        preparedStatement.setInt(3, (drill.getDifficulty() != 0) ? drill.getDifficulty() : 0);
+        preparedStatement.setInt(3, (drill.getDifficulty().getID() != 0) ? drill.getDifficulty().getID() : 0);
         preparedStatement.setInt(4, (drill.getParticipation().getID() != 0) ? drill.getParticipation().getID() : 0);
         preparedStatement.setString(5, (drill.getDescription() != null) ? drill.getDescription() : "");
         preparedStatement.setBoolean(6, (drill.getStation() != null) ? drill.getStation() : false);
-        preparedStatement.setInt(7, (drill.getPicture() != 0) ? drill.getPicture() : 0);
+        preparedStatement.setInt(7, (drill.getPicture().getID() != 0) ? drill.getPicture().getID() : 0);
 
         return preparedStatement;
     }

@@ -22,7 +22,7 @@ public class Player {
     private String weaknesses;
     private String role;
     private String stick;
-    private Picture photoID;
+    private Picture picture;
     private String notes;
 
     public Player() {
@@ -186,12 +186,12 @@ public class Player {
         this.stick = stick;
     }
 
-    public int getPhotoID() {
-        return photoID;
+    public Picture getPicture() {
+        return picture;
     }
 
-    public void setPhotoID(int photoID) {
-        this.photoID = photoID;
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 
     public String getNotes() {

@@ -10,38 +10,13 @@ import hockeycoach.mainClasses.Team;
 import java.util.ArrayList;
 import java.util.List;
 
+import static hockeycoach.AppStarter.*;
+
 public class DBStringConverter {
-    DBDrillLoader dbDrillLoader = new DBDrillLoader();
-    DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
-    DBImageLoader dbImageLoader = new DBImageLoader();
-    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-    DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
-    DBTeamLoader dbTeamLoader = new DBTeamLoader();
-
-    List<Drill> allDrills = new ArrayList<>();
-    List<DrillCategory> allCategories = new ArrayList<>();
-    List<DrillDifficulty> allDifficulties = new ArrayList<>();
-    List<DrillParticipation> allParticipations = new ArrayList<>();
-    List<DrillPuckPosition> allPuckPositions = new ArrayList<>();
-    List<DrillTag> allDrillTags = new ArrayList<>();
-    List<Picture> allPictures = new ArrayList<>();
-    List<Player> allPlayers = new ArrayList<>();
-    List<Stadium> allStadiums = new ArrayList<>();
-    List<Team> allTeams = new ArrayList<>();
-
-    Drill drill = new Drill();
-    DrillCategory drillCategory = new DrillCategory();
-    DrillDifficulty drillDifficulty = new DrillDifficulty();
-    DrillParticipation drillParticipation = new DrillParticipation();
-    DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
-    DrillTag drillTag = new DrillTag();
-    Picture picture = new Picture();
-    Player player = new Player();
-    Stadium stadium = new Stadium();
-    Team team = new Team();
-
     public Drill getDrillFromString(String drillName) {
-        allDrills = dbDrillLoader.getAllDrills();
+        DBDrillLoader dbDrillLoader =new DBDrillLoader();
+        Drill drill = new Drill();
+        List<Drill> allDrills = allDrills = dbDrillLoader.getAllDrills();
         return drill = allDrills.stream()
                 .filter(d -> drillName.equals(d.getName()))
                 .findFirst()
@@ -49,7 +24,9 @@ public class DBStringConverter {
     }
 
     public DrillCategory getDrillCategoryFromString(String categoryName) {
-        allCategories = dbDrillValuesLoader.getAllCategories();
+        DBDrillValuesLoader dbDrillValuesLoader =new DBDrillValuesLoader();
+        DrillCategory drillCategory = new DrillCategory();
+        List<DrillCategory> allCategories = allCategories = dbDrillValuesLoader.getAllCategories();
         return drillCategory = allCategories.stream()
                 .filter(c -> categoryName.equals(c.getCategory()))
                 .findFirst()
@@ -57,7 +34,9 @@ public class DBStringConverter {
     }
 
     public DrillDifficulty getDrillDifficultyFromString(String difficultyName) {
-        allDifficulties = dbDrillValuesLoader.getallDifficulties();
+        DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+        DrillDifficulty drillDifficulty = new DrillDifficulty();
+        List<DrillDifficulty> allDifficulties =  allDifficulties = dbDrillValuesLoader.getAllDifficulties();
         return drillDifficulty = allDifficulties.stream()
                 .filter(d -> difficultyName.equals(d.getDifficultyName()))
                 .findFirst()
@@ -65,7 +44,9 @@ public class DBStringConverter {
     }
 
     public DrillParticipation getDrillParticipationFromString(String participationName) {
-        allParticipations = dbDrillValuesLoader.getAllParticipations();
+        DBDrillValuesLoader dbDrillValuesLoader =new DBDrillValuesLoader();
+        DrillParticipation drillParticipation = new DrillParticipation();
+        List<DrillParticipation> allParticipations =  allParticipations = dbDrillValuesLoader.getAllParticipations();
         return drillParticipation = allParticipations.stream()
                 .filter(p -> participationName.equals(p.drillParticipation))
                 .findFirst()
@@ -73,7 +54,9 @@ public class DBStringConverter {
     }
 
     public DrillPuckPosition getDrillPuckPositionFromString(String puckPositionName) {
-        allPuckPositions = dbDrillValuesLoader.getAllPuckPositions();
+        DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+        DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
+        List<DrillPuckPosition> allPuckPositions =allPuckPositions = dbDrillValuesLoader.getAllPuckPositions();
         return drillPuckPosition = allPuckPositions.stream()
                 .filter(pp -> puckPositionName.equals(pp.getPuckPosition()))
                 .findFirst()
@@ -81,7 +64,9 @@ public class DBStringConverter {
     }
 
     public DrillTag getDrillTagFromString(String drillTagName) {
-        allDrillTags = dbDrillValuesLoader.getAllDrillTags();
+        DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+        DrillTag drillTag = new DrillTag();
+        List<DrillTag> allDrillTags =allDrillTags = dbDrillValuesLoader.getAllDrillTags();
         return drillTag = allDrillTags.stream()
                 .filter(dt -> drillTagName.equals(dt.getDrillTag()))
                 .findFirst()
@@ -89,7 +74,9 @@ public class DBStringConverter {
     }
 
     public Picture getPictureFromString(String pictureName) {
-        allPictures = dbImageLoader.getAllPictures();
+        DBImageLoader dbImageLoader =new DBImageLoader();
+        Picture picture = new Picture();
+        List<Picture> allPictures = allPictures = dbImageLoader.getAllPictures();
         return picture = allPictures.stream()
                 .filter(p -> pictureName.equals(p.getPictureName()))
                 .findFirst()
@@ -97,8 +84,10 @@ public class DBStringConverter {
     }
 
     public Player getPlayerFromString(String playerName) {
+        DBPlayerLoader dbPlayerLoader=new DBPlayerLoader();
+        Player player = new Player();
         String[] fullName = playerName.split("\\s+");
-        allPlayers = dbPlayerLoader.getAllPlayers();
+        List<Player> allPlayers = allPlayers =dbPlayerLoader.getAllPlayers();
         return player = allPlayers.stream()
                 .filter(p -> fullName[0].equals(p.getLastName()) && fullName[1].equals(p.getFirstName())
                         || fullName[0].equals(p.getFirstName()) && fullName[1].equals(p.getLastName()))
@@ -107,7 +96,9 @@ public class DBStringConverter {
     }
 
     public Stadium getStadiumFromString(String stadiumName) {
-        allStadiums = dbStadiumLoader.getAllStadiums();
+        DBStadiumLoader dbStadiumLoader =new DBStadiumLoader();
+        Stadium stadium = new Stadium();
+        List<Stadium> allStadiums =  allStadiums = dbStadiumLoader.getAllStadiums();
         return stadium = allStadiums.stream()
                 .filter(s -> stadiumName.equals(s.getStadiumName()))
                 .findFirst()
@@ -115,7 +106,9 @@ public class DBStringConverter {
     }
 
     public Team getTeamFromString(String teamName){
-        allTeams = dbTeamLoader.getAllTeams();
+        DBTeamLoader dbTeamLoader = new DBTeamLoader();
+        Team team = new Team();
+        List<Team> allTeams = allTeams = dbTeamLoader.getAllTeams();
         return team = allTeams.stream()
                 .filter(t -> teamName.equals(t.getName()))
                 .findFirst()

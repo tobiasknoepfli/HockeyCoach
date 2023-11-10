@@ -13,7 +13,7 @@ public class DBStadiumLoader {
         Stadium stadium = new Stadium();
 
         try {
-            stadium.setStadiumID(resultSet.getInt("ID"));
+            stadium.setID(resultSet.getInt("ID"));
             stadium.setStadiumName(resultSet.getString("stadiumName"));
             stadium.setStadiumAddress(resultSet.getString("stadiumAddress"));
             stadium.setStadiumZip(resultSet.getInt("stadiumZip"));

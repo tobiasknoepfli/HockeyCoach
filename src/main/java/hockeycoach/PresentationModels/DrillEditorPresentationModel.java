@@ -1,12 +1,10 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
-import hockeycoach.mainClasses.Drills.Drill;
-import hockeycoach.mainClasses.Drills.DrillCategory;
-import hockeycoach.mainClasses.Drills.DrillParticipation;
-import hockeycoach.mainClasses.Drills.DrillPuckPosition;
+import hockeycoach.mainClasses.Drills.*;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
@@ -21,23 +19,29 @@ import org.w3c.dom.events.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
-    ImageChooser imageChooser = new ImageChooser();
+    DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+
     DBDrillWriter dbDrillWriter = new DBDrillWriter();
+
+    DBStringConverter dbStringConverter = new DBStringConverter();
+
+    ImageChooser imageChooser = new ImageChooser();
     MouseEvent event;
+    ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
+    ComboBoxDrillFilter comboBoxDrillFilter = new ComboBoxDrillFilter();
+    ButtonControls buttonControls = new ButtonControls();
+    Stack<TextFieldAction> textFieldActions = new Stack<>();
+    TextFieldAction textFieldAction = new TextFieldAction();
+
     List<Drill> allDrillList, filteredDrills;
     List<DrillPuckPosition> drillPuckPositionsList;
     List<DrillCategory> drillCategoryList;
     List<DrillParticipation> drillParticipationList;
-    ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
-    DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
-    ComboBoxDrillFilter comboBoxDrillFilter = new ComboBoxDrillFilter();
-    ButtonControls buttonControls = new ButtonControls();
-
-    Stack<TextFieldAction> textFieldActions = new Stack<>();
-    TextFieldAction textFieldAction = new TextFieldAction();
+    List<DrillDifficulty> drillDifficultyList;
 
     Button backButton, newDrillButton, saveButton, editButton, cancelButton,
             deleteButton, closeWindowButton, searchButton, newCategoryButton,
@@ -74,6 +78,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillCategoryList = dbDrillValuesLoader.getAllCategories();
         drillParticipationList = dbDrillValuesLoader.getAllParticipations();
         drillPuckPositionsList = dbDrillValuesLoader.getAllPuckPositions();
+        drillDifficultyList =dbDrillValuesLoader.getAllDifficulties();
     }
 
     @Override
@@ -95,10 +100,10 @@ public class DrillEditorPresentationModel extends PresentationModel {
     public void setupEventListeners(Pane root) {
         allDrills.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
             drillName.setText(newDrill.getName());
-            drillCategory.setValue(newDrill.getCategory());
-            drillParticipation.setValue(newDrill.getParticipation());
-            drillDifficulty.setValue(Difficulty.fromValue(newDrill.getDifficulty()));
-            drillPuckPosition.setValue(newDrill.getPuckPosition());
+            drillCategory.setValue(newDrill.getCategory().getCategory());
+            drillParticipation.setValue(newDrill.getParticipation().getDrillParticipation());
+            drillDifficulty.setValue(newDrill.getDifficulty().getDifficultyName());
+            drillPuckPosition.setValue(newDrill.getPuckPosition().getPuckPosition());
             drillStation.setValue(newDrill.getStation());
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
@@ -116,14 +121,8 @@ public class DrillEditorPresentationModel extends PresentationModel {
         comboBoxPopulator.setAllCategories(dbDrillValuesLoader.getAllCategories(), drillCategory);
         comboBoxPopulator.setAllParticipations(dbDrillValuesLoader.getAllParticipations(), drillParticipation);
         comboBoxPopulator.setAllPuckPositions(dbDrillValuesLoader.getAllPuckPositions(), drillPuckPosition);
-        comboBoxPopulator.setAllDifficulties(drillDifficulty);
+        comboBoxPopulator.setAllDifficulties(dbDrillValuesLoader.getAllDifficulties(), drillDifficulty);
         comboBoxPopulator.setAllStations(drillStation);
-//        comboBoxPopulator.setCategory(allDrillList, drillCategoryFilter);
-//        comboBoxPopulator.setParticipation(allDrillList, drillParticipationFilter);
-//        comboBoxPopulator.setDifficulty(allDrillList, drillDifficultyFilter);
-//        comboBoxPopulator.setPuckPosition(allDrillList, drillPuckPositionFilter);
-//        comboBoxPopulator.setStation(allDrillList, drillStationFilter);
-//        comboBoxPopulator.setTags(allDrillList, drillTagsFilter);
 
         drillPuckPosition.valueProperty().addListener((obs, oldValue, newValue) -> {
             DrillPuckPosition drillPuckPositionNew = drillPuckPositionsList.stream().filter(dpp -> dpp.getPuckPosition().equals(newValue.toString())).findFirst().orElse(null);
@@ -171,9 +170,9 @@ public class DrillEditorPresentationModel extends PresentationModel {
     public Drill writeDrill() {
         Drill drill = new Drill();
         drill.setName(drillName.getText());
-        drill.setCategory(dbDrillValuesLoader.getCategoryFromString(drillCategoryList, drillCategory.getValue().toString()));
-        drill.setDifficulty(Difficulty.valueFromString(drillDifficulty.getValue().toString()));
-        drill.setParticipation(dbDrillValuesLoader.getParticipationFromString(drillParticipation.getValue().toString()));
+        drill.setCategory(dbStringConverter.getDrillCategoryFromString(drillCategory.getValue().toString()));
+        drill.setDifficulty(dbStringConverter.getDrillDifficultyFromString(drillDifficulty.getValue().toString()));
+        drill.setParticipation(dbStringConverter.getDrillParticipationFromString(drillParticipation.getValue().toString()));
         drill.setDescription(drill.getDescription());
         drill.setStation(drill.getStation());
         drill.setPicture(drill.getPicture());

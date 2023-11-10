@@ -13,7 +13,7 @@ public class DBDrillValuesLoader extends DBLoader {
         DrillCategory drillCategory = new DrillCategory();
         try {
             drillCategory.setID(resultSet.getInt("ID"));
-            drillCategory.setCategory(resultSet.getString("drillCategory"));
+            drillCategory.setCategory(resultSet.getString("category"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -35,6 +35,7 @@ public class DBDrillValuesLoader extends DBLoader {
     public DrillParticipation setDrillParticipation(ResultSet resultSet) {
         DrillParticipation drillParticipation = new DrillParticipation();
         try {
+            drillParticipation.setID(resultSet.getInt("ID"));
             drillParticipation.setDrillParticipation(resultSet.getString("participation"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,6 +46,7 @@ public class DBDrillValuesLoader extends DBLoader {
     public DrillPuckPosition setDrillPuckPositions(ResultSet resultSet) {
         DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
         try {
+            drillPuckPosition.setID(resultSet.getInt("ID"));
             drillPuckPosition.setPuckPosition(resultSet.getString("puckPosition"));
             drillPuckPosition.setPuckPositionName(resultSet.getString("puckPositionName"));
         } catch (SQLException e) {
@@ -56,6 +58,7 @@ public class DBDrillValuesLoader extends DBLoader {
     public DrillTag setDrillTag(ResultSet resultSet) {
         DrillTag drillTag = new DrillTag();
         try {
+            drillTag.setID(resultSet.getInt("ID"));
             drillTag.setDrillTag(resultSet.getString("drillTag"));
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,7 +88,7 @@ public class DBDrillValuesLoader extends DBLoader {
         return categoryList;
     }
 
-    public List<DrillDifficulty> getallDifficulties() {
+    public List<DrillDifficulty> getAllDifficulties() {
         String query = "SELECT * FROM drillDifficulty";
         List<DrillDifficulty> drillDifficultyList = new ArrayList<>();
         try {

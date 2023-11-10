@@ -13,7 +13,7 @@ public class DBTrainingWriter {
 
         preparedStatement.setDate(1, (training.getTrainingDate() != null) ? Date.valueOf(training.getTrainingDate()) : Date.valueOf("01.01.1900"));
         preparedStatement.setTime(2, (training.getTrainingTime() != null) ? Time.valueOf(training.getTrainingTime()) : Time.valueOf("00:00"));
-        preparedStatement.setInt(3, (training.getStadium() != null) ? training.getStadium().getStadiumID() : 0);
+        preparedStatement.setInt(3, (training.getStadium() != null) ? training.getStadium().getID() : 0);
         preparedStatement.setInt(4, (training.getTeam().getID() != 0) ? training.getTeam().getID() : 0);
         preparedStatement.setString(5, (training.getMainFocus() != null) ? training.getMainFocus() : "");
         preparedStatement.setString(6, (training.getPointers() != null) ? training.getPointers() : "");

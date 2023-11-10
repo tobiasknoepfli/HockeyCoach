@@ -28,7 +28,7 @@ public class DBPlayerWriter {
         preparedStatement.setString(13, (player.getStrengths() != null) ? player.getStrengths() : "");
         preparedStatement.setString(14, (player.getWeaknesses() != null) ? player.getWeaknesses() : "");
         preparedStatement.setString(15, (player.getStick() != null) ? player.getStick() : "");
-        preparedStatement.setInt(16, (player.getPhotoID() != 0) ? player.getPhotoID() : 0);
+        preparedStatement.setInt(16, (player.getPicture().getID() != 0) ? player.getPicture().getID() : 0);
         preparedStatement.setString(17, (player.getNotes() != null) ? player.getNotes() : "");
 
         return preparedStatement;

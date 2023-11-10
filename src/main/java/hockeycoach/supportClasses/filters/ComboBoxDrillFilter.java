@@ -1,7 +1,7 @@
 package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.Drills.Drill;
-import hockeycoach.supportClasses.Difficulty;
+import hockeycoach.mainClasses.Drills.DrillDifficulty;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
@@ -32,9 +32,9 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
         }
 
         if (difficultyBox.getValue() != null) {
-            Difficulty selectedDifficulty = (Difficulty) difficultyBox.getValue();
+            DrillDifficulty selectedDifficulty = (DrillDifficulty) difficultyBox.getValue();
             filteredDrills = filteredDrills.stream()
-                    .filter(drill -> Difficulty.fromValue(drill.getDifficulty()) == selectedDifficulty)
+                    .filter(drill -> drill.getDifficulty() == selectedDifficulty)
                     .collect(Collectors.toList());
         }
 

@@ -2,7 +2,6 @@ package hockeycoach.supportClasses.filters;
 
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Drills.*;
-import hockeycoach.supportClasses.Difficulty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -42,18 +41,18 @@ public class ComboBoxPopulator {
         comboBox.getItems().addAll(stringList);
     }
 
-    public void setAllDifficulties(ComboBox<String> comboBox) {
-        List<String> stringList = new ArrayList<>();
-        int i = 1;
-        for (Difficulty d : Difficulty.values()) {
-            stringList.add(Difficulty.stringFromInt(i));
-            i++;
-        }
+    public void setAllDifficulties(List<DrillDifficulty> allDifficulties, ComboBox<String> comboBox) {
+        List<String> stringList = allDifficulties.stream()
+                .map(DrillDifficulty::getDifficultyName)
+                .distinct()
+                .sorted()
+                .toList();
+
         comboBox.getItems().addAll(stringList);
     }
 
-    public void setAllStations(ComboBox<String> comboBox){
-        List<String> stringList =new ArrayList<>();
+    public void setAllStations(ComboBox<String> comboBox) {
+        List<String> stringList = new ArrayList<>();
         stringList.add("true");
         stringList.add("false");
         comboBox.getItems().addAll(stringList);
@@ -98,12 +97,17 @@ public class ComboBoxPopulator {
         comboBox.getItems().addAll(observableList);
     }
 
-    public void setDifficulty(List<Drill> allDrillList, ComboBox<Difficulty> comboBox) {
-        List<Difficulty> difficultyList = allDrillList.stream()
-                .map(drill -> Difficulty.fromValue(drill.getDifficulty()))
+    public void setDifficulty(List<Drill> allDrillList, ComboBox<String> comboBox) {
+        List<String> difficultyList = new ArrayList<>();
+        allDrillList.stream()
+                .forEach(drill -> {
+                    String difficulty = drill.getDifficulty().getDifficultyName();
+                    difficultyList.add(difficulty);
+                });
+        observableList = difficultyList.stream()
                 .distinct()
-                .sorted(Comparator.comparing(Difficulty::getValue))
-                .collect(Collectors.toList());
+                .sorted(String::compareTo)
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
         comboBox.getItems().addAll(difficultyList);
     }
