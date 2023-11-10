@@ -25,4 +25,7 @@ public class DrillEditorController {
     @FXML
     private Label puckPositionName;
 
+    @FXML
+    private TableColumn drillCategoryCol,drillParticipationCol,drillDifficultyCol;
+
 }

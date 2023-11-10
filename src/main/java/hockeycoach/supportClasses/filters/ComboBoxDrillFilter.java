@@ -20,28 +20,28 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
         if (categoryBox.getValue() != null) {
             String selectedCategory = categoryBox.getValue().toString();
             filteredDrills = filteredDrills.stream()
-                    .filter(drill -> drill.getCategory().equals(selectedCategory))
+                    .filter(drill -> drill.getCategory().getCategory().equals(selectedCategory))
                     .collect(Collectors.toList());
         }
 
         if (participationBox.getValue() != null) {
             String selectedParticipation = participationBox.getValue().toString();
             filteredDrills = filteredDrills.stream()
-                    .filter(drill -> drill.getParticipation().equals(selectedParticipation))
+                    .filter(drill -> drill.getParticipation().getDrillParticipation().equals(selectedParticipation))
                     .collect(Collectors.toList());
         }
 
         if (difficultyBox.getValue() != null) {
-            DrillDifficulty selectedDifficulty = (DrillDifficulty) difficultyBox.getValue();
+            String selectedDifficulty = difficultyBox.getValue().toString();
             filteredDrills = filteredDrills.stream()
-                    .filter(drill -> drill.getDifficulty() == selectedDifficulty)
+                    .filter(drill -> drill.getDifficulty().difficultyName == selectedDifficulty)
                     .collect(Collectors.toList());
         }
 
         if (puckPositionBox.getValue() != null) {
             String selectedPuckPosition = puckPositionBox.getValue().toString();
             filteredDrills = filteredDrills.stream()
-                    .filter(drill -> drill.getPuckPosition().equals(selectedPuckPosition))
+                    .filter(drill -> drill.getPuckPosition().getPuckPosition().equals(selectedPuckPosition))
                     .collect(Collectors.toList());
         }
 
@@ -52,11 +52,11 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
             }
             if (selectedStation) {
                 filteredDrills = filteredDrills.stream()
-                        .filter(drill -> drill.getStation() == true)
+                        .filter(drill -> drill.getStation().booleanValue() == true)
                         .collect(Collectors.toList());
             } else {
                 filteredDrills = filteredDrills.stream()
-                        .filter(drill -> drill.getStation() != true)
+                        .filter(drill -> drill.getStation().booleanValue() != true)
                         .collect(Collectors.toList());
             }
         }
