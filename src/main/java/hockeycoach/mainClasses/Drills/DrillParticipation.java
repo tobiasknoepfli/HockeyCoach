@@ -4,7 +4,8 @@ public class DrillParticipation {
     public int ID;
     public String drillParticipation;
 
-    public DrillParticipation(){}
+    public DrillParticipation() {
+    }
 
     public int getID() {
         return ID;
