@@ -12,6 +12,7 @@ import hockeycoach.DB.DBWriter.DBWriter;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
+import hockeycoach.supportClasses.DragEvents.PlayerDrag;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -28,7 +29,6 @@ import java.util.stream.Stream;
 import static hockeycoach.AppStarter.*;
 
 public class GameEditorPresentationModel extends PresentationModel {
-    DBWriter dbWriter = new DBWriter();
     DBStringConverter dbStringConverter = new DBStringConverter();
     DBIDConverter dbidConverter = new DBIDConverter();
     DBGameLoader dbGameLoader = new DBGameLoader();
@@ -39,6 +39,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBLineWriter dbLineWriter = new DBLineWriter();
     TextFieldAction textFieldAction = new TextFieldAction();
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
+    PlayerDrag playerDrag = new PlayerDrag();
 
     ButtonControls buttonControls = new ButtonControls();
 
@@ -168,23 +169,23 @@ public class GameEditorPresentationModel extends PresentationModel {
         otTextFields = new ArrayList<>(Arrays.asList(ottf));
         soTextFields = new ArrayList<>(Arrays.asList(sotf));
 
-        textFields.stream().forEach(this::dragEvent);
-        ppTextFields.stream().forEach(this::dragEvent);
-        bpTextFields.stream().forEach(this::dragEvent);
-        nTextFields.stream().forEach(this::dragEvent);
-        captainTeamList.stream().forEach(this::dragCopyEvent);
-        otTextFields.stream().forEach(this::dragCopyEvent);
-        soTextFields.stream().forEach(this::dragCopyEvent);
+        textFields.stream().forEach(t -> playerDrag.dragEvent(t, teamPlayers));
+        ppTextFields.stream().forEach(t -> playerDrag.dragEvent(t, teamPlayers));
+        bpTextFields.stream().forEach(t -> playerDrag.dragEvent(t, teamPlayers));
+        nTextFields.stream().forEach(t -> playerDrag.dragEvent(t, teamPlayers));
+        captainTeamList.stream().forEach(t -> playerDrag.dragCopyEvent(t));
+        otTextFields.stream().forEach(t -> playerDrag.dragCopyEvent(t));
+        soTextFields.stream().forEach(t -> playerDrag.dragCopyEvent(t));
 
-        dragDetect(teamPlayers);
-
-        doubleClick(textFields);
-        doubleClick(ppTextFields);
-        doubleClick(bpTextFields);
-        doubleClick(nTextFields);
-        doubleClick(otTextFields);
-        doubleClick(soTextFields);
-        doubleClickRemove(captainTeamList);
+//        dragDetect(teamPlayers);
+//
+//        doubleClick(textFields);
+//        doubleClick(ppTextFields);
+//        doubleClick(bpTextFields);
+//        doubleClick(nTextFields);
+//        doubleClick(otTextFields);
+//        doubleClick(soTextFields);
+//        doubleClickRemove(captainTeamList);
 
         selectedTeam = globalTeam;
 
@@ -206,7 +207,6 @@ public class GameEditorPresentationModel extends PresentationModel {
         getDBEntries(root);
         setupButtons(root);
         setupEventListeners(root);
-
     }
 
     @Override
@@ -297,140 +297,114 @@ public class GameEditorPresentationModel extends PresentationModel {
         });
     }
 
-    public void dragCopyEvent(TextField textField) {
-        textField.setOnDragOver(event -> {
-            if (event.getGestureSource() != textField && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.COPY);
-            }
-            event.consume();
-        });
 
-        textField.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
+//    public void dragEvent(TextField textField) {
+//        textField.setOnDragOver(event -> {
+//            if (event.getGestureSource() != textField && event.getDragboard().hasString()) {
+//                event.acceptTransferModes(TransferMode.COPY);
+//            }
+//            event.consume();
+//        });
+//
+//        textField.setOnDragDropped(event -> {
+//            Dragboard db = event.getDragboard();
+//            boolean success = false;
+//
+//            if (db.hasString() && !textField.getText().equals(db.getString()) && textField.getText().isEmpty()) {
+//                textField.setText(db.getString());
+//                success = true;
+//            }
+//
+//            Player selectedPlayer = playerList.stream()
+//                    .filter(player -> (player.getLastName() + " " + player.getFirstName()).equals(db.getString()))
+//                    .findFirst()
+//                    .orElse(null);
+//
+//            activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
+//            if (!(showAllPlayers.isSelected())) {
+//                if (lineupTab == activeTab) {
+//                    lineupList.add(selectedPlayer);
+//                } else if (powerplayTab == activeTab) {
+//                    powerplayList.add(selectedPlayer);
+//                } else if (boxplayTab == activeTab) {
+//                    boxplayList.add(selectedPlayer);
+//                } else if (nuclearTab == activeTab) {
+//                    nuclearList.add(selectedPlayer);
+//                } else if (shootoutTab == activeTab) {
+//                    shootoutList.add(selectedPlayer);
+//                } else if (overtimeTab == activeTab) {
+//                    overtimeList.add(selectedPlayer);
+//                }
+//            }
+//
+//
+//            event.setDropCompleted(success);
+//
+//            if (event.isDropCompleted()) {
+//                teamPlayers.getItems().remove(draggedPlayer);
+//            }
+//
+//            event.consume();
+//        });
+//    }
 
-            if (db.hasString() && !textField.getText().equals(db.getString()) && textField.getText().isEmpty()) {
-                textField.setText(db.getString());
-                success = true;
-            }
+//    public void dragDetect(TableView<Player> tableView) {
+//        tableView.setOnDragDetected(event -> {
+//            Player selectedPlayer = tableView.getSelectionModel().getSelectedItem();
+//
+//            if (selectedPlayer != null) {
+//                Dragboard dragboard = tableView.startDragAndDrop(TransferMode.COPY);
+//                ClipboardContent content = new ClipboardContent();
+//                content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName());
+//                dragboard.setContent(content);
+//                draggedPlayer = selectedPlayer;
+//            }
+//            event.consume();
+//        });
+//    }
 
-            Player selectedPlayer = playerList.stream()
-                    .filter(player -> (player.getLastName() + " " + player.getFirstName()).equals(db.getString()))
-                    .findFirst()
-                    .orElse(null);
+//    public void doubleClick(List<TextField> textFields) {
+////        textFields.stream().forEach(this::dragEvent);
+//
+//        textFields.stream().forEach(textField -> {
+//            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+//                    String playerName = textField.getText();
+//                    Player retrievedPlayer = dbPlayerLoader.getPlayerFromName(playerName);
+//                    teamPlayers.getItems().add(retrievedPlayer);
+//                    textField.clear();
+//
+//                    activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
+//
+//                    if (lineupTab == activeTab) {
+//                        lineupList.remove(retrievedPlayer);
+//                    } else if (powerplayTab == activeTab) {
+//                        powerplayList.remove(retrievedPlayer);
+//                    } else if (boxplayTab == activeTab) {
+//                        boxplayList.remove(retrievedPlayer);
+//                    } else if (nuclearTab == activeTab) {
+//                        nuclearList.remove(retrievedPlayer);
+//                    } else if (shootoutTab == activeTab) {
+//                        shootoutList.remove(retrievedPlayer);
+//                    } else if (overtimeTab == activeTab) {
+//                        overtimeList.remove(retrievedPlayer);
+//                    }
+//                }
+//            });
+//        });
+//    }
 
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    }
-
-    public void dragEvent(TextField textField) {
-        textField.setOnDragOver(event -> {
-            if (event.getGestureSource() != textField && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.COPY);
-            }
-            event.consume();
-        });
-
-        textField.setOnDragDropped(event -> {
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-
-            if (db.hasString() && !textField.getText().equals(db.getString()) && textField.getText().isEmpty()) {
-                textField.setText(db.getString());
-                success = true;
-            }
-
-            Player selectedPlayer = playerList.stream()
-                    .filter(player -> (player.getLastName() + " " + player.getFirstName()).equals(db.getString()))
-                    .findFirst()
-                    .orElse(null);
-
-            activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
-            if (!(showAllPlayers.isSelected())) {
-                if (lineupTab == activeTab) {
-                    lineupList.add(selectedPlayer);
-                } else if (powerplayTab == activeTab) {
-                    powerplayList.add(selectedPlayer);
-                } else if (boxplayTab == activeTab) {
-                    boxplayList.add(selectedPlayer);
-                } else if (nuclearTab == activeTab) {
-                    nuclearList.add(selectedPlayer);
-                } else if (shootoutTab == activeTab) {
-                    shootoutList.add(selectedPlayer);
-                } else if (overtimeTab == activeTab) {
-                    overtimeList.add(selectedPlayer);
-                }
-            }
-
-
-            event.setDropCompleted(success);
-
-            if (event.isDropCompleted()) {
-                teamPlayers.getItems().remove(draggedPlayer);
-            }
-
-            event.consume();
-        });
-    }
-
-    public void dragDetect(TableView<Player> tableView) {
-        tableView.setOnDragDetected(event -> {
-            Player selectedPlayer = tableView.getSelectionModel().getSelectedItem();
-
-            if (selectedPlayer != null) {
-                Dragboard dragboard = tableView.startDragAndDrop(TransferMode.COPY);
-                ClipboardContent content = new ClipboardContent();
-                content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName());
-                dragboard.setContent(content);
-                draggedPlayer = selectedPlayer;
-            }
-            event.consume();
-        });
-    }
-
-    public void doubleClick(List<TextField> textFields) {
-        textFields.stream().forEach(this::dragEvent);
-
-        textFields.stream().forEach(textField -> {
-            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                    String playerName = textField.getText();
-                    Player retrievedPlayer = dbPlayerLoader.getPlayerFromName(playerName);
-                    teamPlayers.getItems().add(retrievedPlayer);
-                    textField.clear();
-
-                    activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
-
-                    if (lineupTab == activeTab) {
-                        lineupList.remove(retrievedPlayer);
-                    } else if (powerplayTab == activeTab) {
-                        powerplayList.remove(retrievedPlayer);
-                    } else if (boxplayTab == activeTab) {
-                        boxplayList.remove(retrievedPlayer);
-                    } else if (nuclearTab == activeTab) {
-                        nuclearList.remove(retrievedPlayer);
-                    } else if (shootoutTab == activeTab) {
-                        shootoutList.remove(retrievedPlayer);
-                    } else if (overtimeTab == activeTab) {
-                        overtimeList.remove(retrievedPlayer);
-                    }
-                }
-            });
-        });
-    }
-
-    public void doubleClickRemove(List<TextField> textFields) {
-        textFields.stream().forEach(this::dragEvent);
-
-        textFields.stream().forEach(textField -> {
-            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
-                    textField.clear();
-                }
-            });
-        });
-    }
+//    public void doubleClickRemove(List<TextField> textFields) {
+////        textFields.stream().forEach(this::dragEvent);
+//
+//        textFields.stream().forEach(textField -> {
+//            textField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//                if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+//                    textField.clear();
+//                }
+//            });
+//        });
+//    }
 
     public void refreshPlayers() {
         teamPlayers.getItems().clear();
@@ -458,6 +432,28 @@ public class GameEditorPresentationModel extends PresentationModel {
             teamPlayers.getItems().addAll(inactivePlayers);
         }
     }
+//
+//    public void filterPlayers() {
+//        Player selectedPlayer = globalDraggedPlayer;
+//        activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
+//        if (!(showAllPlayers.isSelected())) {
+//            if (lineupTab == activeTab) {
+//                lineupList.add(selectedPlayer);
+//            } else if (powerplayTab == activeTab) {
+//                powerplayList.add(selectedPlayer);
+//            } else if (boxplayTab == activeTab) {
+//                boxplayList.add(selectedPlayer);
+//            } else if (nuclearTab == activeTab) {
+//                nuclearList.add(selectedPlayer);
+//            } else if (shootoutTab == activeTab) {
+//                shootoutList.add(selectedPlayer);
+//            } else if (overtimeTab == activeTab) {
+//                overtimeList.add(selectedPlayer);
+//            }
+//            teamPlayers.getItems().remove(selectedPlayer);
+//        }
+//    }
+
 
     private void addLineupText(TextField textField) {
         textField.textProperty().addListener((obs, oldValue, newValue) -> {
@@ -614,7 +610,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         nSecondLine.setForwardRight(dbStringConverter.getPlayerFromString(nfr2.getText()));
     }
 
-    private void saveOvertimeLines(){
+    private void saveOvertimeLines() {
         overtimeLine = new OvertimeLine();
         overtimeLine.setDefenderLeft1(dbStringConverter.getPlayerFromString(odl1.getText()));
         overtimeLine.setDefenderRight1(dbStringConverter.getPlayerFromString(odr1.getText()));
@@ -626,7 +622,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         overtimeLine.setSubstituteForward(dbStringConverter.getPlayerFromString(osf1.getText()));
     }
 
-    private void saveShootoutLines(){
+    private void saveShootoutLines() {
         shootoutLine = new ShootoutLine();
         shootoutLine.setShooter1(dbStringConverter.getPlayerFromString(sop1.getText()));
         shootoutLine.setShooter2(dbStringConverter.getPlayerFromString(sop2.getText()));
@@ -906,8 +902,8 @@ public class GameEditorPresentationModel extends PresentationModel {
         odl2 = (TextField) root.lookup("#odl2");
         odr1 = (TextField) root.lookup("#odr1");
         odr2 = (TextField) root.lookup("#odr2");
-        oc1 =(TextField) root.lookup("#oc1");
-        oc2 =(TextField) root.lookup("#oc2");
+        oc1 = (TextField) root.lookup("#oc1");
+        oc2 = (TextField) root.lookup("#oc2");
         osd1 = (TextField) root.lookup("#osd1");
         osf1 = (TextField) root.lookup("#osf1");
 
