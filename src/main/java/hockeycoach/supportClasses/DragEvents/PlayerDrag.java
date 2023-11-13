@@ -41,7 +41,7 @@ public class PlayerDrag {
         });
     }
 
-        public void dragEvent(TextField textField,TableView<Player> teamPlayers) {
+    public void dragEvent(TextField textField, TableView<Player> teamPlayers) {
 
         textField.setOnDragOver(event -> {
             if (event.getGestureSource() != textField && event.getDragboard().hasString()) {
