@@ -315,7 +315,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             }
 
             Player selectedPlayer = playerList.stream()
-                    .filter(player -> (player.getLastName() + " " + player.getFirstName()).equals(db.getString()))
+                    .filter(player -> (player.getLastName() + " " + player.getFirstName() + " #" + player.getJersey()).equals(db.getString()))
                     .findFirst()
                     .orElse(null);
 
@@ -342,7 +342,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             }
 
             Player selectedPlayer = playerList.stream()
-                    .filter(player -> (player.getLastName() + " " + player.getFirstName()).equals(db.getString()))
+                    .filter(player -> (player.getLastName() + " " + player.getFirstName() + " #" + player.getJersey()).equals(db.getString()))
                     .findFirst()
                     .orElse(null);
 
@@ -381,7 +381,7 @@ public class GameEditorPresentationModel extends PresentationModel {
             if (selectedPlayer != null) {
                 Dragboard dragboard = tableView.startDragAndDrop(TransferMode.COPY);
                 ClipboardContent content = new ClipboardContent();
-                content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName());
+                content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName() + " #" + selectedPlayer.getJersey());
                 dragboard.setContent(content);
                 draggedPlayer = selectedPlayer;
             }
@@ -614,7 +614,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         nSecondLine.setForwardRight(dbStringConverter.getPlayerFromString(nfr2.getText()));
     }
 
-    private void saveOvertimeLines(){
+    private void saveOvertimeLines() {
         overtimeLine = new OvertimeLine();
         overtimeLine.setDefenderLeft1(dbStringConverter.getPlayerFromString(odl1.getText()));
         overtimeLine.setDefenderRight1(dbStringConverter.getPlayerFromString(odr1.getText()));
@@ -626,7 +626,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         overtimeLine.setSubstituteForward(dbStringConverter.getPlayerFromString(osf1.getText()));
     }
 
-    private void saveShootoutLines(){
+    private void saveShootoutLines() {
         shootoutLine = new ShootoutLine();
         shootoutLine.setShooter1(dbStringConverter.getPlayerFromString(sop1.getText()));
         shootoutLine.setShooter2(dbStringConverter.getPlayerFromString(sop2.getText()));
@@ -906,8 +906,8 @@ public class GameEditorPresentationModel extends PresentationModel {
         odl2 = (TextField) root.lookup("#odl2");
         odr1 = (TextField) root.lookup("#odr1");
         odr2 = (TextField) root.lookup("#odr2");
-        oc1 =(TextField) root.lookup("#oc1");
-        oc2 =(TextField) root.lookup("#oc2");
+        oc1 = (TextField) root.lookup("#oc1");
+        oc2 = (TextField) root.lookup("#oc2");
         osd1 = (TextField) root.lookup("#osd1");
         osf1 = (TextField) root.lookup("#osf1");
 
