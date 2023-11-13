@@ -48,7 +48,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
 
         allPlayerList = dbPlayerLoader.getAllPlayers();
-        teamPlayerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.playerID = tx.playerID WHERE teamID = '" + selectedTeam.getID() + "'", selectedTeam.getID());
+        teamPlayerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam tx ON p.ID = tx.playerID WHERE teamID = '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         allPlayers.getItems().clear();
         allPlayers.getItems().addAll(filterPlayerIDs(teamPlayerList, allPlayerList));

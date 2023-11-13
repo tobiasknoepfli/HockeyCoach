@@ -6,13 +6,11 @@ import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Drills.Drill;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.ButtonControls;
+import hockeycoach.supportClasses.CustomTableColumns;
 import hockeycoach.supportClasses.TextFieldAction;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -30,6 +28,7 @@ public class TrainingPresentationModel extends PresentationModel {
     List<Training> trainingList;
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
+    CustomTableColumns customTableColumns = new CustomTableColumns();
 
     DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
     DBTrainingLineWriter dbTrainingLineWriter = new DBTrainingLineWriter();
@@ -44,7 +43,11 @@ public class TrainingPresentationModel extends PresentationModel {
     TrainingLines trainingLines = new TrainingLines();
     Button newDrillButton, newTrainingButton, backButton;
 
-    TableColumn trainingColumn;
+    TableColumn trainingStadiumColumn,
+            warmupDifficultyColumn, warmupParticipationColumn, warmupPuckPositionColumn,
+            togetherDifficultyColumn, togetherParticipationColumn, togetherPuckPositionColumn,
+            stationsDifficultyColumn, stationsParticipationColumn, stationsPuckPositionColumn,
+            backupDifficultyColumn, backupParticipationColumn, backupPuckPositionColumn;
 
     TextField drillName, trainingDate, trainingTime, team, stadium, mainFocus,
             jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
@@ -71,13 +74,21 @@ public class TrainingPresentationModel extends PresentationModel {
                 fr1, fr2, fr3, fr4, fr5, fr6};
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
-        trainingColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Training, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Training, String> param) {
-                return new SimpleStringProperty(param.getValue().getStadiumName());
-            }
-        });
         trainingList = dbTrainingLoader.getTrainings("SELECT * FROM training WHERE team = " + selectedTeam.getID());
+
+        customTableColumns.setStadiumNameColumn(trainingStadiumColumn,Training::getStadiumName);
+        customTableColumns.setDrillDifficultyColumn(warmupDifficultyColumn);
+        customTableColumns.setDrillParticipationColumn(warmupParticipationColumn);
+        customTableColumns.setDrillPuckPositionColumn(warmupPuckPositionColumn);
+        customTableColumns.setDrillDifficultyColumn(togetherDifficultyColumn);
+        customTableColumns.setDrillParticipationColumn(togetherParticipationColumn);
+        customTableColumns.setDrillPuckPositionColumn(togetherPuckPositionColumn);
+        customTableColumns.setDrillDifficultyColumn(stationsDifficultyColumn);
+        customTableColumns.setDrillParticipationColumn(stationsParticipationColumn);
+        customTableColumns.setDrillPuckPositionColumn(stationsPuckPositionColumn);
+        customTableColumns.setDrillDifficultyColumn(backupDifficultyColumn);
+        customTableColumns.setDrillParticipationColumn(backupParticipationColumn);
+        customTableColumns.setDrillPuckPositionColumn(backupPuckPositionColumn);
 
         if (!trainingList.isEmpty()) {
             trainingTable.getItems().clear();
@@ -295,7 +306,20 @@ public class TrainingPresentationModel extends PresentationModel {
         stations = (TableView) root.lookup("#stations");
         backup = (TableView) root.lookup("#backup");
 
-        trainingColumn = (TableColumn) trainingTable.getVisibleLeafColumn(1);
+        trainingStadiumColumn = (TableColumn) trainingTable.getVisibleLeafColumn(1);
+        warmupDifficultyColumn = (TableColumn) warmup.getVisibleLeafColumn(1);
+        warmupParticipationColumn = (TableColumn) warmup.getVisibleLeafColumn(2);
+        warmupPuckPositionColumn = (TableColumn) warmup.getVisibleLeafColumn(3);
+        togetherDifficultyColumn = (TableColumn) together.getVisibleLeafColumn(1);
+        togetherParticipationColumn = (TableColumn) together.getVisibleLeafColumn(2);
+        togetherPuckPositionColumn = (TableColumn) together.getVisibleLeafColumn(3);
+        stationsDifficultyColumn = (TableColumn) stations.getVisibleLeafColumn(1);
+        stationsParticipationColumn = (TableColumn) stations.getVisibleLeafColumn(2);
+        stationsPuckPositionColumn = (TableColumn) stations.getVisibleLeafColumn(3);
+        backupDifficultyColumn = (TableColumn) backup.getVisibleLeafColumn(1);
+        backupParticipationColumn = (TableColumn) backup.getVisibleLeafColumn(2);
+        backupPuckPositionColumn = (TableColumn) backup.getVisibleLeafColumn(3);
+
 
         drillImage = (ImageView) root.lookup("#drillImage");
 

@@ -4,14 +4,13 @@ import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
+import hockeycoach.supportClasses.CustomTableColumns;
 import hockeycoach.supportClasses.SearchBox;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import hockeycoach.supportClasses.filters.ComboBoxStadiumFilter;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import jfxtras.scene.layout.HBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +25,7 @@ public class StadiumPresentationModel extends PresentationModel {
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxStadiumFilter comboBoxStadiumFilter = new ComboBoxStadiumFilter();
     Stadium stadium = new Stadium();
+    CustomTableColumns customTableColumns = new CustomTableColumns();
 
     List<Stadium> allStadiumList = new ArrayList<>();
 
@@ -37,12 +37,16 @@ public class StadiumPresentationModel extends PresentationModel {
 
     ComboBox cityFilter;
 
+    TableColumn cityColumn;
+
     @Override
     public void initializeControls(Pane root) {
         importFields(root);
         getDBEntries(root);
 
         allStadiums.getItems().addAll(allStadiumList);
+        customTableColumns.setStadiumCityColumn(cityColumn,Stadium::getStadiumCity);
+
         comboBoxPopulator.setStadiumCities(allStadiumList, cityFilter);
 
         setupButtons(root);
@@ -133,5 +137,6 @@ public class StadiumPresentationModel extends PresentationModel {
         stadiumCountry = (TextField) root.lookup("#stadiumCountry");
         searchStadium = (TextField) root.lookup("#searchStadium");
 
+        cityColumn = allStadiums.getVisibleLeafColumn(1);
     }
 }

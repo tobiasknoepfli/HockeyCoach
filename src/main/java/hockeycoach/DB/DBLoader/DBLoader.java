@@ -13,7 +13,7 @@ public class DBLoader {
         Player player = new Player();
         try {
             Connection connection = DriverManager.getConnection(DB_URL);
-            String query = "SELECT * FROM player WHERE playerID = " + playerID;
+            String query = "SELECT * FROM player WHERE ID = " + player.getID();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
@@ -40,7 +40,7 @@ public class DBLoader {
                 Team team = new Team();
                 DBTeamLoader dbTeamLoader = new DBTeamLoader();
 
-                team = dbTeamLoader.getTeam("SELECT * FROM team WHERE teamID ="+resultSet.getInt("teamID"));
+                team = dbTeamLoader.getTeam("SELECT * FROM team WHERE ID ="+resultSet.getInt("ID"));
 
                 teamList.add(team);
             }

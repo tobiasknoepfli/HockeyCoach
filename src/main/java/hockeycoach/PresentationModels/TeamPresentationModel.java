@@ -58,7 +58,7 @@ public class TeamPresentationModel extends PresentationModel {
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
         DBTeamLoader dbTeamLoader = new DBTeamLoader();
         Team team = dbTeamLoader.getTeam("SELECT * FROM team WHERE ID =" + selectedTeam.getID());
-        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.ID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
+        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         TextField[] textFields = {teamName,
                 stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,

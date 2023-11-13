@@ -70,8 +70,8 @@ public class DBPlayerLoader extends DBLoader {
                 Player player = new Player();
                 player = setPlayer(resultSet);
                 playerList.add(player);
-                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE ID = "+player.getID()+" AND ID = "+selectedTeamID));
-                player.setRole(getRole("SELECT role FROM playerXteam WHERE ID = "+player.getID()+" AND ID = "+selectedTeamID));
+                player.setJersey(getJersey("SELECT jersey FROM playerXteam WHERE playerID = "+player.getID()+" AND teamID = "+selectedTeamID));
+                player.setRole(getRole("SELECT role FROM playerXteam WHERE playerID = "+player.getID()+" AND teamID = "+selectedTeamID));
                 connection.close();
             }
 
