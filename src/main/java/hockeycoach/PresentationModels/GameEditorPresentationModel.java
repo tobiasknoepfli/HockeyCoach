@@ -363,7 +363,6 @@ public class GameEditorPresentationModel extends PresentationModel {
                 }
             }
 
-
             event.setDropCompleted(success);
 
             if (event.isDropCompleted()) {
