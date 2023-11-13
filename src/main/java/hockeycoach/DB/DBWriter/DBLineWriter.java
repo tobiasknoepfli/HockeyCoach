@@ -2,6 +2,7 @@ package hockeycoach.DB.DBWriter;
 
 import hockeycoach.mainClasses.Lines.*;
 
+import javax.security.auth.PrivateCredentialPermission;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -76,6 +77,31 @@ public class DBLineWriter {
         preparedStatement.setInt(7, (nuclearLine.getForwardRight() != null) ? nuclearLine.getForwardRight().getID() : 0);
 
         return preparedStatement;
+    }
+
+    public PreparedStatement setOvertimeLine(PreparedStatement preparedStatement, OvertimeLine overtimeLine) throws SQLException {
+        preparedStatement.setInt(1, (overtimeLine.getGameID() != 0) ? overtimeLine.getGameID() : 0);
+        preparedStatement.setInt(2, (overtimeLine.getDefenderLeft1() != null) ? overtimeLine.getDefenderLeft1().getID() : 0);
+        preparedStatement.setInt(3, (overtimeLine.getDefenderRight1() != null) ? overtimeLine.getDefenderRight1().getID() : 0);
+        preparedStatement.setInt(4, (overtimeLine.getCenter1() != null) ? overtimeLine.getCenter1().getID() : 0);
+        preparedStatement.setInt(5, (overtimeLine.getDefenderLeft2() != null) ? overtimeLine.getDefenderLeft2().getID() : 0);
+        preparedStatement.setInt(6, (overtimeLine.getDefenderRight2() != null) ? overtimeLine.getDefenderRight2().getID() : 0);
+        preparedStatement.setInt(7, (overtimeLine.getCenter2() != null) ? overtimeLine.getCenter2().getID() : 0);
+        preparedStatement.setInt(8, (overtimeLine.getSubstituteDefender() != null) ? overtimeLine.getSubstituteDefender().getID() : 0);
+        preparedStatement.setInt(9, (overtimeLine.getSubstituteForward() != null) ? overtimeLine.getSubstituteForward().getID() : 0);
+
+        return preparedStatement;
+    }
+
+    public PreparedStatement setShootoutLine(PreparedStatement preparedStatement, ShootoutLine shootoutLine) throws SQLException {
+        preparedStatement.setInt(1, (shootoutLine.getGameID() != 0) ? shootoutLine.getGameID() : 0);
+        preparedStatement.setInt(2, (shootoutLine.getShooter1() != null) ? shootoutLine.getShooter1().getID() : 0);
+        preparedStatement.setInt(3, (shootoutLine.getShooter2() != null) ? shootoutLine.getShooter2().getID() : 0);
+        preparedStatement.setInt(4, (shootoutLine.getShooter3() != null) ? shootoutLine.getShooter3().getID() : 0);
+        preparedStatement.setInt(5, (shootoutLine.getShooter4() != null) ? shootoutLine.getShooter4().getID() : 0);
+        preparedStatement.setInt(6, (shootoutLine.getShooter5() != null) ? shootoutLine.getShooter5().getID() : 0);
+
+        return  preparedStatement;
     }
 
 
@@ -158,6 +184,41 @@ public class DBLineWriter {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeOvertimeLine(OvertimeLine overtimeLine) {
+        String query = "INSERT INTO overtimeLine "+
+                "(gameID,defenderLeft1,defenderRight1,center1,defenderLeft2,defenderRight2,center2,defenderSubstitute,centerSubstitute)" +
+                "VALUES ?,?,?,?,?,?,?,?,?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            setOvertimeLine(preparedStatement,overtimeLine);
+
+            preparedStatement.executeUpdate();
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void writeShootoutLine(ShootoutLine shootoutLine) {
+        String query = "INSERT INTO shootoutLine "+
+                "(gameID,shooter1,shooter2,shooter3,shooter4,shooter5)"+
+                "VALUES ?,?,?,?,?,?";
+
+        try (Connection connection = DriverManager.getConnection(DB_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            setShootoutLine(preparedStatement,shootoutLine);
+
+            preparedStatement.executeUpdate();
+        } catch (
+                SQLException e) {
             e.printStackTrace();
         }
     }

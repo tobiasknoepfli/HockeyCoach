@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.DatePicker?>
@@ -216,11 +215,6 @@
                                       <content>
                                           <AnchorPane fx:id="lineupAnchorPane">
                                        <children>
-                                          <ImageView fx:id="boardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                             <viewport>
-                                                <Rectangle2D />
-                                             </viewport>
-                                          </ImageView>
                                           <GridPane fx:id="lineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -318,7 +312,6 @@
                                       <content>
                                           <AnchorPane fx:id="ppAnchorPane">
                                        <children>
-                                          <ImageView fx:id="ppBoardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                           <GridPane fx:id="ppLineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -390,7 +383,6 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                        <children>
-                                          <ImageView fx:id="bpBoardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                           <GridPane fx:id="bpLineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -464,7 +456,6 @@
                                  <content>
                                     <AnchorPane fx:id="nAnchorPane">
                                        <children>
-                                          <ImageView fx:id="nBoardImage" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                           <GridPane fx:id="nLineupGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <columnConstraints>
                                                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -518,6 +509,100 @@
                                                       <TextField fx:id="nfr2" alignment="CENTER" />
                                                       <Label alignment="CENTER" prefHeight="25.0" />
                                                       <Label alignment="CENTER" layoutX="84.0" layoutY="82.0" prefHeight="25.0" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="overtimeTab" text="Overtime">
+                                 <content>
+                                    <AnchorPane fx:id="overtimeAnchorPane">
+                                       <children>
+                                          <GridPane fx:id="overtimeGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <VBox alignment="CENTER" spacing="2.0" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <TextField fx:id="odl1" alignment="CENTER" />
+                                                      <TextField fx:id="odl2" alignment="CENTER" prefHeight="25.0" prefWidth="149.0" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <children>
+                                                      <TextField fx:id="odr1" alignment="CENTER" />
+                                                      <TextField fx:id="odr2" alignment="CENTER" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <TextField fx:id="oc1" alignment="CENTER" />
+                                                      <TextField fx:id="oc2" alignment="CENTER" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.rowIndex="5">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="25.0" text="Defenders" VBox.vgrow="ALWAYS" />
+                                                      <TextField fx:id="osd1" alignment="CENTER" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                                   <children>
+                                                      <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
+                                                      <TextField fx:id="osf1" alignment="CENTER" />
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </GridPane>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                 </content>
+                              </Tab>
+                              <Tab fx:id="shootoutTab" text="Overtime">
+                                 <content>
+                                    <AnchorPane fx:id="shootoutAnchorPane">
+                                       <children>
+                                          <GridPane fx:id="shootoutGrid" hgap="5.0" vgap="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                             </columnConstraints>
+                                             <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                             </rowConstraints>
+                                             <children>
+                                                <VBox alignment="CENTER" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                   <children>
+                                                      <TextField fx:id="sop1" alignment="CENTER" />
+                                                      <TextField fx:id="sop2" alignment="CENTER" />
+                                                      <TextField fx:id="sop3" alignment="CENTER" />
+                                                      <TextField fx:id="sop4" alignment="CENTER" />
+                                                      <TextField fx:id="sop5" alignment="CENTER" />
                                                    </children>
                                                 </VBox>
                                              </children>

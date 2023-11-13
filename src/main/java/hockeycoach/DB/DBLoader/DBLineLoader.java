@@ -98,6 +98,39 @@ public class DBLineLoader extends DBLoader {
         return nuclearLine;
     }
 
+    public OvertimeLine setOvertimeLine(ResultSet resultSet) {
+        OvertimeLine overtimeLine = new OvertimeLine();
+        try {
+            overtimeLine.setGameID(resultSet.getInt("gameID"));
+            overtimeLine.setDefenderLeft1(getPlayerByID(resultSet.getInt("defenderLeft1")));
+            overtimeLine.setDefenderRight1(getPlayerByID(resultSet.getInt("defenderRight1")));
+            overtimeLine.setCenter1(getPlayerByID(resultSet.getInt("center1")));
+            overtimeLine.setDefenderLeft2(getPlayerByID(resultSet.getInt("defenderLeft2")));
+            overtimeLine.setDefenderRight2(getPlayerByID(resultSet.getInt("defenderRight2")));
+            overtimeLine.setCenter2(getPlayerByID(resultSet.getInt("center2")));
+            overtimeLine.setSubstituteDefender(getPlayerByID(resultSet.getInt("defenderSubstitute")));
+            overtimeLine.setSubstituteForward(getPlayerByID(resultSet.getInt("centerSubstitute")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return overtimeLine;
+    }
+
+    public ShootoutLine setShootoutLine(ResultSet resultSet) {
+        ShootoutLine shootoutLine = new ShootoutLine();
+        try {
+            shootoutLine.setGameID(resultSet.getInt("gameID"));
+            shootoutLine.setShooter1(getPlayerByID(resultSet.getInt("shooter1")));
+            shootoutLine.setShooter2(getPlayerByID(resultSet.getInt("shooter2")));
+            shootoutLine.setShooter3(getPlayerByID(resultSet.getInt("shooter3")));
+            shootoutLine.setShooter4(getPlayerByID(resultSet.getInt("shooter4")));
+            shootoutLine.setShooter5(getPlayerByID(resultSet.getInt("shooter5")));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shootoutLine;
+    }
+
 
     public List<Line> getLines(String query) {
         List<Line> lines = new ArrayList<>();
@@ -169,9 +202,10 @@ public class DBLineLoader extends DBLoader {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 substituteLine = setSubstituteLine(resultSet);
-            };
+            }
+            ;
 
             connection.close();
         } catch (SQLException e) {
@@ -189,7 +223,7 @@ public class DBLineLoader extends DBLoader {
 
             while (resultSet.next()) {
                 NuclearLine nLine = new NuclearLine();
-                 nLine= setNuclearLine(resultSet);
+                nLine = setNuclearLine(resultSet);
 
                 nuclearLines.add(nLine);
 

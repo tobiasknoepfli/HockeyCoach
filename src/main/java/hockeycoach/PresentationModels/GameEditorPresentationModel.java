@@ -14,15 +14,12 @@ import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import jfxtras.scene.control.LocalTimeTextField;
 
-import java.io.File;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
@@ -53,9 +50,11 @@ public class GameEditorPresentationModel extends PresentationModel {
     List<Player> powerplayList = new ArrayList<>();
     List<Player> boxplayList = new ArrayList<>();
     List<Player> nuclearList = new ArrayList<>();
+    List<Player> overtimeList = new ArrayList<>();
+    List<Player> shootoutList = new ArrayList<>();
 
     TabPane lineupTabPane;
-    Tab lineupTab, powerplayTab, boxplayTab, nuclearTab;
+    Tab lineupTab, powerplayTab, boxplayTab, nuclearTab, overtimeTab, shootoutTab;
     Tab activeTab;
 
     Line firstLine = new Line();
@@ -76,14 +75,16 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     SubstituteLine subsLine = new SubstituteLine();
 
+    OvertimeLine overtimeLine = new OvertimeLine();
+
+    ShootoutLine shootoutLine = new ShootoutLine();
+
     TableView<Player> teamPlayers, availablePlayers;
 
-    ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
-
-    List<TextField> textFields, ppTextFields, bpTextFields, nTextFields, captainTeamList;
+    List<TextField> textFields, ppTextFields, bpTextFields, nTextFields, captainTeamList, otTextFields, soTextFields;
     Button refreshPlayerList, saveButton, backButton;
-    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
-    GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
+    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane, overtimeAnchorPane, shootoutAnchorPane;
+    GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid, overtimeGrid, shootoutGrid;
 
     DatePicker gameDate;
 
@@ -102,7 +103,9 @@ public class GameEditorPresentationModel extends PresentationModel {
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
             bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
             bpsd1, bpsd2, bpsf1, bpsf2,
-            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
+            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2,
+            odl1, odl2, odr1, odr2, oc1, oc2, osd1, osf1,
+            sop1, sop2, sop3, sop4, sop5;
     Label lbfl1, lbfl2, lbfl3, lbfl4, lbfr1, lbfr2, lbfr3, lbfr4,
             lbc1, lbc2, lbc3, lbc4, lbgk1, lbgk2, lbgk3, lbgk4,
             lbdl1, lbdl2, lbdl3, lbdl4, lbdr1, lbdr2, lbdr3, lbdr4,
@@ -118,28 +121,6 @@ public class GameEditorPresentationModel extends PresentationModel {
     @Override
     public void initializeControls(Pane root) {
         importFields(root);
-
-        File file = new File(BOARD);
-        Image image = new Image(file.toURI().toString());
-        boardImage.setImage(image);
-        boardImage.fitWidthProperty().bind(lineupAnchorPane.widthProperty());
-        boardImage.fitWidthProperty().bind(lineupGrid.widthProperty());
-        boardImage.setPreserveRatio(false);
-
-        ppBoardImage.setImage(image);
-        ppBoardImage.fitWidthProperty().bind(ppAnchorPane.widthProperty());
-        ppBoardImage.fitWidthProperty().bind(ppLineupGrid.widthProperty());
-        ppBoardImage.setPreserveRatio(false);
-
-        bpBoardImage.setImage(image);
-        bpBoardImage.fitWidthProperty().bind(bpAnchorPane.widthProperty());
-        bpBoardImage.fitWidthProperty().bind(bpLineupGrid.widthProperty());
-        bpBoardImage.setPreserveRatio(false);
-
-        nBoardImage.setImage(image);
-        nBoardImage.fitWidthProperty().bind(nAnchorPane.widthProperty());
-        nBoardImage.fitWidthProperty().bind(nLineupGrid.widthProperty());
-        nBoardImage.setPreserveRatio(false);
 
         TextField[] fields = {gameStadium, gameTeam, gameOpponent,
                 captain, assistant1, assistant2, penalty1, penalty2, emptyNet1, emptyNet2};
@@ -170,6 +151,10 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         TextField[] ntf = {ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2};
 
+        TextField[] ottf = {odl1, odl2, odr1, odr2, oc1, oc2, osd1, osf1};
+
+        TextField[] sotf = {sop1, sop2, sop3, sop4, sop5};
+
         TextField[] allTextFields = Stream.concat(Arrays.stream(fields), (Arrays.stream(captainTeam)))
                 .toArray(TextField[]::new);
 
@@ -180,12 +165,16 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpTextFields = new ArrayList<>(Arrays.asList(bptf));
         nTextFields = new ArrayList<>(Arrays.asList(ntf));
         captainTeamList = new ArrayList<>(Arrays.asList(captainTeam));
+        otTextFields = new ArrayList<>(Arrays.asList(ottf));
+        soTextFields = new ArrayList<>(Arrays.asList(sotf));
 
         textFields.stream().forEach(this::dragEvent);
         ppTextFields.stream().forEach(this::dragEvent);
         bpTextFields.stream().forEach(this::dragEvent);
         nTextFields.stream().forEach(this::dragEvent);
         captainTeamList.stream().forEach(this::dragCopyEvent);
+        otTextFields.stream().forEach(this::dragCopyEvent);
+        soTextFields.stream().forEach(this::dragCopyEvent);
 
         dragDetect(teamPlayers);
 
@@ -193,11 +182,13 @@ public class GameEditorPresentationModel extends PresentationModel {
         doubleClick(ppTextFields);
         doubleClick(bpTextFields);
         doubleClick(nTextFields);
+        doubleClick(otTextFields);
+        doubleClick(soTextFields);
         doubleClickRemove(captainTeamList);
 
         selectedTeam = globalTeam;
 
-        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
+        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         showAllPlayers.setSelected(false);
 
@@ -236,6 +227,8 @@ public class GameEditorPresentationModel extends PresentationModel {
             saveBPLines();
             saveSubstitutes();
             saveNuclearLines();
+            saveOvertimeLines();
+            saveShootoutLines();
 
             game.setID(dbGameWriter.writeGame(game));
 
@@ -257,6 +250,9 @@ public class GameEditorPresentationModel extends PresentationModel {
 
             subsLine.setGameID(game.getID());
 
+            overtimeLine.setGameID(game.getID());
+            shootoutLine.setGameID(game.getID());
+
             dbLineWriter.writeNewLine(firstLine);
             dbLineWriter.writeNewLine(secondLine);
             dbLineWriter.writeNewLine(thirdLine);
@@ -274,6 +270,10 @@ public class GameEditorPresentationModel extends PresentationModel {
             dbLineWriter.writeNuclearLine(nSecondLine);
 
             dbLineWriter.writeSubstituteLine(subsLine);
+
+            dbLineWriter.writeOvertimeLine(overtimeLine);
+
+            dbLineWriter.writeShootoutLine(shootoutLine);
         });
     }
 
@@ -356,6 +356,10 @@ public class GameEditorPresentationModel extends PresentationModel {
                     boxplayList.add(selectedPlayer);
                 } else if (nuclearTab == activeTab) {
                     nuclearList.add(selectedPlayer);
+                } else if (shootoutTab == activeTab) {
+                    shootoutList.add(selectedPlayer);
+                } else if (overtimeTab == activeTab) {
+                    overtimeList.add(selectedPlayer);
                 }
             }
 
@@ -406,6 +410,10 @@ public class GameEditorPresentationModel extends PresentationModel {
                         boxplayList.remove(retrievedPlayer);
                     } else if (nuclearTab == activeTab) {
                         nuclearList.remove(retrievedPlayer);
+                    } else if (shootoutTab == activeTab) {
+                        shootoutList.remove(retrievedPlayer);
+                    } else if (overtimeTab == activeTab) {
+                        overtimeList.remove(retrievedPlayer);
                     }
                 }
             });
@@ -440,9 +448,12 @@ public class GameEditorPresentationModel extends PresentationModel {
                 inactivePlayers.removeAll(powerplayList);
             } else if (boxplayTab == activeTab) {
                 inactivePlayers.removeAll(boxplayList);
-
             } else if (nuclearTab == activeTab) {
                 inactivePlayers.removeAll(nuclearList);
+            } else if (shootoutTab == activeTab) {
+                shootoutList.removeAll(shootoutList);
+            } else if (overtimeTab == activeTab) {
+                overtimeList.removeAll(overtimeList);
             }
             teamPlayers.getItems().addAll(inactivePlayers);
         }
@@ -603,6 +614,27 @@ public class GameEditorPresentationModel extends PresentationModel {
         nSecondLine.setForwardRight(dbStringConverter.getPlayerFromString(nfr2.getText()));
     }
 
+    private void saveOvertimeLines(){
+        overtimeLine = new OvertimeLine();
+        overtimeLine.setDefenderLeft1(dbStringConverter.getPlayerFromString(odl1.getText()));
+        overtimeLine.setDefenderRight1(dbStringConverter.getPlayerFromString(odr1.getText()));
+        overtimeLine.setCenter1(dbStringConverter.getPlayerFromString(oc1.getText()));
+        overtimeLine.setDefenderLeft2(dbStringConverter.getPlayerFromString(odl2.getText()));
+        overtimeLine.setDefenderRight2(dbStringConverter.getPlayerFromString(odr2.getText()));
+        overtimeLine.setCenter2(dbStringConverter.getPlayerFromString(oc2.getText()));
+        overtimeLine.setSubstituteDefender(dbStringConverter.getPlayerFromString(osd1.getText()));
+        overtimeLine.setSubstituteForward(dbStringConverter.getPlayerFromString(osf1.getText()));
+    }
+
+    private void saveShootoutLines(){
+        shootoutLine = new ShootoutLine();
+        shootoutLine.setShooter1(dbStringConverter.getPlayerFromString(sop1.getText()));
+        shootoutLine.setShooter2(dbStringConverter.getPlayerFromString(sop2.getText()));
+        shootoutLine.setShooter3(dbStringConverter.getPlayerFromString(sop3.getText()));
+        shootoutLine.setShooter4(dbStringConverter.getPlayerFromString(sop4.getText()));
+        shootoutLine.setShooter5(dbStringConverter.getPlayerFromString(sop5.getText()));
+    }
+
     public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {
         Line firstLineLastGame = pastGameLines.stream()
                 .filter(line -> line.getLineNr() == 1)
@@ -748,11 +780,6 @@ public class GameEditorPresentationModel extends PresentationModel {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         availablePlayers = (TableView) root.lookup("#availablePlayers");
 
-        boardImage = (ImageView) root.lookup("#boardImage");
-        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
-        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
-        nBoardImage = (ImageView) root.lookup("#nBoardImage");
-
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
         saveButton = (Button) root.lookup("#saveButton");
         backButton = (Button) root.lookup("#backButton");
@@ -763,16 +790,22 @@ public class GameEditorPresentationModel extends PresentationModel {
         ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
         bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
         nAnchorPane = (AnchorPane) root.lookup("#nAnchorPane");
+        overtimeAnchorPane = (AnchorPane) root.lookup("#overtimeAnchorPane");
+        shootoutAnchorPane = (AnchorPane) root.lookup("#shootoutAnchorPane");
 
         lineupGrid = (GridPane) root.lookup("#lineupGrid");
         ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
         bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
         nLineupGrid = (GridPane) root.lookup("#nLineupGrid");
+        shootoutGrid = (GridPane) root.lookup("#shootoutGrid");
+        overtimeGrid = (GridPane) root.lookup("#overtimeGrid");
 
         lineupTab = lineupTabPane.getTabs().get(0);
         powerplayTab = lineupTabPane.getTabs().get(1);
         boxplayTab = lineupTabPane.getTabs().get(2);
         nuclearTab = lineupTabPane.getTabs().get(3);
+        overtimeTab = lineupTabPane.getTabs().get(4);
+        shootoutTab = lineupTabPane.getTabs().get(5);
 
         gameDate = (DatePicker) root.lookup("#gameDate");
         gameTime = (LocalTimeTextField) root.lookup("#gameTime");
@@ -869,6 +902,20 @@ public class GameEditorPresentationModel extends PresentationModel {
         nfr1 = (TextField) root.lookup("#nfr1");
         nfr2 = (TextField) root.lookup("#nfr2");
 
+        odl1 = (TextField) root.lookup("#odl1");
+        odl2 = (TextField) root.lookup("#odl2");
+        odr1 = (TextField) root.lookup("#odr1");
+        odr2 = (TextField) root.lookup("#odr2");
+        oc1 =(TextField) root.lookup("#oc1");
+        oc2 =(TextField) root.lookup("#oc2");
+        osd1 = (TextField) root.lookup("#osd1");
+        osf1 = (TextField) root.lookup("#osf1");
+
+        sop1 = (TextField) root.lookup("#sop1");
+        sop2 = (TextField) root.lookup("#sop2");
+        sop3 = (TextField) root.lookup("#sop3");
+        sop4 = (TextField) root.lookup("#sop4");
+        sop5 = (TextField) root.lookup("#sop5");
 
         lbfl1 = (Label) root.lookup("#lbfl1");
         lbfl2 = (Label) root.lookup("#lbfl2");
@@ -943,7 +990,5 @@ public class GameEditorPresentationModel extends PresentationModel {
         ngLF2 = (Label) root.lookup("#ngLF2");
         ngLF3 = (Label) root.lookup("#ngLF3");
         ngLF4 = (Label) root.lookup("#ngLF4");
-
-
     }
 }

@@ -60,5 +60,7 @@ public class GameEditorController extends Controller {
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
             bpc1, bpc2, bpcfiller, bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
             bpsd1, bpsd2, bpsf1, bpsf2,
-            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
+            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2,
+            odl1, odl2, odr1, odr2, oc1, oc2, osd1, osf1,
+            sop1, sop2, sop3, sop4, sop5;
 }

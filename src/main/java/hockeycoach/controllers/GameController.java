@@ -12,14 +12,14 @@ import jfxtras.scene.control.LocalTimeTextField;
 
 public class GameController extends Controller {
     @FXML
-    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
+    private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane,overtimeAnchorPane,shootoutAnchorPane;
 
     @FXML
     private Button saveButton, cancelButton,
             refreshPlayerList, backButton, newGameButton;
 
     @FXML
-    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
+    private GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid,overtimeGrid,shootoutGrid;
 
     @FXML
     private HBox controlBox;
@@ -28,7 +28,7 @@ public class GameController extends Controller {
     private ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
 
     @FXML
-    private Tab lineupTab, powerplayTab, boxplayTab, nuclearTab;
+    private Tab lineupTab, powerplayTab, boxplayTab, nuclearTab,overtimeTab,shootoutTab;
 
     @FXML
     private TableColumn playerLastName, playerFirstName, playerPositions, stick,
