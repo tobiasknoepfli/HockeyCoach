@@ -1,5 +1,8 @@
 package hockeycoach.mainClasses;
 
+import hockeycoach.DB.DBConverter.DBIDConverter;
+import hockeycoach.DB.DBConverter.DBStringConverter;
+import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
 import hockeycoach.supportClasses.PlayerXTeam;
 
@@ -211,5 +214,11 @@ public class Player {
 
     public String getFullName() {
         return getLastName() + " " + getFirstName();
+    }
+
+    public String getFullNameWithJersey(Team team) {
+        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+        int jerseyNr = dbPlayerLoader.getJersey("SELECT jersey FROM playerXteam WHERE playerID = " + getID() + " AND teamID =" + team.getID());
+        return getFullName() + " #" + jerseyNr;
     }
 }
