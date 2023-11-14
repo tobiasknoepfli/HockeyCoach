@@ -5,6 +5,7 @@ import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
+import hockeycoach.supportClasses.CustomTableColumns;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -29,6 +30,7 @@ public class GamePresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
+    CustomTableColumns customTableColumns =new CustomTableColumns();
 
     DatePicker gameDate;
     LocalTimeTextField gameTime;
@@ -49,14 +51,16 @@ public class GamePresentationModel extends PresentationModel {
             bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
             bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
             bpsd1, bpsd2, bpsf1, bpsf2,
-            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2;
+            ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2,
+            odl1, odl2, odr1, odr2, oc1, oc2, osd1, osf1,
+            sop1, sop2, sop3, sop4, sop5;
+    ;
 
     TableView<Game> allGames;
     TableColumn dateColumn, stadiumColumn, opponentColumn;
     TableView<Player> teamPlayers;
     TabPane lineupTabPane;
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
-    ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
     DBGameLoader dbGameLoader = new DBGameLoader();
@@ -71,12 +75,8 @@ public class GamePresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
 
         allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getID());
-        stadiumColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Game, String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Game, String> param) {
-                return new SimpleStringProperty(param.getValue().getStadiumName());
-            }
-        });
+        customTableColumns.setStadiumNameColumn(stadiumColumn,Stadium::getStadiumName);
+
         allGames.getItems().clear();
         allGames.getItems().addAll(allGameList);
 
@@ -97,7 +97,9 @@ public class GamePresentationModel extends PresentationModel {
                 bpdl1, bpdl2, bpdlfiller, bpdr1, bpdr2, bpdrfiller,
                 bpfl1, bpfl2, bpflfiller, bpfr1, bpfr2, bpfrfiller,
                 bpsd1, bpsd2, bpsf1, bpsf2,
-                ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2};
+                ndl1, ndl2, ndr1, ndr2, nc1, nc2, nfl1, nfl2, nfr1, nfr2,
+                odl1, odl2, odr1, odr2, oc1, oc2, osd1, osf1,
+                sop1, sop2, sop3, sop4, sop5};
 
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
@@ -292,6 +294,27 @@ public class GamePresentationModel extends PresentationModel {
                 nfl2.setText(isNotNullElse(secondNLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 nfr2.setText(isNotNullElse(secondNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
+
+            OvertimeLine overtimeLine = dbLineLoader.getOvertimeLine("SELECT * FROM overtimeLine WHERE gameID =" + newValue.getID());
+            if (overtimeLine != null) {
+                odl1.setText(isNotNullElse(overtimeLine.getDefenderLeft1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                odr1.setText(isNotNullElse(overtimeLine.getDefenderLeft2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                oc1.setText(isNotNullElse(overtimeLine.getCenter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                odl2.setText(isNotNullElse(overtimeLine.getDefenderLeft2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                odr2.setText(isNotNullElse(overtimeLine.getDefenderRight2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                oc2.setText(isNotNullElse(overtimeLine.getCenter2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                osd1.setText(isNotNullElse(overtimeLine.getSubstituteDefender(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                osf1.setText(isNotNullElse(overtimeLine.getSubstituteForward(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+            }
+
+            ShootoutLine shootoutLine =dbLineLoader.getShootoutLine("SELECT * FROM shootoutLine WHERE gameID =" +newValue.getID());
+            if(shootoutLine!=null){
+                sop1.setText(isNotNullElse(shootoutLine.getShooter1(),c->c.getFullNameWithJersey(selectedTeam),""));
+                sop2.setText(isNotNullElse(shootoutLine.getShooter2(),c->c.getFullNameWithJersey(selectedTeam),""));
+                sop3.setText(isNotNullElse(shootoutLine.getShooter3(),c->c.getFullNameWithJersey(selectedTeam),""));
+                sop4.setText(isNotNullElse(shootoutLine.getShooter4(),c->c.getFullNameWithJersey(selectedTeam),""));
+                sop5.setText(isNotNullElse(shootoutLine.getShooter5(),c->c.getFullNameWithJersey(selectedTeam),""));
+            }
         });
     }
 
@@ -312,11 +335,6 @@ public class GamePresentationModel extends PresentationModel {
         ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
         bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
         nAnchorPane = (AnchorPane) root.lookup("#nAnchorPane");
-
-        boardImage = (ImageView) root.lookup("#boardImage");
-        ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
-        bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
-        nBoardImage = (ImageView) root.lookup("#nBoardImage");
 
         lineupGrid = (GridPane) root.lookup("#lineupGrid");
         ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
@@ -417,5 +435,19 @@ public class GamePresentationModel extends PresentationModel {
         nfr1 = (TextField) root.lookup("#nfr1");
         nfr2 = (TextField) root.lookup("#nfr2");
 
+        odl1 = (TextField) root.lookup("#odl1");
+        odl2 = (TextField) root.lookup("#odl2");
+        odr1 = (TextField) root.lookup("#odr1");
+        odr2 = (TextField) root.lookup("#odr2");
+        oc1 = (TextField) root.lookup("#oc1");
+        oc2 = (TextField) root.lookup("#oc2");
+        osd1 = (TextField) root.lookup("#osd1");
+        osf1 = (TextField) root.lookup("#osf1");
+
+        sop1 = (TextField) root.lookup("#sop1");
+        sop2 = (TextField) root.lookup("#sop2");
+        sop3 = (TextField) root.lookup("#sop3");
+        sop4 = (TextField) root.lookup("#sop4");
+        sop5 = (TextField) root.lookup("#sop5");
     }
 }

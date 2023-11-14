@@ -205,7 +205,6 @@ public class DBLineLoader extends DBLoader {
             if (resultSet.next()) {
                 substituteLine = setSubstituteLine(resultSet);
             }
-            ;
 
             connection.close();
         } catch (SQLException e) {
@@ -233,5 +232,43 @@ public class DBLineLoader extends DBLoader {
             e.printStackTrace();
         }
         return nuclearLines;
+    }
+
+    public OvertimeLine getOvertimeLine(String query) {
+        OvertimeLine overtimeLine = new OvertimeLine();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                overtimeLine = setOvertimeLine(resultSet);
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return overtimeLine;
+    }
+
+    public ShootoutLine getShootoutLine(String query) {
+        ShootoutLine shootoutLine = new ShootoutLine();
+        try {
+            Connection connection = DriverManager.getConnection(DB_URL);
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            if (resultSet.next()) {
+                shootoutLine = setShootoutLine(resultSet);
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return shootoutLine;
     }
 }
