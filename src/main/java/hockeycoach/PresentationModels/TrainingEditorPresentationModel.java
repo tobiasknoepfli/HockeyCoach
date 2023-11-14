@@ -122,7 +122,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         DBDrillLoader dbDrillLoader = new DBDrillLoader();
         drillList = dbDrillLoader.getAllDrills();
 
-        allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
+        allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
         TextField[] jerseys = {jersey1, jersey2, jersey3, jersey4, jersey5, jersey6};
         TextField[] players = {gk1, gk2, gk3, gk4, gk5, gk6,
@@ -218,7 +218,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         backupButton.setOnAction(event -> moveSelectedDrills(backup, backupTab));
         stationsButton.setOnAction(event -> moveDrillsIfStationsTrue());
 
-        availablePlayersList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.playerID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
+        availablePlayersList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
         playerList.getItems().clear();
         playerList.getItems().addAll(availablePlayersList);
 

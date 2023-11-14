@@ -17,11 +17,11 @@ import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
+import java.util.function.Consumer;
 
 import static hockeycoach.AppStarter.*;
+import static java.util.Objects.requireNonNullElse;
 
 public class GamePresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
@@ -34,7 +34,7 @@ public class GamePresentationModel extends PresentationModel {
     Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
     TextField gameTeam, gameOpponent, gameStadium,
             captain, assistant1, assistant2,
-            penalty1,penalty2,emptyNet1,emptyNet2,
+            penalty1, penalty2, emptyNet1, emptyNet2,
             gk1,
             dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
             c1, c2, c3, c4,
@@ -53,9 +53,9 @@ public class GamePresentationModel extends PresentationModel {
     TableColumn dateColumn, stadiumColumn, opponentColumn;
     TableView<Player> teamPlayers;
     TabPane lineupTabPane;
-    AnchorPane  lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
-    ImageView  boardImage, ppBoardImage, bpBoardImage, nBoardImage;
-    GridPane  lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
+    AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
+    ImageView boardImage, ppBoardImage, bpBoardImage, nBoardImage;
+    GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid;
 
     DBGameLoader dbGameLoader = new DBGameLoader();
     DBLineLoader dbLineLoader = new DBLineLoader();
@@ -82,7 +82,7 @@ public class GamePresentationModel extends PresentationModel {
 
         TextField[] textFields = {gameTeam, gameOpponent, gameStadium,
                 captain, assistant1, assistant2,
-                penalty1,penalty2,emptyNet1,emptyNet2,
+                penalty1, penalty2, emptyNet1, emptyNet2,
                 gk1,
                 dl1, dl2, dl3, dl4, dr1, dr2, dr3, dr4,
                 c1, c2, c3, c4,
@@ -127,13 +127,13 @@ public class GamePresentationModel extends PresentationModel {
             gameDate.setValue(LocalDate.from(newValue.getGameDate()));
             gameTime.setLocalTime(newValue.getGameTime().toLocalTime());
             gameStadium.setText(newValue.getStadium().getStadiumName());
-            captain.setText(newValue.getCaptain().getLastName() + " " + newValue.getCaptain().getFirstName());
-            assistant1.setText(newValue.getAssistant1().getLastName() + " " + newValue.getAssistant1().getFirstName());
-            assistant2.setText(newValue.getAssistant2().getLastName() + " " + newValue.getAssistant2().getFirstName());
-            penalty1.setText(newValue.getPenalty1().getLastName() + " " + newValue.getPenalty1().getFirstName());
-            penalty2.setText(newValue.getPenalty2().getLastName() + " " + newValue.getPenalty2().getFirstName());
-            emptyNet1.setText(newValue.getEmptyNet1().getLastName() + " " + newValue.getEmptyNet1().getFirstName());
-            emptyNet2.setText(newValue.getEmptyNet2().getLastName() + " " + newValue.getEmptyNet2().getFirstName());
+            captain.setText(isNotNull(newValue.getCaptain()));
+            assistant1.setText(isNotNull(newValue.getAssistant1()));
+            assistant2.setText(isNotNull(newValue.getAssistant2()));
+            penalty1.setText(isNotNull(newValue.getPenalty1()));
+            penalty2.setText(isNotNull(newValue.getPenalty2()));
+            emptyNet1.setText(isNotNull(newValue.getEmptyNet1()));
+            emptyNet2.setText(isNotNull(newValue.getEmptyNet2()));
 
             List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getID());
 
@@ -141,45 +141,46 @@ public class GamePresentationModel extends PresentationModel {
                     .filter(line -> line.getLineNr() == 1)
                     .findAny().orElse(null);
             if (firstLine != null) {
-                gk1.setText(getPlayerName(firstLine.getGoalkeeper()));
-                dl1.setText(getPlayerName(firstLine.getDefenderLeft()));
-                dr1.setText(getPlayerName(firstLine.getDefenderRight()));
-                c1.setText(getPlayerName(firstLine.getCenter()));
-                fl1.setText(getPlayerName(firstLine.getForwardLeft()));
-                fr1.setText(getPlayerName(firstLine.getForwardRight()));
+                gk1.setText(isNotNull(firstLine.getGoalkeeper()));
+                dl1.setText(isNotNull(firstLine.getDefenderLeft()));
+                dr1.setText(isNotNull(firstLine.getDefenderRight()));
+                c1.setText(isNotNull(firstLine.getCenter()));
+                fl1.setText(isNotNull(firstLine.getForwardLeft()));
+                fr1.setText(isNotNull(firstLine.getForwardRight()));
+                ;
             }
 
             Line secondLine = lines.stream()
                     .filter(line -> line.getLineNr() == 2)
                     .findAny().orElse(null);
             if (secondLine != null) {
-                dr2.setText(getPlayerName(secondLine.getDefenderRight()));
-                dl2.setText(getPlayerName(secondLine.getDefenderLeft()));
-                c2.setText(getPlayerName(secondLine.getCenter()));
-                fr2.setText(getPlayerName(secondLine.getForwardRight()));
-                fl2.setText(getPlayerName(secondLine.getForwardLeft()));
+                dr2.setText(isNotNull(secondLine.getDefenderRight()));
+                dl2.setText(isNotNull(secondLine.getDefenderLeft()));
+                c2.setText(isNotNull(secondLine.getCenter()));
+                fr2.setText(isNotNull(secondLine.getForwardRight()));
+                fl2.setText(isNotNull(secondLine.getForwardLeft()));
             }
 
             Line thirdLine = lines.stream()
                     .filter(line -> line.getLineNr() == 3)
                     .findAny().orElse(null);
             if (thirdLine != null) {
-                dr3.setText(getPlayerName(thirdLine.getDefenderRight()));
-                dl3.setText(getPlayerName(thirdLine.getDefenderLeft()));
-                c3.setText(getPlayerName(thirdLine.getCenter()));
-                fr3.setText(getPlayerName(thirdLine.getForwardRight()));
-                fl3.setText(getPlayerName(thirdLine.getForwardLeft()));
+                dr3.setText(isNotNull(thirdLine.getDefenderRight()));
+                dl3.setText(isNotNull(thirdLine.getDefenderLeft()));
+                c3.setText(isNotNull(thirdLine.getCenter()));
+                fr3.setText(isNotNull(thirdLine.getForwardRight()));
+                fl3.setText(isNotNull(thirdLine.getForwardLeft()));
             }
 
             Line fourthLine = lines.stream()
                     .filter(line -> line.getLineNr() == 4)
                     .findAny().orElse(null);
             if (fourthLine != null) {
-                dr4.setText(getPlayerName(fourthLine.getDefenderRight()));
-                dl4.setText(getPlayerName(fourthLine.getDefenderLeft()));
-                c4.setText(getPlayerName(fourthLine.getCenter()));
-                fr4.setText(getPlayerName(fourthLine.getForwardRight()));
-                fl4.setText(getPlayerName(fourthLine.getForwardLeft()));
+                dr4.setText(isNotNull(fourthLine.getDefenderRight()));
+                dl4.setText(isNotNull(fourthLine.getDefenderLeft()));
+                c4.setText(isNotNull(fourthLine.getCenter()));
+                fr4.setText(isNotNull(fourthLine.getForwardRight()));
+                fl4.setText(isNotNull(fourthLine.getForwardLeft()));
             }
 
             List<PowerplayLine> ppLine = dbLineLoader.getPPLines("SELECT * FROM powerplayLine WHERE gameID = " + newValue.getID());
@@ -188,33 +189,33 @@ public class GamePresentationModel extends PresentationModel {
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 1)
                     .findAny().orElse(null);
             if (firstPPLine != null) {
-                ppdl1.setText(getPlayerName(firstPPLine.getDefenderLeft()));
-                ppdr1.setText(getPlayerName(firstPPLine.getDefenderRight()));
-                ppc1.setText(getPlayerName(firstPPLine.getCenter()));
-                ppfl1.setText(getPlayerName(firstPPLine.getForwardLeft()));
-                ppfr1.setText(getPlayerName(firstPPLine.getForwardRight()));
+                ppdl1.setText(isNotNull(firstPPLine.getDefenderLeft()));
+                ppdr1.setText(isNotNull(firstPPLine.getDefenderRight()));
+                ppc1.setText(isNotNull(firstPPLine.getCenter()));
+                ppfl1.setText(isNotNull(firstPPLine.getForwardLeft()));
+                ppfr1.setText(isNotNull(firstPPLine.getForwardRight()));
             }
 
             PowerplayLine secondPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 2)
                     .findAny().orElse(null);
             if (secondPPLine != null) {
-                ppdl2.setText(getPlayerName(secondPPLine.getDefenderLeft()));
-                ppdr2.setText(getPlayerName(secondPPLine.getDefenderRight()));
-                ppc2.setText(getPlayerName(secondPPLine.getCenter()));
-                ppfl2.setText(getPlayerName(secondPPLine.getForwardLeft()));
-                ppfr2.setText(getPlayerName(secondPPLine.getForwardRight()));
+                ppdl2.setText(isNotNull(secondPPLine.getDefenderLeft()));
+                ppdr2.setText(isNotNull(secondPPLine.getDefenderRight()));
+                ppc2.setText(isNotNull(secondPPLine.getCenter()));
+                ppfl2.setText(isNotNull(secondPPLine.getForwardLeft()));
+                ppfr2.setText(isNotNull(secondPPLine.getForwardRight()));
             }
 
             PowerplayLine fillerPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 3)
                     .findAny().orElse(null);
             if (fillerPPLine != null) {
-                ppdlfiller.setText(getPlayerName(fillerPPLine.getDefenderLeft()));
-                ppdrfiller.setText(getPlayerName(fillerPPLine.getDefenderRight()));
-                ppcfiller.setText(getPlayerName(fillerPPLine.getCenter()));
-                ppfrfiller.setText(getPlayerName(fillerPPLine.getForwardLeft()));
-                ppfrfiller.setText(getPlayerName(fillerPPLine.getForwardRight()));
+                ppdlfiller.setText(isNotNull(fillerPPLine.getDefenderLeft()));
+                ppdrfiller.setText(isNotNull(fillerPPLine.getDefenderRight()));
+                ppcfiller.setText(isNotNull(fillerPPLine.getCenter()));
+                ppfrfiller.setText(isNotNull(fillerPPLine.getForwardLeft()));
+                ppfrfiller.setText(isNotNull(fillerPPLine.getForwardRight()));
             }
 
             List<BoxplayLine> bpLine = dbLineLoader.getBPLines("SELECT * FROM boxplayLine WHERE gameID = " + newValue.getID());
@@ -223,86 +224,84 @@ public class GamePresentationModel extends PresentationModel {
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 1)
                     .findAny().orElse(null);
             if (firstBPLine != null) {
-                bpdl1.setText(getPlayerName(firstBPLine.getDefenderLeft()));
-                bpdr1.setText(getPlayerName(firstBPLine.getDefenderRight()));
-                bpfl1.setText(getPlayerName(firstBPLine.getForwardLeft()));
-                bpfr1.setText(getPlayerName(firstBPLine.getForwardRight()));
+                bpdl1.setText(isNotNull(firstBPLine.getDefenderLeft()));
+                bpdr1.setText(isNotNull(firstBPLine.getDefenderRight()));
+                bpfl1.setText(isNotNull(firstBPLine.getForwardLeft()));
+                bpfr1.setText(isNotNull(firstBPLine.getForwardRight()));
             }
 
             BoxplayLine secondBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 2)
                     .findAny().orElse(null);
             if (secondBPLine != null) {
-                bpdl2.setText(getPlayerName(secondBPLine.getDefenderLeft()));
-                bpdr2.setText(getPlayerName(secondBPLine.getDefenderRight()));
-                bpfl2.setText(getPlayerName(secondBPLine.getForwardLeft()));
-                bpfr2.setText(getPlayerName(secondBPLine.getForwardRight()));
+                bpdl2.setText(isNotNull(secondBPLine.getDefenderLeft()));
+                bpdr2.setText(isNotNull(secondBPLine.getDefenderRight()));
+                bpfl2.setText(isNotNull(secondBPLine.getForwardLeft()));
+                bpfr2.setText(isNotNull(secondBPLine.getForwardRight()));
             }
 
             BoxplayLine thirdBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 3)
                     .findAny().orElse(null);
             if (thirdBPLine != null) {
-                bpdlfiller.setText(getPlayerName(thirdBPLine.getDefenderLeft()));
-                bpdrfiller.setText(getPlayerName(thirdBPLine.getDefenderRight()));
-                bpflfiller.setText(getPlayerName(thirdBPLine.getForwardLeft()));
-                bpfrfiller.setText(getPlayerName(thirdBPLine.getForwardRight()));
+                bpdlfiller.setText(isNotNull(thirdBPLine.getDefenderLeft()));
+                bpdrfiller.setText(isNotNull(thirdBPLine.getDefenderRight()));
+                bpflfiller.setText(isNotNull(thirdBPLine.getForwardLeft()));
+                bpfrfiller.setText(isNotNull(thirdBPLine.getForwardRight()));
             }
 
             SubstituteLine substituteLine = dbLineLoader.getSubLine("SELECT * FROM substituteLine WHERE gameID =" + newValue.getID());
 
             if (substituteLine != null) {
-                sgk1.setText(getPlayerName(substituteLine.getGoalkeeper1()));
-                sgk2.setText(getPlayerName(substituteLine.getGoalkeeper2()));
-                sgk3.setText(getPlayerName(substituteLine.getGoalkeeper3()));
-                sd1.setText(getPlayerName(substituteLine.getDefender1()));
-                sd2.setText(getPlayerName(substituteLine.getDefender2()));
-                sd3.setText(getPlayerName(substituteLine.getDefender3()));
-                sf1.setText(getPlayerName(substituteLine.getForward1()));
-                sf2.setText(getPlayerName(substituteLine.getForward2()));
-                sf3.setText(getPlayerName(substituteLine.getForward3()));
-                bpsd1.setText(getPlayerName(substituteLine.getBoxplayDefender1()));
-                bpsd2.setText(getPlayerName(substituteLine.getBoxplayDefender2()));
-                bpsf1.setText(getPlayerName(substituteLine.getBoxplayForward1()));
-                bpsf2.setText(getPlayerName(substituteLine.getBoxplayForward2()));
+                sgk1.setText(isNotNull(substituteLine.getGoalkeeper1()));
+                sgk2.setText(isNotNull(substituteLine.getGoalkeeper2()));
+                sgk3.setText(isNotNull(substituteLine.getGoalkeeper3()));
+                sd1.setText(isNotNull(substituteLine.getDefender1()));
+                sd2.setText(isNotNull(substituteLine.getDefender2()));
+                sd3.setText(isNotNull(substituteLine.getDefender3()));
+                sf1.setText(isNotNull(substituteLine.getForward1()));
+                sf2.setText(isNotNull(substituteLine.getForward2()));
+                sf3.setText(isNotNull(substituteLine.getForward3()));
+                bpsd1.setText(isNotNull(substituteLine.getBoxplayDefender1()));
+                bpsd2.setText(isNotNull(substituteLine.getBoxplayDefender2()));
+                bpsf1.setText(isNotNull(substituteLine.getBoxplayForward1()));
+                bpsf2.setText(isNotNull(substituteLine.getBoxplayForward2()));
             }
 
-            List <NuclearLine> nuclearLines = dbLineLoader.getNuclearLine("SELECT * FROM nuclearLine WHERE gameID =" + newValue.getID());
+            List<NuclearLine> nuclearLines = dbLineLoader.getNuclearLine("SELECT * FROM nuclearLine WHERE gameID =" + newValue.getID());
 
             NuclearLine firstNLine = nuclearLines.stream()
                     .filter(nuclearLine -> nuclearLine.getLineNr() == 1)
                     .findAny().orElse(null);
             if (firstNLine != null) {
-                ndl1.setText(getPlayerName(firstNLine.getDefenderLeft()));
-                ndr1.setText(getPlayerName(firstNLine.getDefenderRight()));
-                nc1.setText(getPlayerName(firstNLine.getCenter()));
-                nfl1.setText(getPlayerName(firstNLine.getForwardLeft()));
-                nfr1.setText(getPlayerName(firstNLine.getForwardRight()));
+                ndl1.setText(requireNonNullElse(firstNLine.getDefenderLeft().getFullName(), ""));
+                ndr1.setText(requireNonNullElse(firstNLine.getDefenderRight().getFullName(), ""));
+                nc1.setText(requireNonNullElse(firstNLine.getCenter().getFullName(), ""));
+                nfl1.setText(requireNonNullElse(firstNLine.getForwardLeft().getFullName(), ""));
+                nfr1.setText(requireNonNullElse(firstNLine.getForwardRight().getFullName(), ""));
             }
 
             NuclearLine secondNLine = nuclearLines.stream()
                     .filter(nuclearLine -> nuclearLine.getLineNr() == 2)
                     .findAny().orElse(null);
             if (secondNLine != null) {
-                ndl2.setText(getPlayerName(secondNLine.getDefenderLeft()));
-                ndr2.setText(getPlayerName(secondNLine.getDefenderRight()));
-                nc2.setText(getPlayerName(secondNLine.getCenter()));
-                nfl2.setText(getPlayerName(secondNLine.getForwardLeft()));
-                nfr2.setText(getPlayerName(secondNLine.getForwardRight()));
+                ndl2.setText(requireNonNullElse(secondNLine.getDefenderLeft().getFullName(), ""));
+                ndr2.setText(requireNonNullElse(secondNLine.getDefenderRight().getFullName(), ""));
+                nc2.setText(requireNonNullElse(secondNLine.getCenter().getFullName(), ""));
+                nfl2.setText(requireNonNullElse(secondNLine.getForwardLeft().getFullName(), ""));
+                nfr2.setText(requireNonNullElse(secondNLine.getForwardRight().getFullName(), ""));
             }
         });
-
-
     }
 
-    public String getPlayerName(Player player) {
-        if (player != null) {
-            if (player.getID() > 0) {
-                return player.getLastName() + " " + player.getFirstName();
-            }
-        }
-        return "";
+    public static String isNotNull(Player player) {
+        return Optional.ofNullable(player)
+                .map(value -> {
+                    return player.getFullName();
+                })
+                .orElse("");
     }
+
 
     @Override
     public void importFields(Pane root) {
@@ -320,17 +319,17 @@ public class GamePresentationModel extends PresentationModel {
         lineupAnchorPane = (AnchorPane) root.lookup("#lineupAnchorPane");
         ppAnchorPane = (AnchorPane) root.lookup("#ppAnchorPane");
         bpAnchorPane = (AnchorPane) root.lookup("#bpAnchorPane");
-        nAnchorPane = (AnchorPane ) root.lookup("#nAnchorPane");
+        nAnchorPane = (AnchorPane) root.lookup("#nAnchorPane");
 
         boardImage = (ImageView) root.lookup("#boardImage");
         ppBoardImage = (ImageView) root.lookup("#ppBoardImage");
         bpBoardImage = (ImageView) root.lookup("#bpBoardImage");
-        nBoardImage = (ImageView ) root.lookup("#nBoardImage");
+        nBoardImage = (ImageView) root.lookup("#nBoardImage");
 
         lineupGrid = (GridPane) root.lookup("#lineupGrid");
         ppLineupGrid = (GridPane) root.lookup("#ppLineupGrid");
         bpLineupGrid = (GridPane) root.lookup("#bpLineupGrid");
-        nLineupGrid = (GridPane ) root.lookup("#nLineupGrid");
+        nLineupGrid = (GridPane) root.lookup("#nLineupGrid");
 
         dateColumn = (TableColumn) allGames.getVisibleLeafColumn(0);
         stadiumColumn = (TableColumn) allGames.getVisibleLeafColumn(1);
@@ -415,16 +414,16 @@ public class GamePresentationModel extends PresentationModel {
         bpsf1 = (TextField) root.lookup("#bpsf1");
         bpsf2 = (TextField) root.lookup("#bpsf2");
 
-        ndl1 = (TextField ) root.lookup("#ndl1");
-        ndl2 = (TextField ) root.lookup("#ndl2");
-        ndr1 = (TextField ) root.lookup("#ndr1");
-        ndr2 = (TextField ) root.lookup("#ndr2");
-        nc1 = (TextField ) root.lookup("#nc1");
-        nc2 = (TextField ) root.lookup("#nc2");
-        nfl1 = (TextField ) root.lookup("#nfl1");
-        nfl2 = (TextField ) root.lookup("#nfl2");
-        nfr1 = (TextField ) root.lookup("#nfr1");
-        nfr2 = (TextField ) root.lookup("#nfr2");
+        ndl1 = (TextField) root.lookup("#ndl1");
+        ndl2 = (TextField) root.lookup("#ndl2");
+        ndr1 = (TextField) root.lookup("#ndr1");
+        ndr2 = (TextField) root.lookup("#ndr2");
+        nc1 = (TextField) root.lookup("#nc1");
+        nc2 = (TextField) root.lookup("#nc2");
+        nfl1 = (TextField) root.lookup("#nfl1");
+        nfl2 = (TextField) root.lookup("#nfl2");
+        nfr1 = (TextField) root.lookup("#nfr1");
+        nfr2 = (TextField) root.lookup("#nfr2");
 
     }
 }

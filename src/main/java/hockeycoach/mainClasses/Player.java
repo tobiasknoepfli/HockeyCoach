@@ -1,6 +1,13 @@
 package hockeycoach.mainClasses;
 
+import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
+import hockeycoach.supportClasses.PlayerXTeam;
+
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
+
+import static java.util.Objects.requireNonNullElse;
 
 public class Player {
     private int ID;
@@ -200,5 +207,9 @@ public class Player {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getFullName() {
+        return getLastName() + " " + getFirstName();
     }
 }
