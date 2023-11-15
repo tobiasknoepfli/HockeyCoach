@@ -45,7 +45,7 @@ public class StadiumPresentationModel extends PresentationModel {
         getDBEntries(root);
 
         allStadiums.getItems().addAll(allStadiumList);
-        customTableColumns.setStadiumCityColumn(cityColumn,Stadium::getStadiumCity);
+        customTableColumns.setStadiumCityColumn(cityColumn, Stadium::getStadiumCity);
 
         comboBoxPopulator.setStadiumCities(allStadiumList, cityFilter);
 
@@ -101,8 +101,10 @@ public class StadiumPresentationModel extends PresentationModel {
                     globalStadium.setStadiumCity(selectedStadium.getStadiumCity());
                     globalStadium.setStadiumCountry(selectedStadium.getStadiumCountry());
 
-                    lastVisitedPM.fillStadium(globalStadium);
-                    buttonControls.openPresentationModelClose(lastVisitedPM, lastVisitedNodeName, lastVisitedFXML, root, STADIUM);
+                    if (lastVisitedPM != null) {
+                        lastVisitedPM.fillStadium(globalStadium);
+                        buttonControls.openPresentationModelClose(lastVisitedPM, lastVisitedNodeName, lastVisitedFXML, root, STADIUM);
+                    }
                 }
 
             }

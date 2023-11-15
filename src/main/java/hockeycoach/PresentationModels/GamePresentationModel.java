@@ -75,7 +75,7 @@ public class GamePresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
 
         allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getID());
-        customTableColumns.setStadiumNameColumn(stadiumColumn,Stadium::getStadiumName);
+        customTableColumns.setStadiumNameColumn(stadiumColumn,Game::getStadiumName);
 
         allGames.getItems().clear();
         allGames.getItems().addAll(allGameList);
@@ -143,7 +143,7 @@ public class GamePresentationModel extends PresentationModel {
 
             Line firstLine = lines.stream()
                     .filter(line -> line.getLineNr() == 1)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (firstLine != null) {
                 gk1.setText(isNotNullElse(firstLine.getGoalkeeper(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 dl1.setText(isNotNullElse(firstLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -155,7 +155,7 @@ public class GamePresentationModel extends PresentationModel {
 
             Line secondLine = lines.stream()
                     .filter(line -> line.getLineNr() == 2)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (secondLine != null) {
                 dr2.setText(isNotNullElse(secondLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 dl2.setText(isNotNullElse(secondLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -166,7 +166,7 @@ public class GamePresentationModel extends PresentationModel {
 
             Line thirdLine = lines.stream()
                     .filter(line -> line.getLineNr() == 3)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (thirdLine != null) {
                 dr3.setText(isNotNullElse(thirdLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 dl3.setText(isNotNullElse(thirdLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -177,7 +177,7 @@ public class GamePresentationModel extends PresentationModel {
 
             Line fourthLine = lines.stream()
                     .filter(line -> line.getLineNr() == 4)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (fourthLine != null) {
                 dr4.setText(isNotNullElse(fourthLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 dl4.setText(isNotNullElse(fourthLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -190,7 +190,7 @@ public class GamePresentationModel extends PresentationModel {
 
             PowerplayLine firstPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 1)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (firstPPLine != null) {
                 ppdl1.setText(isNotNullElse(firstPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 ppdr1.setText(isNotNullElse(firstPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -201,7 +201,7 @@ public class GamePresentationModel extends PresentationModel {
 
             PowerplayLine secondPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 2)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (secondPPLine != null) {
                 ppdl2.setText(isNotNullElse(secondPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 ppdr2.setText(isNotNullElse(secondPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -212,7 +212,7 @@ public class GamePresentationModel extends PresentationModel {
 
             PowerplayLine fillerPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 3)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (fillerPPLine != null) {
                 ppdlfiller.setText(isNotNullElse(fillerPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 ppdrfiller.setText(isNotNullElse(fillerPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -225,7 +225,7 @@ public class GamePresentationModel extends PresentationModel {
 
             BoxplayLine firstBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 1)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (firstBPLine != null) {
                 bpdl1.setText(isNotNullElse(firstBPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 bpdr1.setText(isNotNullElse(firstBPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -235,7 +235,7 @@ public class GamePresentationModel extends PresentationModel {
 
             BoxplayLine secondBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 2)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (secondBPLine != null) {
                 bpdl2.setText(isNotNullElse(secondBPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 bpdr2.setText(isNotNullElse(secondBPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -245,7 +245,7 @@ public class GamePresentationModel extends PresentationModel {
 
             BoxplayLine thirdBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 3)
-                    .findAny().orElse(null);
+                    .findFirst().orElse(null);
             if (thirdBPLine != null) {
                 bpdlfiller.setText(isNotNullElse(thirdBPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 bpdrfiller.setText(isNotNullElse(thirdBPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));

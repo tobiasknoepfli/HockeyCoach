@@ -5,6 +5,7 @@ import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
 import hockeycoach.mainClasses.Drills.*;
+import hockeycoach.mainClasses.Picture;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
@@ -17,6 +18,8 @@ import org.w3c.dom.events.MouseEvent;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
+
+import static hockeycoach.supportClasses.NullCheck.isNotNullElse;
 
 public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
@@ -37,7 +40,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
     CustomTableColumns customTableColumns = new CustomTableColumns();
     ListSearcher listSearcher = new ListSearcher();
 
-    List<Drill> allDrillList,filteredDrills;
+    List<Drill> allDrillList, filteredDrills;
     List<DrillPuckPosition> drillPuckPositionsList;
     List<DrillCategory> drillCategoryList;
     List<DrillParticipation> drillParticipationList;
@@ -79,7 +82,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillParticipationFilter.getItems().addAll(dbDrillValuesLoader.getAllParticipations().stream().map(DrillParticipation::getDrillParticipation).distinct().sorted().toList());
         drillPuckPositionFilter.getItems().addAll(dbDrillValuesLoader.getAllPuckPositions().stream().map(DrillPuckPosition::getPuckPosition).distinct().sorted().toList());
         drillDifficultyFilter.getItems().addAll(dbDrillValuesLoader.getAllDifficulties().stream().map(DrillDifficulty::getDifficultyName).distinct().sorted().toList());
-        drillStationFilter.getItems().addAll(true,false);
+        drillStationFilter.getItems().addAll(true, false);
         drillTagsFilter.getItems().addAll(dbDrillValuesLoader.getAllDrillTags().stream().map(DrillTag::getDrillTag).distinct().sorted().toList());
 
 
@@ -116,25 +119,25 @@ public class DrillEditorPresentationModel extends PresentationModel {
             dbDrillWriter.writeNewDrill(writeDrill());
         });
 
-        resetButton.setOnAction(event ->{
-            comboBoxDrillFilter.clearFilter(allDrillList,allDrills,drillCategoryFilter,drillParticipationFilter,drillDifficultyFilter,drillPuckPositionFilter,drillStationFilter,drillTagsFilter);
+        resetButton.setOnAction(event -> {
+            comboBoxDrillFilter.clearFilter(allDrillList, allDrills, drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter, drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
             listSearcher.clearSearchBox(searchBox);
         });
 
-        searchButton.setOnAction(event ->{
-            listSearcher.searchDrillTable(allDrills,searchBox);
+        searchButton.setOnAction(event -> {
+            listSearcher.searchDrillTable(allDrills, searchBox);
         });
     }
 
     @Override
     public void setupEventListeners(Pane root) {
         allDrills.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
-            drillName.setText(newDrill.getName());
-            drillCategory.setValue(newDrill.getCategory().getCategory());
-            drillParticipation.setValue(newDrill.getParticipation().getDrillParticipation());
-            drillDifficulty.setValue(newDrill.getDifficulty().getDifficultyName());
-            drillPuckPosition.setValue(newDrill.getPuckPosition().getPuckPosition());
-            drillStation.setValue(newDrill.getStation());
+            drillName.setText(isNotNullElse(newDrill, d -> d.getName(), ""));
+            drillCategory.setValue(isNotNullElse(newDrill, d -> d.getCategory().getCategory(), "Category"));
+            drillParticipation.setValue(isNotNullElse(newDrill, d -> d.getParticipation().getDrillParticipation(), "Participation"));
+            drillDifficulty.setValue(isNotNullElse(newDrill, d -> d.getDifficulty().getDifficultyName(), "Difficulty"));
+            drillPuckPosition.setValue(isNotNullElse(newDrill, d -> d.getPuckPosition().getPuckPosition(), "Puck Position"));
+            drillStation.setValue(isNotNullElse(newDrill, d -> d.getStation(), "Station"));
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
             customTableColumns.setDrillTagColumn(tagColumn);
@@ -188,13 +191,13 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
     public Drill writeDrill() {
         Drill drill = new Drill();
-        drill.setName(drillName.getText());
-        drill.setCategory(dbStringConverter.getDrillCategoryFromString(drillCategory.getValue().toString()));
-        drill.setDifficulty(dbStringConverter.getDrillDifficultyFromString(drillDifficulty.getValue().toString()));
-        drill.setParticipation(dbStringConverter.getDrillParticipationFromString(drillParticipation.getValue().toString()));
-        drill.setDescription(drill.getDescription());
-        drill.setStation(drill.getStation());
-        drill.setPicture(drill.getPicture());
+        drill.setName(isNotNullElse(drillName, d -> d.getText(), ""));
+        drill.setCategory(dbStringConverter.getDrillCategoryFromString(isNotNullElse(drillCategory, d -> d.getValue().toString(), "")));
+        drill.setDifficulty(dbStringConverter.getDrillDifficultyFromString(isNotNullElse(drillDifficulty, d -> d.getValue().toString(), "")));
+        drill.setParticipation(dbStringConverter.getDrillParticipationFromString(isNotNullElse(drillParticipation, d -> d.getValue().toString(), "")));
+        drill.setDescription(isNotNullElse(drill, d -> d.getDescription(), ""));
+        drill.setStation(isNotNullElse(drill, d -> d.getStation(), false));
+        drill.setPicture(isNotNullElse(drill, d -> d.getPicture(), new Picture()));
 
         return drill;
     }

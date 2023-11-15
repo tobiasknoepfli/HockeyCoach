@@ -1,5 +1,6 @@
 package hockeycoach.DB.DBLoader;
 
+import hockeycoach.DB.DBConverter.DBIDConverter;
 import hockeycoach.mainClasses.Lines.*;
 
 import java.sql.*;
@@ -9,17 +10,19 @@ import java.util.List;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBLineLoader extends DBLoader {
+    DBIDConverter dbidConverter = new DBIDConverter();
+    
     public Line setLine(ResultSet resultSet) {
         Line line = new Line();
         try {
             line.setGameID(resultSet.getInt("gameID"));
             line.setLineNr(resultSet.getInt("lineNr"));
-            line.setGoalkeeper(getPlayerByID(resultSet.getInt("goalkeeper")));
-            line.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
-            line.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
-            line.setCenter(getPlayerByID(resultSet.getInt("center")));
-            line.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
-            line.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+            line.setGoalkeeper(dbidConverter.getPlayerFromID(resultSet.getInt("goalkeeper")));
+            line.setDefenderLeft(dbidConverter.getPlayerFromID(resultSet.getInt("defenderLeft")));
+            line.setDefenderRight(dbidConverter.getPlayerFromID(resultSet.getInt("defenderRight")));
+            line.setCenter(dbidConverter.getPlayerFromID(resultSet.getInt("center")));
+            line.setForwardLeft(dbidConverter.getPlayerFromID(resultSet.getInt("forwardLeft")));
+            line.setForwardRight(dbidConverter.getPlayerFromID(resultSet.getInt("forwardRight")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -31,11 +34,11 @@ public class DBLineLoader extends DBLoader {
         try {
             powerplayLine.setGameID(resultSet.getInt("gameID"));
             powerplayLine.setLineNr(resultSet.getInt("lineNr"));
-            powerplayLine.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
-            powerplayLine.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
-            powerplayLine.setCenter(getPlayerByID(resultSet.getInt("center")));
-            powerplayLine.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
-            powerplayLine.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+            powerplayLine.setDefenderLeft(dbidConverter.getPlayerFromID(resultSet.getInt("defenderLeft")));
+            powerplayLine.setDefenderRight(dbidConverter.getPlayerFromID(resultSet.getInt("defenderRight")));
+            powerplayLine.setCenter(dbidConverter.getPlayerFromID(resultSet.getInt("center")));
+            powerplayLine.setForwardLeft(dbidConverter.getPlayerFromID(resultSet.getInt("forwardLeft")));
+            powerplayLine.setForwardRight(dbidConverter.getPlayerFromID(resultSet.getInt("forwardRight")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,10 +50,10 @@ public class DBLineLoader extends DBLoader {
         try {
             boxplayLine.setGameID(resultSet.getInt("gameID"));
             boxplayLine.setLineNr(resultSet.getInt("lineNr"));
-            boxplayLine.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
-            boxplayLine.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
-            boxplayLine.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
-            boxplayLine.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+            boxplayLine.setDefenderLeft(dbidConverter.getPlayerFromID(resultSet.getInt("defenderLeft")));
+            boxplayLine.setDefenderRight(dbidConverter.getPlayerFromID(resultSet.getInt("defenderRight")));
+            boxplayLine.setForwardLeft(dbidConverter.getPlayerFromID(resultSet.getInt("forwardLeft")));
+            boxplayLine.setForwardRight(dbidConverter.getPlayerFromID(resultSet.getInt("forwardRight")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -62,19 +65,19 @@ public class DBLineLoader extends DBLoader {
         try {
             substituteLine.setGameID(resultSet.getInt("gameID"));
             substituteLine.setLineNr(resultSet.getInt("lineNr"));
-            substituteLine.setGoalkeeper1(getPlayerByID(resultSet.getInt("goalkeeper1")));
-            substituteLine.setGoalkeeper2(getPlayerByID(resultSet.getInt("goalkeeper2")));
-            substituteLine.setGoalkeeper3(getPlayerByID(resultSet.getInt("goalkeeper3")));
-            substituteLine.setDefender1(getPlayerByID(resultSet.getInt("defender1")));
-            substituteLine.setDefender2(getPlayerByID(resultSet.getInt("defender2")));
-            substituteLine.setDefender3(getPlayerByID(resultSet.getInt("defender3")));
-            substituteLine.setForward1(getPlayerByID(resultSet.getInt("forward1")));
-            substituteLine.setForward2(getPlayerByID(resultSet.getInt("forward2")));
-            substituteLine.setForward3(getPlayerByID(resultSet.getInt("forward3")));
-            substituteLine.setBoxplayDefender1(getPlayerByID(resultSet.getInt("boxplayDefender1")));
-            substituteLine.setBoxplayDefender2(getPlayerByID(resultSet.getInt("boxplayDefender2")));
-            substituteLine.setBoxplayForward1(getPlayerByID(resultSet.getInt("boxplayForward1")));
-            substituteLine.setBoxplayForward2(getPlayerByID(resultSet.getInt("boxplayForward2")));
+            substituteLine.setGoalkeeper1(dbidConverter.getPlayerFromID(resultSet.getInt("goalkeeper1")));
+            substituteLine.setGoalkeeper2(dbidConverter.getPlayerFromID(resultSet.getInt("goalkeeper2")));
+            substituteLine.setGoalkeeper3(dbidConverter.getPlayerFromID(resultSet.getInt("goalkeeper3")));
+            substituteLine.setDefender1(dbidConverter.getPlayerFromID(resultSet.getInt("defender1")));
+            substituteLine.setDefender2(dbidConverter.getPlayerFromID(resultSet.getInt("defender2")));
+            substituteLine.setDefender3(dbidConverter.getPlayerFromID(resultSet.getInt("defender3")));
+            substituteLine.setForward1(dbidConverter.getPlayerFromID(resultSet.getInt("forward1")));
+            substituteLine.setForward2(dbidConverter.getPlayerFromID(resultSet.getInt("forward2")));
+            substituteLine.setForward3(dbidConverter.getPlayerFromID(resultSet.getInt("forward3")));
+            substituteLine.setBoxplayDefender1(dbidConverter.getPlayerFromID(resultSet.getInt("boxplayDefender1")));
+            substituteLine.setBoxplayDefender2(dbidConverter.getPlayerFromID(resultSet.getInt("boxplayDefender2")));
+            substituteLine.setBoxplayForward1(dbidConverter.getPlayerFromID(resultSet.getInt("boxplayForward1")));
+            substituteLine.setBoxplayForward2(dbidConverter.getPlayerFromID(resultSet.getInt("boxplayForward2")));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,11 +90,11 @@ public class DBLineLoader extends DBLoader {
         try {
             nuclearLine.setGameID(resultSet.getInt("gameID"));
             nuclearLine.setLineNr(resultSet.getInt("lineNr"));
-            nuclearLine.setDefenderLeft(getPlayerByID(resultSet.getInt("defenderLeft")));
-            nuclearLine.setDefenderRight(getPlayerByID(resultSet.getInt("defenderRight")));
-            nuclearLine.setCenter(getPlayerByID(resultSet.getInt("center")));
-            nuclearLine.setForwardLeft(getPlayerByID(resultSet.getInt("forwardLeft")));
-            nuclearLine.setForwardRight(getPlayerByID(resultSet.getInt("forwardRight")));
+            nuclearLine.setDefenderLeft(dbidConverter.getPlayerFromID(resultSet.getInt("defenderLeft")));
+            nuclearLine.setDefenderRight(dbidConverter.getPlayerFromID(resultSet.getInt("defenderRight")));
+            nuclearLine.setCenter(dbidConverter.getPlayerFromID(resultSet.getInt("center")));
+            nuclearLine.setForwardLeft(dbidConverter.getPlayerFromID(resultSet.getInt("forwardLeft")));
+            nuclearLine.setForwardRight(dbidConverter.getPlayerFromID(resultSet.getInt("forwardRight")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,14 +105,14 @@ public class DBLineLoader extends DBLoader {
         OvertimeLine overtimeLine = new OvertimeLine();
         try {
             overtimeLine.setGameID(resultSet.getInt("gameID"));
-            overtimeLine.setDefenderLeft1(getPlayerByID(resultSet.getInt("defenderLeft1")));
-            overtimeLine.setDefenderRight1(getPlayerByID(resultSet.getInt("defenderRight1")));
-            overtimeLine.setCenter1(getPlayerByID(resultSet.getInt("center1")));
-            overtimeLine.setDefenderLeft2(getPlayerByID(resultSet.getInt("defenderLeft2")));
-            overtimeLine.setDefenderRight2(getPlayerByID(resultSet.getInt("defenderRight2")));
-            overtimeLine.setCenter2(getPlayerByID(resultSet.getInt("center2")));
-            overtimeLine.setSubstituteDefender(getPlayerByID(resultSet.getInt("defenderSubstitute")));
-            overtimeLine.setSubstituteForward(getPlayerByID(resultSet.getInt("centerSubstitute")));
+            overtimeLine.setDefenderLeft1(dbidConverter.getPlayerFromID(resultSet.getInt("defenderLeft1")));
+            overtimeLine.setDefenderRight1(dbidConverter.getPlayerFromID(resultSet.getInt("defenderRight1")));
+            overtimeLine.setCenter1(dbidConverter.getPlayerFromID(resultSet.getInt("center1")));
+            overtimeLine.setDefenderLeft2(dbidConverter.getPlayerFromID(resultSet.getInt("defenderLeft2")));
+            overtimeLine.setDefenderRight2(dbidConverter.getPlayerFromID(resultSet.getInt("defenderRight2")));
+            overtimeLine.setCenter2(dbidConverter.getPlayerFromID(resultSet.getInt("center2")));
+            overtimeLine.setSubstituteDefender(dbidConverter.getPlayerFromID(resultSet.getInt("defenderSubstitute")));
+            overtimeLine.setSubstituteForward(dbidConverter.getPlayerFromID(resultSet.getInt("centerSubstitute")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -120,11 +123,11 @@ public class DBLineLoader extends DBLoader {
         ShootoutLine shootoutLine = new ShootoutLine();
         try {
             shootoutLine.setGameID(resultSet.getInt("gameID"));
-            shootoutLine.setShooter1(getPlayerByID(resultSet.getInt("shooter1")));
-            shootoutLine.setShooter2(getPlayerByID(resultSet.getInt("shooter2")));
-            shootoutLine.setShooter3(getPlayerByID(resultSet.getInt("shooter3")));
-            shootoutLine.setShooter4(getPlayerByID(resultSet.getInt("shooter4")));
-            shootoutLine.setShooter5(getPlayerByID(resultSet.getInt("shooter5")));
+            shootoutLine.setShooter1(dbidConverter.getPlayerFromID(resultSet.getInt("shooter1")));
+            shootoutLine.setShooter2(dbidConverter.getPlayerFromID(resultSet.getInt("shooter2")));
+            shootoutLine.setShooter3(dbidConverter.getPlayerFromID(resultSet.getInt("shooter3")));
+            shootoutLine.setShooter4(dbidConverter.getPlayerFromID(resultSet.getInt("shooter4")));
+            shootoutLine.setShooter5(dbidConverter.getPlayerFromID(resultSet.getInt("shooter5")));
         } catch (SQLException e) {
             e.printStackTrace();
         }

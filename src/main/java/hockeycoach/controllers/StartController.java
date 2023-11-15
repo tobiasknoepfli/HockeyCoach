@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
 
 public class StartController extends  Controller{
     @FXML
-    private Button  newTeamButton, closeWindowButton, newPlayerButton, newDrillButton;
+    private Button  newTeamButton, closeWindowButton, newPlayerButton, newDrillButton, newStadiumButton;
 
     @FXML
     private HBox controlBoxLeft, controlBoxRight;

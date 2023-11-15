@@ -9,25 +9,6 @@ import java.util.List;
 import static hockeycoach.AppStarter.DB_URL;
 
 public class DBLoader {
-    public Player getPlayerByID(int playerID) {
-        Player player = new Player();
-        try {
-            Connection connection = DriverManager.getConnection(DB_URL);
-            String query = "SELECT * FROM player WHERE ID = " + player.getID();
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            if (resultSet.next()) {
-                DBPlayerLoader dbPlayerLoader =new DBPlayerLoader();
-                player = dbPlayerLoader.setPlayer(resultSet);
-            }
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return player;
-    }
-
     public List<Team> getTeamsForPlayer(String query) {
         List<Team> teamList = new ArrayList<>();
 

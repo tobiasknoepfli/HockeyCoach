@@ -34,7 +34,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
     TableView<Game> gamesTable;
     TableView<Training> trainingsTable;
     List<Team> allTeams;
-    Button newTeamButton, closeWindowButton, newPlayerButton, newDrillButton;
+    Button newTeamButton, closeWindowButton, newPlayerButton, newDrillButton, newStadiumButton;
     TableColumn teamsColumn, gamesColumn1, gamesColumn2, gamesColumn3, trainingsColumn1, trainingsColumn2;
 
     public StartPresentationModel() {
@@ -120,6 +120,10 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             buttonControls.openNewDrillClose(root,HOME);
         });
 
+        newStadiumButton.setOnAction(event -> {
+            buttonControls.openStadiumClose(root,HOME);
+        });
+
         gamesTable.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 Game selectedGame = gamesTable.getSelectionModel().getSelectedItem();
@@ -191,6 +195,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         newTeamButton = (Button) root.lookup("#newTeamButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         newDrillButton = (Button) root.lookup("#newDrillButton");
+        newStadiumButton = (Button) root.lookup("#newStadiumButton");
 
         teamsColumn = (TableColumn) teamsTable.getVisibleLeafColumn(0);
         gamesColumn1 = (TableColumn) gamesTable.getVisibleLeafColumn(0);
