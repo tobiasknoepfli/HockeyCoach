@@ -30,7 +30,7 @@ public class GamePresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
-    CustomTableColumns customTableColumns =new CustomTableColumns();
+    CustomTableColumns customTableColumns = new CustomTableColumns();
 
     DatePicker gameDate;
     LocalTimeTextField gameTime;
@@ -75,7 +75,7 @@ public class GamePresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
 
         allGameList = dbGameLoader.getGames("SELECT * FROM game WHERE team =" + selectedTeam.getID());
-        customTableColumns.setStadiumNameColumn(stadiumColumn,Game::getStadiumName);
+        customTableColumns.setStadiumNameColumn(stadiumColumn, Game::getStadiumName);
 
         allGames.getItems().clear();
         allGames.getItems().addAll(allGameList);
@@ -130,7 +130,7 @@ public class GamePresentationModel extends PresentationModel {
             gameOpponent.setText(newValue.getOpponent());
             gameDate.setValue(LocalDate.from(newValue.getGameDate()));
             gameTime.setLocalTime(newValue.getGameTime().toLocalTime());
-            gameStadium.setText(newValue.getStadium().getStadiumName());
+            gameStadium.setText(isNotNullElse(newValue.getStadium(), s -> s.getStadiumName(), ""));
             captain.setText(isNotNullElse(newValue.getCaptain(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             assistant1.setText(isNotNullElse(newValue.getAssistant1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             assistant2.setText(isNotNullElse(newValue.getAssistant2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -307,13 +307,13 @@ public class GamePresentationModel extends PresentationModel {
                 osf1.setText(isNotNullElse(overtimeLine.getSubstituteForward(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            ShootoutLine shootoutLine =dbLineLoader.getShootoutLine("SELECT * FROM shootoutLine WHERE gameID =" +newValue.getID());
-            if(shootoutLine!=null){
-                sop1.setText(isNotNullElse(shootoutLine.getShooter1(),c->c.getFullNameWithJersey(selectedTeam),""));
-                sop2.setText(isNotNullElse(shootoutLine.getShooter2(),c->c.getFullNameWithJersey(selectedTeam),""));
-                sop3.setText(isNotNullElse(shootoutLine.getShooter3(),c->c.getFullNameWithJersey(selectedTeam),""));
-                sop4.setText(isNotNullElse(shootoutLine.getShooter4(),c->c.getFullNameWithJersey(selectedTeam),""));
-                sop5.setText(isNotNullElse(shootoutLine.getShooter5(),c->c.getFullNameWithJersey(selectedTeam),""));
+            ShootoutLine shootoutLine = dbLineLoader.getShootoutLine("SELECT * FROM shootoutLine WHERE gameID =" + newValue.getID());
+            if (shootoutLine != null) {
+                sop1.setText(isNotNullElse(shootoutLine.getShooter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                sop2.setText(isNotNullElse(shootoutLine.getShooter2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                sop3.setText(isNotNullElse(shootoutLine.getShooter3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                sop4.setText(isNotNullElse(shootoutLine.getShooter4(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                sop5.setText(isNotNullElse(shootoutLine.getShooter5(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
         });
     }

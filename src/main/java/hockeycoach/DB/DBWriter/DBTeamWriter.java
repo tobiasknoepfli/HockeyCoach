@@ -2,6 +2,7 @@ package hockeycoach.DB.DBWriter;
 
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.supportClasses.NullCheck;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static hockeycoach.AppStarter.DB_URL;
+import static hockeycoach.supportClasses.NullCheck.isNotNullElse;
 
 public class DBTeamWriter {
     DBImageWriter dbImageWriter = new DBImageWriter();
@@ -18,21 +20,21 @@ public class DBTeamWriter {
 
     public PreparedStatement setTeam(PreparedStatement preparedStatement, Team team) throws SQLException {
 
-        preparedStatement.setString(1, (team.getName() != null) ? team.getName() : "");
-        preparedStatement.setInt(2, (team.getStadiumID() != 0) ? team.getStadiumID() : 0);
-        preparedStatement.setString(3, (team.getContactFirstName() != null) ? team.getContactFirstName() : "");
-        preparedStatement.setString(4, (team.getContactLastName() != null) ? team.getContactLastName() : "");
-        preparedStatement.setString(5, (team.getContactPhone() != null) ? team.getContactPhone() : "");
-        preparedStatement.setString(6, (team.getContactEmail() != null) ? team.getContactEmail() : "");
-        preparedStatement.setString(7, (team.getWebsite() != null) ? team.getWebsite() : "");
-        preparedStatement.setInt(8, (team.getFounded() != 0) ? team.getFounded() : 1900);
-        preparedStatement.setString(9, (team.getPresidentFirstName() != null) ? team.getPresidentFirstName() : "");
-        preparedStatement.setString(10, (team.getPresidentLastName() != null) ? team.getPresidentLastName() : "");
-        preparedStatement.setString(11, (team.getLeague() != null) ? team.getLeague() : "");
-        preparedStatement.setString(12, (team.getHeadCoachFirstName() != null) ? team.getHeadCoachFirstName() : "");
-        preparedStatement.setString(13, (team.getHeadCoachLastName() != null) ? team.getHeadCoachLastName() : "");
-        preparedStatement.setInt(14, (team.getLogo().getID() != 0) ? team.getLogo().getID() : 0);
-        preparedStatement.setString(15, (team.getNotes() != null) ? team.getNotes() : "");
+        preparedStatement.setString(1, isNotNullElse(team, t -> t.getName(), ""));
+        preparedStatement.setInt(2, isNotNullElse(team, t -> t.getStadiumID(), 0));
+        preparedStatement.setString(3, isNotNullElse(team, t -> t.getContactFirstName(), ""));
+        preparedStatement.setString(4, isNotNullElse(team, t -> t.getContactLastName(), ""));
+        preparedStatement.setString(5, isNotNullElse(team, t -> t.getContactPhone(), ""));
+        preparedStatement.setString(6, isNotNullElse(team, t -> t.getContactEmail(), ""));
+        preparedStatement.setString(7, isNotNullElse(team, t -> t.getWebsite(), ""));
+        preparedStatement.setInt(8, isNotNullElse(team, t -> t.getFounded(), 0));
+        preparedStatement.setString(9, isNotNullElse(team, t -> t.getPresidentFirstName(), ""));
+        preparedStatement.setString(10, isNotNullElse(team, t -> t.getPresidentLastName(), ""));
+        preparedStatement.setString(11, isNotNullElse(team, t -> t.getLeague(), ""));
+        preparedStatement.setString(12, isNotNullElse(team, t -> t.getHeadCoachFirstName(), ""));
+        preparedStatement.setString(13, isNotNullElse(team, t -> t.getHeadCoachLastName(), ""));
+        preparedStatement.setInt(14, isNotNullElse(team, t -> t.getLogo().getID(), 0));
+        preparedStatement.setString(15, isNotNullElse(team, t -> t.getNotes(), ""));
 
         return preparedStatement;
     }
