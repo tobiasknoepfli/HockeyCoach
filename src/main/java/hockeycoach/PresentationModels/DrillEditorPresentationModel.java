@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import static hockeycoach.supportClasses.NullCheck.isNotNullElse;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();

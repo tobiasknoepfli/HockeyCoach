@@ -1,8 +1,8 @@
 package hockeycoach.DB.DBWriter;
 
+import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.mainClasses.Team;
-import hockeycoach.supportClasses.NullCheck;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static hockeycoach.AppStarter.DB_URL;
-import static hockeycoach.supportClasses.NullCheck.isNotNullElse;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class DBTeamWriter {
-    DBImageWriter dbImageWriter = new DBImageWriter();
     DBTeamLoader dbTeamLoader = new DBTeamLoader();
+    DBImageWriter dbImageWriter = new DBImageWriter();
 
     public PreparedStatement setTeam(PreparedStatement preparedStatement, Team team) throws SQLException {
 
@@ -33,7 +33,7 @@ public class DBTeamWriter {
         preparedStatement.setString(11, isNotNullElse(team, t -> t.getLeague(), ""));
         preparedStatement.setString(12, isNotNullElse(team, t -> t.getHeadCoachFirstName(), ""));
         preparedStatement.setString(13, isNotNullElse(team, t -> t.getHeadCoachLastName(), ""));
-        preparedStatement.setInt(14, isNotNullElse(team, t -> t.getLogo().getID(), 0));
+        preparedStatement.setInt(14, dbImageWriter.saveImage(team.getLogo()));
         preparedStatement.setString(15, isNotNullElse(team, t -> t.getNotes(), ""));
 
         return preparedStatement;

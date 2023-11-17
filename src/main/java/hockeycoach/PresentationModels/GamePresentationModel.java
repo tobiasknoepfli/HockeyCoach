@@ -7,24 +7,17 @@ import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.CustomTableColumns;
 import hockeycoach.supportClasses.TextFieldAction;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.util.Callback;
 import jfxtras.scene.control.LocalTimeTextField;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static hockeycoach.AppStarter.*;
-import static hockeycoach.supportClasses.NullCheck.isNotNullElse;
-import static java.util.Objects.requireNonNullElse;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class GamePresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();

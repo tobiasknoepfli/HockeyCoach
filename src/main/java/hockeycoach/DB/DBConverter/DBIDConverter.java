@@ -73,15 +73,15 @@ public class DBIDConverter {
                 .orElse(null);
     }
 
-    public Picture getPictureFromID(int pictureID){
-        DBImageLoader dbImageLoader = new DBImageLoader();
-        Picture picture = new Picture();
-        List<Picture> allPictures =dbImageLoader.getAllPictures();
-        return picture = allPictures.stream()
-                .filter(p ->pictureID == p.getID())
-                .findFirst()
-                .orElse(null);
-    }
+//    public Picture getPictureFromID(int pictureID){
+//        DBImageLoader dbImageLoader = new DBImageLoader();
+//        Picture picture = new Picture();
+//        List<Picture> allPictures =dbImageLoader.getAllPictures();
+//        return picture = allPictures.stream()
+//                .filter(p ->pictureID == p.getID())
+//                .findFirst()
+//                .orElse(null);
+//    }
 
     public Player getPlayerFromID(int playerID){
         DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();

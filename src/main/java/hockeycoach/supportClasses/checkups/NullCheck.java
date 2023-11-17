@@ -1,4 +1,4 @@
-package hockeycoach.supportClasses;
+package hockeycoach.supportClasses.checkups;
 
 import java.util.Optional;
 import java.util.function.Function;

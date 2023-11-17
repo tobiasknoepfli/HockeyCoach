@@ -73,15 +73,15 @@ public class DBStringConverter {
                 .orElse(null);
     }
 
-    public Picture getPictureFromString(String pictureName) {
-        DBImageLoader dbImageLoader =new DBImageLoader();
-        Picture picture = new Picture();
-        List<Picture> allPictures = allPictures = dbImageLoader.getAllPictures();
-        return picture = allPictures.stream()
-                .filter(p -> pictureName.equals(p.getPictureName()))
-                .findFirst()
-                .orElse(null);
-    }
+//    public Picture getPictureFromString(String pictureName) {
+//        DBImageLoader dbImageLoader =new DBImageLoader();
+//        Picture picture = new Picture();
+//        List<Picture> allPictures = allPictures = dbImageLoader.getAllPictures();
+//        return picture = allPictures.stream()
+//                .filter(p -> pictureName.equals(p.getPictureName()))
+//                .findFirst()
+//                .orElse(null);
+//    }
 
     public Player getPlayerFromString(String playerName) {
         DBPlayerLoader dbPlayerLoader=new DBPlayerLoader();
