@@ -3,21 +3,19 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
+import hockeycoach.DB.DBWriter.DBImageWriter;
 import hockeycoach.DB.DBWriter.DBTeamWriter;
-import hockeycoach.mainClasses.Picture;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.supportClasses.ImageHandler;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
 
-import java.net.URI;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +26,8 @@ import static hockeycoach.supportClasses.checkups.PatternCheck.isNumericElse;
 
 public class NewTeamPresentationModel extends PresentationModel {
     ImageChooser imageChooser = new ImageChooser();
+    ImageHandler imageHandler = new ImageHandler();
+    DBImageWriter dbImageWriter = new DBImageWriter();
     DBStringConverter dbStringConverter = new DBStringConverter();
     DBTeamWriter dbTeamWriter = new DBTeamWriter();
 
@@ -90,11 +90,12 @@ public class NewTeamPresentationModel extends PresentationModel {
     @Override
     public void setupButtons(Pane root) {
         saveButton.setOnAction(event -> {
-            Team team = writeTeam();
-            Picture picture = new Picture();
+            Team team = setTeamValues();
+
+            dbImageWriter.saveImage(team.getLogo());
+            imageHandler.copyImage(team.getLogo());
 
             dbTeamWriter.writeNewTeam(team);
-            picture.copyImage(Path.of(team.getLogo().getImagePath()),Path.of(LOGOS), team.getLogo().getPictureName());
         });
 
         cancelButton.setOnAction(event -> {
@@ -129,37 +130,27 @@ public class NewTeamPresentationModel extends PresentationModel {
 
     }
 
-    private Team writeTeam() {
+    private Team setTeamValues() {
         Team team = new Team();
         team.setName(isNotNullElse(teamName, t -> t.getText(), ""));
-        team.setStadium(isNotNullElse(stadium, t -> dbStringConverter.getStadiumFromString(stadiumName.getText()),new Stadium()));
+        team.setStadium(isNotNullElse(stadium, t -> dbStringConverter.getStadiumFromString(stadiumName.getText()), new Stadium()));
         team.setContactFirstName(isNotNullElse(contactFirstName, t -> t.getText(), ""));
         team.setContactLastName(isNotNullElse(contactLastName, t -> t.getText(), ""));
         team.setContactPhone(isNotNullElse(contactPhone, t -> t.getText(), ""));
         team.setContactEmail(isNotNullElse(contactEmail, t -> t.getText(), ""));
         team.setWebsite(isNotNullElse(website, t -> t.getText(), ""));
-        team.setFounded(isNumericElse(founded.getText(),1900));
+        team.setFounded(isNumericElse(founded.getText(), 1900));
         team.setPresidentFirstName(isNotNullElse(presidentFirstName, t -> t.getText(), ""));
         team.setPresidentLastName(isNotNullElse(presidentLastName, t -> t.getText(), ""));
         team.setLeague(isNotNullElse(currentLeague, t -> t.getText(), ""));
         team.setHeadCoachFirstName(isNotNullElse(headCoachFirstName, t -> t.getText(), ""));
         team.setHeadCoachLastName(isNotNullElse(headCoachLastName, t -> t.getText(), ""));
         team.setNotes(isNotNullElse(notes, t -> t.getText(), ""));
-        team.setLogo(saveTeamLogo());
+        ImageHandler imageHandler = new ImageHandler();
+        team.setLogo(imageHandler.setPicture(teamLogo, teamName, "_Logo", LOGOS));
         return team;
     }
 
-    private Picture saveTeamLogo() {
-        Picture picture = new Picture();
-        picture.setImage(teamLogo.getImage());
-        picture.setPictureName(isNotNullElse(teamName,t->t.getText() + "_Logo",""));
-
-        URI imageUri = URI.create(teamLogo.getImage().getUrl());
-        Path imagePath = Paths.get(imageUri);
-
-        picture.setImagePath(imagePath.toString());
-        return picture;
-    }
 
 //    private void clearAllFields() {
 //        teamName.clear();
