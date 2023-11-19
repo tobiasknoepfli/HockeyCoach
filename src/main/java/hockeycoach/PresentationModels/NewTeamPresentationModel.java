@@ -92,7 +92,7 @@ public class NewTeamPresentationModel extends PresentationModel {
         saveButton.setOnAction(event -> {
             Team team = setTeamValues();
 
-            dbImageWriter.saveImage(team.getLogo());
+            team.getLogo().setID(dbImageWriter.saveImage(team.getLogo()));
             imageHandler.copyImage(team.getLogo());
 
             dbTeamWriter.writeNewTeam(team);
@@ -146,8 +146,7 @@ public class NewTeamPresentationModel extends PresentationModel {
         team.setHeadCoachFirstName(isNotNullElse(headCoachFirstName, t -> t.getText(), ""));
         team.setHeadCoachLastName(isNotNullElse(headCoachLastName, t -> t.getText(), ""));
         team.setNotes(isNotNullElse(notes, t -> t.getText(), ""));
-        ImageHandler imageHandler = new ImageHandler();
-        team.setLogo(imageHandler.setPicture(teamLogo, teamName, "_Logo", LOGOS));
+        team.setLogo(imageHandler.setPicture(teamLogo, teamName.getText(), "_Logo", LOGOS));
         return team;
     }
 

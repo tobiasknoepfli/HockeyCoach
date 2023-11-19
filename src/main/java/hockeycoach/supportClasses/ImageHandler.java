@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
 public class ImageHandler {
-    public Picture setPicture(ImageView imageView, TextField imageName, String suffix, String targetPath){
+    public Picture setPicture(ImageView imageView, String imageName, String suffix, String targetPath){
         Picture picture = new Picture();
 
         URI url = URI.create(imageView.getImage().getUrl());
@@ -20,7 +20,7 @@ public class ImageHandler {
         String extension = getFileExtension(path);
 
         picture.setImage(imageView.getImage());
-        picture.setPictureName(imageName.getText() + suffix + extension);
+        picture.setPictureName(imageName + suffix + extension);
         picture.setTargetPath(targetPath  + picture.getPictureName());
         picture.setOriginalPath(path.toString());
 

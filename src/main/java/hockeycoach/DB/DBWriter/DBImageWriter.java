@@ -24,7 +24,6 @@ public class DBImageWriter {
                 if (generatedKeys.next()) {
                     imageID = generatedKeys.getInt(1);
                 }
-
             } catch (SQLException e) {
                 e.printStackTrace();
             } finally {

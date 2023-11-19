@@ -49,7 +49,8 @@ public class AppStarter extends Application {
     public static final String STADIUM_FXML = "/hockeycoach/files/fxml/stadium.fxml";
 
     public static final String LOGOS = "src/main/resources/hockeycoach/files/logos/";
-    public static final String PHOTOS = "src/main/resources/hockeycoach/files/photos";
+    public static final String PHOTOS = "src/main/resources/hockeycoach/files/photos/";
+    public static final String DRILLS = "src/main/resources/hockeycoach/files/drills/";
 
     public static final String BOARD = "src/main/resources/hockeycoach/files/background/Board.jpg";
 

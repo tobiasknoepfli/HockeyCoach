@@ -4,8 +4,8 @@ import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
+import hockeycoach.DB.DBWriter.DBImageWriter;
 import hockeycoach.mainClasses.Drills.*;
-import hockeycoach.mainClasses.Picture;
 import hockeycoach.supportClasses.*;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
@@ -19,11 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import static hockeycoach.AppStarter.DRILLS;
 import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillLoader dbDrillLoader = new DBDrillLoader();
     DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
+    DBImageWriter dbImageWriter = new DBImageWriter();
+    ImageHandler imageHandler = new ImageHandler();
 
     DBDrillWriter dbDrillWriter = new DBDrillWriter();
 
@@ -116,7 +119,11 @@ public class DrillEditorPresentationModel extends PresentationModel {
         });
 
         saveButton.setOnAction(event -> {
-            dbDrillWriter.writeNewDrill(writeDrill());
+            Drill drill = setDrillValues();
+            drill.getPicture().setID(dbImageWriter.saveImage(drill.getPicture()));
+            imageHandler.copyImage(drill.getPicture());
+
+            dbDrillWriter.writeNewDrill(drill);
         });
 
         resetButton.setOnAction(event -> {
@@ -189,7 +196,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         });
     }
 
-    public Drill writeDrill() {
+    public Drill setDrillValues() {
         Drill drill = new Drill();
         drill.setName(isNotNullElse(drillName, d -> d.getText(), ""));
         drill.setCategory(dbStringConverter.getDrillCategoryFromString(isNotNullElse(drillCategory, d -> d.getValue().toString(), "")));
@@ -197,7 +204,8 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drill.setParticipation(dbStringConverter.getDrillParticipationFromString(isNotNullElse(drillParticipation, d -> d.getValue().toString(), "")));
         drill.setDescription(isNotNullElse(drill, d -> d.getDescription(), ""));
         drill.setStation(isNotNullElse(drill, d -> d.getStation(), false));
-        drill.setPicture(isNotNullElse(drill, d -> d.getPicture(), new Picture()));
+        drill.setPicture(imageHandler.setPicture(drillImage,drillName.getText(),"",DRILLS));
+        drill.setPuckPosition(dbStringConverter.getDrillPuckPositionFromString(isNotNullElse(drillPuckPosition,d->d.getValue().toString(),"")));
 
         return drill;
     }

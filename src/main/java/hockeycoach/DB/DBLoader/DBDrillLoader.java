@@ -1,7 +1,9 @@
 package hockeycoach.DB.DBLoader;
 
 import hockeycoach.DB.DBConverter.DBIDConverter;
+import hockeycoach.DB.DBWriter.DBImageWriter;
 import hockeycoach.mainClasses.Drills.Drill;
+import hockeycoach.supportClasses.ImageHandler;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import static hockeycoach.AppStarter.DB_URL;
 
 public class DBDrillLoader extends DBLoader{
     DBIDConverter dbidConverter =new DBIDConverter();
+
 
     public Drill setDrill(ResultSet resultSet){
         Drill drill = new Drill();

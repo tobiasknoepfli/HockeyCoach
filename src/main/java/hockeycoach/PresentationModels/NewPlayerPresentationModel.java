@@ -2,25 +2,18 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.DB.DBWriter.DBImageWriter;
 import hockeycoach.DB.DBWriter.DBPlayerWriter;
-import hockeycoach.mainClasses.Picture;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
+import hockeycoach.supportClasses.ImageHandler;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Arrays;
@@ -32,6 +25,8 @@ import static hockeycoach.AppStarter.PHOTOS;
 
 public class NewPlayerPresentationModel extends PresentationModel {
     ImageChooser imageChooser = new ImageChooser();
+    ImageHandler imageHandler =new ImageHandler();
+    DBImageWriter dbImageWriter =new DBImageWriter();
     MouseEvent event;
     DBPlayerWriter dbPlayerWriter = new DBPlayerWriter();
     List<Player> allPlayersList, fnFiltered, lnFiltered, streetFiltered;
@@ -78,16 +73,21 @@ public class NewPlayerPresentationModel extends PresentationModel {
     @Override
     public void setupButtons(Pane root) {
         saveButton.setOnAction(event -> {
-//            String photoPath = savePlayerPhoto();
-            Player newPlayer = readData();
-            dbPlayerWriter.writeNewPlayer(newPlayer);
-            clearAllFields();
 
-            DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-            allPlayersList = dbPlayerLoader.getAllPlayers();
-            allPlayers.getItems().clear();
-            allPlayers.getItems().addAll(allPlayersList);
-            allPlayers.refresh();
+            Player newPlayer = setPlayerValues();
+            newPlayer.getPicture().setID(dbImageWriter.saveImage(newPlayer.getPicture()));
+            imageHandler.copyImage(newPlayer.getPicture());
+
+            dbPlayerWriter.writeNewPlayer(newPlayer);
+
+
+//            clearAllFields();
+
+//            DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+//            allPlayersList = dbPlayerLoader.getAllPlayers();
+//            allPlayers.getItems().clear();
+//            allPlayers.getItems().addAll(allPlayersList);
+//            allPlayers.refresh();
         });
 
         backButton.setOnAction(event ->{
@@ -129,48 +129,9 @@ public class NewPlayerPresentationModel extends PresentationModel {
             playerAge.setText(calculatePlayerAge(newValue));
         });
 
-
     }
 
-    private String savePlayerPhoto() {
-        Image selectedImage = playerPhoto.getImage();
-        if (selectedImage != null) {
-            String playerPhotoText = playerLastName.getText() + "" + playerFirstName.getText() + "_Photo";
-
-            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
-            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
-                imageFormat = "jpg";
-            }
-
-            String destinationFileName = playerPhotoText + "." + imageFormat;
-            String destinationDirectory = PHOTOS;
-
-            try {
-                URL imageUrl = new URL(selectedImage.getUrl());
-                String decodedImageUrl = decodeUrl(imageUrl.getPath()); // Decode the URL
-                File selectedImageFile = new File(decodedImageUrl);
-                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
-
-                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                return destinationPath.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    // Helper method to decode URL
-    private String decodeUrl(String url) {
-        try {
-            return java.net.URLDecoder.decode(url, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return url;
-        }
-    }
-
-    private Player readData() {
+    private Player setPlayerValues() {
         Player newPlayer = new Player();
         newPlayer.setFirstName(playerFirstName.getText());
         newPlayer.setLastName(playerLastName.getText());
@@ -193,7 +154,7 @@ public class NewPlayerPresentationModel extends PresentationModel {
         newPlayer.setStrengths(strengths.getText());
         newPlayer.setWeaknesses(weaknesses.getText());
         newPlayer.setNotes(notes.getText());
-        newPlayer.setPicture(new Picture()); //watch out, just a statement
+        newPlayer.setPicture(imageHandler.setPicture(playerPhoto,playerLastName.getText() + " " + playerFirstName.getText(),"_Photo",PHOTOS));
         return newPlayer;
     }
 
