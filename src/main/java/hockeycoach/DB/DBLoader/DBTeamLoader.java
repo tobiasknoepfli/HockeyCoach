@@ -10,6 +10,7 @@ import static hockeycoach.AppStarter.DB_URL;
 
 public class DBTeamLoader extends DBLoader {
     DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
+    DBImageLoader dbImageLoader =new DBImageLoader();
     Stadium stadium =new Stadium();
 
     public Team setTeam(ResultSet resultSet) {
@@ -29,7 +30,6 @@ public class DBTeamLoader extends DBLoader {
             team.setLeague(resultSet.getString("league"));
             team.setHeadCoachFirstName(resultSet.getString("headCoachFirstName"));
             team.setHeadCoachLastName(resultSet.getString("headCoachLastName"));
-//            team.setLogo(resultSet.getString("logo"));
             team.setNotes(resultSet.getString("notes"));
         } catch (SQLException e) {
             e.printStackTrace();

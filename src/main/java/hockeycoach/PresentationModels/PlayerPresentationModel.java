@@ -77,7 +77,17 @@ public class PlayerPresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void fillFields(Pane root) {
 
     }
 
@@ -251,5 +261,10 @@ public class PlayerPresentationModel extends PresentationModel {
         deleteButton = (Button) root.lookup("#deleteButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         backButton = (Button) root.lookup("#backButton");
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }

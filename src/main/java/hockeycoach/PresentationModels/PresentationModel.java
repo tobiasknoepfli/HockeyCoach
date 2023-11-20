@@ -9,7 +9,11 @@ public abstract class PresentationModel {
 
     public abstract void initializeControls(Pane root);
 
+    public abstract void setupFieldLists(Pane root);
+
     public abstract void getDBEntries(Pane root);
+
+    public abstract void fillFields(Pane root);
 
     public abstract void setupButtons(Pane root);
 
@@ -22,5 +26,6 @@ public abstract class PresentationModel {
         control.setTooltip(tooltip);
     }
 
+    public abstract void disableFields(Boolean disabled);
     public void fillStadium(Stadium stadium){}
 }

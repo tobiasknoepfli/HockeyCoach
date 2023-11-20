@@ -103,7 +103,17 @@ public class TrainingPresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void fillFields(Pane root) {
 
     }
 
@@ -376,5 +386,10 @@ public class TrainingPresentationModel extends PresentationModel {
         fr4 = (TextField) root.lookup("#fr4");
         fr5 = (TextField) root.lookup("#fr5");
         fr6 = (TextField) root.lookup("#fr6");
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }

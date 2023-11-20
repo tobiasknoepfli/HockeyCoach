@@ -101,11 +101,21 @@ public class DrillEditorPresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
         drillCategoryList = dbDrillValuesLoader.getAllCategories();
         drillParticipationList = dbDrillValuesLoader.getAllParticipations();
         drillPuckPositionsList = dbDrillValuesLoader.getAllPuckPositions();
         drillDifficultyList = dbDrillValuesLoader.getAllDifficulties();
+    }
+
+    @Override
+    public void fillFields(Pane root) {
+
     }
 
     @Override
@@ -250,5 +260,10 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillCategoryCol = allDrills.getVisibleLeafColumn(1);
         drillDifficultyCol = allDrills.getVisibleLeafColumn(2);
         drillParticipationCol = allDrills.getVisibleLeafColumn(3);
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }

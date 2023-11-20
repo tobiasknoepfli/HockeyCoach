@@ -70,7 +70,17 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void fillFields(Pane root) {
 
     }
 
@@ -194,5 +204,10 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
         addButton = (Button) root.lookup("#addButton");
         removeButton = (Button) root.lookup("#removeButton");
         saveButton = (Button) root.lookup("#saveButton");
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }

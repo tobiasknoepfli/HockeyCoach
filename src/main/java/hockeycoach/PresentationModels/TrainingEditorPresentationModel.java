@@ -185,8 +185,18 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
         drillCategoryList = dbDrillValuesLoader.getAllCategories();
+    }
+
+    @Override
+    public void fillFields(Pane root) {
+
     }
 
     @Override
@@ -844,6 +854,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         ngLF2 = (Label) root.lookup("#ngLF2");
         ngLF3 = (Label) root.lookup("#ngLF3");
         ngLF4 = (Label) root.lookup("#ngLF4");
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }
 

@@ -55,7 +55,17 @@ public class StartPresentationModel extends PresentationModel implements pmInter
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void fillFields(Pane root) {
 
     }
 
@@ -203,5 +213,10 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         gamesColumn3 = (TableColumn) gamesTable.getVisibleLeafColumn(2);
         trainingsColumn1 = (TableColumn) trainingsTable.getVisibleLeafColumn(0);
         trainingsColumn2 = (TableColumn) trainingsTable.getVisibleLeafColumn(1);
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }

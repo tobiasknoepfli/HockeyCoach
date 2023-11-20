@@ -102,7 +102,17 @@ public class GamePresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
+
+    }
+
+    @Override
+    public void fillFields(Pane root) {
 
     }
 
@@ -442,5 +452,10 @@ public class GamePresentationModel extends PresentationModel {
         sop3 = (TextField) root.lookup("#sop3");
         sop4 = (TextField) root.lookup("#sop4");
         sop5 = (TextField) root.lookup("#sop5");
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
     }
 }

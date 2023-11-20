@@ -1,7 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBEditor;
-import hockeycoach.DB.DBLoader.DBLoader;
+import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
 import hockeycoach.controllers.HeaderController;
@@ -12,17 +12,11 @@ import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
@@ -33,7 +27,14 @@ public class TeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
-    Stadium stadium = new Stadium();
+    Team team = new Team();
+    List<Player> playerList = new ArrayList<>();
+    List<TextField> textFieldList = new ArrayList<>();
+    Boolean disabled = false;
+
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+    DBTeamLoader dbTeamLoader = new DBTeamLoader();
+    DBImageLoader dbImageLoader = new DBImageLoader();
 
     Team selectedTeam;
     ImageChooser imageChooser = new ImageChooser();
@@ -52,21 +53,39 @@ public class TeamPresentationModel extends PresentationModel {
     @Override
     public void initializeControls(Pane root) {
         importFields(root);
+        setupFieldLists(root);
 
         selectedTeam = globalTeam;
-        DBLoader dbLoader = new DBLoader();
-        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-        DBTeamLoader dbTeamLoader = new DBTeamLoader();
-        Team team = dbTeamLoader.getTeam("SELECT * FROM team WHERE ID =" + selectedTeam.getID());
-        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
+        getDBEntries(root);
+        fillFields(root);
+
+        textFieldList.stream().forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
+
+        teamPlayers.getItems().clear();
+        teamPlayers.getItems().addAll(playerList);
+
+        setupEventListeners(root);
+
+        setupButtons(root);
+
+        disableFields(disabled);
+
+    }
+
+    @Override
+    public void setupFieldLists(Pane root) {
         TextField[] textFields = {teamName,
                 stadiumName, stadiumStreet, stadiumZip, stadiumCity, stadiumCountry,
                 contactFirstName, contactLastName, contactPhone, contactEmail,
                 website, founded, currentLeague,
                 presidentFirstName, presidentLastName, headCoachFirstName, headCoachLastName};
-        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
 
+        textFieldList = Arrays.stream(textFields).toList();
+    }
+
+    @Override
+    public void fillFields(Pane root) {
         teamName.setText(team.getName());
         stadiumName.setText(team.getStadium().getStadiumName());
         stadiumStreet.setText(team.getStadium().getStadiumAddress());
@@ -85,21 +104,14 @@ public class TeamPresentationModel extends PresentationModel {
         headCoachFirstName.setText(team.getHeadCoachFirstName());
         headCoachLastName.setText(team.getHeadCoachLastName());
         notes.setText(team.getNotes());
-
-        if (!playerList.isEmpty()) {
-            teamPlayers.getItems().clear();
-            teamPlayers.getItems().addAll(playerList);
-        }
-        setupEventListeners(root);
-        getDBEntries(root);
-        setupButtons(root);
-
-        teamLogo.setOnMouseClicked(event -> handleImageClick());
+        teamLogo.setImage(team.getLogo().getImage());
     }
 
     @Override
     public void getDBEntries(Pane root) {
-
+        team = dbTeamLoader.getTeam("SELECT * FROM team WHERE ID =" + selectedTeam.getID());
+        team.setLogo(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN team t on t.logoID = i.ID WHERE t.ID =" + selectedTeam.getID()));
+        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
     }
 
     @Override
@@ -123,7 +135,6 @@ public class TeamPresentationModel extends PresentationModel {
 
         saveButton.setOnAction(event -> {
             Team team = getTeamData();
-//            team.setLogo(saveTeamLogo());
             DBEditor dbEditor = new DBEditor();
             dbEditor.editTeam(team);
         });
@@ -133,10 +144,16 @@ public class TeamPresentationModel extends PresentationModel {
         });
 
         stadiumName.setOnMousePressed(event -> {
-            lastVisitedPM = TeamPresentationModel.this;
-            lastVisitedFXML = TEAM_FXML;
-            lastVisitedNodeName = TEAM;
-            buttonControls.openStadiumHide(root, TEAM);
+            if (stadiumName.isEditable()) {
+                lastVisitedPM = TeamPresentationModel.this;
+                lastVisitedFXML = TEAM_FXML;
+                lastVisitedNodeName = TEAM;
+                buttonControls.openStadiumHide(root, TEAM);
+            }
+        });
+
+        teamLogo.setOnMouseClicked(mouseEvent -> {
+            teamLogo.setImage(imageChooser.chooseImage(event));
         });
     }
 
@@ -148,12 +165,19 @@ public class TeamPresentationModel extends PresentationModel {
         stadiumCountry.setText(stadium.getStadiumCountry());
     }
 
+    @Override
+    public void disableFields(Boolean disabled) {
+        textFieldList.stream().forEach(tf -> tf.setEditable(disabled));
+        notes.setEditable(disabled);
+        teamLogo.setDisable(!disabled);
+        saveButton.setDisable(!disabled);
+        cancelButton.setDisable(!disabled);
+    }
 
     private Team getTeamData() {
         Team team = new Team();
         team.setID(selectedTeam.getID());
         team.setName(teamName.getText());
-
         team.setContactFirstName(contactFirstName.getText());
         team.setContactLastName(contactLastName.getText());
         team.setContactPhone(contactPhone.getText());
@@ -168,42 +192,6 @@ public class TeamPresentationModel extends PresentationModel {
         team.setNotes(notes.getText());
 
         return team;
-    }
-
-    private void handleImageClick() {
-        ImageChooser imageChooser = new ImageChooser();
-        Image image = imageChooser.chooseImage(event);
-        teamLogo.setImage(image);
-    }
-
-    private String saveTeamLogo() {
-        Image selectedImage = teamLogo.getImage();
-        if (selectedImage != null) {
-            String imageNameText = teamName.getText().trim();
-            if (imageNameText.isEmpty()) {
-                imageNameText = teamName.getText() + "_Logo";
-            }
-            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
-            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
-                imageFormat = "jpg";
-            }
-
-            String destinationFileName = imageNameText + "." + imageFormat;
-            String destinationDirectory = LOGOS;
-
-            try {
-                URL imageUrl = new URL(selectedImage.getUrl());
-                String decodedImageUrl = java.net.URLDecoder.decode(imageUrl.getFile(), "UTF-8");
-                File selectedImageFile = new File(decodedImageUrl);
-                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
-
-                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                return destinationPath.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
     }
 
     @Override

@@ -82,6 +82,21 @@ public class NewTeamPresentationModel extends PresentationModel {
     }
 
     @Override
+    public void setupFieldLists(Pane root) {
+
+    }
+
+    @Override
+    public void fillFields(Pane root) {
+
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+
+    }
+
+    @Override
     public void getDBEntries(Pane root) {
         teamList = dbTeamLoader.getAllTeams();
         stadiumList = dbStadiumLoader.getAllStadiums();
