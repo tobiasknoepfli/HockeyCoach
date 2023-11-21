@@ -26,19 +26,22 @@ import static hockeycoach.AppStarter.*;
 public class TeamPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
+    ImageChooser imageChooser = new ImageChooser();
+
+    Boolean disabled = false;
+    MouseEvent event;
+
     Stack<TextFieldAction> textFieldActions = new Stack<>();
+
     Team team = new Team();
+    Team selectedTeam;
+
     List<Player> playerList = new ArrayList<>();
     List<TextField> textFieldList = new ArrayList<>();
-    Boolean disabled = false;
 
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBTeamLoader dbTeamLoader = new DBTeamLoader();
     DBImageLoader dbImageLoader = new DBImageLoader();
-
-    Team selectedTeam;
-    ImageChooser imageChooser = new ImageChooser();
-    MouseEvent event;
 
     ImageView teamLogo;
     TextField teamName,
@@ -110,7 +113,7 @@ public class TeamPresentationModel extends PresentationModel {
     @Override
     public void getDBEntries(Pane root) {
         team = dbTeamLoader.getTeam("SELECT * FROM team WHERE ID =" + selectedTeam.getID());
-        team.setLogo(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN team t on t.logoID = i.ID WHERE t.ID =" + selectedTeam.getID()));
+        team.setLogo(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN team t ON t.logoID = i.ID WHERE t.ID =" + selectedTeam.getID()));
         playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
     }
 

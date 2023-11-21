@@ -16,8 +16,10 @@ import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.DRILLS;
 import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
@@ -84,7 +86,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillCategoryFilter.getItems().addAll(dbDrillValuesLoader.getAllCategories().stream().map(DrillCategory::getCategory).distinct().sorted().toList());
         drillParticipationFilter.getItems().addAll(dbDrillValuesLoader.getAllParticipations().stream().map(DrillParticipation::getDrillParticipation).distinct().sorted().toList());
         drillPuckPositionFilter.getItems().addAll(dbDrillValuesLoader.getAllPuckPositions().stream().map(DrillPuckPosition::getPuckPosition).distinct().sorted().toList());
-        drillDifficultyFilter.getItems().addAll(dbDrillValuesLoader.getAllDifficulties().stream().map(DrillDifficulty::getDifficultyName).distinct().sorted().toList());
+        drillDifficultyFilter.getItems().addAll(dbDrillValuesLoader.getAllDifficulties().stream().sorted(Comparator.comparingInt(DrillDifficulty::getDifficulty)).map(DrillDifficulty::getDifficultyName).distinct().toList());
         drillStationFilter.getItems().addAll(true, false);
         drillTagsFilter.getItems().addAll(dbDrillValuesLoader.getAllDrillTags().stream().map(DrillTag::getDrillTag).distinct().sorted().toList());
 

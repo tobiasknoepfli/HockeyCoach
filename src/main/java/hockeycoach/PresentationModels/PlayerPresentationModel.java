@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBEditor;
+import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.supportClasses.ButtonControls;
@@ -25,20 +26,33 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.*;
 
 public class PlayerPresentationModel extends PresentationModel {
     MouseEvent event;
+    Boolean disabled = false;
+
     ImageChooser imageChooser = new ImageChooser();
-    Player selectedPlayer;
-    Team selectedTeam;
     ButtonControls buttonControls = new ButtonControls();
     TextFieldAction textFieldAction = new TextFieldAction();
+
+    Player selectedPlayer;
+    Team selectedTeam;
+
     Stack<TextFieldAction> textFieldActions = new Stack<>();
+
+    DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
+    DBImageLoader dbImageLoader =new DBImageLoader();
+
+    List<Player> playerList = new ArrayList<>();
+    List<TextField> textFieldList = new ArrayList<>();
+    List<TextArea> textAreaList = new ArrayList<>();
 
     TableView<Player> teamPlayers;
     TableView<Team> playerTeams;
@@ -56,34 +70,37 @@ public class PlayerPresentationModel extends PresentationModel {
         importFields(root);
 
         selectedTeam = globalTeam;
-        DBLoader dbLoader = new DBLoader();
-        DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-        List<Player> playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
-        TextField[] textFields = {playerFirstName,playerLastName, team, street, zip, city, country,
-                phone, email, jersey, positions, role,
-                aLicence, bLicence, stick};
-        Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
+        getDBEntries(root);
 
-        if (!playerList.isEmpty()) {
-            teamPlayers.getItems().clear();
-            teamPlayers.getItems().addAll(playerList);
-        }
+        setupFieldLists(root);
+
+        textFieldList.stream().forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
+
+        teamPlayers.getItems().clear();
+        teamPlayers.getItems().addAll(playerList);
 
         team.setText(selectedTeam.getName());
-        getDBEntries(root);
+
         setupButtons(root);
         setupEventListeners(root);
+        disableFields(disabled);
     }
 
     @Override
     public void setupFieldLists(Pane root) {
+        TextField[] textFields = {playerFirstName, playerLastName, team, street, zip, city, country,playerAge,
+                phone, email, jersey, positions, role,
+                aLicence, bLicence, stick};
+        textFieldList = Arrays.stream(textFields).toList();
 
+        TextArea[] textAreas = {strengths,weaknesses,notes};
+        textAreaList = Arrays.stream(textAreas).toList();
     }
 
     @Override
     public void getDBEntries(Pane root) {
-
+        playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
     }
 
     @Override
@@ -118,6 +135,8 @@ public class PlayerPresentationModel extends PresentationModel {
     public void setupEventListeners(Pane root) {
         teamPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedPlayer, newSelectedPlayer) -> {
             if (newSelectedPlayer != null) {
+                newSelectedPlayer.setPicture(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN player p ON p.photoID = i.ID WHERE p.ID =" +   newSelectedPlayer.getID()));
+
                 selectedPlayer = newSelectedPlayer;
                 playerFirstName.setText(newSelectedPlayer.getFirstName());
                 playerLastName.setText(newSelectedPlayer.getLastName());
@@ -138,6 +157,7 @@ public class PlayerPresentationModel extends PresentationModel {
                 aLicence.setText(newSelectedPlayer.getaLicence());
                 bLicence.setText(newSelectedPlayer.getbLicence());
                 stick.setText(newSelectedPlayer.getStick());
+                playerPhoto.setImage(newSelectedPlayer.getPicture().getImage());
 
                 playerBirthday.valueProperty().addListener((observable, oldValue, newValue) -> {
                     playerAge.setText(calculatePlayerAge(newValue));
@@ -153,11 +173,20 @@ public class PlayerPresentationModel extends PresentationModel {
         });
     }
 
+    @Override
+    public void disableFields(Boolean disabled) {
+        textFieldList.stream().forEach(t->t.setEditable(disabled));
+        textAreaList.stream().forEach(t->t.setEditable(disabled));
+        playerBirthday.setEditable(disabled);
+        playerPhoto.setDisable(!disabled);
+        saveButton.setDisable(!disabled);
+        cancelButton.setDisable(!disabled);
+    }
+
     private Player getPlayerData() {
         Player player = new Player();
 
         player.setID(selectedPlayer.getID());
-
         player.setFirstName(playerFirstName.getText());
         player.setLastName(playerLastName.getText());
         player.setStreet(street.getText());
@@ -177,43 +206,6 @@ public class PlayerPresentationModel extends PresentationModel {
         player.setStick(stick.getText());
 
         return player;
-    }
-
-    private String savePlayerPhoto() {
-        Image selectedImage = playerPhoto.getImage();
-        if (selectedImage != null) {
-            String playerPhotoText = playerLastName.getText()+playerFirstName.getText() + "_Photo";
-
-            String imageFormat = selectedImage.getUrl().substring(selectedImage.getUrl().lastIndexOf(".") + 1).toLowerCase();
-            if (!imageFormat.equals("jpg") && !imageFormat.equals("jpeg") && !imageFormat.equals("png")) {
-                imageFormat = "jpg";
-            }
-
-            String destinationFileName = playerPhotoText + "." + imageFormat;
-            String destinationDirectory = PHOTOS;
-
-            try {
-                URL imageUrl = new URL(selectedImage.getUrl());
-                String decodedImageUrl = decodeUrl(imageUrl.getPath());
-                File selectedImageFile = new File(decodedImageUrl);
-                Path destinationPath = Path.of(destinationDirectory, destinationFileName);
-
-                Files.copy(selectedImageFile.toPath(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                return destinationPath.toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return null;
-    }
-
-    private String decodeUrl(String url) {
-        try {
-            return java.net.URLDecoder.decode(url, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            return url;
-        }
     }
 
     public String calculatePlayerAge(LocalDate localDate) {
@@ -261,10 +253,5 @@ public class PlayerPresentationModel extends PresentationModel {
         deleteButton = (Button) root.lookup("#deleteButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         backButton = (Button) root.lookup("#backButton");
-    }
-
-    @Override
-    public void disableFields(Boolean disabled) {
-
     }
 }

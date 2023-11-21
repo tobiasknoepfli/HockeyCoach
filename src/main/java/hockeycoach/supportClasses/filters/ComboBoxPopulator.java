@@ -43,9 +43,9 @@ public class ComboBoxPopulator {
 
     public void setAllDifficulties(List<DrillDifficulty> allDifficulties, ComboBox<String> comboBox) {
         List<String> stringList = allDifficulties.stream()
+                .sorted(Comparator.comparingInt(DrillDifficulty::getDifficulty))
                 .map(DrillDifficulty::getDifficultyName)
                 .distinct()
-                .sorted()
                 .toList();
 
         comboBox.getItems().addAll(stringList);
