@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
+import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBWriter.DBDrillWriter;
 import hockeycoach.DB.DBWriter.DBImageWriter;
 import hockeycoach.mainClasses.Drills.*;
@@ -11,6 +12,7 @@ import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import hockeycoach.supportClasses.filters.ListSearcher;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
@@ -29,6 +31,8 @@ public class DrillEditorPresentationModel extends PresentationModel {
     DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
     DBImageWriter dbImageWriter = new DBImageWriter();
     ImageHandler imageHandler = new ImageHandler();
+    DBImageLoader dbImageLoader = new DBImageLoader();
+
 
     DBDrillWriter dbDrillWriter = new DBDrillWriter();
 
@@ -151,12 +155,15 @@ public class DrillEditorPresentationModel extends PresentationModel {
     @Override
     public void setupEventListeners(Pane root) {
         allDrills.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
+            newDrill.setPicture(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN drill d ON d.image = i.ID WHERE d.ID =" + newDrill.getID()));
+
             drillName.setText(isNotNullElse(newDrill, d -> d.getName(), ""));
             drillCategory.setValue(isNotNullElse(newDrill, d -> d.getCategory().getCategory(), "Category"));
             drillParticipation.setValue(isNotNullElse(newDrill, d -> d.getParticipation().getDrillParticipation(), "Participation"));
             drillDifficulty.setValue(isNotNullElse(newDrill, d -> d.getDifficulty().getDifficultyName(), "Difficulty"));
             drillPuckPosition.setValue(isNotNullElse(newDrill, d -> d.getPuckPosition().getPuckPosition(), "Puck Position"));
             drillStation.setValue(isNotNullElse(newDrill, d -> d.getStation(), "Station"));
+            drillImage.setImage(isNotNullElse(newDrill,d->d.getPicture().getImage(),null));
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
             customTableColumns.setDrillTagColumn(tagColumn);

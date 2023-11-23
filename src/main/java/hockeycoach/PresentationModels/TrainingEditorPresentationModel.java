@@ -7,8 +7,7 @@ import hockeycoach.DB.DBWriter.DBTeamWriter;
 import hockeycoach.DB.DBWriter.DBTrainingLineWriter;
 import hockeycoach.DB.DBWriter.DBTrainingWriter;
 import hockeycoach.mainClasses.*;
-import hockeycoach.mainClasses.Drills.Drill;
-import hockeycoach.mainClasses.Drills.DrillCategory;
+import hockeycoach.mainClasses.Drills.*;
 import hockeycoach.mainClasses.Lines.Line;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.*;
@@ -23,6 +22,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import jfxtras.scene.control.LocalTimeTextField;
+import jfxtras.scene.layout.HBox;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -46,8 +46,14 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     DBTrainingLineWriter dbTrainingLineWriter = new DBTrainingLineWriter();
     DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
     DBStringConverter dbStringConverter = new DBStringConverter();
+    DBImageLoader dbImageLoader = new DBImageLoader();
+    CustomTableColumns customTableColumns = new CustomTableColumns();
 
     List<DrillCategory> drillCategoryList = new ArrayList<>();
+    List<DrillDifficulty> drillDifficultyList = new ArrayList<>();
+    List<DrillParticipation> drillParticipationList = new ArrayList<>();
+    List<DrillPuckPosition> drillPuckPositionList = new ArrayList<>();
+    List<DrillTag> drillTagList  = new ArrayList<>();
 
     FilteredList<Drill> filteredDrills;
 
@@ -86,11 +92,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     TableView<String> drillTags;
     TableView<Drill> drillTable, warmup, together, stations, backup;
 
-    ComboBox<String> cbCategory, cbParticipation, cbTags, cbPuckPosition,cbDifficulty;
+    ComboBox<String> cbCategory, cbParticipation, cbTags, cbPuckPosition, cbDifficulty;
 
-    ComboBox<Boolean> cbStation;
+    ComboBox<String> cbStation;
 
-    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton,saveButton;
+    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton, saveButton;
 
     TableView<Player> playerList;
 
@@ -120,6 +126,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         selectedTeam = globalTeam;
         dbLoader = new DBLoader();
         DBDrillLoader dbDrillLoader = new DBDrillLoader();
+
         drillList = dbDrillLoader.getAllDrills();
 
         allPlayers = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
@@ -156,16 +163,41 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         trainingTeam.setText(selectedTeam.getName());
 
+        customTableColumns.setDrillDifficultyColumn(drillTable.getVisibleLeafColumn(1));
+        customTableColumns.setDrillParticipationColumn(drillTable.getVisibleLeafColumn(2));
         drillTable.getItems().clear();
         drillTable.getItems().addAll(drillList);
 
+        customTableColumns.setDrillDifficultyColumn(warmup.getVisibleLeafColumn(1));
+        customTableColumns.setDrillParticipationColumn(warmup.getVisibleLeafColumn(2));
+        customTableColumns.setDrillPuckPositionColumn(warmup.getVisibleLeafColumn(3));
+
+        customTableColumns.setDrillDifficultyColumn(together.getVisibleLeafColumn(1));
+        customTableColumns.setDrillParticipationColumn(together.getVisibleLeafColumn(2));
+        customTableColumns.setDrillPuckPositionColumn(together.getVisibleLeafColumn(3));
+
+        customTableColumns.setDrillDifficultyColumn(stations.getVisibleLeafColumn(1));
+        customTableColumns.setDrillParticipationColumn(stations.getVisibleLeafColumn(2));
+        customTableColumns.setDrillPuckPositionColumn(stations.getVisibleLeafColumn(3));
+
+        customTableColumns.setDrillDifficultyColumn(backup.getVisibleLeafColumn(1));
+        customTableColumns.setDrillParticipationColumn(backup.getVisibleLeafColumn(2));
+        customTableColumns.setDrillPuckPositionColumn(backup.getVisibleLeafColumn(3));
+
+
         ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
-        comboBoxPopulator.setCategory(drillList, cbCategory);
-        comboBoxPopulator.setDifficulty(drillList, cbDifficulty);
-        comboBoxPopulator.setParticipation(drillList, cbParticipation);
-        comboBoxPopulator.setStation(drillList, cbStation);
-        comboBoxPopulator.setTags(drillList, cbTags);
-        comboBoxPopulator.setPuckPosition(drillList, cbPuckPosition);
+        comboBoxPopulator.setAllCategories(drillCategoryList,cbCategory);
+        comboBoxPopulator.setAllStations(cbStation);
+        comboBoxPopulator.setAllParticipations(drillParticipationList,cbParticipation);
+        comboBoxPopulator.setAllPuckPositions(drillPuckPositionList,cbPuckPosition);
+        comboBoxPopulator.setAllDifficulties(drillDifficultyList,cbDifficulty);
+        comboBoxPopulator.setAllTags(drillTagList,cbTags);
+//        comboBoxPopulator.setCategory(drillList, cbCategory);
+//        comboBoxPopulator.setDifficulty(drillList, cbDifficulty);
+//        comboBoxPopulator.setParticipation(drillList, cbParticipation);
+//        comboBoxPopulator.setStation(drillList, cbStation);
+//        comboBoxPopulator.setTags(drillList, cbTags);
+//        comboBoxPopulator.setPuckPosition(drillList, cbPuckPosition);
 
         removeDrillSetup(warmup);
         removeDrillSetup(together);
@@ -192,6 +224,10 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     @Override
     public void getDBEntries(Pane root) {
         drillCategoryList = dbDrillValuesLoader.getAllCategories();
+        drillDifficultyList = dbDrillValuesLoader.getAllDifficulties();
+        drillTagList = dbDrillValuesLoader.getAllDrillTags();
+        drillParticipationList = dbDrillValuesLoader.getAllParticipations();
+        drillPuckPositionList = dbDrillValuesLoader.getAllPuckPositions();
     }
 
     @Override
@@ -206,12 +242,12 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         });
 
         saveButton.setOnAction(event -> {
-            int trainingID =  dbTrainingWriter.writeNewTraining(saveTraining());
+            int trainingID = dbTrainingWriter.writeNewTraining(saveTraining());
             dbTrainingLineWriter.writeTrainingLines(setTrainingLines(trainingID));
-            warmup.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"warmup",drill.getSortingIndex()));
-            together.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"together",drill.getSortingIndex()));
-            stations.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"stations",drill.getSortingIndex()));
-            backup.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID,drill,"backup",drill.getSortingIndex()));
+            warmup.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID, drill, "warmup", drill.getSortingIndex()));
+            together.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID, drill, "together", drill.getSortingIndex()));
+            stations.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID, drill, "stations", drill.getSortingIndex()));
+            backup.getItems().stream().forEach(drill -> dbTrainingWriter.addDrillToTraining(trainingID, drill, "backup", drill.getSortingIndex()));
         });
     }
 
@@ -275,11 +311,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                     cbPuckPosition, cbStation, cbTags);
         });
 
-        trainingStadium.setOnMousePressed(event->{
-                lastVisitedPM =TrainingEditorPresentationModel.this;
-                lastVisitedFXML = TRAINING_EDITOR_FXML;
-                lastVisitedNodeName = TRAINING_EDITOR;
-                buttonControls.openStadiumHide(root,TRAINING_EDITOR);
+        trainingStadium.setOnMousePressed(event -> {
+            lastVisitedPM = TrainingEditorPresentationModel.this;
+            lastVisitedFXML = TRAINING_EDITOR_FXML;
+            lastVisitedNodeName = TRAINING_EDITOR;
+            buttonControls.openStadiumHide(root, TRAINING_EDITOR);
         });
 
     }
@@ -287,20 +323,15 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     public void eventListenersFromTable(TableView<Drill> tableView) {
         tableView.getSelectionModel().selectedItemProperty().addListener((obs, oldDrill, newDrill) -> {
             if (newDrill != null) {
-//                try {
-//                    drillImage.setImage(new Image(newDrill.getImageID()));
-//                } catch (Exception e) {
-//                    drillImage.setImage(null);
-//                }
+                drillImage.setImage(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN drill d ON d.image = i.ID WHERE d.ID =" + newDrill.getID()).getImage());
 
                 drillName.setText(newDrill.getName());
                 drillCategory.setText(newDrill.getCategory().getCategory());
-                drillDifficulty.setText(String.valueOf(newDrill.getDifficulty()));
+                drillDifficulty.setText(newDrill.getDifficulty().getDifficultyName());
                 drillParticipation.setText(newDrill.getParticipation().getDrillParticipation());
                 drillStation.setSelected(newDrill.getStation());
                 drillDescription.setText(newDrill.getDescription());
                 puckPosition.setText(newDrill.getPuckPosition().getPuckPosition());
-
 
                 tagCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
 
@@ -490,17 +521,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     public Player getPlayerFromTextField(String playerName) {
         return dbStringConverter.getPlayerFromString(playerName);
-//        if (!playerName.isEmpty()) {
-//            String[] nameParts = playerName.split(" ");
-//            if (nameParts.length >= 2) {
-//                List<Player> retrievedPlayers = allPlayers.stream()
-//                        .filter(player -> player.getFirstName().equals(nameParts[1]) &&
-//                                player.getLastName().equals(nameParts[0]))
-//                        .collect(Collectors.toList());
-//                return retrievedPlayers.get(0);
-//            }
-//        }
-//        return new Player("", "", selectedTeam.getName());
     }
 
     public void showGameLines(List<Line> pastGameLines, List<Line> nextGameLines) {
@@ -637,8 +657,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         return new ArrayList<>();
     }
 
-    public Training saveTraining(){
-        Training training =new Training();
+    public Training saveTraining() {
+        Training training = new Training();
         training.setTrainingDate(trainingDate.getValue());
         training.setTrainingTime(LocalTime.from(trainingTime.getLocalTime()));
         training.setStadium(dbStadiumWriter.getStadiumFromName(trainingStadium.getText()));
