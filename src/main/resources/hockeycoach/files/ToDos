@@ -19,5 +19,6 @@
 -Shootouts
 -drill instructions (trainingXdrills), purpose
 -overwork image saving
+-batch import dates from excel
 
 -HelperClasses: string to object, id to object

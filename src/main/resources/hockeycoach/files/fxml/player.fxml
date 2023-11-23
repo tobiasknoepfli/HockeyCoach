@@ -122,7 +122,7 @@
             </GridPane>
          </top>
          <center>
-            <SplitPane dividerPositions="0.3526448362720403, 0.7774979009235936" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.3468013468013468, 0.765993265993266" BorderPane.alignment="CENTER">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="768.0" prefWidth="457.0">
                      <children>
@@ -332,7 +332,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                                <ImageView fx:id="playerPhoto" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
+                                <ImageView fx:id="playerPhoto" fitHeight="300.0" fitWidth="265.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS" />
                               <AnchorPane VBox.vgrow="ALWAYS">
                                  <children>
                                     <VBox alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
