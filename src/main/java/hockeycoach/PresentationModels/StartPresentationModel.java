@@ -81,7 +81,7 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         });
 
         teamsTable.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue!=null) {
+            if (newValue != null) {
                 globalTeam = newValue;
                 globalTeam.setIndex(allTeams.indexOf(newValue));
             } else {
@@ -123,15 +123,15 @@ public class StartPresentationModel extends PresentationModel implements pmInter
         });
 
         newPlayerButton.setOnAction(event -> {
-            buttonControls.openNewPlayerClose(root,HOME);
+            buttonControls.openNewPlayerClose(root, HOME);
         });
 
         newDrillButton.setOnAction(event -> {
-            buttonControls.openNewDrillClose(root,HOME);
+            buttonControls.openNewDrillClose(root, HOME);
         });
 
         newStadiumButton.setOnAction(event -> {
-            buttonControls.openStadiumClose(root,HOME);
+            buttonControls.openStadiumClose(root, HOME);
         });
 
         gamesTable.setOnMouseClicked(event -> {
