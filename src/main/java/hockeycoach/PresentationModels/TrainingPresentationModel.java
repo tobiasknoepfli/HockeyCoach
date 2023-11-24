@@ -29,6 +29,7 @@ public class TrainingPresentationModel extends PresentationModel {
     TextFieldAction textFieldAction = new TextFieldAction();
     Stack<TextFieldAction> textFieldActions = new Stack<>();
     CustomTableColumns customTableColumns = new CustomTableColumns();
+    DBImageLoader dbImageLoader = new DBImageLoader();
 
     DBTrainingLoader dbTrainingLoader = new DBTrainingLoader();
     DBTrainingLineWriter dbTrainingLineWriter = new DBTrainingLineWriter();
@@ -182,11 +183,7 @@ public class TrainingPresentationModel extends PresentationModel {
     public void displayDrill(TableView<Drill> inputTable) {
         inputTable.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedDrill, newSelectedDrill) -> {
             if (newSelectedDrill != null) {
-//                try {
-//                    drillImage.setImage(new Image(newSelectedDrill.getImageID()));
-//                } catch (Exception e) {
-//                    drillImage.setImage(null);
-//                }
+                drillImage.setImage(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN trainingXdrills d ON d.drillID = i.ID WHERE d.ID =" + newSelectedDrill.getID()).getImage());
                 drillName.setText(newSelectedDrill.getName());
             }
         });
