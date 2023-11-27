@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class ComboBoxDrillFilter extends ComboBoxFilter {
     public void setFilter(List<Drill> filteredDrills, List<Drill> allDrillList, TableView<Drill> allDrills,
                           ComboBox categoryBox, ComboBox participationBox, ComboBox difficultyBox,
-                          ComboBox puckPositionBox, ComboBox stationBox, ComboBox tagsBox) {
+                          ComboBox stationBox, ComboBox tagsBox) {
         filteredDrills = new ArrayList<>(allDrillList);
 
         if (categoryBox.getValue() != null) {
@@ -35,13 +35,6 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
             String selectedDifficulty = difficultyBox.getValue().toString();
             filteredDrills = filteredDrills.stream()
                     .filter(drill -> drill.getDifficulty().difficultyName == selectedDifficulty)
-                    .collect(Collectors.toList());
-        }
-
-        if (puckPositionBox.getValue() != null) {
-            String selectedPuckPosition = puckPositionBox.getValue().toString();
-            filteredDrills = filteredDrills.stream()
-                    .filter(drill -> drill.getPuckPosition().getPuckPosition().equals(selectedPuckPosition))
                     .collect(Collectors.toList());
         }
 
@@ -73,14 +66,13 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
 
     public void clearFilter(List<Drill> drillList, TableView<Drill> allDrills,
                             ComboBox categoryBox, ComboBox participationBox, ComboBox difficultyBox,
-                            ComboBox puckPositionBox, ComboBox stationBox, ComboBox tagsBox) {
+                            ComboBox stationBox, ComboBox tagsBox) {
 
         allDrills.getSelectionModel().clearSelection();
 
         categoryBox.setValue(null);
         participationBox.setValue(null);
         difficultyBox.setValue(null);
-        puckPositionBox.setValue(null);
         stationBox.setValue(null);
         tagsBox.setValue(null);
 
@@ -89,7 +81,6 @@ public class ComboBoxDrillFilter extends ComboBoxFilter {
         setComboboxText(categoryBox, "Category");
         setComboboxText(participationBox, "Participation");
         setComboboxText(difficultyBox, "Difficulty");
-        setComboboxText(puckPositionBox, "Puck Position");
         setComboboxText(stationBox, "Station");
         setComboboxText(tagsBox, "Tag");
     }

@@ -13,14 +13,17 @@ public class DrillEditorController {
     private TextField searchBox, drillName, newCategory, addNewTag;
     @FXML
     private ComboBox drillCategoryFilter, drillParticipationFilter,
-            drillDifficultyFilter, drillPuckPositionFilter, drillStationFilter,
-            drillCategory, drillParticipation, drillDifficulty, drillPuckPosition, drillStation,drillTagsFilter;
+            drillDifficultyFilter, drillStationFilter,
+            drillCategory, drillParticipation, drillDifficulty,  drillStation,drillTagsFilter;
     @FXML
     private TableView allDrills, drillTags;
     @FXML
     private ImageView drillImage;
     @FXML
     private TableColumn tagCol;
+
+    @FXML
+    private TextArea drillDescription;
 
     @FXML
     private Label puckPositionName;

@@ -140,7 +140,6 @@
                                     <ComboBox fx:id="drillCategoryFilter" prefHeight="25.0" prefWidth="200.0" promptText="Category" />
                                     <ComboBox fx:id="drillParticipationFilter" prefWidth="200.0" promptText="Participation" />
                                     <ComboBox fx:id="drillDifficultyFilter" prefHeight="25.0" prefWidth="200.0" promptText="Difficulty" />
-                                    <ComboBox fx:id="drillPuckPositionFilter" prefWidth="200.0" promptText="Puck Position" />
                                     <ComboBox fx:id="drillStationFilter" prefWidth="200.0" promptText="Station" />
                                     <ComboBox fx:id="drillTagsFilter" prefWidth="200.0" promptText="Tags" />
                                  </children>
@@ -200,7 +199,6 @@
                                           <ComboBox fx:id="drillCategory" prefHeight="25.0" prefWidth="200.0" promptText="Category" VBox.vgrow="ALWAYS" />
                                           <ComboBox fx:id="drillParticipation" prefWidth="200.0" promptText="Participation" VBox.vgrow="ALWAYS" />
                                           <ComboBox fx:id="drillDifficulty" prefHeight="25.0" prefWidth="200.0" promptText="Difficulty" VBox.vgrow="ALWAYS" />
-                                          <ComboBox fx:id="drillPuckPosition" prefWidth="200.0" promptText="Puck Position" VBox.vgrow="ALWAYS" />
                                           <ComboBox fx:id="drillStation" prefWidth="200.0" promptText="Station" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
@@ -209,7 +207,7 @@
                                           <TextField fx:id="newCategory" prefHeight="25.0" prefWidth="180.0" />
                                           <TextField fx:id="addNewTag" prefHeight="25.0" prefWidth="180.0" />
                                           <Label prefHeight="25.0" />
-                                          <Label fx:id="puckPositionName" prefHeight="25.0" />
+                                          <Label prefHeight="25.0" />
                                        </children>
                                     </VBox>
                                     <VBox spacing="2.0">
@@ -232,7 +230,30 @@
                                     </TableView>
                                  </children>
                               </HBox>
-                              <TextArea VBox.vgrow="ALWAYS" />
+                              <VBox VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Description" />
+                                                <TextArea fx:id="drillDescription" />
+                                             </children>
+                                          </VBox>
+                                          <VBox>
+                                             <children>
+                                                <Label text="Purpose" />
+                                                <HBox spacing="5.0">
+                                                   <children>
+                                                      <TextArea fx:id="drillPurpose" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </VBox>
                      </children>

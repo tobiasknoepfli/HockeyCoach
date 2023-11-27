@@ -32,15 +32,6 @@ public class ComboBoxPopulator {
         comboBox.getItems().addAll(stringList);
     }
 
-    public void setAllPuckPositions(List<DrillPuckPosition> allPuckPositions, ComboBox<String> comboBox) {
-        List<String> stringList = allPuckPositions.stream()
-                .map(DrillPuckPosition::getPuckPosition)
-                .distinct()
-                .sorted()
-                .toList();
-        comboBox.getItems().addAll(stringList);
-    }
-
     public void setAllDifficulties(List<DrillDifficulty> allDifficulties, ComboBox<String> comboBox) {
         List<String> stringList = allDifficulties.stream()
                 .sorted(Comparator.comparingInt(DrillDifficulty::getDifficulty))
@@ -112,21 +103,6 @@ public class ComboBoxPopulator {
         comboBox.getItems().addAll(difficultyList);
     }
 
-
-    public void setPuckPosition(List<Drill> allDrillList, ComboBox<String> comboBox) {
-        List<String> puckPositionList = new ArrayList<>();
-        allDrillList.stream()
-                .forEach(drill -> {
-                    String puckPosition = drill.getPuckPosition().getPuckPosition();
-                    puckPositionList.add(puckPosition);
-                });
-        observableList = puckPositionList.stream()
-                .distinct()
-                .sorted(String::compareTo)
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
-
-        comboBox.getItems().addAll(observableList);
-    }
 
     public void setStation(List<Drill> allDrillList, ComboBox<Boolean> comboBox) {
         List<Boolean> stationList = new ArrayList<>();

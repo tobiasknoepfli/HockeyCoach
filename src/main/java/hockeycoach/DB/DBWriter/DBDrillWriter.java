@@ -21,7 +21,6 @@ public class DBDrillWriter {
         preparedStatement.setString(5, (isNotNullElse(drill, d -> d.getDescription(), "")));
         preparedStatement.setBoolean(6, (isNotNullElse(drill, d -> d.getStation(), false)));
         preparedStatement.setInt(7, (isNotNullElse(drill, d -> d.getPicture().getID(), 0)));
-        preparedStatement.setInt(8, (isNotNullElse(drill, d -> d.getPuckPosition().getID(), 0)));
         return preparedStatement;
     }
 

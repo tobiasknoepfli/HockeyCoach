@@ -234,11 +234,6 @@
                                                             <PropertyValueFactory property="participation" />
                                                          </cellValueFactory>
                                                       </TableColumn>
-                                                      <TableColumn fx:id="wuPrioCol" minWidth="100.0" prefWidth="100.0" text="Puck Position">
-                                                         <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
-                                                         </cellValueFactory>
-                                                      </TableColumn>
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -267,11 +262,6 @@
                                                       <TableColumn fx:id="tgPlayerCol" minWidth="100.0" prefWidth="118.0" text="Players">
                                                          <cellValueFactory>
                                                             <PropertyValueFactory property="participation" />
-                                                         </cellValueFactory>
-                                                      </TableColumn>
-                                                      <TableColumn fx:id="tgPrioCol" minWidth="100.0" prefWidth="100.0" text="Puck Position">
-                                                         <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
                                                          </cellValueFactory>
                                                       </TableColumn>
                                                    </columns>
@@ -304,11 +294,6 @@
                                                             <PropertyValueFactory property="participation" />
                                                          </cellValueFactory>
                                                       </TableColumn>
-                                                      <TableColumn fx:id="stPrioCol" minWidth="100.0" prefWidth="100.0" text="Puck Position">
-                                                         <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
-                                                         </cellValueFactory>
-                                                      </TableColumn>
                                                    </columns>
                                                    <columnResizePolicy>
                                                       <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -337,11 +322,6 @@
                                                       <TableColumn fx:id="buPlayerCol" minWidth="100.0" prefWidth="100.0" text="Players">
                                                          <cellValueFactory>
                                                             <PropertyValueFactory property="participation" />
-                                                         </cellValueFactory>
-                                                      </TableColumn>
-                                                      <TableColumn fx:id="buPrioCol" minWidth="100.0" prefWidth="100.0" text="Puck Position">
-                                                         <cellValueFactory>
-                                                            <PropertyValueFactory property="puckPosition" />
                                                          </cellValueFactory>
                                                       </TableColumn>
                                                    </columns>

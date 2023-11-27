@@ -52,7 +52,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     List<DrillCategory> drillCategoryList = new ArrayList<>();
     List<DrillDifficulty> drillDifficultyList = new ArrayList<>();
     List<DrillParticipation> drillParticipationList = new ArrayList<>();
-    List<DrillPuckPosition> drillPuckPositionList = new ArrayList<>();
     List<DrillTag> drillTagList  = new ArrayList<>();
 
     FilteredList<Drill> filteredDrills;
@@ -141,7 +140,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         TextField[] textFields = {drillName, drillCategory, drillDifficulty, drillParticipation, searchBox,
                 trainingStadium, trainingTeam, trainingMainFocus,
-                puckPosition,
                 jersey1, jersey2, jersey3, jersey4, jersey5, jersey6,
                 gk1, gk2, gk3, gk4, gk5, gk6,
                 dl1, dl2, dl3, dl4, dl5, dl6,
@@ -170,26 +168,21 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
         customTableColumns.setDrillDifficultyColumn(warmup.getVisibleLeafColumn(1));
         customTableColumns.setDrillParticipationColumn(warmup.getVisibleLeafColumn(2));
-        customTableColumns.setDrillPuckPositionColumn(warmup.getVisibleLeafColumn(3));
 
         customTableColumns.setDrillDifficultyColumn(together.getVisibleLeafColumn(1));
         customTableColumns.setDrillParticipationColumn(together.getVisibleLeafColumn(2));
-        customTableColumns.setDrillPuckPositionColumn(together.getVisibleLeafColumn(3));
 
         customTableColumns.setDrillDifficultyColumn(stations.getVisibleLeafColumn(1));
         customTableColumns.setDrillParticipationColumn(stations.getVisibleLeafColumn(2));
-        customTableColumns.setDrillPuckPositionColumn(stations.getVisibleLeafColumn(3));
 
         customTableColumns.setDrillDifficultyColumn(backup.getVisibleLeafColumn(1));
         customTableColumns.setDrillParticipationColumn(backup.getVisibleLeafColumn(2));
-        customTableColumns.setDrillPuckPositionColumn(backup.getVisibleLeafColumn(3));
 
 
         ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
         comboBoxPopulator.setAllCategories(drillCategoryList,cbCategory);
         comboBoxPopulator.setAllStations(cbStation);
         comboBoxPopulator.setAllParticipations(drillParticipationList,cbParticipation);
-        comboBoxPopulator.setAllPuckPositions(drillPuckPositionList,cbPuckPosition);
         comboBoxPopulator.setAllDifficulties(drillDifficultyList,cbDifficulty);
         comboBoxPopulator.setAllTags(drillTagList,cbTags);
 //        comboBoxPopulator.setCategory(drillList, cbCategory);
@@ -227,7 +220,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         drillDifficultyList = dbDrillValuesLoader.getAllDifficulties();
         drillTagList = dbDrillValuesLoader.getAllDrillTags();
         drillParticipationList = dbDrillValuesLoader.getAllParticipations();
-        drillPuckPositionList = dbDrillValuesLoader.getAllPuckPositions();
     }
 
     @Override
@@ -272,43 +264,37 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         cbCategory.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
+                    cbStation, cbTags);
         });
 
         cbParticipation.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
+                    cbStation, cbTags);
         });
 
         cbDifficulty.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
-        });
-
-        cbPuckPosition.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
-                    cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
+                    cbStation, cbTags);
         });
 
         cbStation.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
+                    cbStation, cbTags);
         });
 
         cbTags.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
+                    cbStation, cbTags);
         });
 
         resetFilters.setOnAction(event -> {
             comboBoxDrillFilter.clearFilter(drillList, drillTable,
                     cbCategory, cbParticipation, cbDifficulty,
-                    cbPuckPosition, cbStation, cbTags);
+                    cbStation, cbTags);
         });
 
         trainingStadium.setOnMousePressed(event -> {
@@ -331,7 +317,6 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 drillParticipation.setText(newDrill.getParticipation().getDrillParticipation());
                 drillStation.setSelected(newDrill.getStation());
                 drillDescription.setText(newDrill.getDescription());
-                puckPosition.setText(newDrill.getPuckPosition().getPuckPosition());
 
                 tagCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
 

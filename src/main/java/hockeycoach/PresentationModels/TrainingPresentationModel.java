@@ -80,16 +80,12 @@ public class TrainingPresentationModel extends PresentationModel {
         customTableColumns.setStadiumNameColumn(trainingStadiumColumn,Training::getStadiumName);
         customTableColumns.setDrillDifficultyColumn(warmupDifficultyColumn);
         customTableColumns.setDrillParticipationColumn(warmupParticipationColumn);
-        customTableColumns.setDrillPuckPositionColumn(warmupPuckPositionColumn);
         customTableColumns.setDrillDifficultyColumn(togetherDifficultyColumn);
         customTableColumns.setDrillParticipationColumn(togetherParticipationColumn);
-        customTableColumns.setDrillPuckPositionColumn(togetherPuckPositionColumn);
         customTableColumns.setDrillDifficultyColumn(stationsDifficultyColumn);
         customTableColumns.setDrillParticipationColumn(stationsParticipationColumn);
-        customTableColumns.setDrillPuckPositionColumn(stationsPuckPositionColumn);
         customTableColumns.setDrillDifficultyColumn(backupDifficultyColumn);
         customTableColumns.setDrillParticipationColumn(backupParticipationColumn);
-        customTableColumns.setDrillPuckPositionColumn(backupPuckPositionColumn);
 
         if (!trainingList.isEmpty()) {
             trainingTable.getItems().clear();

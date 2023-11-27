@@ -50,7 +50,6 @@ public class DrillEditorPresentationModel extends PresentationModel {
     ListSearcher listSearcher = new ListSearcher();
 
     List<Drill> allDrillList, filteredDrills;
-    List<DrillPuckPosition> drillPuckPositionsList;
     List<DrillCategory> drillCategoryList;
     List<DrillParticipation> drillParticipationList;
     List<DrillDifficulty> drillDifficultyList;
@@ -61,13 +60,12 @@ public class DrillEditorPresentationModel extends PresentationModel {
     TextField searchBox, drillName, newCategory, addNewTag;
     TextArea drillDescription;
     ComboBox drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-            drillPuckPositionFilter, drillStationFilter, drillCategory, drillParticipation,
-            drillDifficulty, drillPuckPosition, drillStation, drillTagsFilter;
+            drillStationFilter, drillCategory, drillParticipation,
+            drillDifficulty, drillStation, drillTagsFilter;
     TableColumn drillCategoryCol, drillParticipationCol, drillDifficultyCol;
     TableView<Drill> allDrills;
     TableView<String> drillTags;
     ImageView drillImage;
-    Label puckPositionName;
 
     @Override
     public void initializeControls(Pane root) {
@@ -84,13 +82,11 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
         comboBoxPopulator.setAllCategories(dbDrillValuesLoader.getAllCategories(), drillCategory);
         comboBoxPopulator.setAllParticipations(dbDrillValuesLoader.getAllParticipations(), drillParticipation);
-        comboBoxPopulator.setAllPuckPositions(dbDrillValuesLoader.getAllPuckPositions(), drillPuckPosition);
         comboBoxPopulator.setAllDifficulties(dbDrillValuesLoader.getAllDifficulties(), drillDifficulty);
         comboBoxPopulator.setAllStations(drillStation);
 
         drillCategoryFilter.getItems().addAll(dbDrillValuesLoader.getAllCategories().stream().map(DrillCategory::getCategory).distinct().sorted().toList());
         drillParticipationFilter.getItems().addAll(dbDrillValuesLoader.getAllParticipations().stream().map(DrillParticipation::getDrillParticipation).distinct().sorted().toList());
-        drillPuckPositionFilter.getItems().addAll(dbDrillValuesLoader.getAllPuckPositions().stream().map(DrillPuckPosition::getPuckPosition).distinct().sorted().toList());
         drillDifficultyFilter.getItems().addAll(dbDrillValuesLoader.getAllDifficulties().stream().sorted(Comparator.comparingInt(DrillDifficulty::getDifficulty)).map(DrillDifficulty::getDifficultyName).distinct().toList());
         drillStationFilter.getItems().addAll(true, false);
         drillTagsFilter.getItems().addAll(dbDrillValuesLoader.getAllDrillTags().stream().map(DrillTag::getDrillTag).distinct().sorted().toList());
@@ -116,7 +112,6 @@ public class DrillEditorPresentationModel extends PresentationModel {
     public void getDBEntries(Pane root) {
         drillCategoryList = dbDrillValuesLoader.getAllCategories();
         drillParticipationList = dbDrillValuesLoader.getAllParticipations();
-        drillPuckPositionsList = dbDrillValuesLoader.getAllPuckPositions();
         drillDifficultyList = dbDrillValuesLoader.getAllDifficulties();
     }
 
@@ -144,7 +139,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         });
 
         resetButton.setOnAction(event -> {
-            comboBoxDrillFilter.clearFilter(allDrillList, allDrills, drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter, drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
+            comboBoxDrillFilter.clearFilter(allDrillList, allDrills, drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter, drillStationFilter, drillTagsFilter);
             listSearcher.clearSearchBox(searchBox);
         });
 
@@ -162,9 +157,9 @@ public class DrillEditorPresentationModel extends PresentationModel {
             drillCategory.setValue(isNotNullElse(newDrill, d -> d.getCategory().getCategory(), "Category"));
             drillParticipation.setValue(isNotNullElse(newDrill, d -> d.getParticipation().getDrillParticipation(), "Participation"));
             drillDifficulty.setValue(isNotNullElse(newDrill, d -> d.getDifficulty().getDifficultyName(), "Difficulty"));
-            drillPuckPosition.setValue(isNotNullElse(newDrill, d -> d.getPuckPosition().getPuckPosition(), "Puck Position"));
             drillStation.setValue(isNotNullElse(newDrill, d -> d.getStation(), "Station"));
             drillImage.setImage(isNotNullElse(newDrill, d -> d.getPicture().getImage(), null));
+            drillDescription.setText(isNotNullElse(newDrill, d->d.getDescription(),""));
 
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
@@ -174,46 +169,35 @@ public class DrillEditorPresentationModel extends PresentationModel {
             drillTags.getItems().addAll(newDrill.getTags());
         });
 
-        drillPuckPosition.valueProperty().addListener((obs, oldValue, newValue) -> {
-            DrillPuckPosition drillPuckPositionNew = drillPuckPositionsList.stream().filter(dpp -> dpp.getPuckPosition().equals(newValue.toString())).findFirst().orElse(null);
-            puckPositionName.setText(drillPuckPositionNew.getPuckPositionName());
-        });
-
 
         drillCategoryFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, allDrillList, allDrills,
                     drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-                    drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
+                    drillStationFilter, drillTagsFilter);
         });
 
         drillParticipationFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, allDrillList, allDrills,
                     drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-                    drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
+                    drillStationFilter, drillTagsFilter);
         });
 
         drillDifficultyFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, allDrillList, allDrills,
                     drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-                    drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
-        });
-
-        drillPuckPositionFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
-            comboBoxDrillFilter.setFilter(filteredDrills, allDrillList, allDrills,
-                    drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-                    drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
+                    drillStationFilter, drillTagsFilter);
         });
 
         drillStationFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, allDrillList, allDrills,
                     drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-                    drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
+                    drillStationFilter, drillTagsFilter);
         });
 
         drillTagsFilter.valueProperty().addListener((obs, oldVal, newVal) -> {
             comboBoxDrillFilter.setFilter(filteredDrills, allDrillList, allDrills,
                     drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
-                    drillPuckPositionFilter, drillStationFilter, drillTagsFilter);
+                    drillStationFilter, drillTagsFilter);
         });
     }
 
@@ -226,8 +210,6 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drill.setDescription(isNotNullElse(drill, d -> d.getDescription(), ""));
         drill.setStation(isNotNullElse(drill, d -> d.getStation(), false));
         drill.setPicture(imageHandler.setPicture(drillImage, drillName.getText(), "", DRILLS));
-        drill.setPuckPosition(dbStringConverter.getDrillPuckPositionFromString(isNotNullElse(drillPuckPosition, d -> d.getValue().toString(), "")));
-
         return drill;
     }
 
@@ -250,15 +232,15 @@ public class DrillEditorPresentationModel extends PresentationModel {
         newCategory = (TextField) root.lookup("#newCategory");
         addNewTag = (TextField) root.lookup("#addNewTag");
 
+        drillDescription = (TextArea) root.lookup("#drillDescription");
+
         drillCategoryFilter = (ComboBox) root.lookup("#drillCategoryFilter");
         drillParticipationFilter = (ComboBox) root.lookup("#drillParticipationFilter");
         drillDifficultyFilter = (ComboBox) root.lookup("#drillDifficultyFilter");
-        drillPuckPositionFilter = (ComboBox) root.lookup("#drillPuckPositionFilter");
         drillStationFilter = (ComboBox) root.lookup("#drillStationFilter");
         drillCategory = (ComboBox) root.lookup("#drillCategory");
         drillParticipation = (ComboBox) root.lookup("#drillParticipation");
         drillDifficulty = (ComboBox) root.lookup("#drillDifficulty");
-        drillPuckPosition = (ComboBox) root.lookup("#drillPuckPosition");
         drillStation = (ComboBox) root.lookup("#drillStation");
         drillTagsFilter = (ComboBox) root.lookup("#drillTagsFilter");
 
@@ -266,7 +248,6 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillTags = (TableView) root.lookup("#drillTags");
 
         drillImage = (ImageView) root.lookup("#drillImage");
-        puckPositionName = (Label) root.lookup("#puckPositionName");
 
         drillCategoryCol = allDrills.getVisibleLeafColumn(1);
         drillDifficultyCol = allDrills.getVisibleLeafColumn(2);

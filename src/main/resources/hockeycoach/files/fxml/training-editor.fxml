@@ -185,11 +185,6 @@
                                                                               <PropertyValueFactory property="participation" />
                                                                           </cellValueFactory>
                                                                       </TableColumn>
-                                                                      <TableColumn fx:id="wuPrioCol" minWidth="50.0" prefWidth="82.0" text="Puck Position">
-                                                                          <cellValueFactory>
-                                                                              <PropertyValueFactory property="puckPosition" />
-                                                                          </cellValueFactory>
-                                                                      </TableColumn>
                                                                       <TableColumn fx:id="wuSI" minWidth="34.0" prefWidth="36.0" text="Index">
                                                                           <cellValueFactory>
                                                                               <PropertyValueFactory property="sortingIndex" />
@@ -223,11 +218,6 @@
                                                                       <TableColumn fx:id="tgPlayerCol" minWidth="26.0" prefWidth="52.0" text="Players">
                                                                           <cellValueFactory>
                                                                               <PropertyValueFactory property="participation" />
-                                                                          </cellValueFactory>
-                                                                      </TableColumn>
-                                                                      <TableColumn fx:id="tgPrioCol" minWidth="50.0" prefWidth="86.0" text="Puck Position">
-                                                                          <cellValueFactory>
-                                                                              <PropertyValueFactory property="puckPosition" />
                                                                           </cellValueFactory>
                                                                       </TableColumn>
                                                                       <TableColumn fx:id="tgSI" minWidth="37.0" prefWidth="37.0" text="Index">
@@ -265,11 +255,6 @@
                                                                               <PropertyValueFactory property="participation" />
                                                                           </cellValueFactory>
                                                                       </TableColumn>
-                                                                      <TableColumn fx:id="stPrioCol" minWidth="50.0" prefWidth="83.0" text="Puck Position">
-                                                                          <cellValueFactory>
-                                                                              <PropertyValueFactory property="puckPosition" />
-                                                                          </cellValueFactory>
-                                                                      </TableColumn>
                                                                       <TableColumn fx:id="stSI" minWidth="36.0" prefWidth="36.0" text="Index">
                                                                           <cellValueFactory>
                                                                               <PropertyValueFactory property="sortingIndex" />
@@ -303,11 +288,6 @@
                                                                       <TableColumn fx:id="buPlayerCol" minWidth="46.0" prefWidth="46.0" text="Players">
                                                                           <cellValueFactory>
                                                                               <PropertyValueFactory property="participation" />
-                                                                          </cellValueFactory>
-                                                                      </TableColumn>
-                                                                      <TableColumn fx:id="buPrioCol" minWidth="50.0" prefWidth="86.0" text="Puck Position">
-                                                                          <cellValueFactory>
-                                                                              <PropertyValueFactory property="puckPosition" />
                                                                           </cellValueFactory>
                                                                       </TableColumn>
                                                                       <TableColumn fx:id="buSI" minWidth="36.0" prefWidth="36.0" text="Index">
@@ -785,7 +765,6 @@
                                                               <Label prefHeight="25.0" text="Category" />
                                                               <Label prefHeight="25.0" text="Difficulty" />
                                                               <Label prefHeight="25.0" text="Participation" />
-                                                              <Label prefHeight="25.0" prefWidth="71.0" text="Puck Position" />
                                                           </children>
                                                       </VBox>
                                                       <VBox prefHeight="200.0" prefWidth="100.0" spacing="2.0" HBox.hgrow="ALWAYS">
@@ -794,7 +773,6 @@
                                                               <TextField fx:id="drillCategory" prefHeight="30.0" prefWidth="167.0" />
                                                               <TextField fx:id="drillDifficulty" prefHeight="30.0" prefWidth="87.0" />
                                                               <TextField fx:id="drillParticipation" prefHeight="25.0" prefWidth="104.0" />
-                                                              <TextField fx:id="puckPosition" prefHeight="30.0" prefWidth="143.0" />
                                                               <CheckBox fx:id="drillStation" mnemonicParsing="false" prefHeight="17.0" prefWidth="87.0" text="Station" />
                                                               <TableView fx:id="drillTags" prefHeight="457.0" prefWidth="224.0" VBox.vgrow="ALWAYS">
                                                                   <columns>
@@ -828,7 +806,6 @@
                                                               <ComboBox fx:id="cbStation" prefWidth="155.0" promptText="Station" />
                                                               <ComboBox fx:id="cbTags" prefWidth="155.0" promptText="Tags" />
                                                               <ComboBox fx:id="cbCategory" prefWidth="155.0" promptText="Category" />
-                                                <ComboBox fx:id="cbPuckPosition" prefWidth="155.0" promptText="Puck Position" />
                                                               <Button fx:id="resetFilters" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Reset all filters" />
                                                           </children>
                                                       </FlowPane>

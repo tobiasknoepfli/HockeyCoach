@@ -15,7 +15,6 @@ public class Drill {
     private ArrayList<String> tags;
     private Picture picture;
     private int sortingIndex;
-    private DrillPuckPosition puckPosition;
     private String table;
 
     public Drill() {
@@ -99,14 +98,6 @@ public class Drill {
 
     public void setSortingIndex(int sortingIndex) {
         this.sortingIndex = sortingIndex;
-    }
-
-    public DrillPuckPosition getPuckPosition() {
-        return puckPosition;
-    }
-
-    public void setPuckPosition(DrillPuckPosition puckPosition) {
-        this.puckPosition = puckPosition;
     }
 
     public String getTable() {

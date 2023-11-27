@@ -53,16 +53,6 @@ public class DBStringConverter {
                 .orElse(null);
     }
 
-    public DrillPuckPosition getDrillPuckPositionFromString(String puckPositionName) {
-        DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
-        DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
-        List<DrillPuckPosition> allPuckPositions =allPuckPositions = dbDrillValuesLoader.getAllPuckPositions();
-        return drillPuckPosition = allPuckPositions.stream()
-                .filter(pp -> puckPositionName.equals(pp.getPuckPosition()))
-                .findFirst()
-                .orElse(null);
-    }
-
     public DrillTag getDrillTagFromString(String drillTagName) {
         DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
         DrillTag drillTag = new DrillTag();

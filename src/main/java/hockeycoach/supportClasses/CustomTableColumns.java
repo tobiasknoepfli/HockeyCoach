@@ -38,15 +38,6 @@ public class CustomTableColumns {
         });
     }
 
-    public void setDrillPuckPositionColumn(TableColumn tableColumn){
-        tableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Drill,String>, ObservableValue<String>>() {
-            @Override
-            public ObservableValue<String> call(TableColumn.CellDataFeatures<Drill,String> d){
-                return new SimpleStringProperty(d.getValue().getPuckPosition().getPuckPosition());
-            }
-        });
-    }
-
     public void setDrillTagColumn(TableColumn tableColumn){
         tableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<String, String>, ObservableValue<String>>() {
             @Override

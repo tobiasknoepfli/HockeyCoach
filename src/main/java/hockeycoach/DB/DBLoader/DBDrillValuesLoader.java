@@ -43,18 +43,6 @@ public class DBDrillValuesLoader extends DBLoader {
         return drillParticipation;
     }
 
-    public DrillPuckPosition setDrillPuckPositions(ResultSet resultSet) {
-        DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
-        try {
-            drillPuckPosition.setID(resultSet.getInt("ID"));
-            drillPuckPosition.setPuckPosition(resultSet.getString("puckPosition"));
-            drillPuckPosition.setPuckPositionName(resultSet.getString("puckPositionName"));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return drillPuckPosition;
-    }
-
     public DrillTag setDrillTag(ResultSet resultSet) {
         DrillTag drillTag = new DrillTag();
         try {
@@ -132,28 +120,6 @@ public class DBDrillValuesLoader extends DBLoader {
         return participationList;
     }
 
-    public List<DrillPuckPosition> getAllPuckPositions() {
-        String query = "SELECT * FROM drillPuckPosition";
-        List<DrillPuckPosition> puckPositionList = new ArrayList<>();
-        try {
-            Connection connection = DriverManager.getConnection(DB_URL);
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(query);
-
-            while (resultSet.next()) {
-                DrillPuckPosition puckPosition = new DrillPuckPosition();
-
-                puckPosition = setDrillPuckPositions(resultSet);
-
-                puckPositionList.add(puckPosition);
-            }
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return puckPositionList;
-    }
-
     public List<DrillTag> getAllDrillTags() {
         String query = "SELECT * FROM drillTag";
         List<DrillTag> tagList = new ArrayList<>();
@@ -190,14 +156,6 @@ public class DBDrillValuesLoader extends DBLoader {
 
         DrillParticipation drillParticipation = drillParticipationList.stream().filter(d -> participationID == d.getID()).findFirst().orElse(null);
         return drillParticipation;
-    }
-
-    public DrillPuckPosition getPuckPositionFromID(int puckPositionID) {
-        List<DrillPuckPosition> drillPuckPositionList = new ArrayList<>();
-        drillPuckPositionList = getAllPuckPositions();
-
-        DrillPuckPosition drillPuckPosition = drillPuckPositionList.stream().filter(d -> puckPositionID == d.getID()).findFirst().orElse(null);
-        return drillPuckPosition;
     }
 
     public DrillCategory getCategoryFromString(List<DrillCategory> drillCategoryList, String categoryName) {

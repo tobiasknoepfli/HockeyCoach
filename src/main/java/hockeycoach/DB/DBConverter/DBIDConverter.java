@@ -53,16 +53,6 @@ public class DBIDConverter {
                 .orElse(null);
     }
 
-    public DrillPuckPosition getDrillPuckPositionFromID(int puckPositionID){
-        DBDrillValuesLoader dbDrillValuesLoader =new DBDrillValuesLoader();
-        DrillPuckPosition drillPuckPosition = new DrillPuckPosition();
-        List<DrillPuckPosition> allPuckPositions = dbDrillValuesLoader.getAllPuckPositions();
-        return drillPuckPosition = allPuckPositions.stream()
-                .filter(pp->puckPositionID == pp.getID())
-                .findFirst()
-                .orElse(null);
-    }
-
     public DrillTag getDrillTagFromID(int drillTagID){
         DBDrillValuesLoader dbDrillValuesLoader = new DBDrillValuesLoader();
         DrillTag drillTag = new DrillTag();
