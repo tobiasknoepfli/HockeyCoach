@@ -164,7 +164,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
             drillDifficulty.setValue(isNotNullElse(newDrill, d -> d.getDifficulty().getDifficultyName(), "Difficulty"));
             drillPuckPosition.setValue(isNotNullElse(newDrill, d -> d.getPuckPosition().getPuckPosition(), "Puck Position"));
             drillStation.setValue(isNotNullElse(newDrill, d -> d.getStation(), "Station"));
-            drillImage.setImage(isNotNullElse(newDrill,d->d.getPicture().getImage(),null));
+            drillImage.setImage(isNotNullElse(newDrill, d -> d.getPicture().getImage(), null));
 
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
@@ -225,8 +225,8 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drill.setParticipation(dbStringConverter.getDrillParticipationFromString(isNotNullElse(drillParticipation, d -> d.getValue().toString(), "")));
         drill.setDescription(isNotNullElse(drill, d -> d.getDescription(), ""));
         drill.setStation(isNotNullElse(drill, d -> d.getStation(), false));
-        drill.setPicture(imageHandler.setPicture(drillImage,drillName.getText(),"",DRILLS));
-        drill.setPuckPosition(dbStringConverter.getDrillPuckPositionFromString(isNotNullElse(drillPuckPosition,d->d.getValue().toString(),"")));
+        drill.setPicture(imageHandler.setPicture(drillImage, drillName.getText(), "", DRILLS));
+        drill.setPuckPosition(dbStringConverter.getDrillPuckPositionFromString(isNotNullElse(drillPuckPosition, d -> d.getValue().toString(), "")));
 
         return drill;
     }
