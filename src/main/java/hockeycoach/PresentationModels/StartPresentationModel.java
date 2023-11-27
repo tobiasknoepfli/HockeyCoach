@@ -134,6 +134,16 @@ public class StartPresentationModel extends PresentationModel implements pmInter
             buttonControls.openStadiumClose(root, HOME);
         });
 
+        teamsTable.setOnMouseClicked(event -> {
+            if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+                Team selectedTeam = teamsTable.getSelectionModel().getSelectedItem();
+
+                TeamPresentationModel pm = new TeamPresentationModel();
+                HeaderController headerController = new HeaderController();
+                headerController.loadStages(TEAM, TEAM_FXML, pm);
+            }
+        });
+
         gamesTable.setOnMouseClicked(event -> {
             if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
                 Game selectedGame = gamesTable.getSelectionModel().getSelectedItem();

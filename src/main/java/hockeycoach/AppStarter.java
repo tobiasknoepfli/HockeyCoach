@@ -3,6 +3,7 @@ package hockeycoach;
 import hockeycoach.DB.DBLoader.*;
 import hockeycoach.PresentationModels.PresentationModel;
 import hockeycoach.PresentationModels.StartPresentationModel;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Drills.*;
 import javafx.application.Application;
@@ -35,6 +36,7 @@ public class AppStarter extends Application {
     public static final String NEW_DRILL = "drillEditor";
     public static final String STADIUM = "stadium";
 
+    public static final String HEADER_FXML = "/hockeycoach/files/fxml/header.fxml";
     public static final String HOME_FXML = "/hockeycoach/files/fxml/start.fxml";
     public static final String TEAM_FXML = "/hockeycoach/files/fxml/team.fxml";
     public static final String PLAYER_FXML = "/hockeycoach/files/fxml/player.fxml";
@@ -78,8 +80,9 @@ public class AppStarter extends Application {
         stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
 
-        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource("files/fxml/header.fxml"));
+        FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource(HEADER_FXML));
         Pane root = mainPaneLoader.load();
+
         Scene toolbarScene = new Scene(root, WIDTH, HEIGHT);
 
         stage.setScene(toolbarScene);
@@ -92,7 +95,7 @@ public class AppStarter extends Application {
         contentStage.setY(80);
         contentStage.initStyle(StageStyle.UNDECORATED);
 
-        FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource("files/fxml/start.fxml"));
+        FXMLLoader startPageLoader = new FXMLLoader(getClass().getResource(HOME_FXML));
         Pane content = startPageLoader.load();
 
         Scene contentScene = new Scene(content, WIDTH, HEIGHT - BAR_HEIGHT);

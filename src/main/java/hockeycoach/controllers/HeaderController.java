@@ -13,13 +13,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 
 import static hockeycoach.AppStarter.*;
 
 public class HeaderController extends Controller {
-
     @FXML
     private AnchorPane mainPane, headerPane;
 
@@ -93,6 +93,7 @@ public class HeaderController extends Controller {
         GamePresentationModel pm = new GamePresentationModel();
         loadStages(GAME, GAME_FXML, pm);
     }
+
 
     public void loadStages(String buttonName, String fxml, PresentationModel presentationModel) {
         if (openStages.containsKey(buttonName)) {

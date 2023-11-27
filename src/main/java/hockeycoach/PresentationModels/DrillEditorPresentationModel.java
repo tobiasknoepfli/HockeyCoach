@@ -59,6 +59,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
             deleteButton, closeWindowButton, searchButton, newCategoryButton,
             newTagButton, resetButton;
     TextField searchBox, drillName, newCategory, addNewTag;
+    TextArea drillDescription;
     ComboBox drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
             drillPuckPositionFilter, drillStationFilter, drillCategory, drillParticipation,
             drillDifficulty, drillPuckPosition, drillStation, drillTagsFilter;
@@ -164,6 +165,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
             drillPuckPosition.setValue(isNotNullElse(newDrill, d -> d.getPuckPosition().getPuckPosition(), "Puck Position"));
             drillStation.setValue(isNotNullElse(newDrill, d -> d.getStation(), "Station"));
             drillImage.setImage(isNotNullElse(newDrill,d->d.getPicture().getImage(),null));
+
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
             customTableColumns.setDrillTagColumn(tagColumn);
