@@ -232,20 +232,20 @@
                               </HBox>
                               <VBox VBox.vgrow="ALWAYS">
                                  <children>
-                                    <HBox spacing="5.0">
+                                    <HBox spacing="5.0" VBox.vgrow="ALWAYS">
                                        <children>
-                                          <VBox>
+                                          <VBox HBox.hgrow="ALWAYS">
                                              <children>
                                                 <Label text="Description" />
-                                                <TextArea fx:id="drillDescription" />
+                                                <TextArea fx:id="drillDescription" VBox.vgrow="ALWAYS" />
                                              </children>
                                           </VBox>
-                                          <VBox>
+                                          <VBox HBox.hgrow="ALWAYS">
                                              <children>
                                                 <Label text="Purpose" />
-                                                <HBox spacing="5.0">
+                                                <HBox spacing="5.0" VBox.vgrow="ALWAYS">
                                                    <children>
-                                                      <TextArea fx:id="drillPurpose" />
+                                                      <TextArea fx:id="drillPurpose" HBox.hgrow="ALWAYS" />
                                                    </children>
                                                 </HBox>
                                              </children>

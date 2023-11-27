@@ -16,6 +16,7 @@ public class Drill {
     private Picture picture;
     private int sortingIndex;
     private String table;
+    private String purpose;
 
     public Drill() {
     }
@@ -106,5 +107,13 @@ public class Drill {
 
     public void setTable(String table) {
         this.table = table;
+    }
+
+    public String getPurpose() {
+        return purpose;
+    }
+
+    public void setPurpose(String purpose) {
+        this.purpose = purpose;
     }
 }

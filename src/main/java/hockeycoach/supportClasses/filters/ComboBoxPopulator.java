@@ -42,10 +42,10 @@ public class ComboBoxPopulator {
         comboBox.getItems().addAll(stringList);
     }
 
-    public void setAllStations(ComboBox<String> comboBox) {
-        List<String> stringList = new ArrayList<>();
-        stringList.add("true");
-        stringList.add("false");
+    public void setAllStations(ComboBox<Boolean> comboBox) {
+        List<Boolean> stringList = new ArrayList<>();
+        stringList.add(true);
+        stringList.add(false);
         comboBox.getItems().addAll(stringList);
     }
 

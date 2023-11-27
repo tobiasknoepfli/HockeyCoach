@@ -23,7 +23,7 @@ public class DrillEditorController {
     private TableColumn tagCol;
 
     @FXML
-    private TextArea drillDescription;
+    private TextArea drillDescription, drillPurpose;
 
     @FXML
     private Label puckPositionName;

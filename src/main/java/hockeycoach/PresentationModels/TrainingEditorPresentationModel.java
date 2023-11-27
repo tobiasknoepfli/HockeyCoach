@@ -93,7 +93,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     ComboBox<String> cbCategory, cbParticipation, cbTags, cbPuckPosition, cbDifficulty;
 
-    ComboBox<String> cbStation;
+    ComboBox<Boolean> cbStation;
 
     Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton, saveButton;
 

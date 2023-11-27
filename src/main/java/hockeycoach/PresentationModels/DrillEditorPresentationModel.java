@@ -58,7 +58,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
             deleteButton, closeWindowButton, searchButton, newCategoryButton,
             newTagButton, resetButton;
     TextField searchBox, drillName, newCategory, addNewTag;
-    TextArea drillDescription;
+    TextArea drillDescription, drillPurpose;
     ComboBox drillCategoryFilter, drillParticipationFilter, drillDifficultyFilter,
             drillStationFilter, drillCategory, drillParticipation,
             drillDifficulty, drillStation, drillTagsFilter;
@@ -160,6 +160,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
             drillStation.setValue(isNotNullElse(newDrill, d -> d.getStation(), "Station"));
             drillImage.setImage(isNotNullElse(newDrill, d -> d.getPicture().getImage(), null));
             drillDescription.setText(isNotNullElse(newDrill, d->d.getDescription(),""));
+            drillPurpose.setText(isNotNullElse(newDrill,d->d.getPurpose(),""));
 
 
             TableColumn<String, String> tagColumn = (TableColumn<String, String>) drillTags.getColumns().get(0);
@@ -207,9 +208,10 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drill.setCategory(dbStringConverter.getDrillCategoryFromString(isNotNullElse(drillCategory, d -> d.getValue().toString(), "")));
         drill.setDifficulty(dbStringConverter.getDrillDifficultyFromString(isNotNullElse(drillDifficulty, d -> d.getValue().toString(), "")));
         drill.setParticipation(dbStringConverter.getDrillParticipationFromString(isNotNullElse(drillParticipation, d -> d.getValue().toString(), "")));
-        drill.setDescription(isNotNullElse(drill, d -> d.getDescription(), ""));
-        drill.setStation(isNotNullElse(drill, d -> d.getStation(), false));
+        drill.setDescription(isNotNullElse(drillDescription, d -> d.getText(), ""));
+        drill.setStation((Boolean) drillStation.getValue());
         drill.setPicture(imageHandler.setPicture(drillImage, drillName.getText(), "", DRILLS));
+        drill.setPurpose(isNotNullElse(drillPurpose,d-> d.getText(),""));
         return drill;
     }
 
@@ -233,6 +235,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         addNewTag = (TextField) root.lookup("#addNewTag");
 
         drillDescription = (TextArea) root.lookup("#drillDescription");
+        drillPurpose = (TextArea) root.lookup("#drillPurpose");
 
         drillCategoryFilter = (ComboBox) root.lookup("#drillCategoryFilter");
         drillParticipationFilter = (ComboBox) root.lookup("#drillParticipationFilter");
@@ -241,7 +244,7 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillCategory = (ComboBox) root.lookup("#drillCategory");
         drillParticipation = (ComboBox) root.lookup("#drillParticipation");
         drillDifficulty = (ComboBox) root.lookup("#drillDifficulty");
-        drillStation = (ComboBox) root.lookup("#drillStation");
+        drillStation = (ComboBox<Boolean>) root.lookup("#drillStation");
         drillTagsFilter = (ComboBox) root.lookup("#drillTagsFilter");
 
         allDrills = (TableView) root.lookup("#allDrills");
