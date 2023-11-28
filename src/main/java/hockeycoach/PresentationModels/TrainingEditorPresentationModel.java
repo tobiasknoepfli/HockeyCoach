@@ -86,7 +86,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     CheckBox drillStation;
 
-    TextArea drillDescription, trainingPointers;
+    TextArea drillDescription, trainingPointers, drillPurpose;
 
     TableView<String> drillTags;
     TableView<Drill> drillTable, warmup, together, stations, backup;
@@ -317,6 +317,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
                 drillParticipation.setText(newDrill.getParticipation().getDrillParticipation());
                 drillStation.setSelected(newDrill.getStation());
                 drillDescription.setText(newDrill.getDescription());
+                drillPurpose.setText(newDrill.getPurpose());
 
                 tagCol.setCellValueFactory(data -> new SimpleStringProperty(data.getValue()));
 
@@ -736,6 +737,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         playerList = (TableView) root.lookup("#playerList");
 
         trainingPointers = (TextArea) root.lookup("#trainingPointers");
+        drillPurpose = (TextArea) root.lookup("#drillPurpose");
 
         backButton = (Button) root.lookup("#backButton");
         resetFilters = (Button) root.lookup("#resetFilters");

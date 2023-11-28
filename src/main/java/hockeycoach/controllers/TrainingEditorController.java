@@ -54,7 +54,7 @@ public class TrainingEditorController extends Controller {
 
     @FXML
     private TextArea drillDescription,
-            trainingPointers;
+            trainingPointers, drillPurpose;
 
     @FXML
     private DatePicker trainingDate;
