@@ -1,35 +1,40 @@
 package hockeycoach.DB.DBWriter;
 
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.mainClasses.Picture;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
+import hockeycoach.supportClasses.checkups.NullCheck;
 
 import java.sql.*;
+import java.time.LocalDate;
 
 import static hockeycoach.AppStarter.DB_URL;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class DBPlayerWriter {
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
 
     public PreparedStatement setPlayer(PreparedStatement preparedStatement, Player player) throws SQLException {
 
-        preparedStatement.setString(1, (player.getFirstName() != null) ? player.getFirstName() : "");
-        preparedStatement.setString(2, (player.getLastName() != null) ? player.getLastName() : "");
-        preparedStatement.setDate(3, (player.getBirthday() != null) ? Date.valueOf(player.getBirthday()) : Date.valueOf("01.01.1900"));
-        preparedStatement.setString(4, (player.getStreet() != null) ? player.getStreet() : "");
-        preparedStatement.setInt(5, (player.getZip() != 0) ? player.getZip() : 0);
-        preparedStatement.setString(6, (player.getCity() != null) ? player.getCity() : "");
-        preparedStatement.setString(7, (player.getCountry() != null) ? player.getCountry() : "");
-        preparedStatement.setString(8, (player.getaLicence() != null) ? player.getaLicence() : "");
-        preparedStatement.setString(9, (player.getbLicence() != null) ? player.getbLicence() : "");
-        preparedStatement.setString(10, (player.getPhone() != null) ? player.getPhone() : "");
-        preparedStatement.setString(11, (player.geteMail() != null) ? player.geteMail() : "");
-        preparedStatement.setString(12, (player.getPositions() != null) ? player.getPositions() : "");
-        preparedStatement.setString(13, (player.getStrengths() != null) ? player.getStrengths() : "");
-        preparedStatement.setString(14, (player.getWeaknesses() != null) ? player.getWeaknesses() : "");
-        preparedStatement.setString(15, (player.getStick() != null) ? player.getStick() : "");
-        preparedStatement.setInt(16, (player.getPicture().getID() != 0) ? player.getPicture().getID() : 0);
-        preparedStatement.setString(17, (player.getNotes() != null) ? player.getNotes() : "");
+        preparedStatement.setString(1, isNotNullElse(player, p -> p.getFirstName(), ""));
+        preparedStatement.setString(2, isNotNullElse(player, p -> p.getLastName(), ""));
+        LocalDate birthday = isNotNullElse(player,p->p.getBirthday() ,LocalDate.of(1900,1,1));
+        preparedStatement.setDate(3,Date.valueOf(birthday));
+        preparedStatement.setString(4, isNotNullElse(player, p -> p.getStreet(), ""));
+        preparedStatement.setInt(5, isNotNullElse(player, p -> p.getZip(), 0));
+        preparedStatement.setString(6, isNotNullElse(player, p -> p.getCity(), ""));
+        preparedStatement.setString(7, isNotNullElse(player, p -> p.getCountry(), ""));
+        preparedStatement.setString(8, isNotNullElse(player, p -> p.getaLicence(), ""));
+        preparedStatement.setString(9, isNotNullElse(player, p -> p.getbLicence(), ""));
+        preparedStatement.setString(10, isNotNullElse(player, p -> p.getPhone(), ""));
+        preparedStatement.setString(11, isNotNullElse(player, p -> p.geteMail(), ""));
+        preparedStatement.setString(12, isNotNullElse(player, p -> p.getPositions(), ""));
+        preparedStatement.setString(13, isNotNullElse(player, p -> p.getStrengths(), ""));
+        preparedStatement.setString(14, isNotNullElse(player, p -> p.getWeaknesses(), ""));
+        preparedStatement.setString(15, isNotNullElse(player, p -> p.getStick(), ""));
+        preparedStatement.setInt(16, isNotNullElse(player.getPicture(), Picture::getID, 0));
+        preparedStatement.setString(17, isNotNullElse(player, p -> p.getNotes(), ""));
 
         return preparedStatement;
     }

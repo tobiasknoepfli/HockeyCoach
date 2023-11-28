@@ -1,10 +1,12 @@
 package hockeycoach.DB.DBWriter;
 
 import hockeycoach.mainClasses.Picture;
+import hockeycoach.supportClasses.checkups.NullCheck;
 
 import java.sql.*;
 
 import static hockeycoach.AppStarter.DB_URL;
+import static hockeycoach.supportClasses.checkups.NullCheck.*;
 
 public class DBImageWriter {
     public int saveImage(Picture picture) {
@@ -16,8 +18,8 @@ public class DBImageWriter {
             try {
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
 
-                preparedStatement.setString(1,picture.getTargetPath());
-                preparedStatement.setString(2, picture.getPictureName());
+                preparedStatement.setString(1, isNotNullElse(picture,p->p.getTargetPath(),""));
+                preparedStatement.setString(2, isNotNullElse(picture,p->p.getPictureName(),""));
                 preparedStatement.executeUpdate();
 
                 ResultSet generatedKeys = preparedStatement.getGeneratedKeys();

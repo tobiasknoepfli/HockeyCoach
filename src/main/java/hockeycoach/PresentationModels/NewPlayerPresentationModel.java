@@ -85,8 +85,10 @@ public class NewPlayerPresentationModel extends PresentationModel {
         saveButton.setOnAction(event -> {
 
             Player newPlayer = setPlayerValues();
-            newPlayer.getPicture().setID(dbImageWriter.saveImage(newPlayer.getPicture()));
-            imageHandler.copyImage(newPlayer.getPicture());
+            if (newPlayer.getPicture() != null) {
+                newPlayer.getPicture().setID(dbImageWriter.saveImage(newPlayer.getPicture()));
+                imageHandler.copyImage(newPlayer.getPicture());
+            }
 
             dbPlayerWriter.writeNewPlayer(newPlayer);
 
@@ -164,7 +166,11 @@ public class NewPlayerPresentationModel extends PresentationModel {
         newPlayer.setStrengths(strengths.getText());
         newPlayer.setWeaknesses(weaknesses.getText());
         newPlayer.setNotes(notes.getText());
-        newPlayer.setPicture(imageHandler.setPicture(playerPhoto,playerLastName.getText() + " " + playerFirstName.getText(),"_Photo",PHOTOS));
+        if (playerPhoto.getImage() != null) {
+            newPlayer.setPicture(imageHandler.setPicture(playerPhoto, playerLastName.getText() + " " + playerFirstName.getText(), "_Photo", PHOTOS));
+        } else {
+            newPlayer.setPicture(null);
+        }
         return newPlayer;
     }
 
