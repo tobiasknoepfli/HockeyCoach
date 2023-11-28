@@ -77,7 +77,7 @@ public class AppStarter extends Application {
         stage.setX(0);
         stage.setY(0);
         stage.setResizable(false);
-        stage.setAlwaysOnTop(true);
+//        stage.setAlwaysOnTop(true);
         stage.initStyle(StageStyle.UNDECORATED);
 
         FXMLLoader mainPaneLoader = new FXMLLoader(getClass().getResource(HEADER_FXML));
