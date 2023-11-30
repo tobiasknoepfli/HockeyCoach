@@ -25,5 +25,10 @@ public class NewPlayerController extends Controller {
     private TextField playerFirstName, playerLastName,playerAge, street, zip, city, country, phone, email,
             positions, aLicence, bLicence, stick;
 
+    @FXML
+    private Slider puckSkills,defenceSkills,sensesSkills,skatingSkills,shotsSkills,physicalSkills;
+
+    @FXML
+    private Label puckSkillsLabel,defenceSkillsLabel,sensesSkillsLabel,skatingSkillsLabel,shotsSkillsLabel,physicalSkillsLabel,overallSkillsLabel;
 
 }

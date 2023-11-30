@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -286,7 +287,63 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
                      <children>
-                          <ImageView fx:id="playerPhoto" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox layoutX="5.0" layoutY="5.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                                <ImageView fx:id="playerPhoto" fitHeight="300.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+                              <VBox prefHeight="176.0" prefWidth="265.0">
+                                 <children>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Puck Skills" />
+                                          <Slider fx:id="puckSkills" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="1" prefHeight="25.0" snapToTicks="true" value="51.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="puckSkillsLabel" prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Defence" />
+                                          <Slider fx:id="defenceSkills" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="1" prefHeight="25.0" snapToTicks="true" value="51.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="defenceSkillsLabel" prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Senses" />
+                                          <Slider fx:id="sensesSkills" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="1" prefHeight="25.0" snapToTicks="true" value="51.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="sensesSkillsLabel" prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Skating" />
+                                          <Slider fx:id="skatingSkills" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="1" prefHeight="25.0" snapToTicks="true" value="51.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="skatingSkillsLabel" prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Shots" />
+                                          <Slider fx:id="shotsSkills" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="1" prefHeight="25.0" snapToTicks="true" value="51.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="shotsSkillsLabel" prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Physical" />
+                                          <Slider fx:id="physicalSkills" blockIncrement="1.0" majorTickUnit="1.0" min="1.0" minorTickCount="1" prefHeight="25.0" snapToTicks="true" value="51.0" HBox.hgrow="ALWAYS" />
+                                          <Label fx:id="physicalSkillsLabel" prefHeight="25.0" prefWidth="50.0" />
+                                       </children>
+                                    </HBox>
+                                    <HBox spacing="5.0">
+                                       <children>
+                                          <Label prefHeight="25.0" prefWidth="100.0" text="Overall" />
+                                          <Label fx:id="overallSkillsLabel" prefHeight="25.0" prefWidth="110.0" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </VBox>
                      </children>
                   </AnchorPane>
               </items>

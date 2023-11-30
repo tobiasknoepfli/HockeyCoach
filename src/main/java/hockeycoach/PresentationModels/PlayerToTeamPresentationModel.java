@@ -16,6 +16,7 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +41,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
     TextField team;
 
     Button addButton, removeButton, saveButton;
+
 
     @Override
     public void initializeControls(Pane root) {
