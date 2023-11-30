@@ -28,4 +28,10 @@ public class PlayerController extends Controller {
 
     @FXML
     private DatePicker playerBirthday;
+
+    @FXML
+    private Slider puckSkills,defenceSkills,sensesSkills,skatingSkills,shotsSkills,physicalSkills;
+
+    @FXML
+    private Label puckSkillsLabel,defenceSkillsLabel,sensesSkillsLabel,skatingSkillsLabel,shotsSkillsLabel,physicalSkillsLabel,overallSkillsLabel;
 }

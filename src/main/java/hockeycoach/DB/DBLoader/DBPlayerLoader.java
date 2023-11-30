@@ -30,8 +30,14 @@ public class DBPlayerLoader extends DBLoader {
             player.setStrengths(resultSet.getString("strengths"));
             player.setWeaknesses(resultSet.getString("weaknesses"));
             player.setStick(resultSet.getString("stick"));
-//            player.setPhotoID(resultSet.getString("photoPath"));
             player.setNotes(resultSet.getString("notes"));
+            player.setRatingPuckSkills(resultSet.getInt("ratingPuckSkills"));
+            player.setRatingDefence(resultSet.getInt("ratingDefence"));
+            player.setRatingSenses(resultSet.getInt("ratingSenses"));
+            player.setRatingSkating(resultSet.getInt("ratingSkating"));
+            player.setRatingShots(resultSet.getInt("ratingShots"));
+            player.setRatingPhysical(resultSet.getInt("ratingPhysical"));
+            player.setRatingOverall(resultSet.getInt("ratingOverall"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -1,16 +1,8 @@
 package hockeycoach.mainClasses;
 
-import hockeycoach.DB.DBConverter.DBIDConverter;
-import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
-import hockeycoach.DB.DBLoader.DBPlayerXTeamLoader;
-import hockeycoach.supportClasses.PlayerXTeam;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-
-import static java.util.Objects.requireNonNullElse;
 
 public class Player {
     private int ID;
@@ -34,6 +26,7 @@ public class Player {
     private String stick;
     private Picture picture;
     private String notes;
+    private int ratingOverall, ratingPuckSkills,ratingDefence,ratingSenses,ratingSkating, ratingShots,ratingPhysical;
 
     public Player() {
     }
@@ -214,6 +207,62 @@ public class Player {
 
     public String getFullName() {
         return getLastName() + " " + getFirstName();
+    }
+
+    public int getRatingOverall() {
+        return ratingOverall;
+    }
+
+    public void setRatingOverall(int ratingOverall) {
+        this.ratingOverall = ratingOverall;
+    }
+
+    public int getRatingPuckSkills() {
+        return ratingPuckSkills;
+    }
+
+    public void setRatingPuckSkills(int ratingPuckSkills) {
+        this.ratingPuckSkills = ratingPuckSkills;
+    }
+
+    public int getRatingDefence() {
+        return ratingDefence;
+    }
+
+    public void setRatingDefence(int ratingDefence) {
+        this.ratingDefence = ratingDefence;
+    }
+
+    public int getRatingSenses() {
+        return ratingSenses;
+    }
+
+    public void setRatingSenses(int ratingSenses) {
+        this.ratingSenses = ratingSenses;
+    }
+
+    public int getRatingSkating() {
+        return ratingSkating;
+    }
+
+    public void setRatingSkating(int ratingSkating) {
+        this.ratingSkating = ratingSkating;
+    }
+
+    public int getRatingShots() {
+        return ratingShots;
+    }
+
+    public void setRatingShots(int ratingShots) {
+        this.ratingShots = ratingShots;
+    }
+
+    public int getRatingPhysical() {
+        return ratingPhysical;
+    }
+
+    public void setRatingPhysical(int ratingPhysical) {
+        this.ratingPhysical = ratingPhysical;
     }
 
     public String getFullNameWithJersey(Team team) {

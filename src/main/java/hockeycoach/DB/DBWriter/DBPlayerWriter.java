@@ -19,8 +19,8 @@ public class DBPlayerWriter {
 
         preparedStatement.setString(1, isNotNullElse(player, p -> p.getFirstName(), ""));
         preparedStatement.setString(2, isNotNullElse(player, p -> p.getLastName(), ""));
-        LocalDate birthday = isNotNullElse(player,p->p.getBirthday() ,LocalDate.of(1900,1,1));
-        preparedStatement.setDate(3,Date.valueOf(birthday));
+        LocalDate birthday = isNotNullElse(player, p -> p.getBirthday(), LocalDate.of(1900, 1, 1));
+        preparedStatement.setDate(3, Date.valueOf(birthday));
         preparedStatement.setString(4, isNotNullElse(player, p -> p.getStreet(), ""));
         preparedStatement.setInt(5, isNotNullElse(player, p -> p.getZip(), 0));
         preparedStatement.setString(6, isNotNullElse(player, p -> p.getCity(), ""));
@@ -35,13 +35,21 @@ public class DBPlayerWriter {
         preparedStatement.setString(15, isNotNullElse(player, p -> p.getStick(), ""));
         preparedStatement.setInt(16, isNotNullElse(player.getPicture(), Picture::getID, 0));
         preparedStatement.setString(17, isNotNullElse(player, p -> p.getNotes(), ""));
+        preparedStatement.setInt(18,isNotNullElse(player,p -> p.getRatingPuckSkills(),51));
+        preparedStatement.setInt(19,isNotNullElse(player,p-> p.getRatingDefence(),51));
+        preparedStatement.setInt(20,isNotNullElse(player,p->p.getRatingSenses(),51));
+        preparedStatement.setInt(21,isNotNullElse(player,p->p.getRatingSkating(),51));
+        preparedStatement.setInt(22,isNotNullElse(player,p->p.getRatingShots(),51));
+        preparedStatement.setInt(23,isNotNullElse(player,p->p.getRatingPhysical(),51));
+        preparedStatement.setInt(24,isNotNullElse(player,p->p.getRatingOverall(),51));
 
         return preparedStatement;
     }
 
     public void writeNewPlayer(Player player) {
         String query = "INSERT INTO player" + "(firstName, lastName,birthday, street, zip,city, country,aLicence, bLicence, phone, eMail, positions, " +
-                "strengths,weaknesses,stick,photoID,notes) VALUES ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+                "strengths,weaknesses,stick,photoID,notes, " +
+                "ratingPuckSkills, ratingDefence,ratingSenses,ratingSkating,ratingShots,ratingPhysical,ratingOverall) VALUES ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
         try (Connection connection = DriverManager.getConnection(DB_URL);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 

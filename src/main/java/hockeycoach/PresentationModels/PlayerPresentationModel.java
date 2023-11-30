@@ -11,6 +11,7 @@ import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +25,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class PlayerPresentationModel extends PresentationModel {
     List<Player> playerList = new ArrayList<>();
     List<TextField> textFieldList = new ArrayList<>();
     List<TextArea> textAreaList = new ArrayList<>();
+    List<Slider> sliderList = new ArrayList<>();
 
     TableView<Player> teamPlayers;
     TableView<Team> playerTeams;
@@ -64,6 +67,10 @@ public class PlayerPresentationModel extends PresentationModel {
     TextArea strengths, weaknesses, notes;
 
     Button saveButton, editButton, cancelButton, deleteButton, newPlayerButton, backButton;
+
+    Slider puckSkills,defenceSkills,sensesSkills,skatingSkills,shotsSkills,physicalSkills;
+
+    Label puckSkillsLabel,defenceSkillsLabel,sensesSkillsLabel,skatingSkillsLabel,shotsSkillsLabel,physicalSkillsLabel,overallSkillsLabel;
 
     @Override
     public void initializeControls(Pane root) {
@@ -96,6 +103,10 @@ public class PlayerPresentationModel extends PresentationModel {
 
         TextArea[] textAreas = {strengths,weaknesses,notes};
         textAreaList = Arrays.stream(textAreas).toList();
+
+        Slider[] sliders ={puckSkills,defenceSkills,sensesSkills,skatingSkills,shotsSkills,physicalSkills};
+        sliderList = Arrays.stream(sliders).toList();
+
     }
 
     @Override
@@ -159,6 +170,14 @@ public class PlayerPresentationModel extends PresentationModel {
                 stick.setText(newSelectedPlayer.getStick());
                 playerPhoto.setImage(newSelectedPlayer.getPicture().getImage());
 
+                puckSkills.setValue(newSelectedPlayer.getRatingPuckSkills());
+                defenceSkills.setValue(newSelectedPlayer.getRatingDefence());
+                sensesSkills.setValue(newSelectedPlayer.getRatingSenses());
+                skatingSkills.setValue(newSelectedPlayer.getRatingSkating());
+                shotsSkills.setValue(newSelectedPlayer.getRatingShots());
+                physicalSkills.setValue(newSelectedPlayer.getRatingPhysical());
+                overallSkillsLabel.setText(String.valueOf(newSelectedPlayer.getRatingOverall()));
+
                 playerBirthday.valueProperty().addListener((observable, oldValue, newValue) -> {
                     playerAge.setText(calculatePlayerAge(newValue));
                 });
@@ -171,6 +190,34 @@ public class PlayerPresentationModel extends PresentationModel {
                 }
             }
         });
+        puckSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+            puckSkillsLabel.setText(String.valueOf(Math.round(puckSkills.getValue())));
+            overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
+        });
+        defenceSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+            defenceSkillsLabel.setText(String.valueOf(Math.round(defenceSkills.getValue())));
+            overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
+        });
+        sensesSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+            sensesSkillsLabel.setText(String.valueOf(Math.round(sensesSkills.getValue())));
+            overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
+        });
+        skatingSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+            skatingSkillsLabel.setText(String.valueOf(Math.round(skatingSkills.getValue())));
+            overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
+        });
+        shotsSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+            shotsSkillsLabel.setText(String.valueOf(Math.round(shotsSkills.getValue())));
+            overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
+        });
+        physicalSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+            physicalSkillsLabel.setText(String.valueOf(Math.round(physicalSkills.getValue())));
+            overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
+        });
+    }
+
+    public double calculateOverallValue(){
+        return (int) sliderList.stream().mapToDouble(s->s.getValue()).average().getAsDouble();
     }
 
     @Override
@@ -204,6 +251,14 @@ public class PlayerPresentationModel extends PresentationModel {
         player.setaLicence(aLicence.getText());
         player.setbLicence(bLicence.getText());
         player.setStick(stick.getText());
+
+        player.setRatingPuckSkills((int)  puckSkills.getValue());
+        player.setRatingDefence((int) defenceSkills.getValue());
+        player.setRatingSenses((int) sensesSkills.getValue());
+        player.setRatingSkating((int) skatingSkills.getValue());
+        player.setRatingSkating((int) shotsSkills.getValue());
+        player.setRatingPhysical((int) physicalSkills.getValue());
+        player.setRatingOverall(Integer.parseInt(overallSkillsLabel.getText()));
 
         return player;
     }
@@ -253,5 +308,20 @@ public class PlayerPresentationModel extends PresentationModel {
         deleteButton = (Button) root.lookup("#deleteButton");
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         backButton = (Button) root.lookup("#backButton");
+
+        puckSkills =(Slider) root.lookup("#puckSkills");
+        defenceSkills =(Slider) root.lookup("#defenceSkills");
+        sensesSkills =(Slider) root.lookup("#sensesSkills");
+        skatingSkills =(Slider) root.lookup("#skatingSkills");
+        shotsSkills =(Slider) root.lookup("#shotsSkills");
+        physicalSkills =(Slider) root.lookup("#physicalSkills");
+
+        puckSkillsLabel = (Label) root.lookup("#puckSkillsLabel");
+        defenceSkillsLabel = (Label) root.lookup("#defenceSkillsLabel");
+        sensesSkillsLabel = (Label) root.lookup("#sensesSkillsLabel");
+        skatingSkillsLabel = (Label) root.lookup("#skatingSkillsLabel");
+        shotsSkillsLabel = (Label) root.lookup("#shotsSkillsLabel");
+        physicalSkillsLabel = (Label) root.lookup("#physicalSkillsLabel");
+        overallSkillsLabel = (Label) root.lookup("#overallSkillsLabel");
     }
 }
