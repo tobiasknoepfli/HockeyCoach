@@ -74,7 +74,14 @@ public class AvailablePlayerPresentationModel extends PresentationModel {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.close();
         });
-
+        cancelButton.setOnAction(event->{
+            globalAvailablePlayerList.clear();
+            playerList.getItems().stream().forEach(i->{
+                globalAvailablePlayerList.add(i);
+            });
+            Stage stage = (Stage) root.getScene().getWindow();
+            stage.close();
+        });
 
     }
 

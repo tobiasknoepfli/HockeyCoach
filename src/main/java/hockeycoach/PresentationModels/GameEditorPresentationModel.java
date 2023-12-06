@@ -9,11 +9,11 @@ import hockeycoach.DB.DBWriter.DBGameWriter;
 import hockeycoach.DB.DBWriter.DBLineWriter;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
-import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.TextFieldAction;
+import hockeycoach.supportClasses.checkups.NullCheck;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -30,6 +30,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import static hockeycoach.AppStarter.*;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class GameEditorPresentationModel extends PresentationModel {
     DBWriter dbWriter = new DBWriter();
@@ -86,7 +87,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     TableView<Player> teamPlayers, availablePlayers;
 
     List<TextField> textFields, ppTextFields, bpTextFields, nTextFields, captainTeamList, otTextFields, soTextFields;
-    Button refreshPlayerList, saveButton, backButton,availablePlayersButton;
+    Button refreshButton, saveButton, backButton,availablePlayersButton;
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane, overtimeAnchorPane, shootoutAnchorPane;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid, overtimeGrid, shootoutGrid;
 
@@ -227,7 +228,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         availablePlayersButton.setOnAction(event ->{
             try {
                 Stage stage = new Stage();
-                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/files/fxml/available-players.fxml"));
+                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource(AVAILABLE_PLAYERS_FXML));
                 Pane availablePlayerPane = newStageLoader.load();
 
                 Scene contentScene = new Scene(availablePlayerPane);
@@ -241,6 +242,15 @@ public class GameEditorPresentationModel extends PresentationModel {
                 teamPlayers.getItems().addAll(globalAvailablePlayerList);
             }catch (Exception e){
                 e.printStackTrace();
+            }
+        });
+
+        refreshButton.setOnAction(event ->{
+            teamPlayers.getItems().clear();
+            if (globalAvailablePlayerList.size() != 0){
+                teamPlayers.getItems().addAll(globalAvailablePlayerList);
+            }else{
+                teamPlayers.getItems().addAll(playerList);
             }
         });
 
@@ -306,11 +316,6 @@ public class GameEditorPresentationModel extends PresentationModel {
     }
 
     public void setupEventListeners(Pane root) {
-
-        lineupTabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldValue, newValue) -> {
-            refreshPlayers();
-        });
-
         textFields.stream().forEach(this::addLineupText);
 
         gameStadium.setOnMousePressed(event -> {
@@ -370,22 +375,22 @@ public class GameEditorPresentationModel extends PresentationModel {
                     .findFirst()
                     .orElse(null);
 
-            activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
-            if (!(showAllPlayers.isSelected())) {
-                if (lineupTab == activeTab) {
-                    lineupList.add(selectedPlayer);
-                } else if (powerplayTab == activeTab) {
-                    powerplayList.add(selectedPlayer);
-                } else if (boxplayTab == activeTab) {
-                    boxplayList.add(selectedPlayer);
-                } else if (nuclearTab == activeTab) {
-                    nuclearList.add(selectedPlayer);
-                } else if (shootoutTab == activeTab) {
-                    shootoutList.add(selectedPlayer);
-                } else if (overtimeTab == activeTab) {
-                    overtimeList.add(selectedPlayer);
-                }
-            }
+//            activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
+//            if (!(showAllPlayers.isSelected())) {
+//                if (lineupTab == activeTab) {
+//                    lineupList.add(selectedPlayer);
+//                } else if (powerplayTab == activeTab) {
+//                    powerplayList.add(selectedPlayer);
+//                } else if (boxplayTab == activeTab) {
+//                    boxplayList.add(selectedPlayer);
+//                } else if (nuclearTab == activeTab) {
+//                    nuclearList.add(selectedPlayer);
+//                } else if (shootoutTab == activeTab) {
+//                    shootoutList.add(selectedPlayer);
+//                } else if (overtimeTab == activeTab) {
+//                    overtimeList.add(selectedPlayer);
+//                }
+//            }
 
             event.setDropCompleted(success);
 
@@ -453,33 +458,6 @@ public class GameEditorPresentationModel extends PresentationModel {
                 }
             });
         });
-    }
-
-    public void refreshPlayers() {
-        teamPlayers.getItems().clear();
-
-        List<Player> inactivePlayers = new ArrayList<>(playerList);
-
-        activeTab = lineupTabPane.getSelectionModel().getSelectedItem();
-
-        if (showAllPlayers.isSelected()) {
-            teamPlayers.getItems().addAll(inactivePlayers);
-        } else {
-            if (lineupTab == activeTab) {
-                inactivePlayers.removeAll(lineupList);
-            } else if (powerplayTab == activeTab) {
-                inactivePlayers.removeAll(powerplayList);
-            } else if (boxplayTab == activeTab) {
-                inactivePlayers.removeAll(boxplayList);
-            } else if (nuclearTab == activeTab) {
-                inactivePlayers.removeAll(nuclearList);
-            } else if (shootoutTab == activeTab) {
-                shootoutList.removeAll(shootoutList);
-            } else if (overtimeTab == activeTab) {
-                overtimeList.removeAll(overtimeList);
-            }
-            teamPlayers.getItems().addAll(inactivePlayers);
-        }
     }
 
     private void addLineupText(TextField textField) {
@@ -803,7 +781,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         teamPlayers = (TableView) root.lookup("#teamPlayers");
         availablePlayers = (TableView) root.lookup("#availablePlayers");
 
-        refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
+        refreshButton = (Button) root.lookup("#refreshButton");
         saveButton = (Button) root.lookup("#saveButton");
         backButton = (Button) root.lookup("#backButton");
         availablePlayersButton = (Button) root.lookup("#availablePlayersButton");

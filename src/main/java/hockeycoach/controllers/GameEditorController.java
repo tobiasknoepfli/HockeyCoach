@@ -13,7 +13,7 @@ public class GameEditorController extends Controller {
     private AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane;
 
     @FXML
-    private Button refreshPlayerList,
+    private Button refreshButton,
             saveButton, backButton, availablePlayersButton;
 
     @FXML

@@ -10,7 +10,8 @@ import jfxtras.scene.control.LocalTimeTextField;
 public class TrainingEditorController extends Controller {
     @FXML
     private Button searchButton, resetFilters,
-            warmupButton, togetherButton, stationsButton, backupButton,saveButton;
+            warmupButton, togetherButton, stationsButton, backupButton, saveButton,
+            availablePlayersButton, refreshButton;
 
     @FXML
     private CheckBox drillStation;
@@ -50,7 +51,7 @@ public class TrainingEditorController extends Controller {
     private TabPane tablePane;
 
     @FXML
-    private TableColumn<String,String> tagCol;
+    private TableColumn<String, String> tagCol;
 
     @FXML
     private TextArea drillDescription,

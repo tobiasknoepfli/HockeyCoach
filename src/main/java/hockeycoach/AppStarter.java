@@ -50,6 +50,8 @@ public class AppStarter extends Application {
     public static final String NEW_DRILL_FXML = "/hockeycoach/files/fxml/drill-editor.fxml";
     public static final String STADIUM_FXML = "/hockeycoach/files/fxml/stadium.fxml";
 
+    public static final String AVAILABLE_PLAYERS_FXML = "/hockeycoach/files/fxml/available-players.fxml";
+
     public static final String LOGOS = "src/main/resources/hockeycoach/files/logos/";
     public static final String PHOTOS = "src/main/resources/hockeycoach/files/photos/";
     public static final String DRILLS = "src/main/resources/hockeycoach/files/drills/";

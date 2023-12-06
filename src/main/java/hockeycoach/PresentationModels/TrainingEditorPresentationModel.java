@@ -18,10 +18,13 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import jfxtras.scene.control.LocalTimeTextField;
 import jfxtras.scene.layout.HBox;
 
@@ -97,7 +100,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     ComboBox<Boolean> cbStation;
 
-    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton, saveButton;
+    Button searchButton, resetFilters, warmupButton, togetherButton, stationsButton, backupButton, backButton, saveButton, availablePlayersButton, refreshButton;
 
     TableView<Player> playerList;
 
@@ -231,6 +234,35 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
+        availablePlayersButton.setOnAction(event ->{
+            try {
+                Stage stage = new Stage();
+                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource(AVAILABLE_PLAYERS_FXML));
+                Pane availablePlayerPane = newStageLoader.load();
+
+                Scene contentScene = new Scene(availablePlayerPane);
+                stage.setScene(contentScene);
+
+                AvailablePlayerPresentationModel availablePlayerPresentationModel = new AvailablePlayerPresentationModel();
+                availablePlayerPresentationModel.initializeControls(availablePlayerPane);
+
+                stage.showAndWait();
+                playerList.getItems().clear();
+                playerList.getItems().addAll(globalAvailablePlayerList);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+
+        refreshButton.setOnAction(event ->{
+            playerList.getItems().clear();
+            if (globalAvailablePlayerList.size() != 0){
+                playerList.getItems().addAll(globalAvailablePlayerList);
+            }else{
+                playerList.getItems().addAll(allPlayers);
+            }
+        });
+
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
@@ -749,6 +781,8 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         backupButton = (Button) root.lookup("#backupButton");
         searchButton = (Button) root.lookup("#searchButton");
         saveButton = (Button) root.lookup("#saveButton");
+        availablePlayersButton = (Button) root.lookup("#availablePlayersButton");
+        refreshButton = (Button) root.lookup("#refreshButton");
 
         tablePane = (TabPane) root.lookup("#tablePane");
 
