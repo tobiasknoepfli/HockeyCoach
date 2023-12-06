@@ -11,6 +11,7 @@ import hockeycoach.mainClasses.Drills.*;
 import hockeycoach.mainClasses.Lines.Line;
 import hockeycoach.mainClasses.Lines.TrainingLines;
 import hockeycoach.supportClasses.*;
+import hockeycoach.supportClasses.checkups.NullCheck;
 import hockeycoach.supportClasses.filters.ComboBoxDrillFilter;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import javafx.beans.property.SimpleStringProperty;
@@ -31,6 +32,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.*;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 
 public class TrainingEditorPresentationModel extends PresentationModel {
@@ -52,7 +54,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     List<DrillCategory> drillCategoryList = new ArrayList<>();
     List<DrillDifficulty> drillDifficultyList = new ArrayList<>();
     List<DrillParticipation> drillParticipationList = new ArrayList<>();
-    List<DrillTag> drillTagList  = new ArrayList<>();
+    List<DrillTag> drillTagList = new ArrayList<>();
 
     FilteredList<Drill> filteredDrills;
 
@@ -180,11 +182,11 @@ public class TrainingEditorPresentationModel extends PresentationModel {
 
 
         ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
-        comboBoxPopulator.setAllCategories(drillCategoryList,cbCategory);
+        comboBoxPopulator.setAllCategories(drillCategoryList, cbCategory);
         comboBoxPopulator.setAllStations(cbStation);
-        comboBoxPopulator.setAllParticipations(drillParticipationList,cbParticipation);
-        comboBoxPopulator.setAllDifficulties(drillDifficultyList,cbDifficulty);
-        comboBoxPopulator.setAllTags(drillTagList,cbTags);
+        comboBoxPopulator.setAllParticipations(drillParticipationList, cbParticipation);
+        comboBoxPopulator.setAllDifficulties(drillDifficultyList, cbDifficulty);
+        comboBoxPopulator.setAllTags(drillTagList, cbTags);
 //        comboBoxPopulator.setCategory(drillList, cbCategory);
 //        comboBoxPopulator.setDifficulty(drillList, cbDifficulty);
 //        comboBoxPopulator.setParticipation(drillList, cbParticipation);
@@ -608,7 +610,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getID() > 0) {
+        if (player != null &&player.getID() > 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";

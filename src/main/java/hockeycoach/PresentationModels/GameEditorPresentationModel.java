@@ -190,16 +190,10 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         playerList = dbPlayerLoader.getTeamPlayers("SELECT p.* FROM player p INNER JOIN playerXteam px ON p.ID = px.playerID WHERE px.teamID LIKE '" + selectedTeam.getID() + "'", selectedTeam.getID());
 
-        showAllPlayers.setSelected(false);
-
         teamPlayers.getItems().clear();
         teamPlayers.getItems().setAll(playerList);
 
         gameTeam.setText(selectedTeam.getName());
-
-        refreshPlayerList.setOnAction(event -> {
-            refreshPlayers();
-        });
 
         showGameLines(lastGameLines(), nextGameLines());
 
@@ -300,10 +294,6 @@ public class GameEditorPresentationModel extends PresentationModel {
             lastVisitedFXML = GAME_EDITOR_FXML;
             lastVisitedNodeName = GAME_EDITOR;
             buttonControls.openStadiumHide(root, GAME_EDITOR);
-        });
-
-        showAllPlayers.selectedProperty().addListener((obs, oldValue, newValue) -> {
-            refreshPlayers();
         });
     }
 
@@ -743,7 +733,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     }
 
     public String getPlayerName(Player player) {
-        if (player.getID() > 0) {
+        if (player != null &&player.getID() > 0) {
             return player.getLastName() + " " + player.getFirstName();
         } else {
             return "";
