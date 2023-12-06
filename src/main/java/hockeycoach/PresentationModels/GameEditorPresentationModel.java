@@ -9,15 +9,19 @@ import hockeycoach.DB.DBWriter.DBGameWriter;
 import hockeycoach.DB.DBWriter.DBLineWriter;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.DB.DBWriter.DBWriter;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.TextFieldAction;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import jfxtras.scene.control.LocalTimeTextField;
 
 import java.time.LocalDate;
@@ -82,7 +86,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     TableView<Player> teamPlayers, availablePlayers;
 
     List<TextField> textFields, ppTextFields, bpTextFields, nTextFields, captainTeamList, otTextFields, soTextFields;
-    Button refreshPlayerList, saveButton, backButton;
+    Button refreshPlayerList, saveButton, backButton,availablePlayersButton;
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane, overtimeAnchorPane, shootoutAnchorPane;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid, overtimeGrid, shootoutGrid;
 
@@ -220,6 +224,26 @@ public class GameEditorPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
+        availablePlayersButton.setOnAction(event ->{
+            try {
+                Stage stage = new Stage();
+                FXMLLoader newStageLoader = new FXMLLoader(getClass().getResource("/hockeycoach/files/fxml/available-players.fxml"));
+                Pane availablePlayerPane = newStageLoader.load();
+
+                Scene contentScene = new Scene(availablePlayerPane);
+                stage.setScene(contentScene);
+
+                AvailablePlayerPresentationModel availablePlayerPresentationModel = new AvailablePlayerPresentationModel();
+                availablePlayerPresentationModel.initializeControls(availablePlayerPane);
+
+                stage.showAndWait();
+                teamPlayers.getItems().clear();
+                teamPlayers.getItems().addAll(globalAvailablePlayerList);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
+
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
@@ -782,6 +806,7 @@ public class GameEditorPresentationModel extends PresentationModel {
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
         saveButton = (Button) root.lookup("#saveButton");
         backButton = (Button) root.lookup("#backButton");
+        availablePlayersButton = (Button) root.lookup("#availablePlayersButton");
 
         lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
 

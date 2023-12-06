@@ -65,7 +65,7 @@ public class AppStarter extends Application {
     public static String lastVisitedFXML = new String();
     public static String lastVisitedNodeName = new String();
 
-    public static Player globalDraggedPlayer = new Player();
+    public static List<Player> globalAvailablePlayerList = new ArrayList<>();
 
     public static Stadium globalStadium = new Stadium();
     public static Team globalTeam = new Team();

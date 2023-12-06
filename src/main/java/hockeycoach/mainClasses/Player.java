@@ -1,6 +1,7 @@
 package hockeycoach.mainClasses;
 
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import javafx.beans.binding.BooleanExpression;
 
 import java.time.LocalDate;
 
@@ -26,6 +27,7 @@ public class Player {
     private String stick;
     private Picture picture;
     private String notes;
+    private String available;
     private int ratingOverall, ratingPuckSkills,ratingDefence,ratingSenses,ratingSkating, ratingShots,ratingPhysical;
 
     public Player() {
@@ -263,6 +265,14 @@ public class Player {
 
     public void setRatingPhysical(int ratingPhysical) {
         this.ratingPhysical = ratingPhysical;
+    }
+
+    public String getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(String available) {
+        this.available = available;
     }
 
     public String getFullNameWithJersey(Team team) {

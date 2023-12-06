@@ -143,6 +143,7 @@
                                     </VBox>
                                  </children>
                               </HBox>
+                              <Button fx:id="availablePlayersButton" contentDisplay="CENTER" mnemonicParsing="false" text="Select available Players" />
                               <TableView fx:id="teamPlayers" VBox.vgrow="ALWAYS">
                                  <columns>
                                     <TableColumn fx:id="playerLastName" minWidth="75.0" prefWidth="75.0" text="Last Name">

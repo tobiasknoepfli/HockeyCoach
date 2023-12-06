@@ -14,7 +14,7 @@ public class GameEditorController extends Controller {
 
     @FXML
     private Button refreshPlayerList,
-            saveButton, backButton;
+            saveButton, backButton, availablePlayersButton;
 
     @FXML
     private DatePicker gameDate;
