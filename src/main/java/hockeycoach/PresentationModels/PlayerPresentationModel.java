@@ -121,12 +121,19 @@ public class PlayerPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
-
         saveButton.setOnAction(event -> {
             Player player = getPlayerData();
             DBEditor dbEditor = new DBEditor();
             dbEditor.editPlayer(player);
             dbEditor.editJerseyAndRole(player, selectedTeam);
+            disableFields(disabled);
+        });
+
+        editButton.setOnAction(event->{
+            if(teamPlayers.getSelectionModel().getSelectedItem() != null){
+                disableFields(!disabled);
+            }
+
         });
 
         newPlayerButton.setOnAction(event -> {
@@ -226,6 +233,7 @@ public class PlayerPresentationModel extends PresentationModel {
         textAreaList.stream().forEach(t->t.setEditable(disabled));
         playerBirthday.setEditable(disabled);
         playerPhoto.setDisable(!disabled);
+        editButton.setDisable(disabled);
         saveButton.setDisable(!disabled);
         cancelButton.setDisable(!disabled);
     }
