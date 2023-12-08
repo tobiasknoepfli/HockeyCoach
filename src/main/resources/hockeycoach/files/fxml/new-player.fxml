@@ -126,7 +126,7 @@
             </GridPane>
          </top>
          <center>
-            <SplitPane dividerPositions="0.3, 0.75" prefHeight="717.0" prefWidth="1190.0" BorderPane.alignment="CENTER">
+            <SplitPane dividerPositions="0.3611111111111111, 0.7365319865319865" prefHeight="717.0" prefWidth="1190.0" BorderPane.alignment="CENTER">
               <items>
                 <AnchorPane>
                      <padding>
@@ -138,12 +138,12 @@
                               <Label prefHeight="25.0" text="All Players" />
                                 <TableView fx:id="allPlayers" VBox.vgrow="ALWAYS">
                                     <columns>
-                                        <TableColumn fx:id="playerLN" minWidth="200.0" prefWidth="200.0" text="Last Name">
+                                        <TableColumn fx:id="playerLN" minWidth="-1.0" prefWidth="200.0" text="Last Name">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="lastName" />
                                             </cellValueFactory>
                                         </TableColumn>
-                                        <TableColumn fx:id="playerFN" minWidth="200.0" prefWidth="200.0" text="First Name">
+                                        <TableColumn fx:id="playerFN" minWidth="-1.0" prefWidth="200.0" text="First Name">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="firstName" />
                                             </cellValueFactory>
@@ -164,122 +164,134 @@
                      <children>
                         <VBox layoutX="10.0" layoutY="5.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0">
+                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0" />
+                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0" />
+                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0" />
+                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0" />
+                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0" />
+                              <HBox prefHeight="140.0" prefWidth="460.0" spacing="5.0" />
+                           </children>
+                        </VBox>
+                        <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="25.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="89.0" minHeight="10.0" prefHeight="89.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="116.0" minHeight="116.0" prefHeight="116.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="62.0" minHeight="62.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="62.0" minHeight="62.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="62.0" minHeight="62.0" prefHeight="62.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="143.0" minHeight="143.0" prefHeight="143.0" vgrow="SOMETIMES" />
+                            <RowConstraints vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label prefHeight="25.0" text="First Name" />
-                                          <Label prefHeight="25.0" text="Last Name" />
-                                          <Label prefHeight="25.0" text="Birthday" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                            <TextField fx:id="playerFirstName" prefHeight="25.0" />
-                                          <TextField fx:id="playerLastName" prefHeight="25.0" />
-                                          <HBox spacing="5.0">
-                                             <children>
-                                                <DatePicker fx:id="playerBirthday" HBox.hgrow="ALWAYS" />
-                                                <Label prefHeight="25.0" text="Age" />
-                                                <TextField fx:id="playerAge" prefHeight="25.0" HBox.hgrow="ALWAYS" />
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </VBox>
+                                    <Label prefHeight="25.0" text="First Name" />
+                                    <Label prefHeight="25.0" text="Last Name" />
+                                    <Label prefHeight="25.0" text="Birthday" />
                                  </children>
-                              </HBox>
-                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0">
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnIndex="1" GridPane.columnSpan="3">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                      <TextField fx:id="playerFirstName" prefHeight="25.0" />
+                                    <TextField fx:id="playerLastName" prefHeight="25.0" />
+                                    <HBox spacing="5.0">
                                        <children>
-                                          <Label prefHeight="25.0" text="Street Nr." />
-                                          <Label prefHeight="25.0" text="ZIP" />
-                                          <Label prefHeight="25.0" text="City" />
-                                          <Label prefHeight="25.0" text="Country" />
+                                          <DatePicker fx:id="playerBirthday" HBox.hgrow="ALWAYS" />
+                                          <Label prefHeight="25.0" text="Age" />
+                                          <TextField fx:id="playerAge" prefHeight="25.0" HBox.hgrow="ALWAYS" />
                                        </children>
-                                    </VBox>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0" />
-                                          <TextField fx:id="zip" prefHeight="25.0" prefWidth="134.0" />
-                                          <TextField fx:id="city" prefHeight="25.0" prefWidth="265.0" />
-                                          <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0" />
-                                       </children>
-                                    </VBox>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0">
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" GridPane.rowIndex="1">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label prefHeight="25.0" text="Phone" />
-                                          <Label prefHeight="25.0" text="Email" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                              <TextField fx:id="phone" prefHeight="20.0" prefWidth="400.0" />
-                                              <TextField fx:id="email" prefHeight="20.0" prefWidth="400.0" />
-                                       </children>
-                                    </VBox>
+                                    <Label prefHeight="25.0" text="Street Nr." />
+                                    <Label prefHeight="25.0" text="ZIP" />
+                                    <Label prefHeight="25.0" text="City" />
+                                    <Label prefHeight="25.0" text="Country" />
                                  </children>
-                              </HBox>
-                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0">
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="1">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label prefHeight="25.0" text="A-Licence" />
-                                          <Label prefHeight="25.0" text="B-Licence" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                            <TextField fx:id="aLicence" prefHeight="25.0" prefWidth="173.0" />
-                                            <TextField fx:id="bLicence" prefHeight="25.0" prefWidth="173.0" />
-                                       </children>
-                                    </VBox>
+                                    <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0" />
+                                    <TextField fx:id="zip" prefHeight="25.0" prefWidth="134.0" />
+                                    <TextField fx:id="city" prefHeight="25.0" prefWidth="265.0" />
+                                    <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0" />
                                  </children>
-                              </HBox>
-                              <HBox prefHeight="38.0" prefWidth="460.0" spacing="5.0">
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" GridPane.rowIndex="2">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label prefHeight="25.0" text="Stick" />
-                                          <Label prefHeight="25.0" text="Positions" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                            <TextField fx:id="stick" prefHeight="25.0" prefWidth="150.0" />
-                                            <TextField fx:id="positions" prefHeight="25.0" prefWidth="150.0" />
-                                       </children>
-                                    </VBox>
+                                    <Label prefHeight="25.0" text="Phone" />
+                                    <Label prefHeight="25.0" text="Email" />
                                  </children>
-                              </HBox>
-                              <HBox prefHeight="140.0" prefWidth="460.0" spacing="5.0">
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="2">
                                  <children>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label prefHeight="25.0" text="Strengths" />
-                                            <TextArea fx:id="strengths" wrapText="true" VBox.vgrow="ALWAYS" />
-                                       </children>
-                                    </VBox>
-                                    <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" HBox.hgrow="ALWAYS">
-                                       <children>
-                                          <Label prefHeight="25.0" text="Weaknesses" />
-                                            <TextArea fx:id="weaknesses" wrapText="true" VBox.vgrow="ALWAYS" />
-                                       </children>
-                                    </VBox>
+                                        <TextField fx:id="phone" prefHeight="20.0" prefWidth="400.0" />
+                                        <TextField fx:id="email" prefHeight="20.0" prefWidth="400.0" />
                                  </children>
-                              </HBox>
-                              <VBox spacing="5.0" VBox.vgrow="ALWAYS">
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" GridPane.rowIndex="3">
+                                 <children>
+                                    <Label prefHeight="25.0" text="A-Licence" />
+                                    <Label prefHeight="25.0" text="B-Licence" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3">
+                                 <children>
+                                      <TextField fx:id="aLicence" prefHeight="25.0" prefWidth="173.0" />
+                                      <TextField fx:id="bLicence" prefHeight="25.0" prefWidth="173.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="0.0" spacing="2.0" GridPane.rowIndex="4">
+                                 <children>
+                                    <Label prefHeight="25.0" text="Stick" />
+                                    <Label prefHeight="25.0" text="Positions" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
+                                 <children>
+                                      <TextField fx:id="stick" prefHeight="25.0" prefWidth="150.0" />
+                                      <TextField fx:id="positions" prefHeight="25.0" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                 <children>
+                                    <Label prefHeight="25.0" text="Strengths" />
+                                      <TextArea fx:id="strengths" wrapText="true" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </VBox.margin>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="100.0" prefWidth="230.0" spacing="2.0" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="5">
+                                 <children>
+                                    <Label prefHeight="25.0" text="Weaknesses" />
+                                      <TextArea fx:id="weaknesses" wrapText="true" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </VBox.margin>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
+                              <VBox spacing="5.0" GridPane.columnSpan="4" GridPane.rowIndex="6">
                                  <children>
                                     <Label prefHeight="25.0" prefWidth="150.0" text="Notes" />
-                                      <TextArea fx:id="notes" wrapText="true" VBox.vgrow="ALWAYS" />
+                                      <TextArea fx:id="notes" wrapText="true" VBox.vgrow="ALWAYS">
+                                       <VBox.margin>
+                                          <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                                       </VBox.margin></TextArea>
                                  </children>
                               </VBox>
                            </children>
-                        </VBox>
+                        </GridPane>
                      </children>
                   </AnchorPane>
                   <AnchorPane>
