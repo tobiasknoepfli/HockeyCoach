@@ -557,7 +557,7 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         ppFillerLine = new PowerplayLine(3);
         ppFillerLine.setDefenderLeft(dbStringConverter.getPlayerFromString(ppdlfiller.getText()));
-        ppFillerLine.setDefenderRight(dbStringConverter.getPlayerFromString(ppfrfiller.getText()));
+        ppFillerLine.setDefenderRight(dbStringConverter.getPlayerFromString(ppdrfiller.getText()));
         ppFillerLine.setCenter(dbStringConverter.getPlayerFromString(ppcfiller.getText()));
         ppFillerLine.setForwardLeft(dbStringConverter.getPlayerFromString(ppflfiller.getText()));
         ppFillerLine.setForwardRight(dbStringConverter.getPlayerFromString(ppfrfiller.getText()));
@@ -578,7 +578,7 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         bpFillerLine = new BoxplayLine(3);
         bpFillerLine.setDefenderLeft(dbStringConverter.getPlayerFromString(bpdlfiller.getText()));
-        bpFillerLine.setDefenderRight(dbStringConverter.getPlayerFromString(bpfrfiller.getText()));
+        bpFillerLine.setDefenderRight(dbStringConverter.getPlayerFromString(bpdrfiller.getText()));
         bpFillerLine.setForwardLeft(dbStringConverter.getPlayerFromString(bpflfiller.getText()));
         bpFillerLine.setForwardRight(dbStringConverter.getPlayerFromString(bpfrfiller.getText()));
     }

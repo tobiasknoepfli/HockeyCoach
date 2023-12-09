@@ -220,7 +220,7 @@ public class GamePresentationModel extends PresentationModel {
                 ppdlfiller.setText(isNotNullElse(fillerPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 ppdrfiller.setText(isNotNullElse(fillerPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 ppcfiller.setText(isNotNullElse(fillerPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-                ppfrfiller.setText(isNotNullElse(fillerPPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                ppflfiller.setText(isNotNullElse(fillerPPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 ppfrfiller.setText(isNotNullElse(fillerPPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
@@ -301,7 +301,7 @@ public class GamePresentationModel extends PresentationModel {
             OvertimeLine overtimeLine = dbLineLoader.getOvertimeLine("SELECT * FROM overtimeLine WHERE gameID =" + newValue.getID());
             if (overtimeLine != null) {
                 odl1.setText(isNotNullElse(overtimeLine.getDefenderLeft1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-                odr1.setText(isNotNullElse(overtimeLine.getDefenderLeft2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                odr1.setText(isNotNullElse(overtimeLine.getDefenderRight1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 oc1.setText(isNotNullElse(overtimeLine.getCenter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 odl2.setText(isNotNullElse(overtimeLine.getDefenderLeft2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 odr2.setText(isNotNullElse(overtimeLine.getDefenderRight2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
