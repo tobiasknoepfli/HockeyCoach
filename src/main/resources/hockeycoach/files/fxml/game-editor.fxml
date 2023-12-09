@@ -103,9 +103,19 @@
                      <children>
                         <VBox layoutX="107.0" layoutY="58.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <GridPane VBox.vgrow="ALWAYS">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="70.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="143.0" minHeight="143.0" prefHeight="143.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="89.0" minHeight="89.0" prefHeight="89.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
                                  <children>
-                                    <VBox prefHeight="133.0" prefWidth="44.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                    <VBox prefHeight="133.0" prefWidth="44.0" spacing="2.0">
                                        <children>
                                             <Label prefHeight="25.0" prefWidth="64.0" text="Team" />
                                             <Label prefHeight="25.0" prefWidth="64.0" text="Opponent" />
@@ -114,41 +124,33 @@
                                             <Label prefHeight="25.0" prefWidth="64.0" text="Stadium" />
                                        </children>
                                     </VBox>
-                                    <VBox spacing="2.0" HBox.hgrow="ALWAYS">
+                                    <VBox spacing="2.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                                        <children>
                                             <TextField fx:id="gameTeam" prefHeight="25.0" />
                                             <TextField fx:id="gameOpponent" prefHeight="25.0" />
-                                          <DatePicker fx:id="gameDate" />
+                                          <DatePicker fx:id="gameDate" prefHeight="25.0" prefWidth="218.0" VBox.vgrow="ALWAYS" />
                                           <LocalTimeTextField fx:id="gameTime" />
                                             <TextField fx:id="gameStadium" prefHeight="25.0" />
                                        </children>
                                     </VBox>
-                                 </children>
-                              </HBox>
-                              <HBox>
-                                 <children>
-                                    <VBox prefWidth="150.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                    <VBox prefWidth="150.0" spacing="2.0" GridPane.rowIndex="1">
                                        <children>
                                           <Label prefHeight="25.0" prefWidth="64.0" text="Captain" VBox.vgrow="ALWAYS" />
                                           <Label prefHeight="25.0" prefWidth="64.0" text="Assistant 1" VBox.vgrow="ALWAYS" />
                                           <Label prefHeight="25.0" prefWidth="64.0" text="Assistant 2" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
-                                    <VBox prefHeight="79.0" prefWidth="281.0" spacing="2.0" HBox.hgrow="ALWAYS">
+                                    <VBox prefHeight="79.0" prefWidth="281.0" spacing="2.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                        <children>
                                           <TextField fx:id="captain" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="assistant1" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
                                           <TextField fx:id="assistant2" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
                                        </children>
                                     </VBox>
+                                    <Button fx:id="availablePlayersButton" contentDisplay="CENTER" mnemonicParsing="false" text="Select available Players" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Button fx:id="refreshButton" contentDisplay="CENTER" mnemonicParsing="false" text="Refresh available Players" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                  </children>
-                              </HBox>
-                              <HBox spacing="5.0">
-                                 <children>
-                                    <Button fx:id="availablePlayersButton" contentDisplay="CENTER" mnemonicParsing="false" text="Select available Players" />
-                                    <Button fx:id="refreshButton" contentDisplay="CENTER" mnemonicParsing="false" text="Refresh available Players" />
-                                 </children>
-                              </HBox>
+                              </GridPane>
                               <TableView fx:id="teamPlayers" VBox.vgrow="ALWAYS">
                                  <columns>
                                     <TableColumn fx:id="playerLastName" minWidth="75.0" prefWidth="75.0" text="Last Name">

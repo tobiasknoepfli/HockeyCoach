@@ -182,9 +182,18 @@
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                            <TextField fx:id="playerFirstName" />
-                                          <TextField fx:id="playerLastName" />
-                                            <TextField fx:id="team" />
+                                            <TextField fx:id="playerFirstName">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
+                                          <TextField fx:id="playerLastName">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
+                                            <TextField fx:id="team">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                        </children>
                                     </VBox>
                                  </children>
@@ -200,9 +209,18 @@
                                        <children>
                                           <HBox spacing="5.0">
                                              <children>
-                                                <DatePicker fx:id="playerBirthday" />
-                                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="58.0" text="Age" HBox.hgrow="ALWAYS" />
-                                                <TextField fx:id="playerAge" HBox.hgrow="ALWAYS" />
+                                                <DatePicker fx:id="playerBirthday">
+                                                   <HBox.margin>
+                                                      <Insets left="2.0" right="2.0" />
+                                                   </HBox.margin></DatePicker>
+                                                <Label alignment="CENTER" prefHeight="25.0" prefWidth="58.0" text="Age" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets left="2.0" right="2.0" />
+                                                   </HBox.margin></Label>
+                                                <TextField fx:id="playerAge" HBox.hgrow="ALWAYS">
+                                                   <HBox.margin>
+                                                      <Insets left="2.0" right="2.0" />
+                                                   </HBox.margin></TextField>
                                              </children>
                                           </HBox>
                                        </children>
@@ -220,15 +238,24 @@
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                              <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0" />
+                                              <TextField fx:id="street" prefHeight="20.0" prefWidth="400.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                           <HBox spacing="5.0">
                                              <children>
                                                     <TextField fx:id="zip" prefHeight="25.0" prefWidth="130.0" HBox.hgrow="ALWAYS" />
                                                 <Label alignment="CENTER" prefHeight="25.0" prefWidth="25.0" text="City" HBox.hgrow="ALWAYS" />
                                                 <TextField fx:id="city" prefHeight="25.0" prefWidth="123.0" HBox.hgrow="ALWAYS" />
                                              </children>
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin>
                                           </HBox>
-                                              <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0" />
+                                              <TextField fx:id="country" prefHeight="20.0" prefWidth="400.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                        </children>
                                     </VBox>
                                  </children>
@@ -243,8 +270,14 @@
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                              <TextField fx:id="phone" prefHeight="20.0" prefWidth="400.0" />
-                                              <TextField fx:id="email" prefHeight="20.0" prefWidth="400.0" />
+                                              <TextField fx:id="phone" prefHeight="20.0" prefWidth="400.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
+                                              <TextField fx:id="email" prefHeight="20.0" prefWidth="400.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                        </children>
                                     </VBox>
                                  </children>
@@ -260,9 +293,18 @@
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                            <TextField fx:id="jersey" prefHeight="25.0" prefWidth="173.0" />
-                                            <TextField fx:id="positions" prefHeight="25.0" prefWidth="150.0" />
-                                            <TextField fx:id="role" prefHeight="25.0" prefWidth="150.0" />
+                                            <TextField fx:id="jersey" prefHeight="25.0" prefWidth="173.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
+                                            <TextField fx:id="positions" prefHeight="25.0" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
+                                            <TextField fx:id="role" prefHeight="25.0" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                        </children>
                                     </VBox>
                                  </children>
@@ -276,7 +318,10 @@
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                            <TextField fx:id="stick" prefHeight="25.0" prefWidth="150.0" />
+                                            <TextField fx:id="stick" prefHeight="25.0" prefWidth="150.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                        </children>
                                     </VBox>
                                  </children>
@@ -291,8 +336,14 @@
                                     </VBox>
                                     <VBox prefWidth="300.0" spacing="2.0" HBox.hgrow="ALWAYS">
                                        <children>
-                                            <TextField fx:id="aLicence" prefHeight="25.0" prefWidth="173.0" />
-                                            <TextField fx:id="bLicence" prefHeight="25.0" prefWidth="173.0" />
+                                            <TextField fx:id="aLicence" prefHeight="25.0" prefWidth="173.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
+                                            <TextField fx:id="bLicence" prefHeight="25.0" prefWidth="173.0">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextField>
                                        </children>
                                     </VBox>
                                  </children>
@@ -301,22 +352,40 @@
                                  <children>
                                     <VBox>
                                        <children>
-                                          <Label text="Strengths" VBox.vgrow="ALWAYS" />
-                                            <TextArea fx:id="strengths" wrapText="true" VBox.vgrow="ALWAYS" />
+                                          <Label text="Strengths" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></Label>
+                                            <TextArea fx:id="strengths" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextArea>
                                        </children>
                                     </VBox>
                                     <VBox>
                                        <children>
-                                          <Label text="Weaknesses" VBox.vgrow="ALWAYS" />
-                                            <TextArea fx:id="weaknesses" wrapText="true" VBox.vgrow="ALWAYS" />
+                                          <Label text="Weaknesses" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></Label>
+                                            <TextArea fx:id="weaknesses" wrapText="true" VBox.vgrow="ALWAYS">
+                                             <VBox.margin>
+                                                <Insets left="2.0" right="2.0" />
+                                             </VBox.margin></TextArea>
                                        </children>
                                     </VBox>
                                  </children>
                               </HBox>
                               <VBox>
                                  <children>
-                                    <Label prefHeight="25.0" prefWidth="150.0" text="Notes" />
-                                      <TextArea fx:id="notes" minHeight="125.0" prefHeight="292.0" prefWidth="400.0" wrapText="true" />
+                                    <Label prefHeight="25.0" prefWidth="150.0" text="Notes">
+                                       <VBox.margin>
+                                          <Insets left="2.0" right="2.0" />
+                                       </VBox.margin></Label>
+                                      <TextArea fx:id="notes" minHeight="125.0" prefHeight="292.0" prefWidth="400.0" wrapText="true">
+                                       <VBox.margin>
+                                          <Insets left="2.0" right="2.0" />
+                                       </VBox.margin></TextArea>
                                  </children>
                               </VBox>
                            </children>
