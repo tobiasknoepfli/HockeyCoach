@@ -6,6 +6,7 @@ import hockeycoach.PresentationModels.StartPresentationModel;
 import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Drills.*;
+import hockeycoach.mainClasses.Lines.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -71,6 +72,22 @@ public class AppStarter extends Application {
 
     public static Stadium globalStadium = new Stadium();
     public static Team globalTeam = new Team();
+    public static Game globalGame = new Game();
+    public static Line globalFirstLine = new Line();
+    public static Line globalSecondLine = new Line();
+    public static Line globalThirdLine = new Line();
+    public static Line globalFourthLine = new Line();
+    public static PowerplayLine globalFirstPPLine = new PowerplayLine();
+    public static PowerplayLine globalSecondPPLine = new PowerplayLine();
+    public static PowerplayLine globalFillerPPLine = new PowerplayLine();
+    public static BoxplayLine globalFirstBPLine = new BoxplayLine();
+    public static BoxplayLine globalSecondBPLine = new BoxplayLine();
+    public static BoxplayLine globalFillerBPLine = new BoxplayLine();
+    public static SubstituteLine globalSubstituteLine = new SubstituteLine();
+    public static NuclearLine globalFirstNLine = new NuclearLine();
+    public static NuclearLine globalSecondNLine = new NuclearLine();
+    public static OvertimeLine globalOvertimeLine = new OvertimeLine();
+    public static ShootoutLine globalShootoutLine = new ShootoutLine();
 
     @Override
     public void start(Stage stage) throws IOException {

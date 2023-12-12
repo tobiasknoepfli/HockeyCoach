@@ -2,11 +2,13 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
+import hockeycoach.controllers.HeaderController;
 import hockeycoach.mainClasses.*;
 import hockeycoach.mainClasses.Lines.*;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.CustomTableColumns;
 import hockeycoach.supportClasses.TextFieldAction;
+import javafx.application.Platform;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -25,10 +27,26 @@ public class GamePresentationModel extends PresentationModel {
     Stack<TextFieldAction> textFieldActions = new Stack<>();
     CustomTableColumns customTableColumns = new CustomTableColumns();
 
+    Line firstLine = new Line();
+    Line secondLine = new Line();
+    Line thirdLine = new Line();
+    Line fourthLine = new Line();
+    PowerplayLine firstPPLine = new PowerplayLine();
+    PowerplayLine secondPPLine = new PowerplayLine();
+    PowerplayLine fillerPPLine = new PowerplayLine();
+    BoxplayLine firstBPLine = new BoxplayLine();
+    BoxplayLine secondBPLine = new BoxplayLine();
+    BoxplayLine fillerBPLine = new BoxplayLine();
+    SubstituteLine substituteLine = new SubstituteLine();
+    NuclearLine firstNLine = new NuclearLine();
+    NuclearLine secondNLine = new NuclearLine();
+    OvertimeLine overtimeLine = new OvertimeLine();
+    ShootoutLine shootoutLine = new ShootoutLine();
+
     DatePicker gameDate;
     LocalTimeTextField gameTime;
 
-    Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton;
+    Button saveButton, cancelButton, refreshPlayerList, backButton, newGameButton, editButton;
     TextField gameTeam, gameOpponent, gameStadium,
             captain, assistant1, assistant2,
             penalty1, penalty2, emptyNet1, emptyNet2,
@@ -125,6 +143,35 @@ public class GamePresentationModel extends PresentationModel {
         backButton.setOnAction(event -> {
             textFieldAction.undoLastAction(textFieldActions);
         });
+
+        editButton.setOnAction(event -> {
+            if (allGames.getSelectionModel().getSelectedItem() != null) {
+                Game selectedGame = allGames.getSelectionModel().getSelectedItem();
+                GameEditorPresentationModel pm = buttonControls.openGameEditorHide(root, GAME_EDITOR);
+                globalGame = selectedGame;
+                globalFirstLine = firstLine;
+                globalSecondLine = secondLine;
+                globalThirdLine = thirdLine;
+                globalFourthLine = fourthLine;
+                globalFirstPPLine = firstPPLine;
+                globalSecondPPLine = secondPPLine;
+                globalFillerPPLine = fillerPPLine;
+                globalFirstBPLine = firstBPLine;
+                globalSecondBPLine =secondBPLine;
+                globalFillerBPLine =fillerBPLine;
+                globalFirstNLine =firstNLine;
+                globalSecondNLine=secondNLine;
+                globalSubstituteLine =substituteLine;
+                globalShootoutLine=shootoutLine;
+                globalOvertimeLine=overtimeLine;
+
+                pm.editGame();
+                pm.editGameLines();
+
+
+            }
+
+        });
     }
 
     @Override
@@ -144,7 +191,7 @@ public class GamePresentationModel extends PresentationModel {
 
             List<Line> lines = dbLineLoader.getLines("SELECT * FROM line WHERE gameID = " + newValue.getID());
 
-            Line firstLine = lines.stream()
+            firstLine = lines.stream()
                     .filter(line -> line.getLineNr() == 1)
                     .findFirst().orElse(null);
             if (firstLine != null) {
@@ -156,7 +203,7 @@ public class GamePresentationModel extends PresentationModel {
                 fr1.setText(isNotNullElse(firstLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            Line secondLine = lines.stream()
+            secondLine = lines.stream()
                     .filter(line -> line.getLineNr() == 2)
                     .findFirst().orElse(null);
             if (secondLine != null) {
@@ -167,7 +214,7 @@ public class GamePresentationModel extends PresentationModel {
                 fl2.setText(isNotNullElse(secondLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            Line thirdLine = lines.stream()
+            thirdLine = lines.stream()
                     .filter(line -> line.getLineNr() == 3)
                     .findFirst().orElse(null);
             if (thirdLine != null) {
@@ -178,7 +225,7 @@ public class GamePresentationModel extends PresentationModel {
                 fl3.setText(isNotNullElse(thirdLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            Line fourthLine = lines.stream()
+            fourthLine = lines.stream()
                     .filter(line -> line.getLineNr() == 4)
                     .findFirst().orElse(null);
             if (fourthLine != null) {
@@ -191,7 +238,7 @@ public class GamePresentationModel extends PresentationModel {
 
             List<PowerplayLine> ppLine = dbLineLoader.getPPLines("SELECT * FROM powerplayLine WHERE gameID = " + newValue.getID());
 
-            PowerplayLine firstPPLine = ppLine.stream()
+            firstPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 1)
                     .findFirst().orElse(null);
             if (firstPPLine != null) {
@@ -202,7 +249,7 @@ public class GamePresentationModel extends PresentationModel {
                 ppfr1.setText(isNotNullElse(firstPPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            PowerplayLine secondPPLine = ppLine.stream()
+            secondPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 2)
                     .findFirst().orElse(null);
             if (secondPPLine != null) {
@@ -213,7 +260,7 @@ public class GamePresentationModel extends PresentationModel {
                 ppfr2.setText(isNotNullElse(secondPPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            PowerplayLine fillerPPLine = ppLine.stream()
+            fillerPPLine = ppLine.stream()
                     .filter(powerplayLine -> powerplayLine.getLineNr() == 3)
                     .findFirst().orElse(null);
             if (fillerPPLine != null) {
@@ -226,7 +273,7 @@ public class GamePresentationModel extends PresentationModel {
 
             List<BoxplayLine> bpLine = dbLineLoader.getBPLines("SELECT * FROM boxplayLine WHERE gameID = " + newValue.getID());
 
-            BoxplayLine firstBPLine = bpLine.stream()
+            firstBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 1)
                     .findFirst().orElse(null);
             if (firstBPLine != null) {
@@ -236,7 +283,7 @@ public class GamePresentationModel extends PresentationModel {
                 bpfr1.setText(isNotNullElse(firstBPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            BoxplayLine secondBPLine = bpLine.stream()
+            secondBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 2)
                     .findFirst().orElse(null);
             if (secondBPLine != null) {
@@ -246,17 +293,17 @@ public class GamePresentationModel extends PresentationModel {
                 bpfr2.setText(isNotNullElse(secondBPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            BoxplayLine thirdBPLine = bpLine.stream()
+            fillerBPLine = bpLine.stream()
                     .filter(boxplayLine -> boxplayLine.getLineNr() == 3)
                     .findFirst().orElse(null);
-            if (thirdBPLine != null) {
-                bpdlfiller.setText(isNotNullElse(thirdBPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-                bpdrfiller.setText(isNotNullElse(thirdBPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-                bpflfiller.setText(isNotNullElse(thirdBPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-                bpfrfiller.setText(isNotNullElse(thirdBPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+            if (fillerBPLine != null) {
+                bpdlfiller.setText(isNotNullElse(fillerBPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                bpdrfiller.setText(isNotNullElse(fillerBPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                bpflfiller.setText(isNotNullElse(fillerBPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+                bpfrfiller.setText(isNotNullElse(fillerBPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            SubstituteLine substituteLine = dbLineLoader.getSubLine("SELECT * FROM substituteLine WHERE gameID =" + newValue.getID());
+            substituteLine = dbLineLoader.getSubLine("SELECT * FROM substituteLine WHERE gameID =" + newValue.getID());
 
             if (substituteLine != null) {
                 sgk1.setText(isNotNullElse(substituteLine.getGoalkeeper1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -276,7 +323,7 @@ public class GamePresentationModel extends PresentationModel {
 
             List<NuclearLine> nuclearLines = dbLineLoader.getNuclearLine("SELECT * FROM nuclearLine WHERE gameID =" + newValue.getID());
 
-            NuclearLine firstNLine = nuclearLines.stream()
+            firstNLine = nuclearLines.stream()
                     .filter(nuclearLine -> nuclearLine.getLineNr() == 1)
                     .findAny().orElse(null);
             if (firstNLine != null) {
@@ -287,7 +334,7 @@ public class GamePresentationModel extends PresentationModel {
                 nfr1.setText(isNotNullElse(firstNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            NuclearLine secondNLine = nuclearLines.stream()
+            secondNLine = nuclearLines.stream()
                     .filter(nuclearLine -> nuclearLine.getLineNr() == 2)
                     .findAny().orElse(null);
             if (secondNLine != null) {
@@ -298,7 +345,7 @@ public class GamePresentationModel extends PresentationModel {
                 nfr2.setText(isNotNullElse(secondNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            OvertimeLine overtimeLine = dbLineLoader.getOvertimeLine("SELECT * FROM overtimeLine WHERE gameID =" + newValue.getID());
+            overtimeLine = dbLineLoader.getOvertimeLine("SELECT * FROM overtimeLine WHERE gameID =" + newValue.getID());
             if (overtimeLine != null) {
                 odl1.setText(isNotNullElse(overtimeLine.getDefenderLeft1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 odr1.setText(isNotNullElse(overtimeLine.getDefenderRight1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -310,7 +357,7 @@ public class GamePresentationModel extends PresentationModel {
                 osf1.setText(isNotNullElse(overtimeLine.getSubstituteForward(), c -> c.getFullNameWithJersey(selectedTeam), ""));
             }
 
-            ShootoutLine shootoutLine = dbLineLoader.getShootoutLine("SELECT * FROM shootoutLine WHERE gameID =" + newValue.getID());
+            shootoutLine = dbLineLoader.getShootoutLine("SELECT * FROM shootoutLine WHERE gameID =" + newValue.getID());
             if (shootoutLine != null) {
                 sop1.setText(isNotNullElse(shootoutLine.getShooter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
                 sop2.setText(isNotNullElse(shootoutLine.getShooter2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
@@ -328,6 +375,7 @@ public class GamePresentationModel extends PresentationModel {
         backButton = (Button) root.lookup("#backButton");
         newGameButton = (Button) root.lookup("#newGameButton");
         refreshPlayerList = (Button) root.lookup("#refreshPlayerList");
+        editButton = (Button) root.lookup("#editButton");
 
         allGames = (TableView) root.lookup("#allGames");
         teamPlayers = (TableView) root.lookup("#teamPlayers");

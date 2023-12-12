@@ -34,10 +34,11 @@ public class ButtonControls {
         closeWindow(closingNode,closingNodeName);
     }
 
-    public void openGameEditorHide(Node closingNode, String closingNodeName){
+    public GameEditorPresentationModel openGameEditorHide(Node closingNode, String closingNodeName){
         GameEditorPresentationModel pm = new GameEditorPresentationModel();
         headerController.loadStages(GAME_EDITOR,GAME_EDITOR_FXML,pm);
         hideWindow(closingNode,closingNodeName);
+        return pm;
     }
 
     public void openGameEditorClose(Node closingNode, String closingNodeName){
