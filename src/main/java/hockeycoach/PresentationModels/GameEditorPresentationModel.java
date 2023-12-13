@@ -744,19 +744,19 @@ public class GameEditorPresentationModel extends PresentationModel {
     }
 
     public void editGame() {
-        gameTeam.setText(globalGame.getTeam().getName());
-        gameOpponent.setText(globalGame.getOpponent());
-        gameDate.setValue(globalGame.getGameDate());
-        gameTime.setLocalTime(globalGame.getGameTime().toLocalTime());
-        gameStadium.setText(globalGame.getStadiumName());
+        gameTeam.setText(      isNotNullElse(globalGame.getTeam()       ,g->g.getName(),""));
+        gameOpponent.setText(  isNotNullElse(globalGame.getOpponent()   ,g->g,"")     );
+        gameDate.setValue(     isNotNullElse(globalGame.getGameDate()   ,g->g,LocalDate.now()) );
+        gameTime.setLocalTime(( globalGame.getGameTime().toLocalTime()!=null)? globalGame.getGameTime().toLocalTime():LocalTime.now());
+        gameStadium.setText(   isNotNullElse(globalGame.getStadiumName(),g->g,""));
 
-        captain.setText(globalGame.getCaptain().getFullNameWithJersey(globalGame.getTeam()));
-        assistant1.setText(globalGame.getAssistant1().getFullNameWithJersey(globalGame.getTeam()));
-        assistant2.setText(globalGame.getAssistant2().getFullNameWithJersey(globalGame.getTeam()));
-        penalty1.setText(globalGame.getPenalty1().getFullNameWithJersey(globalGame.getTeam()));
-        penalty2.setText(globalGame.getPenalty2().getFullNameWithJersey(globalGame.getTeam()));
-        emptyNet1.setText(globalGame.getEmptyNet1().getFullNameWithJersey(globalGame.getTeam()));
-        emptyNet2.setText(globalGame.getEmptyNet2().getFullNameWithJersey(globalGame.getTeam()));
+        captain.setText(isNotNullElse(globalGame.getCaptain(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
+        assistant1.setText(isNotNullElse(globalGame.getAssistant1(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
+        assistant2.setText(isNotNullElse(globalGame.getAssistant2(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
+        penalty1.setText(isNotNullElse(globalGame.getPenalty1(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
+        penalty2.setText(isNotNullElse(globalGame.getPenalty2(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
+        emptyNet1.setText(isNotNullElse(globalGame.getEmptyNet1(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
+        emptyNet2.setText(isNotNullElse(globalGame.getEmptyNet2(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
     }
 
     public void editGameLines() {
@@ -787,19 +787,19 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         ppdl1.setText(isNotNullElse(globalFirstPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppdr1.setText(isNotNullElse(globalFirstPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        ppc1.setText(isNotNullElse( globalFirstPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ppc1.setText(isNotNullElse(globalFirstPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppfl1.setText(isNotNullElse(globalFirstPPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppfr1.setText(isNotNullElse(globalFirstPPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
         ppdl2.setText(isNotNullElse(globalSecondPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppdr2.setText(isNotNullElse(globalSecondPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        ppc2.setText(isNotNullElse( globalSecondPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ppc2.setText(isNotNullElse(globalSecondPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppfl2.setText(isNotNullElse(globalSecondPPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppfr2.setText(isNotNullElse(globalSecondPPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
         ppdlfiller.setText(isNotNullElse(globalFillerPPLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppdrfiller.setText(isNotNullElse(globalFillerPPLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        ppcfiller.setText(isNotNullElse( globalFillerPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ppcfiller.setText(isNotNullElse(globalFillerPPLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppflfiller.setText(isNotNullElse(globalFillerPPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         ppfrfiller.setText(isNotNullElse(globalFillerPPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
@@ -818,40 +818,40 @@ public class GameEditorPresentationModel extends PresentationModel {
         bpflfiller.setText(isNotNullElse(globalFillerBPLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         bpfrfiller.setText(isNotNullElse(globalFillerBPLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
-        sgk1.setText(isNotNullElse( globalSubstituteLine.getGoalkeeper1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sgk2.setText(isNotNullElse( globalSubstituteLine.getGoalkeeper2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sgk3.setText(isNotNullElse( globalSubstituteLine.getGoalkeeper3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sd1.setText(isNotNullElse(  globalSubstituteLine.getDefender1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sd2.setText(isNotNullElse(  globalSubstituteLine.getDefender2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sd3.setText(isNotNullElse(  globalSubstituteLine.getDefender3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sf1.setText(isNotNullElse(  globalSubstituteLine.getForward1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sf2.setText(isNotNullElse(  globalSubstituteLine.getForward2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        sf3.setText(isNotNullElse(  globalSubstituteLine.getForward3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sgk1.setText(isNotNullElse(globalSubstituteLine.getGoalkeeper1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sgk2.setText(isNotNullElse(globalSubstituteLine.getGoalkeeper2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sgk3.setText(isNotNullElse(globalSubstituteLine.getGoalkeeper3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sd1.setText(isNotNullElse(globalSubstituteLine.getDefender1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sd2.setText(isNotNullElse(globalSubstituteLine.getDefender2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sd3.setText(isNotNullElse(globalSubstituteLine.getDefender3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sf1.setText(isNotNullElse(globalSubstituteLine.getForward1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sf2.setText(isNotNullElse(globalSubstituteLine.getForward2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        sf3.setText(isNotNullElse(globalSubstituteLine.getForward3(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         bpsd1.setText(isNotNullElse(globalSubstituteLine.getBoxplayDefender1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         bpsd2.setText(isNotNullElse(globalSubstituteLine.getBoxplayDefender2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         bpsf1.setText(isNotNullElse(globalSubstituteLine.getBoxplayForward1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         bpsf2.setText(isNotNullElse(globalSubstituteLine.getBoxplayForward2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
-        ndl1.setText(isNotNullElse( globalFirstNLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        ndr1.setText(isNotNullElse( globalFirstNLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        nc1.setText(isNotNullElse(  globalFirstNLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        nfl1.setText(isNotNullElse( globalFirstNLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        nfr1.setText(isNotNullElse( globalFirstNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ndl1.setText(isNotNullElse(globalFirstNLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ndr1.setText(isNotNullElse(globalFirstNLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        nc1.setText(isNotNullElse(globalFirstNLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        nfl1.setText(isNotNullElse(globalFirstNLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        nfr1.setText(isNotNullElse(globalFirstNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
-        ndl2.setText(isNotNullElse( globalSecondNLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        ndr2.setText(isNotNullElse( globalSecondNLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        nc2.setText(isNotNullElse(  globalSecondNLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        nfl2.setText(isNotNullElse( globalSecondNLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        nfr2.setText(isNotNullElse( globalSecondNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ndl2.setText(isNotNullElse(globalSecondNLine.getDefenderLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        ndr2.setText(isNotNullElse(globalSecondNLine.getDefenderRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        nc2.setText(isNotNullElse(globalSecondNLine.getCenter(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        nfl2.setText(isNotNullElse(globalSecondNLine.getForwardLeft(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        nfr2.setText(isNotNullElse(globalSecondNLine.getForwardRight(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
-        odl1.setText(isNotNullElse( globalOvertimeLine.getDefenderLeft1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        odr1.setText(isNotNullElse( globalOvertimeLine.getDefenderRight1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        oc1.setText(isNotNullElse(  globalOvertimeLine.getCenter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        odl2.setText(isNotNullElse( globalOvertimeLine.getDefenderLeft2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        odr2.setText(isNotNullElse( globalOvertimeLine.getDefenderRight2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        oc2.setText(isNotNullElse(  globalOvertimeLine.getCenter2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        osd1.setText(isNotNullElse( globalOvertimeLine.getSubstituteDefender(), c -> c.getFullNameWithJersey(selectedTeam), ""));
-        osf1.setText(isNotNullElse( globalOvertimeLine.getSubstituteForward(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        odl1.setText(isNotNullElse(globalOvertimeLine.getDefenderLeft1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        odr1.setText(isNotNullElse(globalOvertimeLine.getDefenderRight1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        oc1.setText(isNotNullElse(globalOvertimeLine.getCenter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        odl2.setText(isNotNullElse(globalOvertimeLine.getDefenderLeft2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        odr2.setText(isNotNullElse(globalOvertimeLine.getDefenderRight2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        oc2.setText(isNotNullElse(globalOvertimeLine.getCenter2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        osd1.setText(isNotNullElse(globalOvertimeLine.getSubstituteDefender(), c -> c.getFullNameWithJersey(selectedTeam), ""));
+        osf1.setText(isNotNullElse(globalOvertimeLine.getSubstituteForward(), c -> c.getFullNameWithJersey(selectedTeam), ""));
 
         sop1.setText(isNotNullElse(globalShootoutLine.getShooter1(), c -> c.getFullNameWithJersey(selectedTeam), ""));
         sop2.setText(isNotNullElse(globalShootoutLine.getShooter2(), c -> c.getFullNameWithJersey(selectedTeam), ""));
