@@ -168,6 +168,7 @@ public class GamePresentationModel extends PresentationModel {
                 pm.editGame();
                 pm.editGameLines();
 
+                globalEditGame = true;
 
             }
 

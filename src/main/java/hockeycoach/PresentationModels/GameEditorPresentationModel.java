@@ -2,6 +2,7 @@ package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBConverter.DBIDConverter;
 import hockeycoach.DB.DBConverter.DBStringConverter;
+import hockeycoach.DB.DBEditor.DBGameEditor;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
@@ -42,6 +43,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
     DBGameWriter dbGameWriter = new DBGameWriter();
     DBLineWriter dbLineWriter = new DBLineWriter();
+    DBGameEditor dbGameEditor = new DBGameEditor();
     TextFieldAction textFieldAction = new TextFieldAction();
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
 
@@ -260,58 +262,67 @@ public class GameEditorPresentationModel extends PresentationModel {
 
         saveButton.setOnAction(event -> {
             Game game = saveGame();
-            saveLines();
-            savePPLines();
-            saveBPLines();
-            saveSubstitutes();
-            saveNuclearLines();
-            saveOvertimeLines();
-            saveShootoutLines();
 
-            game.setID(dbGameWriter.writeGame(game));
+            if(globalEditGame){
+                game.setID(globalGame.getID());
+                globalGame = game;
+                dbGameEditor.editGame(globalGame);
+                globalEditGame =false;
+                buttonControls.openGameClose(root,GAME_EDITOR);
+            } else {
+                saveLines();
+                savePPLines();
+                saveBPLines();
+                saveSubstitutes();
+                saveNuclearLines();
+                saveOvertimeLines();
+                saveShootoutLines();
 
-            firstLine.setGameID(game.getID());
-            secondLine.setGameID(game.getID());
-            thirdLine.setGameID(game.getID());
-            fourthLine.setGameID(game.getID());
+                game.setID(dbGameWriter.writeGame(game));
 
-            ppFirstLine.setGameID(game.getID());
-            ppSecondLine.setGameID(game.getID());
-            ppFillerLine.setGameID(game.getID());
+                firstLine.setGameID(game.getID());
+                secondLine.setGameID(game.getID());
+                thirdLine.setGameID(game.getID());
+                fourthLine.setGameID(game.getID());
 
-            bpFirstLine.setGameID(game.getID());
-            bpSecondLine.setGameID(game.getID());
-            bpFillerLine.setGameID(game.getID());
+                ppFirstLine.setGameID(game.getID());
+                ppSecondLine.setGameID(game.getID());
+                ppFillerLine.setGameID(game.getID());
 
-            nFirstLine.setGameID(game.getID());
-            nSecondLine.setGameID(game.getID());
+                bpFirstLine.setGameID(game.getID());
+                bpSecondLine.setGameID(game.getID());
+                bpFillerLine.setGameID(game.getID());
 
-            subsLine.setGameID(game.getID());
+                nFirstLine.setGameID(game.getID());
+                nSecondLine.setGameID(game.getID());
 
-            overtimeLine.setGameID(game.getID());
-            shootoutLine.setGameID(game.getID());
+                subsLine.setGameID(game.getID());
 
-            dbLineWriter.writeNewLine(firstLine);
-            dbLineWriter.writeNewLine(secondLine);
-            dbLineWriter.writeNewLine(thirdLine);
-            dbLineWriter.writeNewLine(fourthLine);
+                overtimeLine.setGameID(game.getID());
+                shootoutLine.setGameID(game.getID());
 
-            dbLineWriter.writePPLine(ppFirstLine);
-            dbLineWriter.writePPLine(ppSecondLine);
-            dbLineWriter.writePPLine(ppFillerLine);
+                dbLineWriter.writeNewLine(firstLine);
+                dbLineWriter.writeNewLine(secondLine);
+                dbLineWriter.writeNewLine(thirdLine);
+                dbLineWriter.writeNewLine(fourthLine);
 
-            dbLineWriter.writeBPLine(bpFirstLine);
-            dbLineWriter.writeBPLine(bpSecondLine);
-            dbLineWriter.writeBPLine(bpFillerLine);
+                dbLineWriter.writePPLine(ppFirstLine);
+                dbLineWriter.writePPLine(ppSecondLine);
+                dbLineWriter.writePPLine(ppFillerLine);
 
-            dbLineWriter.writeNuclearLine(nFirstLine);
-            dbLineWriter.writeNuclearLine(nSecondLine);
+                dbLineWriter.writeBPLine(bpFirstLine);
+                dbLineWriter.writeBPLine(bpSecondLine);
+                dbLineWriter.writeBPLine(bpFillerLine);
 
-            dbLineWriter.writeSubstituteLine(subsLine);
+                dbLineWriter.writeNuclearLine(nFirstLine);
+                dbLineWriter.writeNuclearLine(nSecondLine);
 
-            dbLineWriter.writeOvertimeLine(overtimeLine);
+                dbLineWriter.writeSubstituteLine(subsLine);
 
-            dbLineWriter.writeShootoutLine(shootoutLine);
+                dbLineWriter.writeOvertimeLine(overtimeLine);
+
+                dbLineWriter.writeShootoutLine(shootoutLine);
+            }
         });
     }
 

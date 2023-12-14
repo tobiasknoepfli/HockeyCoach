@@ -7,7 +7,7 @@ import java.sql.*;
 
 import static hockeycoach.AppStarter.DB_URL;
 
-public class DBEditor {
+public class DBEditor_Old {
 
 
     public void editPlayer(Player player) {

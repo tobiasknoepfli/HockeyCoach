@@ -1,6 +1,6 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBEditor;
+import hockeycoach.DB.DBEditor_Old;
 import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
@@ -11,28 +11,17 @@ import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import org.w3c.dom.events.MouseEvent;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
-import java.util.stream.Collectors;
 
 import static hockeycoach.AppStarter.*;
 
@@ -123,9 +112,9 @@ public class PlayerPresentationModel extends PresentationModel {
     public void setupButtons(Pane root) {
         saveButton.setOnAction(event -> {
             Player player = getPlayerData();
-            DBEditor dbEditor = new DBEditor();
-            dbEditor.editPlayer(player);
-            dbEditor.editJerseyAndRole(player, selectedTeam);
+            DBEditor_Old dbEditorOld = new DBEditor_Old();
+            dbEditorOld.editPlayer(player);
+            dbEditorOld.editJerseyAndRole(player, selectedTeam);
             disableFields(disabled);
         });
 

@@ -89,6 +89,8 @@ public class AppStarter extends Application {
     public static OvertimeLine globalOvertimeLine = new OvertimeLine();
     public static ShootoutLine globalShootoutLine = new ShootoutLine();
 
+    public static boolean globalEditGame = false;
+
     @Override
     public void start(Stage stage) throws IOException {
         stage.setWidth(WIDTH);

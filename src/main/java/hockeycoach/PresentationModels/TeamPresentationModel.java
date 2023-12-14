@@ -1,6 +1,6 @@
 package hockeycoach.PresentationModels;
 
-import hockeycoach.DB.DBEditor;
+import hockeycoach.DB.DBEditor_Old;
 import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
 import hockeycoach.DB.DBLoader.DBTeamLoader;
@@ -138,8 +138,8 @@ public class TeamPresentationModel extends PresentationModel {
 
         saveButton.setOnAction(event -> {
             Team team = getTeamData();
-            DBEditor dbEditor = new DBEditor();
-            dbEditor.editTeam(team);
+            DBEditor_Old dbEditorOld = new DBEditor_Old();
+            dbEditorOld.editTeam(team);
         });
 
         newTeamButton.setOnAction(event -> {
