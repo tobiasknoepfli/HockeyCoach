@@ -299,20 +299,20 @@ public class GameEditorPresentationModel extends PresentationModel {
 
                 dbGameEditor.editGame(globalGame);
                 dbLineEditor.editLine(firstLine, globalGame);
-                dbLineEditor.editLine(secondLine           ,globalGame );
-                dbLineEditor.editLine(thirdLine            ,globalGame );
-                dbLineEditor.editLine(fourthLine           ,globalGame );
-                dbLineEditor.editPPLine(ppFirstLine        ,globalGame )    ;
-                dbLineEditor.editPPLine(ppSecondLine       ,globalGame );
-                dbLineEditor.editPPLine(ppFillerLine       ,globalGame );
-                dbLineEditor.editBPLine(bpFirstLine        ,globalGame );
-                dbLineEditor.editBPLine(bpSecondLine       ,globalGame );
-                dbLineEditor.editBPLine(bpFillerLine       ,globalGame );
-                dbLineEditor.editNLine(nFirstLine          ,globalGame  );
-                dbLineEditor.editNLine(nSecondLine         ,globalGame );
-                dbLineEditor.editSubstituteLine(subsLine   ,globalGame );
-                dbLineEditor.editOvertimeLine(overtimeLine ,globalGame );
-                dbLineEditor.editShootoutLine(shootoutLine ,globalGame );
+                dbLineEditor.editLine(secondLine, globalGame);
+                dbLineEditor.editLine(thirdLine, globalGame);
+                dbLineEditor.editLine(fourthLine, globalGame);
+                dbLineEditor.editPPLine(ppFirstLine, globalGame);
+                dbLineEditor.editPPLine(ppSecondLine, globalGame);
+                dbLineEditor.editPPLine(ppFillerLine, globalGame);
+                dbLineEditor.editBPLine(bpFirstLine, globalGame);
+                dbLineEditor.editBPLine(bpSecondLine, globalGame);
+                dbLineEditor.editBPLine(bpFillerLine, globalGame);
+                dbLineEditor.editNLine(nFirstLine, globalGame);
+                dbLineEditor.editNLine(nSecondLine, globalGame);
+                dbLineEditor.editSubstituteLine(subsLine, globalGame);
+                dbLineEditor.editOvertimeLine(overtimeLine, globalGame);
+                dbLineEditor.editShootoutLine(shootoutLine, globalGame);
 
                 globalEditGame = false;
                 buttonControls.openGameClose(root, GAME_EDITOR);
