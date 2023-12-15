@@ -3,6 +3,7 @@ package hockeycoach.PresentationModels;
 import hockeycoach.DB.DBConverter.DBIDConverter;
 import hockeycoach.DB.DBConverter.DBStringConverter;
 import hockeycoach.DB.DBEditor.DBGameEditor;
+import hockeycoach.DB.DBEditor.DBLineEditor;
 import hockeycoach.DB.DBLoader.DBGameLoader;
 import hockeycoach.DB.DBLoader.DBLineLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
@@ -44,6 +45,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     DBGameWriter dbGameWriter = new DBGameWriter();
     DBLineWriter dbLineWriter = new DBLineWriter();
     DBGameEditor dbGameEditor = new DBGameEditor();
+    DBLineEditor dbLineEditor = new DBLineEditor();
     TextFieldAction textFieldAction = new TextFieldAction();
     private Stack<TextFieldAction> textFieldActions = new Stack<>();
 
@@ -263,21 +265,58 @@ public class GameEditorPresentationModel extends PresentationModel {
         saveButton.setOnAction(event -> {
             Game game = saveGame();
 
-            if(globalEditGame){
+            saveLines();
+            savePPLines();
+            saveBPLines();
+            saveSubstitutes();
+            saveNuclearLines();
+            saveOvertimeLines();
+            saveShootoutLines();
+
+            if (globalEditGame) {
                 game.setID(globalGame.getID());
                 globalGame = game;
-                dbGameEditor.editGame(globalGame);
-                globalEditGame =false;
-                buttonControls.openGameClose(root,GAME_EDITOR);
-            } else {
-                saveLines();
-                savePPLines();
-                saveBPLines();
-                saveSubstitutes();
-                saveNuclearLines();
-                saveOvertimeLines();
-                saveShootoutLines();
+                firstLine.setGameID(globalGame.getID());
+                secondLine.setGameID(globalGame.getID());
+                thirdLine.setGameID(globalGame.getID());
+                fourthLine.setGameID(globalGame.getID());
 
+                ppFirstLine.setGameID(globalGame.getID());
+                ppSecondLine.setGameID(globalGame.getID());
+                ppFillerLine.setGameID(globalGame.getID());
+
+                bpFirstLine.setGameID(globalGame.getID());
+                bpSecondLine.setGameID(globalGame.getID());
+                bpFillerLine.setGameID(globalGame.getID());
+
+                nFirstLine.setGameID(globalGame.getID());
+                nSecondLine.setGameID(globalGame.getID());
+
+                subsLine.setGameID(globalGame.getID());
+
+                overtimeLine.setGameID(globalGame.getID());
+                shootoutLine.setGameID(globalGame.getID());
+
+                dbGameEditor.editGame(globalGame);
+                dbLineEditor.editLine(firstLine, globalGame);
+                dbLineEditor.editLine(secondLine           ,globalGame );
+                dbLineEditor.editLine(thirdLine            ,globalGame );
+                dbLineEditor.editLine(fourthLine           ,globalGame );
+                dbLineEditor.editPPLine(ppFirstLine        ,globalGame )    ;
+                dbLineEditor.editPPLine(ppSecondLine       ,globalGame );
+                dbLineEditor.editPPLine(ppFillerLine       ,globalGame );
+                dbLineEditor.editBPLine(bpFirstLine        ,globalGame );
+                dbLineEditor.editBPLine(bpSecondLine       ,globalGame );
+                dbLineEditor.editBPLine(bpFillerLine       ,globalGame );
+                dbLineEditor.editNLine(nFirstLine          ,globalGame  );
+                dbLineEditor.editNLine(nSecondLine         ,globalGame );
+                dbLineEditor.editSubstituteLine(subsLine   ,globalGame );
+                dbLineEditor.editOvertimeLine(overtimeLine ,globalGame );
+                dbLineEditor.editShootoutLine(shootoutLine ,globalGame );
+
+                globalEditGame = false;
+                buttonControls.openGameClose(root, GAME_EDITOR);
+            } else {
                 game.setID(dbGameWriter.writeGame(game));
 
                 firstLine.setGameID(game.getID());
@@ -755,11 +794,11 @@ public class GameEditorPresentationModel extends PresentationModel {
     }
 
     public void editGame() {
-        gameTeam.setText(      isNotNullElse(globalGame.getTeam()       ,g->g.getName(),""));
-        gameOpponent.setText(  isNotNullElse(globalGame.getOpponent()   ,g->g,"")     );
-        gameDate.setValue(     isNotNullElse(globalGame.getGameDate()   ,g->g,LocalDate.now()) );
-        gameTime.setLocalTime(( globalGame.getGameTime().toLocalTime()!=null)? globalGame.getGameTime().toLocalTime():LocalTime.now());
-        gameStadium.setText(   isNotNullElse(globalGame.getStadiumName(),g->g,""));
+        gameTeam.setText(isNotNullElse(globalGame.getTeam(), g -> g.getName(), ""));
+        gameOpponent.setText(isNotNullElse(globalGame.getOpponent(), g -> g, ""));
+        gameDate.setValue(isNotNullElse(globalGame.getGameDate(), g -> g, LocalDate.now()));
+        gameTime.setLocalTime((globalGame.getGameTime().toLocalTime() != null) ? globalGame.getGameTime().toLocalTime() : LocalTime.now());
+        gameStadium.setText(isNotNullElse(globalGame.getStadiumName(), g -> g, ""));
 
         captain.setText(isNotNullElse(globalGame.getCaptain(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));
         assistant1.setText(isNotNullElse(globalGame.getAssistant1(), g -> g.getFullNameWithJersey(globalGame.getTeam()), ""));

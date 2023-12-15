@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import static hockeycoach.AppStarter.DB_URL;
+import static hockeycoach.AppStarter.globalGame;
 
 public class DBLineEditor {
     private PreparedStatement setLine(PreparedStatement preparedStatement, Line line) throws SQLException {
@@ -104,11 +105,11 @@ public class DBLineEditor {
         return  preparedStatement;
     }
 
-    public void editLine(Line line){
+    public void editLine(Line line, Game game){
         String query = "UPDATE line SET "+
                 "gameID = ?, lineNr = ?, goalkeeper = ?, defenderLeft = ?, defenderRight = ?, " +
                 "center = ?, forwardLeft = ?, forwardRight = ? " +
-                "WHERE ID = " + line.getID();
+                "WHERE gameID = " + game.getID() + " AND lineNr = " + line.getLineNr();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -121,11 +122,11 @@ public class DBLineEditor {
         }
     }
 
-    public void editPPLine(PowerplayLine powerplayLine){
+    public void editPPLine(PowerplayLine powerplayLine, Game game){
         String query = "UPDATE powerplayLine SET "+
                 "gameID = ?, lineNr = ?, defenderLeft = ?, defenderRight = ?, " +
                 "center = ?, forwardLeft = ?, forwardRight = ? " +
-                "WHERE ID = " + powerplayLine.getID();
+                "WHERE gameID = " + game.getID() + " AND lineNr = " + powerplayLine.getLineNr();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -138,11 +139,11 @@ public class DBLineEditor {
         }
     }
 
-    public void editBPLine(BoxplayLine boxplayLine){
+    public void editBPLine(BoxplayLine boxplayLine,Game game){
         String query = "UPDATE boxplayLine SET "+
                 "gameID = ?, lineNr = ?, defenderLeft = ?, defenderRight = ?, " +
                 "forwardLeft = ?, forwardRight = ? " +
-                "WHERE ID = " + boxplayLine.getID();
+                "WHERE gameID = " + game.getID() + " AND lineNr = "+ boxplayLine.getLineNr();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -155,13 +156,13 @@ public class DBLineEditor {
         }
     }
 
-    public void editSubstituteLine(SubstituteLine substituteLine){
+    public void editSubstituteLine(SubstituteLine substituteLine,Game game){
         String query = "UPDATE substituteLine SET "+
                 "gameID = ?, lineNr = ?, goalkeeper1 = ?, goalkeeper2 = ?, goalkeeper3 = ?, " +
                 "defender1 = ?, defender2 = ?, defender3 = ?, " +
                 "forward1 = ?, forward2 = ?, forward3 = ?, " +
                 "boxplayDefender1 = ?, boxplayDefender2 = ?, boxplayForward1 = ?, boxplayForward2 = ? "+
-                "WHERE ID = " + substituteLine.getID();
+                "WHERE gameID = " + game.getID() + " AND lineNr = " + substituteLine.getLineNr();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -174,11 +175,11 @@ public class DBLineEditor {
         }
     }
 
-    public void editNLine(NuclearLine nuclearLine){
+    public void editNLine(NuclearLine nuclearLine, Game game){
         String query = "UPDATE nuclearLine SET "+
                 "gameID = ?, lineNr = ?, defenderLeft = ?, defenderRight = ?, " +
                 "center = ?, forwardLeft = ?, forwardRight = ? " +
-                "WHERE ID = " + nuclearLine.getID();
+                "WHERE gameID = " + game.getID() + " AND lineNr = " + nuclearLine.getLineNr();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -191,12 +192,12 @@ public class DBLineEditor {
         }
     }
 
-    public void editOvertimeLine(OvertimeLine overtimeLine){
+    public void editOvertimeLine(OvertimeLine overtimeLine, Game game){
         String query = "UPDATE overtimeLine SET "+
                 "gameID = ?, defenderLeft1 = ?, defenderRight1 = ?, center1 = ?, " +
                 "defenderLeft2 = ?, defenderRight2 = ?, center2 = ?, " +
                 "defenderSubstitute = ?, centerSubstitute =? " +
-                "WHERE ID = " + overtimeLine.getID();
+                "WHERE gameID = " + game.getID();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
@@ -209,11 +210,11 @@ public class DBLineEditor {
         }
     }
 
-    public void editShootoutLine(ShootoutLine shootoutLine){
-        String query = "UPDATE line SET "+
+    public void editShootoutLine(ShootoutLine shootoutLine, Game game){
+        String query = "UPDATE shootoutLine SET "+
                 "gameID = ?, " +
                 "shooter1 = ?, shooter2 = ?, shooter3 = ?, shooter4 = ?, shooter5 = ? " +
-                "WHERE ID = " + shootoutLine.getID();
+                "WHERE gameID = " + game.getID();
 
         try(Connection connection = DriverManager.getConnection(DB_URL);
             PreparedStatement preparedStatement = connection.prepareStatement(query)){
