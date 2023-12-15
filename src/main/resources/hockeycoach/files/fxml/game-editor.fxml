@@ -363,6 +363,11 @@
                                                       <Label alignment="CENTER" prefHeight="25.0" />
                                                    </children>
                                                 </VBox>
+                                                <VBox alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+                                                   <children>
+                                                      <Button fx:id="ppFillFromLineupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fill with Lineup" textAlignment="CENTER" />
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </GridPane>
                                        </children>
@@ -442,6 +447,11 @@
                                                       <Label alignment="CENTER" prefHeight="25.0" />
                                                    </children>
                                                 </VBox>
+                                                <VBox alignment="TOP_CENTER" GridPane.rowIndex="4">
+                                                   <children>
+                                                      <Button fx:id="bpFillFromLineupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fill with Lineup" textAlignment="CENTER" />
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </GridPane>
                                        </children>
@@ -507,6 +517,11 @@
                                                       <Label alignment="CENTER" layoutX="84.0" layoutY="82.0" prefHeight="25.0" />
                                                    </children>
                                                 </VBox>
+                                                <VBox alignment="TOP_CENTER" GridPane.rowIndex="4">
+                                                   <children>
+                                                      <Button fx:id="nFillFromLineupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fill with Lineup" textAlignment="CENTER" />
+                                                   </children>
+                                                </VBox>
                                              </children>
                                           </GridPane>
                                        </children>
@@ -563,6 +578,11 @@
                                                    <children>
                                                       <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Forwards" />
                                                       <TextField fx:id="osf1" alignment="CENTER" />
+                                                   </children>
+                                                </VBox>
+                                                <VBox alignment="TOP_CENTER" GridPane.rowIndex="4">
+                                                   <children>
+                                                      <Button fx:id="otFillFromLineupButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Fill with Lineup" textAlignment="CENTER" />
                                                    </children>
                                                 </VBox>
                                              </children>

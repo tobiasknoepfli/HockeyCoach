@@ -91,7 +91,7 @@ public class GameEditorPresentationModel extends PresentationModel {
     TableView<Player> teamPlayers, availablePlayers;
 
     List<TextField> textFields, ppTextFields, bpTextFields, nTextFields, captainTeamList, otTextFields, soTextFields;
-    Button refreshButton, saveButton, backButton, availablePlayersButton;
+    Button refreshButton, saveButton, backButton, availablePlayersButton, ppFillFromLineupButton, bpFillFromLineupButton, nFillFromLineupButton, otFillFromLineupButton;
     AnchorPane lineupAnchorPane, ppAnchorPane, bpAnchorPane, nAnchorPane, overtimeAnchorPane, shootoutAnchorPane;
     GridPane lineupGrid, ppLineupGrid, bpLineupGrid, nLineupGrid, overtimeGrid, shootoutGrid;
 
@@ -247,6 +247,74 @@ public class GameEditorPresentationModel extends PresentationModel {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        });
+
+        ppFillFromLineupButton.setOnAction(event->{
+            ppdl1.setText(dl1.getText());
+            ppdl2.setText(dl2.getText());
+            ppdlfiller.setText(dl3.getText());
+
+            ppdr1.setText(dr1.getText());
+            ppdr2.setText(dr2.getText());
+            ppdrfiller.setText(dr3.getText());
+
+            ppc1.setText(c1.getText());
+            ppc2.setText(c2.getText());
+            ppcfiller.setText(c3.getText());
+
+            ppfl1.setText(fl1.getText());
+            ppfl2.setText(fl2.getText());
+            ppflfiller.setText(fl3.getText());
+
+            ppfr1.setText(fr1.getText());
+            ppfr2.setText(fr2.getText());
+            ppfrfiller.setText(fr3.getText());
+        });
+
+        bpFillFromLineupButton.setOnAction(event -> {
+            bpdl1.setText(dl1.getText());
+            bpdl2.setText(dl2.getText());
+            bpdlfiller.setText(dl3.getText());
+
+            bpdr1.setText(dr1.getText());
+            bpdr2.setText(dr2.getText());
+            bpdrfiller.setText(dr3.getText());
+
+            bpfl1.setText(fl1.getText());
+            bpfl2.setText(fl2.getText());
+            bpflfiller.setText(fl3.getText());
+
+            bpfr1.setText(fr1.getText());
+            bpfr2.setText(fr2.getText());
+            bpfrfiller.setText(fr3.getText());
+        });
+
+        nFillFromLineupButton.setOnAction(event->{
+            ndl1.setText(dl1.getText());
+            ndl2.setText(dl2.getText());
+
+            ndr1.setText(dr1.getText());
+            ndr2.setText(dr2.getText());
+
+            nc1.setText(c1.getText());
+            nc2.setText(c2.getText());
+
+            nfl1.setText(fl1.getText());
+            nfl2.setText(fl2.getText());
+
+            nfr1.setText(fr1.getText());
+            nfr2.setText(fr2.getText());
+        });
+
+        otFillFromLineupButton.setOnAction(event ->{
+            odl1.setText(dl1.getText());
+            odl2.setText(dl2.getText());
+
+            odr1.setText(dr1.getText());
+            odr2.setText(dr2.getText());
+
+            oc1.setText(c1.getText());
+            oc2.setText(c2.getText());
         });
 
         refreshButton.setOnAction(event -> {
@@ -919,6 +987,10 @@ public class GameEditorPresentationModel extends PresentationModel {
         saveButton = (Button) root.lookup("#saveButton");
         backButton = (Button) root.lookup("#backButton");
         availablePlayersButton = (Button) root.lookup("#availablePlayersButton");
+        ppFillFromLineupButton = (Button) root.lookup("#ppFillFromLineupButton");
+        bpFillFromLineupButton = (Button) root.lookup("#bpFillFromLineupButton");
+        nFillFromLineupButton = (Button) root.lookup("#nFillFromLineupButton");
+        otFillFromLineupButton = (Button) root.lookup("#otFillFromLineupButton");
 
         lineupTabPane = (TabPane) root.lookup("#lineupTabPane");
 

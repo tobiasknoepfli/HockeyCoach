@@ -21,5 +21,7 @@
 -overwork image saving
 -batch import dates from excel
 -Tab Jumps
+-Rating Averages per Line in Games and Training
+-save AvailablePlayerLists in DB
 
 -HelperClasses: string to object, id to object
