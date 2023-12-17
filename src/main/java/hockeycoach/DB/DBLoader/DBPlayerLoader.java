@@ -143,5 +143,4 @@ public class DBPlayerLoader extends DBLoader {
         Player player = allPlayers.stream().filter(p -> p.getLastName().equals(name[0]) && p.getFirstName().equals(name[1])).findFirst().orElse(null);
         return player;
     }
-
 }

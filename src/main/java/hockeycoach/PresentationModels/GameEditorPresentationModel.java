@@ -186,6 +186,13 @@ public class GameEditorPresentationModel extends PresentationModel {
         soTextFields.stream().forEach(this::dragCopyEvent);
 
         dragDetect(teamPlayers);
+        textFields.forEach(t->dragDetectTextField(t));
+        ppTextFields.forEach(t->dragDetectTextField(t));
+        bpTextFields.forEach(t->dragDetectTextField(t));
+        nTextFields.forEach(t->dragDetectTextField(t));
+        otTextFields.forEach(t->dragDetectTextField(t));
+        soTextFields.forEach(t->dragDetectTextField(t));
+        captainTeamList.forEach(t->dragDetectTextField(t));
 
         doubleClick(textFields);
         doubleClick(ppTextFields);
@@ -510,11 +517,23 @@ public class GameEditorPresentationModel extends PresentationModel {
             if (selectedPlayer != null) {
                 Dragboard dragboard = tableView.startDragAndDrop(TransferMode.COPY);
                 ClipboardContent content = new ClipboardContent();
-                content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName() + " #" + selectedPlayer.getJersey());
+                content.putString(selectedPlayer.getFullNameWithJersey(selectedTeam));
                 dragboard.setContent(content);
                 draggedPlayer = selectedPlayer;
             }
             event.consume();
+        });
+    }
+
+    public void dragDetectTextField(TextField textField){
+        textField.setOnDragDetected(event->{
+            Player  player  = dbPlayerLoader.getPlayerFromName(textField.getText());
+            Dragboard dragboard = textField.startDragAndDrop(TransferMode.COPY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(player.getFullNameWithJersey(selectedTeam));
+            dragboard.setContent(content);
+            event.consume();
+            textField.clear();
         });
     }
 

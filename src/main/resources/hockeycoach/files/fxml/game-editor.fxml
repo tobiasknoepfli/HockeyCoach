@@ -283,8 +283,8 @@
                                                 <VBox alignment="TOP_CENTER" spacing="2.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                                    <children>
                                                       <Label alignment="CENTER" prefHeight="25.0" prefWidth="149.0" text="Empty Net" />
-                                                      <TextField fx:id="emptyNet1" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
-                                                      <TextField fx:id="emptyNet2" prefHeight="25.0" prefWidth="213.0" />
+                                                      <TextField fx:id="emptyNet1" alignment="CENTER" prefHeight="25.0" prefWidth="213.0" VBox.vgrow="ALWAYS" />
+                                                      <TextField fx:id="emptyNet2" alignment="CENTER" prefHeight="25.0" prefWidth="213.0" />
                                                    </children>
                                                 </VBox>
                                              </children>

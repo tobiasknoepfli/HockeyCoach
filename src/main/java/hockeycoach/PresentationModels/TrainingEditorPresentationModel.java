@@ -160,6 +160,7 @@ public class TrainingEditorPresentationModel extends PresentationModel {
         jerseysArrayList.stream().forEach(this::dragEvent);
         playersArrayList.stream().forEach(this::dragEvent);
 
+        Arrays.stream(players).forEach(t->dragDetectTextField(t));
         dragDetect(playerList);
 
         doubleClick(playersArrayList);
@@ -516,11 +517,23 @@ public class TrainingEditorPresentationModel extends PresentationModel {
             if (selectedPlayer != null) {
                 Dragboard dragboard = tableView.startDragAndDrop(TransferMode.COPY);
                 ClipboardContent content = new ClipboardContent();
-                content.putString(selectedPlayer.getLastName() + " " + selectedPlayer.getFirstName());
+                content.putString(selectedPlayer.getFullName());
                 dragboard.setContent(content);
                 draggedPlayer = selectedPlayer;
             }
             event.consume();
+        });
+    }
+
+    public void dragDetectTextField(TextField textField){
+        textField.setOnDragDetected(event->{
+            Player  player  = dbPlayerLoader.getPlayerFromName(textField.getText());
+            Dragboard dragboard = textField.startDragAndDrop(TransferMode.COPY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(player.getFullName());
+            dragboard.setContent(content);
+            event.consume();
+            textField.clear();
         });
     }
 
