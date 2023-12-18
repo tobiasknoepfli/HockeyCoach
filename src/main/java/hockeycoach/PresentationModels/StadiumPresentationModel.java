@@ -5,9 +5,11 @@ import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.mainClasses.Stadium;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.CustomTableColumns;
+import hockeycoach.supportClasses.NodeStatus;
 import hockeycoach.supportClasses.SearchBox;
 import hockeycoach.supportClasses.filters.ComboBoxPopulator;
 import hockeycoach.supportClasses.filters.ComboBoxStadiumFilter;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import jfxtras.scene.layout.HBox;
@@ -30,6 +32,8 @@ public class StadiumPresentationModel extends PresentationModel {
 
     List<Stadium> allStadiumList = new ArrayList<>();
     List<TextField> textFieldList = new ArrayList<>();
+
+    NodeStatus nodeStatus = new NodeStatus();
 
     Button newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton, clearFilters, deleteButton, editButton;
 
@@ -55,11 +59,14 @@ public class StadiumPresentationModel extends PresentationModel {
         setupEventListeners(root);
         setupFieldLists(root);
         fillFields(root);
+
+        nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+        disableFields(true);
     }
 
     @Override
     public void setupFieldLists(Pane root) {
-        TextField[] textFields = {searchStadium,stadiumName,stadiumAddress,stadiumZip,stadiumCity,stadiumCountry};
+        TextField[] textFields = {searchStadium, stadiumName, stadiumAddress, stadiumZip, stadiumCity, stadiumCountry};
         textFieldList = Arrays.asList(textFields);
     }
 
@@ -75,10 +82,18 @@ public class StadiumPresentationModel extends PresentationModel {
 
     @Override
     public void setupButtons(Pane root) {
+        editButton.setOnAction(event -> {
+            nodeStatus.setCurrentStatus(NodeStatus.StatusType.EDIT);
+            disableFields(true);
+        });
+
         clearFilters.setOnAction(event -> {
             comboBoxStadiumFilter.resetFilter(allStadiumList, allStadiums, cityFilter);
             searchBox.clearStadium(searchStadium, allStadiumList, allStadiums);
             refreshStadiumList();
+
+            nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+            disableFields(true);
         });
 
         searchStadiumButton.setOnAction(event -> {
@@ -89,13 +104,14 @@ public class StadiumPresentationModel extends PresentationModel {
             writeNewStadium();
             dbStadiumWriter.writeStadium(stadium);
             refreshStadiumList();
+            nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+            disableFields(true);
         });
 
-        newStadiumButton.setOnMousePressed(event->{
+        newStadiumButton.setOnMousePressed(event -> {
             refreshStadiumList();
         });
     }
-
 
 
     @Override
@@ -107,6 +123,9 @@ public class StadiumPresentationModel extends PresentationModel {
                 stadiumZip.setText(Integer.toString(newValue.getStadiumZip()));
                 stadiumCity.setText(newValue.getStadiumCity());
                 stadiumCountry.setText(newValue.getStadiumCountry());
+
+                nodeStatus.setCurrentStatus(NodeStatus.StatusType.SELECTED);
+                disableFields(true);
             }
         });
 
@@ -143,23 +162,49 @@ public class StadiumPresentationModel extends PresentationModel {
         stadium.setStadiumCountry(stadiumCountry.getText());
     }
 
-    public void refreshStadiumList(){
+    public void refreshStadiumList() {
         allStadiumList = dbStadiumLoader.getAllStadiums();
         allStadiums.getItems().clear();
         allStadiums.getItems().addAll(allStadiumList);
-        textFieldList.forEach(t->t.clear());
+        textFieldList.forEach(t -> t.clear());
         comboBoxStadiumFilter.resetFilter(allStadiumList, allStadiums, cityFilter);
         searchBox.clearStadium(searchStadium, allStadiumList, allStadiums);
     }
 
     @Override
     public void disableFields(Boolean disabled) {
-        textFieldList.forEach(t->t.setEditable(!disabled));
-        saveButton.setDisable(disabled);
-        cancelButton.setDisable(disabled);
-        newStadiumButton.setDisable(!disabled);
-        editButton.setDisable(disabled);
-        deleteButton.setDisable(disabled);
+        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.IDLE) {
+            textFieldList.forEach(t -> t.setEditable(!disabled));
+            saveButton.setDisable(disabled);
+            cancelButton.setDisable(disabled);
+            newStadiumButton.setDisable(!disabled);
+            editButton.setDisable(disabled);
+            deleteButton.setDisable(disabled);
+        }
+        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.SELECTED) {
+            textFieldList.forEach(t -> t.setEditable(!disabled));
+            saveButton.setDisable(disabled);
+            cancelButton.setDisable(disabled);
+            newStadiumButton.setDisable(!disabled);
+            editButton.setDisable(!disabled);
+            deleteButton.setDisable(!disabled);
+        }
+        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.EDIT) {
+            textFieldList.forEach(t -> t.setEditable(disabled));
+            saveButton.setDisable(!disabled);
+            cancelButton.setDisable(!disabled);
+            newStadiumButton.setDisable(disabled);
+            editButton.setDisable(disabled);
+            deleteButton.setDisable(!disabled);
+        }
+        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.NEW) {
+            textFieldList.forEach(t->t.setEditable(!disabled));
+            saveButton.setDisable(!disabled);
+            cancelButton.setDisable(!disabled);
+            newStadiumButton.setDisable(disabled);
+            editButton.setDisable(disabled);
+            deleteButton.setDisable(disabled);
+        }
     }
 
     @Override
