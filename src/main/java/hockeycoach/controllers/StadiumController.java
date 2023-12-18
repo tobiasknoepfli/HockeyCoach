@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 
 public class StadiumController {
     @FXML
-    private Button  newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton,clearFilters;
+    private Button  newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton,clearFilters,deleteButton, editButton;
     @FXML
     private TableView allStadiums;
     @FXML

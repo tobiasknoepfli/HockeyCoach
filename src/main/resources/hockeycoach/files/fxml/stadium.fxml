@@ -49,6 +49,15 @@
                   </HBox>
                     <HBox fx:id="controlBoxRight" alignment="TOP_RIGHT" spacing="5.0" GridPane.columnIndex="2">
                         <children>
+                        <Button fx:id="editButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_edit.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
                             <Button fx:id="saveButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
                            <graphic>
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -63,6 +72,15 @@
                               <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../icons/icons_cancel.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Button fx:id="deleteButton" mnemonicParsing="false" prefHeight="40.0" prefWidth="50.0">
+                           <graphic>
+                              <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/icons_delete.png" />
                                  </image>
                               </ImageView>
                            </graphic>

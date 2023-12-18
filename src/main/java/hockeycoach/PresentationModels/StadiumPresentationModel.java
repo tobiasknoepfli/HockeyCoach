@@ -13,6 +13,7 @@ import javafx.scene.layout.Pane;
 import jfxtras.scene.layout.HBox;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static hockeycoach.AppStarter.*;
@@ -28,8 +29,9 @@ public class StadiumPresentationModel extends PresentationModel {
     CustomTableColumns customTableColumns = new CustomTableColumns();
 
     List<Stadium> allStadiumList = new ArrayList<>();
+    List<TextField> textFieldList = new ArrayList<>();
 
-    Button newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton, clearFilters;
+    Button newStadiumButton, saveButton, cancelButton, closeWindowButton, searchStadiumButton, clearFilters, deleteButton, editButton;
 
     TableView<Stadium> allStadiums;
 
@@ -51,11 +53,14 @@ public class StadiumPresentationModel extends PresentationModel {
 
         setupButtons(root);
         setupEventListeners(root);
+        setupFieldLists(root);
+        fillFields(root);
     }
 
     @Override
     public void setupFieldLists(Pane root) {
-
+        TextField[] textFields = {searchStadium,stadiumName,stadiumAddress,stadiumZip,stadiumCity,stadiumCountry};
+        textFieldList = Arrays.asList(textFields);
     }
 
     @Override
@@ -73,16 +78,25 @@ public class StadiumPresentationModel extends PresentationModel {
         clearFilters.setOnAction(event -> {
             comboBoxStadiumFilter.resetFilter(allStadiumList, allStadiums, cityFilter);
             searchBox.clearStadium(searchStadium, allStadiumList, allStadiums);
+            refreshStadiumList();
         });
 
         searchStadiumButton.setOnAction(event -> {
             searchBox.searchStadium(searchStadium.getText(), allStadiumList, allStadiums);
         });
+
         saveButton.setOnAction(event -> {
             writeNewStadium();
             dbStadiumWriter.writeStadium(stadium);
+            refreshStadiumList();
+        });
+
+        newStadiumButton.setOnMousePressed(event->{
+            refreshStadiumList();
         });
     }
+
+
 
     @Override
     public void setupEventListeners(Pane root) {
@@ -129,6 +143,25 @@ public class StadiumPresentationModel extends PresentationModel {
         stadium.setStadiumCountry(stadiumCountry.getText());
     }
 
+    public void refreshStadiumList(){
+        allStadiumList = dbStadiumLoader.getAllStadiums();
+        allStadiums.getItems().clear();
+        allStadiums.getItems().addAll(allStadiumList);
+        textFieldList.forEach(t->t.clear());
+        comboBoxStadiumFilter.resetFilter(allStadiumList, allStadiums, cityFilter);
+        searchBox.clearStadium(searchStadium, allStadiumList, allStadiums);
+    }
+
+    @Override
+    public void disableFields(Boolean disabled) {
+        textFieldList.forEach(t->t.setEditable(!disabled));
+        saveButton.setDisable(disabled);
+        cancelButton.setDisable(disabled);
+        newStadiumButton.setDisable(!disabled);
+        editButton.setDisable(disabled);
+        deleteButton.setDisable(disabled);
+    }
+
     @Override
     public void importFields(Pane root) {
         newStadiumButton = (Button) root.lookup("#newStadiumButton");
@@ -137,6 +170,8 @@ public class StadiumPresentationModel extends PresentationModel {
         closeWindowButton = (Button) root.lookup("#closeWindowButton");
         searchStadiumButton = (Button) root.lookup("#searchStadiumButton");
         clearFilters = (Button) root.lookup("#clearFilters");
+        deleteButton = (Button) root.lookup("#deleteButton");
+        editButton = (Button) root.lookup("#editButton");
 
         cityFilter = (ComboBox) root.lookup("#cityFilter");
 
@@ -150,10 +185,5 @@ public class StadiumPresentationModel extends PresentationModel {
         searchStadium = (TextField) root.lookup("#searchStadium");
 
         cityColumn = allStadiums.getVisibleLeafColumn(1);
-    }
-
-    @Override
-    public void disableFields(Boolean disabled) {
-
     }
 }
