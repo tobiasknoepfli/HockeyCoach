@@ -9,7 +9,7 @@ import java.sql.Statement;
 
 import static hockeycoach.AppStarter.DB_URL;
 
-public class DBDeleter {
+public class DBDeleter_old {
 
 
     public void removeFromPlayerXList(PlayerXTeam playerXTeam) {

@@ -1,5 +1,7 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBDeleter.DBStadiumDeleter;
+import hockeycoach.DB.DBEditor.DBStadiumEditor;
 import hockeycoach.DB.DBLoader.DBStadiumLoader;
 import hockeycoach.DB.DBWriter.DBStadiumWriter;
 import hockeycoach.mainClasses.Stadium;
@@ -23,8 +25,12 @@ import static hockeycoach.AppStarter.*;
 public class StadiumPresentationModel extends PresentationModel {
     ButtonControls buttonControls = new ButtonControls();
     SearchBox searchBox = new SearchBox();
+
     DBStadiumLoader dbStadiumLoader = new DBStadiumLoader();
     DBStadiumWriter dbStadiumWriter = new DBStadiumWriter();
+    DBStadiumEditor dbStadiumEditor = new DBStadiumEditor();
+    DBStadiumDeleter dbStadiumDeleter = new DBStadiumDeleter();
+
     ComboBoxPopulator comboBoxPopulator = new ComboBoxPopulator();
     ComboBoxStadiumFilter comboBoxStadiumFilter = new ComboBoxStadiumFilter();
     Stadium stadium = new Stadium();
@@ -87,6 +93,20 @@ public class StadiumPresentationModel extends PresentationModel {
             disableFields(true);
         });
 
+        deleteButton.setOnAction(event -> {
+            stadium = allStadiums.getSelectionModel().getSelectedItem();
+            dbStadiumDeleter.deleteStadium(stadium);
+            nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+            disableFields(true);
+            refreshStadiumList();
+        });
+
+        cancelButton.setOnAction(event -> {
+            nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+            disableFields(true);
+            refreshStadiumList();
+        });
+
         clearFilters.setOnAction(event -> {
             comboBoxStadiumFilter.resetFilter(allStadiumList, allStadiums, cityFilter);
             searchBox.clearStadium(searchStadium, allStadiumList, allStadiums);
@@ -101,15 +121,29 @@ public class StadiumPresentationModel extends PresentationModel {
         });
 
         saveButton.setOnAction(event -> {
-            writeNewStadium();
-            dbStadiumWriter.writeStadium(stadium);
-            refreshStadiumList();
-            nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
-            disableFields(true);
+            if (nodeStatus.getCurrentStatus().equals(NodeStatus.StatusType.EDIT)) {
+                writeNewStadium();
+                dbStadiumEditor.editStadium(stadium);
+                nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+                refreshStadiumList();
+                disableFields(true);
+            } else {
+                writeNewStadium();
+                dbStadiumWriter.writeStadium(stadium);
+                refreshStadiumList();
+                nodeStatus.setCurrentStatus(NodeStatus.StatusType.IDLE);
+                disableFields(true);
+            }
         });
 
         newStadiumButton.setOnMousePressed(event -> {
+            nodeStatus.setCurrentStatus(NodeStatus.StatusType.NEW);
+            disableFields(true);
             refreshStadiumList();
+        });
+
+        closeWindowButton.setOnAction(event -> {
+            buttonControls.closeWindow(root,STADIUM);
         });
     }
 
@@ -173,37 +207,39 @@ public class StadiumPresentationModel extends PresentationModel {
 
     @Override
     public void disableFields(Boolean disabled) {
-        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.IDLE) {
-            textFieldList.forEach(t -> t.setEditable(!disabled));
-            saveButton.setDisable(disabled);
-            cancelButton.setDisable(disabled);
-            newStadiumButton.setDisable(!disabled);
-            editButton.setDisable(disabled);
-            deleteButton.setDisable(disabled);
-        }
-        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.SELECTED) {
-            textFieldList.forEach(t -> t.setEditable(!disabled));
-            saveButton.setDisable(disabled);
-            cancelButton.setDisable(disabled);
-            newStadiumButton.setDisable(!disabled);
-            editButton.setDisable(!disabled);
-            deleteButton.setDisable(!disabled);
-        }
-        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.EDIT) {
-            textFieldList.forEach(t -> t.setEditable(disabled));
-            saveButton.setDisable(!disabled);
-            cancelButton.setDisable(!disabled);
-            newStadiumButton.setDisable(disabled);
-            editButton.setDisable(disabled);
-            deleteButton.setDisable(!disabled);
-        }
-        if (nodeStatus.getCurrentStatus() == NodeStatus.StatusType.NEW) {
-            textFieldList.forEach(t->t.setEditable(!disabled));
-            saveButton.setDisable(!disabled);
-            cancelButton.setDisable(!disabled);
-            newStadiumButton.setDisable(disabled);
-            editButton.setDisable(disabled);
-            deleteButton.setDisable(disabled);
+        switch (nodeStatus.getCurrentStatus()){
+            case SELECTED:
+                textFieldList.forEach(t -> t.setEditable(!disabled));
+                saveButton.setDisable(disabled);
+                cancelButton.setDisable(disabled);
+                newStadiumButton.setDisable(!disabled);
+                editButton.setDisable(!disabled);
+                deleteButton.setDisable(!disabled);
+                break;
+            case EDIT:
+                textFieldList.forEach(t -> t.setEditable(disabled));
+                saveButton.setDisable(!disabled);
+                cancelButton.setDisable(!disabled);
+                newStadiumButton.setDisable(disabled);
+                editButton.setDisable(disabled);
+                deleteButton.setDisable(!disabled);
+                break;
+            case NEW:
+                textFieldList.forEach(t -> t.setEditable(disabled));
+                saveButton.setDisable(!disabled);
+                cancelButton.setDisable(!disabled);
+                newStadiumButton.setDisable(disabled);
+                editButton.setDisable(disabled);
+                deleteButton.setDisable(disabled);
+                break;
+            default:
+                textFieldList.forEach(t -> t.setEditable(!disabled));
+                saveButton.setDisable(disabled);
+                cancelButton.setDisable(disabled);
+                newStadiumButton.setDisable(!disabled);
+                editButton.setDisable(disabled);
+                deleteButton.setDisable(disabled);
+                break;
         }
     }
 

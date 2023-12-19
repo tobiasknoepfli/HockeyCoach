@@ -16,7 +16,6 @@ import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
     DBPlayerXTeamLoader dbPlayerXTeamLoader = new DBPlayerXTeamLoader();
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBWriter dbWriter = new DBWriter();
-    DBDeleter dbDeleter = new DBDeleter();
+    DBDeleter_old dbDeleterOld = new DBDeleter_old();
     List<Player> allPlayerList = new ArrayList<>();
     List<Player> teamPlayerList = new ArrayList<>();
 
@@ -141,7 +140,7 @@ public class PlayerToTeamPresentationModel extends PresentationModel {
                 .forEach(player -> dbPlayerWriter.addPlayerToTeam(selectedTeam, player));
 
         deletePlayers.stream()
-                .forEach(playerXTeam -> dbDeleter.removeFromPlayerXList(playerXTeam));
+                .forEach(playerXTeam -> dbDeleterOld.removeFromPlayerXList(playerXTeam));
 
     }
 
