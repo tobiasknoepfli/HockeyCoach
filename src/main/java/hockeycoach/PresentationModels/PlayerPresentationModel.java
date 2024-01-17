@@ -1,5 +1,6 @@
 package hockeycoach.PresentationModels;
 
+import hockeycoach.DB.DBEditor.DBPlayerEditor;
 import hockeycoach.DB.DBEditor_Old;
 import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
@@ -40,6 +41,7 @@ public class PlayerPresentationModel extends PresentationModel {
 
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
     DBImageLoader dbImageLoader =new DBImageLoader();
+    DBPlayerEditor dbPlayerEditor = new DBPlayerEditor();
 
     List<Player> playerList = new ArrayList<>();
     List<TextField> textFieldList = new ArrayList<>();
@@ -112,9 +114,8 @@ public class PlayerPresentationModel extends PresentationModel {
     public void setupButtons(Pane root) {
         saveButton.setOnAction(event -> {
             Player player = getPlayerData();
-            DBEditor_Old dbEditorOld = new DBEditor_Old();
-            dbEditorOld.editPlayer(player);
-            dbEditorOld.editJerseyAndRole(player, selectedTeam);
+            dbPlayerEditor.editPlayer(player);
+            dbPlayerEditor.editJerseyAndRole(player, selectedTeam);
             disableFields(disabled);
         });
 
@@ -233,6 +234,7 @@ public class PlayerPresentationModel extends PresentationModel {
         player.setID(selectedPlayer.getID());
         player.setFirstName(playerFirstName.getText());
         player.setLastName(playerLastName.getText());
+        player.setBirthday(playerBirthday.getValue());
         player.setStreet(street.getText());
         player.setZip(Integer.parseInt(zip.getText()));
         player.setCity(city.getText());

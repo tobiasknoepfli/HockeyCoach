@@ -1,6 +1,7 @@
 package hockeycoach.PresentationModels;
 
 import hockeycoach.DB.DBConverter.DBStringConverter;
+import hockeycoach.DB.DBEditor.DBDrillEditor;
 import hockeycoach.DB.DBLoader.DBDrillLoader;
 import hockeycoach.DB.DBLoader.DBDrillValuesLoader;
 import hockeycoach.DB.DBLoader.DBImageLoader;
@@ -33,8 +34,11 @@ public class DrillEditorPresentationModel extends PresentationModel {
     ImageHandler imageHandler = new ImageHandler();
     DBImageLoader dbImageLoader = new DBImageLoader();
 
+    Drill drill = new Drill();
+
 
     DBDrillWriter dbDrillWriter = new DBDrillWriter();
+    DBDrillEditor dbDrillEditor = new DBDrillEditor();
 
     DBStringConverter dbStringConverter = new DBStringConverter();
 
@@ -203,16 +207,16 @@ public class DrillEditorPresentationModel extends PresentationModel {
     }
 
     public Drill setDrillValues() {
-        Drill drill = new Drill();
-        drill.setName(isNotNullElse(drillName, d -> d.getText(), ""));
-        drill.setCategory(dbStringConverter.getDrillCategoryFromString(isNotNullElse(drillCategory, d -> d.getValue().toString(), "")));
-        drill.setDifficulty(dbStringConverter.getDrillDifficultyFromString(isNotNullElse(drillDifficulty, d -> d.getValue().toString(), "")));
-        drill.setParticipation(dbStringConverter.getDrillParticipationFromString(isNotNullElse(drillParticipation, d -> d.getValue().toString(), "")));
-        drill.setDescription(isNotNullElse(drillDescription, d -> d.getText(), ""));
-        drill.setStation((Boolean) drillStation.getValue());
-        drill.setPicture(imageHandler.setPicture(drillImage, drillName.getText(), "", DRILLS));
-        drill.setPurpose(isNotNullElse(drillPurpose,d-> d.getText(),""));
-        return drill;
+        Drill newDrill = new Drill();
+        newDrill.setName(isNotNullElse(drillName, d -> d.getText(), ""));
+        newDrill.setCategory(dbStringConverter.getDrillCategoryFromString(isNotNullElse(drillCategory, d -> d.getValue().toString(), "")));
+        newDrill.setDifficulty(dbStringConverter.getDrillDifficultyFromString(isNotNullElse(drillDifficulty, d -> d.getValue().toString(), "")));
+        newDrill.setParticipation(dbStringConverter.getDrillParticipationFromString(isNotNullElse(drillParticipation, d -> d.getValue().toString(), "")));
+        newDrill.setDescription(isNotNullElse(drillDescription, d -> d.getText(), ""));
+        newDrill.setStation((Boolean) drillStation.getValue());
+        newDrill.setPicture(imageHandler.setPicture(drillImage, drillName.getText(), "", DRILLS));
+        newDrill.setPurpose(isNotNullElse(drillPurpose,d-> d.getText(),""));
+        return newDrill;
     }
 
     @Override
