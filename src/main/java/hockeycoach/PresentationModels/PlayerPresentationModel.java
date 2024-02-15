@@ -5,11 +5,13 @@ import hockeycoach.DB.DBEditor_Old;
 import hockeycoach.DB.DBLoader.DBImageLoader;
 import hockeycoach.DB.DBLoader.DBLoader;
 import hockeycoach.DB.DBLoader.DBPlayerLoader;
+import hockeycoach.mainClasses.Picture;
 import hockeycoach.supportClasses.ButtonControls;
 import hockeycoach.supportClasses.ImageChooser;
 import hockeycoach.mainClasses.Player;
 import hockeycoach.mainClasses.Team;
 import hockeycoach.supportClasses.TextFieldAction;
+import hockeycoach.supportClasses.checkups.NullCheck;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
@@ -25,6 +27,7 @@ import java.util.List;
 import java.util.Stack;
 
 import static hockeycoach.AppStarter.*;
+import static hockeycoach.supportClasses.checkups.NullCheck.isNotNullElse;
 
 public class PlayerPresentationModel extends PresentationModel {
     MouseEvent event;
@@ -40,7 +43,7 @@ public class PlayerPresentationModel extends PresentationModel {
     Stack<TextFieldAction> textFieldActions = new Stack<>();
 
     DBPlayerLoader dbPlayerLoader = new DBPlayerLoader();
-    DBImageLoader dbImageLoader =new DBImageLoader();
+    DBImageLoader dbImageLoader = new DBImageLoader();
     DBPlayerEditor dbPlayerEditor = new DBPlayerEditor();
 
     List<Player> playerList = new ArrayList<>();
@@ -59,9 +62,11 @@ public class PlayerPresentationModel extends PresentationModel {
 
     Button saveButton, editButton, cancelButton, deleteButton, newPlayerButton, backButton;
 
-    Slider puckSkills,defenceSkills,sensesSkills,skatingSkills,shotsSkills,physicalSkills;
+    Slider puckSkills, defenceSkills, sensesSkills, skatingSkills, shotsSkills, physicalSkills;
 
-    Label puckSkillsLabel,defenceSkillsLabel,sensesSkillsLabel,skatingSkillsLabel,shotsSkillsLabel,physicalSkillsLabel,overallSkillsLabel;
+    Label puckSkillsLabel, defenceSkillsLabel, sensesSkillsLabel, skatingSkillsLabel, shotsSkillsLabel, physicalSkillsLabel, overallSkillsLabel;
+
+    Picture picture = new Picture();
 
     @Override
     public void initializeControls(Pane root) {
@@ -87,15 +92,15 @@ public class PlayerPresentationModel extends PresentationModel {
 
     @Override
     public void setupFieldLists(Pane root) {
-        TextField[] textFields = {playerFirstName, playerLastName, team, street, zip, city, country,playerAge,
+        TextField[] textFields = {playerFirstName, playerLastName, team, street, zip, city, country, playerAge,
                 phone, email, jersey, positions, role,
                 aLicence, bLicence, stick};
         textFieldList = Arrays.stream(textFields).toList();
 
-        TextArea[] textAreas = {strengths,weaknesses,notes};
+        TextArea[] textAreas = {strengths, weaknesses, notes};
         textAreaList = Arrays.stream(textAreas).toList();
 
-        Slider[] sliders ={puckSkills,defenceSkills,sensesSkills,skatingSkills,shotsSkills,physicalSkills};
+        Slider[] sliders = {puckSkills, defenceSkills, sensesSkills, skatingSkills, shotsSkills, physicalSkills};
         sliderList = Arrays.stream(sliders).toList();
 
     }
@@ -119,11 +124,10 @@ public class PlayerPresentationModel extends PresentationModel {
             disableFields(disabled);
         });
 
-        editButton.setOnAction(event->{
-            if(teamPlayers.getSelectionModel().getSelectedItem() != null){
+        editButton.setOnAction(event -> {
+            if (teamPlayers.getSelectionModel().getSelectedItem() != null) {
                 disableFields(!disabled);
             }
-
         });
 
         newPlayerButton.setOnAction(event -> {
@@ -135,7 +139,12 @@ public class PlayerPresentationModel extends PresentationModel {
         });
 
         playerPhoto.setOnMouseClicked(mouseEvent -> {
-            playerPhoto.setImage(imageChooser.chooseImage(event));
+            if(picture.getID() == 0){
+                playerPhoto.setImage(imageChooser.chooseImage(event));
+            } else{
+
+            }
+
         });
     }
 
@@ -143,7 +152,8 @@ public class PlayerPresentationModel extends PresentationModel {
     public void setupEventListeners(Pane root) {
         teamPlayers.getSelectionModel().selectedItemProperty().addListener((obs, oldSelectedPlayer, newSelectedPlayer) -> {
             if (newSelectedPlayer != null) {
-                newSelectedPlayer.setPicture(dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN player p ON p.photoID = i.ID WHERE p.ID =" +   newSelectedPlayer.getID()));
+                picture = dbImageLoader.getPicture("SELECT i.* FROM image i INNER JOIN player p ON p.photoID = i.ID WHERE p.ID = "+ newSelectedPlayer.getID());
+                newSelectedPlayer.setPicture(picture);
 
                 selectedPlayer = newSelectedPlayer;
                 playerFirstName.setText(newSelectedPlayer.getFirstName());
@@ -187,40 +197,40 @@ public class PlayerPresentationModel extends PresentationModel {
                 }
             }
         });
-        puckSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+        puckSkills.valueProperty().addListener((obs, oldValue, newValue) -> {
             puckSkillsLabel.setText(String.valueOf(Math.round(puckSkills.getValue())));
             overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
         });
-        defenceSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+        defenceSkills.valueProperty().addListener((obs, oldValue, newValue) -> {
             defenceSkillsLabel.setText(String.valueOf(Math.round(defenceSkills.getValue())));
             overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
         });
-        sensesSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+        sensesSkills.valueProperty().addListener((obs, oldValue, newValue) -> {
             sensesSkillsLabel.setText(String.valueOf(Math.round(sensesSkills.getValue())));
             overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
         });
-        skatingSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+        skatingSkills.valueProperty().addListener((obs, oldValue, newValue) -> {
             skatingSkillsLabel.setText(String.valueOf(Math.round(skatingSkills.getValue())));
             overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
         });
-        shotsSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+        shotsSkills.valueProperty().addListener((obs, oldValue, newValue) -> {
             shotsSkillsLabel.setText(String.valueOf(Math.round(shotsSkills.getValue())));
             overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
         });
-        physicalSkills.valueProperty().addListener((obs,oldValue,newValue) ->{
+        physicalSkills.valueProperty().addListener((obs, oldValue, newValue) -> {
             physicalSkillsLabel.setText(String.valueOf(Math.round(physicalSkills.getValue())));
             overallSkillsLabel.setText(String.valueOf(Math.round(calculateOverallValue())));
         });
     }
 
-    public double calculateOverallValue(){
-        return (int) sliderList.stream().mapToDouble(s->s.getValue()).average().getAsDouble();
+    public double calculateOverallValue() {
+        return (int) sliderList.stream().mapToDouble(s -> s.getValue()).average().getAsDouble();
     }
 
     @Override
     public void disableFields(Boolean disabled) {
-        textFieldList.stream().forEach(t->t.setEditable(disabled));
-        textAreaList.stream().forEach(t->t.setEditable(disabled));
+        textFieldList.stream().forEach(t -> t.setEditable(disabled));
+        textAreaList.stream().forEach(t -> t.setEditable(disabled));
         playerBirthday.setEditable(disabled);
         playerPhoto.setDisable(!disabled);
         editButton.setDisable(disabled);
@@ -251,7 +261,7 @@ public class PlayerPresentationModel extends PresentationModel {
         player.setbLicence(bLicence.getText());
         player.setStick(stick.getText());
 
-        player.setRatingPuckSkills((int)  puckSkills.getValue());
+        player.setRatingPuckSkills((int) puckSkills.getValue());
         player.setRatingDefence((int) defenceSkills.getValue());
         player.setRatingSenses((int) sensesSkills.getValue());
         player.setRatingSkating((int) skatingSkills.getValue());
@@ -308,12 +318,12 @@ public class PlayerPresentationModel extends PresentationModel {
         newPlayerButton = (Button) root.lookup("#newPlayerButton");
         backButton = (Button) root.lookup("#backButton");
 
-        puckSkills =(Slider) root.lookup("#puckSkills");
-        defenceSkills =(Slider) root.lookup("#defenceSkills");
-        sensesSkills =(Slider) root.lookup("#sensesSkills");
-        skatingSkills =(Slider) root.lookup("#skatingSkills");
-        shotsSkills =(Slider) root.lookup("#shotsSkills");
-        physicalSkills =(Slider) root.lookup("#physicalSkills");
+        puckSkills = (Slider) root.lookup("#puckSkills");
+        defenceSkills = (Slider) root.lookup("#defenceSkills");
+        sensesSkills = (Slider) root.lookup("#sensesSkills");
+        skatingSkills = (Slider) root.lookup("#skatingSkills");
+        shotsSkills = (Slider) root.lookup("#shotsSkills");
+        physicalSkills = (Slider) root.lookup("#physicalSkills");
 
         puckSkillsLabel = (Label) root.lookup("#puckSkillsLabel");
         defenceSkillsLabel = (Label) root.lookup("#defenceSkillsLabel");

@@ -22,5 +22,6 @@
 -Tab Jumps
 -Rating Averages per Line in Games and Training
 -save AvailablePlayerLists in DB
+-cascade delete database entries
 
 -HelperClasses: string to object, id to object

@@ -36,7 +36,6 @@ public class DrillEditorPresentationModel extends PresentationModel {
 
     Drill drill = new Drill();
 
-
     DBDrillWriter dbDrillWriter = new DBDrillWriter();
     DBDrillEditor dbDrillEditor = new DBDrillEditor();
 
@@ -94,7 +93,6 @@ public class DrillEditorPresentationModel extends PresentationModel {
         drillDifficultyFilter.getItems().addAll(dbDrillValuesLoader.getAllDifficulties().stream().sorted(Comparator.comparingInt(DrillDifficulty::getDifficulty)).map(DrillDifficulty::getDifficultyName).distinct().toList());
         drillStationFilter.getItems().addAll(true, false);
         drillTagsFilter.getItems().addAll(dbDrillValuesLoader.getAllDrillTags().stream().map(DrillTag::getDrillTag).distinct().sorted().toList());
-
 
         TextField[] textFields = {searchBox, drillName, newCategory, addNewTag};
         Arrays.stream(textFields).forEach(textField -> textFieldAction.setupTextFieldUndo(textField, textFieldActions));
